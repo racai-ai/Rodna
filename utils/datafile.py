@@ -1,0 +1,165 @@
+import re
+import sys
+import os
+from inspect import stack
+from utils.MSD import MSD
+
+
+def txt_file_to_string(input_file: str) -> str:
+    """Takes the input text file and returns a single string out of it."""
+    return "".join(txt_file_to_lines(input_file))
+
+
+def txt_file_to_lines(input_file: str) -> list:
+    """Reads in the UTF-8/Latin-2 input_file and returns
+    a list of the lines of its contents."""
+
+    file_lines = []
+    fp = open(input_file, mode="rb")
+    line = fp.readline()
+
+    try:
+        line = str(line, encoding="utf-8")
+
+        if line.startswith('\uFEFF'):
+            line = line.replace('\uFEFF', '', 1)
+        # end if
+    except UnicodeDecodeError:
+        line = str(line, encoding="latin2")
+    # end try
+
+    while line:
+        file_lines.append(line)
+        line = fp.readline()
+
+        try:
+            line = str(line, encoding="utf-8")
+        except UnicodeDecodeError:
+            line = str(line, encoding="latin2")
+        # end try
+    # end while
+
+    fp.close()
+
+    return file_lines
+
+
+def read_all_ext_files_from_dir(input_dir: str, extension: str = '.txt') -> list:
+    """Reads all the .txt (by default) UTF-8 files from the input_dir.
+    If extension is specified, reads all files with that extension."""
+
+    all_files = os.listdir(input_dir)
+    txt_files = filter(lambda x: x[-(len(extension)):] == extension, all_files)
+    input_dir_txt_files = []
+
+    for f in txt_files:
+        input_dir_txt_files.append(os.path.join(input_dir, f))
+    # end for
+
+    return input_dir_txt_files
+
+
+def tok_file_to_tokens(input_file: str) -> list:
+    """Will read in a RoTokenizer tokenized file and return a sequence of tokens from it."""
+
+    token_sequence = []
+    line_count = 0
+
+    with open(input_file, mode="r", encoding="utf-8") as f:
+        for line in f:
+            line_count += 1
+            parts = line.rstrip().split('\t')
+
+            if len(parts) < 2 or len(parts) > 3:
+                print(stack()[0][3] + ": line {0!s} in file {1!s} is not well-formed!".format(
+                    line_count, input_file), file=sys.stderr, flush=True)
+            else:
+                token_sequence.append(tuple(parts))
+            # end if
+        # end for
+    # end while
+
+    return token_sequence
+
+
+def write_tok_file(tokens: list, output_file: str) -> None:
+    with open(output_file, mode='w', encoding="utf-8") as f:
+        for p in tokens:
+            if p[1] == "SPACE" or p[1] == "EOL":
+                print(" \t{0}".format(p[1]), file=f, flush=True)
+            else:
+                print("{0}\t{1}".format(p[0], p[1]), file=f, flush=True)
+            # end if
+        # end all tokens
+    # end with
+
+
+fix_str_const = "{0}: {1}/{2} -> {3}"
+fix_str_const2 = "{0}: attributes missing for MSD {1}"
+
+
+def read_conllu_file(input_file: str) -> list:
+    """Reads a CoNLL-U format file are returns it."""
+
+    print(stack()[
+          0][3] + ": reading CoNLL-U file {0}".format(input_file), file=sys.stderr, flush=True)
+    corpus = []
+
+    with open(input_file, mode='r', encoding='utf-8') as f:
+        comments = []
+        sentence = []
+        linecounter = 0
+
+        for line in f:
+            linecounter += 1
+            line = line.strip()
+
+            if line:
+                if not line.startswith('#'):
+                    parts = line.split()
+
+                    if len(parts) == 10:
+                        sentence.append(parts)
+                    else:
+                        print(stack()[0][3] + ": CoNLL-U line not well formed at line {0!s} in file {1}".format(
+                            linecounter, input_file), file=sys.stderr, flush=True)
+                else:
+                    comments.append(line)
+                # end if
+            elif sentence:
+                corpus.append((comments, sentence))
+                sentence = []
+                comments = []
+            # end if
+        # end for line
+    # end with
+
+    return corpus
+
+def conllu_corpus_to_tab_file(corpus: list, output_file: str) -> None:
+    """Converts the CoNLL-U corpus into a .tab file for use with RoPOSTagger.py."""
+
+    punct_rx = re.compile('^\\W+$')
+
+    with open(output_file, mode='w', encoding='utf-8') as f:
+        for (comm, sent) in corpus:
+            for parts in sent:
+                word = parts[1]
+                lemma = parts[2]
+                msd = parts[4]
+
+                if punct_rx.match(word):
+                    if word in MSD._punct_msd_inventory:
+                        msd = MSD._punct_msd_inventory[word]
+                    else:
+                        msd = 'Z'
+                    # end if
+                # end if
+
+                print('{0}\t{1}\t{2}'.format(word, lemma, msd), file=f)
+            # end for parts
+
+            print('', file=f, flush=True)
+        # end for corpus
+    # end with
+
