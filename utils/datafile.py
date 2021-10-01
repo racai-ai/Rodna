@@ -149,8 +149,8 @@ def conllu_corpus_to_tab_file(corpus: list, output_file: str) -> None:
                 msd = parts[4]
 
                 if punct_rx.match(word):
-                    if word in MSD._punct_msd_inventory:
-                        msd = MSD._punct_msd_inventory[word]
+                    if word in MSD.punct_msd_inventory:
+                        msd = MSD.punct_msd_inventory[word]
                     else:
                         msd = 'Z'
                     # end if

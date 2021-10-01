@@ -304,7 +304,7 @@ principal	principal	Afpms-n
 fața	față	Ncfsry
 tele-ecranului	tele-ecran	Ncmsoy
 celui	acela	Pd3mso
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 ,	,	Zc
 pregătindu	pregăti	Vmg-------y
 -se	sine	Px3--a--y-----w
@@ -486,7 +486,7 @@ de	de	Spsa
 strâns	strâns	Rgp
 ca	ca	Rc
 să	să	Qs
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 scoată	scoate	Vmsp3
 în	în	Spsa
 relief	relief	Ncms-n
@@ -6414,7 +6414,7 @@ schimb	schimb	Ncms-n
 evenimentul	eveniment	Ncmsry
 declanșează	declanșa	Vmip3
 un	un	Timsr
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 entuziasm	entuziasm	Ncms-n
 ,	,	Zc
 A.	A.	Yn
@@ -6447,7 +6447,7 @@ cu	cu	Spsa
 expunerea	expunere	Ncfsry
 ,	,	Zc
 fără	fără	Spsa
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 diferență	diferență	Ncfsrn
 de	de	Spsa
 ton	ton	Ncms-n
@@ -7049,7 +7049,7 @@ ca	ca	Rc
 pe	pe	Spsa
 niște	niște	Di3
 fii	fiu	Ncmp-n
-le	el	Pp3-pd--------w
+le	el	Pp3fpa--------w
 țiu	ține	Vmip1s
 ,	,	Zc
 precum	precum	Rw
@@ -7435,7 +7435,7 @@ noroc	noroc	Ncms-n
 
 Bărbatul	bărbat	Ncmsry
 nu	nu	Qz
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 răspunse	răspunde	Vmis3s
 .	.	Zp
 
@@ -9494,7 +9494,7 @@ România	România	Np
 nu	nu	Qz
 au	avea	Va--3p
 pierdut	pierde	Vmp--sm
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 lucru	lucru	Ncms-n
 .	.	Zp
 
@@ -10970,7 +10970,7 @@ desfășurat	desfășura	Vmp--sm
 într-	întru	Spsay
 un	un	Timsr
 departament	departament	Ncms-n
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 metropolitan	metropolitan	Afpms-n
 de	de	Spsa
 nord	nord	Ncms-n
@@ -13805,7 +13805,7 @@ cap	cap	Ncms-n
 cât	cât	Spsa
 banița	baniță	Ncfsry
 de	de	Spsa
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 .	.	Zp
 
 le	el	Pp3-pd--------w
@@ -13919,7 +13919,7 @@ o	el	Pp3fsa--------w
 ,	,	Zc
 codana	codană	Ncfsry
 nu	nu	Qz
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 da	da	Vmii3s
 carnea	carne	Ncfsry
 ei	lui	Ds3---s
@@ -14101,7 +14101,7 @@ două	doi	Mcfp-l
 ,	,	Zc
 ci	ci	Ccssp
 un	un	Timsr
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 număr	număr	Ncms-n
 de	de	Spsa
 explicații	explicație	Ncfp-n
@@ -14240,7 +14240,7 @@ e	fi	Vaip3s
 totdeauna	totdeauna	Rgp
 greu	greu	Rgp
 să	să	Qs
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 pomenesc	pomeni	Vmip3p
 .	.	Zp
 
@@ -14549,7 +14549,7 @@ hoți	hoț	Ncmp-n
 .	.	Zp
 
 Gardianul	gardian	Ncmsry
-i-	el	Pp3-sd--y-----w
+i-	el	Pp3mpa--y-----w
 a	avea	Va--3s
 făcut	face	Vmp--sm
 pierduți	pierde	Vmp--pm
@@ -15032,7 +15032,7 @@ nas	nas	Ncms-n
 ,	,	Zc
 căsca	căsca	Vmii3s
 gura	gură	Ncfsry
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 și	și	Crssp
 rotundă	rotund	Afpfsrn
 și	și	Crssp
@@ -16372,10 +16372,10 @@ actualele	actual	Afpfpry
 străzi	stradă	Ncfp-n
 Ștefan	Ștefan	Np
 cel	cel	Tdmsr
-Mare	mare	Afpms-n
+Mare	mare	Afp-s-n
 (	(	Z1p
 Ulița	uliță	Ncfsry
-Mare	mare	Afpfsrn
+Mare	mare	Afp-s-n
 )	)	Z2p
 ,	,	Zc
 Alexandru	Alexandru	Np

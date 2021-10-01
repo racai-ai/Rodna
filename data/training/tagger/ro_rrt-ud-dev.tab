@@ -73,7 +73,7 @@ suna	suna	Vmii3s
 :	:	Zl
 FRATELE	frate	Ncmsry
 CEL	acela	Pd3msr
-MARE	mare	Afpms-n
+MARE	mare	Afp-s-n
 ESTE	fi	Vmip3s
 CU	cu	Spsa
 OCHII	ochi	Ncmpry
@@ -238,7 +238,7 @@ ce	ce	Pw3--r
 voise	voi	Vmil3s
 de	de	Spsa
 la	la	Spsa
-bun	bun	Rgp
+bun	bun	Afpms-n
 început	început	Ncms-n
 să	să	Qs
 spună	spune	Vmsp3
@@ -254,7 +254,7 @@ săptămâni	săptămână	Ncfp-n
 întregi	întreg	Afp-p-n
 și	și	Crssp
 nu	nu	Qz
--i	el	Pp3-sd--------w
+-i	el	Pp3-sd--y-----w
 trecuse	trece	Vmil3s
 niciodată	niciodată	Rz
 prin	prin	Spsa
@@ -318,7 +318,7 @@ care	care	Pw3--r
 și	sine	Px3--d--------w
 -l	el	Pp3msa--y-----w
 tot	tot	Rgp
-repeta	repeta	Vmnp
+repeta	repeta	Vmii3s
 în	în	Spsa
 gând	gând	Ncms-n
 de	de	Spsa
@@ -351,7 +351,7 @@ ulcerația	ulcerație	Ncfsry
 varicoasă	varicos	Afpfsrn
 începuse	începe	Vmil3s
 să	să	Qs
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 dea	da	Vmsp3
 niște	niște	Di3
 mâncărimi	mâncărime	Ncfp-n
@@ -649,7 +649,7 @@ ce	ce	Pw3--r
 zis	zice	Vmp--sm
 după	după	Spsa
 ce	ce	Pw3--r
-i-	el	Pp3mpa--y-----w
+i-	el	Pp3-sd--y-----w
 ați	avea	Va--2p
 bușit	buși	Vmp--sm
 mutra	mutră	Ncfsry
@@ -1377,7 +1377,7 @@ slogane	slogan	Ncfp-n
 adularea	adulare	Ncfsry
 Fratelui	frate	Ncmsoy
 cel	cel	Tdmsr
-Mare	mare	Afpms-n
+Mare	mare	Afp-s-n
 -	-	Zd
 toate	tot	Pi3fpr
 erau	fi	Vaii3p
@@ -1512,7 +1512,7 @@ Winston	Winston	Np
 lăsă	lăsa	Vmis3s
 brațele	braț	Ncfpry
 să	să	Qs
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 cadă	cădea	Vmsp3
 pe	pe	Spsa
 lângă	lângă	Spsa
@@ -1938,7 +1938,7 @@ deținuților	deținut	Ncmpoy
 irakieni	irakian	Afpmp-n
 .	.	Zp
 
-Peste	peste	Spsa
+Peste	peste	Rgp
 500	500	Mc-s-d
 de	de	Spsa
 morți	mort	Ncmp-n
@@ -1997,8 +1997,8 @@ de	de	Spsa
 guvernul	guvern	Ncmsry
 spaniol	spaniol	Afpms-n
 grupării	grupare	Ncfsoy
-separatiste	separatistă	Ncfp-n
-basce	basc	Afpfp-n
+separatiste	separatist	Afpfson
+basce	basc	Afpfson
 ETA	ETA	Np
 ,	,	Zc
 au	avea	Va--3p
@@ -2094,7 +2094,7 @@ de	de	Spsa
 asemenea	asemenea	Rgp
 ,	,	Zc
 o	un	Tifsr
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 utilizare	utilizare	Ncfsrn
 ,	,	Zc
 în	în	Spsa
@@ -2235,7 +2235,7 @@ a	a	Spsa
 lungul	lung	Ncmsry
 celui	cel	Tdmso
 mai	mai	Rp
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 fluviu	fluviu	Ncms-n
 al	al	Tsms
 Europei	Europa	Npfsoy
@@ -2249,7 +2249,7 @@ sunt	fi	Vaip3p
 chiar	chiar	Rgp
 și	și	Crssp
 mai	mai	Rp
-avansate	avansa	Vmp--pf
+avansate	avansat	Afpfp-n
 din	din	Spsa
 acest	acest	Dd3msr---e
 punct	punct	Ncms-n
@@ -2355,7 +2355,7 @@ păpuși	păpușă	Ncfp-n
 și	și	Crssp
 reproduc	reproduce	Vmip3p
 sau	sau	Ccssp
-modifică	modifica	Vmis3s
+modifică	modifica	Vmip3
 întâmplările	întâmplare	Ncfpry
 auzite	auzit	Afpfp-n
 sau	sau	Ccssp
@@ -2391,7 +2391,7 @@ fortificându	fortifica	Vmg-------y
 
 Așa	așa	Rgp
 se	sine	Px3--a--------w
-explică	explica	Vmis3s
+explică	explica	Vmip3
 de	de	Spsa
 ce	ce	Pw3--r
 TAIJIQUAN	taijiquan	Ncms-n
@@ -2516,7 +2516,7 @@ ambele	ambii	Mlfpr
 componente	componente	Ncfp-n
 ale	al	Tsfp
 formației	formație	Ncfsoy
-vieneze	vieneză	Ncfson
+vieneze	vienez	Afpfson
 .	.	Zp
 
 La	la	Spsa
@@ -2525,7 +2525,7 @@ etapă	etapă	Ncfsrn
 de	de	Spsa
 C.M.	Campionat_Mondial	Yn
 se	sine	Px3--a--------w
-consumă	consuma	Vmis3s
+consumă	consuma	Vmip3
 destulă	destul	Afpfsrn
 cocaină	cocaină	Ncfsrn
 .	.	Zp
@@ -2548,7 +2548,7 @@ minute	minut	Ncfp-n
 10	10	Mc-s-d
 ianuarie	ianuarie	Ncm--n
 se	sine	Px3--a--------w
-află	afla	Vmis3s
+află	afla	Vmip3
 în	în	Spsa
 faza	fază	Ncfsry
 de	de	Spsa
@@ -2663,7 +2663,7 @@ Cuba	Cuba	Np
 ,	,	Zc
 unde	unde	Rw
 se	sine	Px3--a--------w
-află	afla	Vmis3s
+află	afla	Vmip3
 peste	peste	Rgp
 500	500	Mc-s-d
 de	de	Spsa
@@ -2710,7 +2710,7 @@ politice	politic	Afpfp-n
 din	din	Spsa
 Parlamentul	parlament	Ncmsry
 European	european	Afpms-n
-anunță	anunța	Vmis3s
+anunță	anunța	Vmip3
 că	că	Csssp
 se	sine	Px3--a--------w
 opun	opune	Vmip3p
@@ -2746,7 +2746,7 @@ summitul	summit	Ncmsry
 Consiliului	consiliu	Ncmsoy
 Europei	Europa	Npfsoy
 ,	,	Zc
-adoptă	adopta	Vmis3s
+adoptă	adopta	Vmip3
 un	un	Timsr
 Plan	plan	Ncms-n
 de	de	Spsa
@@ -2953,7 +2953,7 @@ grupări	grupare	Ncfp-n
 rebele	rebel	Afpfp-n
 explozibili	explozibil	Ncmp-n
 de	de	Spsa
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 putere	putere	Ncfsrn
 .	.	Zp
 
@@ -3394,8 +3394,8 @@ a	avea	Va--3s
 datorat	datora	Vmp--sm
 "	"	Z1q
 insuficienței	insuficiență	Ncfsoy
-cardio-vasculare	cardio-vascular	Afpfp-n
-consecutive	consecutiv	Afpfp-n
+cardio-vasculare	cardio-vascular	Afpfson
+consecutive	consecutiv	Afpfson
 unei	un	Tifso
 plăgi	plagă	Ncfson
 penetrante	penetrant	Afpfson
@@ -3677,7 +3677,7 @@ stimularea	stimulare	Ncfsry
 creșterii	creștere	Ncfsoy
 la	la	Spsa
 animale	animal	Ncfp-n
-riscă	risca	Vmis3s
+riscă	risca	Vmip3
 să	să	Qs
 mărească	mări	Vmsp3
 concentrația	concentrație	Ncfsry
@@ -3723,7 +3723,7 @@ riscurilor	risc	Ncfpoy
 pe	pe	Spsa
 care	care	Pw3--r
 le	el	Pp3fpa--------w
-comportă	comporta	Vmis3s
+comportă	comporta	Vmip3
 ,	,	Zc
 în	în	Spsa
 special	special	Rgp
@@ -3882,7 +3882,7 @@ momentul	moment	Ncmsry
 în	în	Spsa
 care	care	Pw3--r
 Comunitatea	comunitate	Ncfsry
-obține	obține	Vmnp
+obține	obține	Vmip3s
 ,	,	Zc
 din	din	Spsa
 orice	orice	Di3--r---e
@@ -3986,7 +3986,7 @@ CE	Comisia_Europeană	Yn
 vederea	vedere	Ncfsry
 evitării	evitare	Ncfsoy
 oricărei	oricare	Di3fso---e
-posibilități	posibilitate	Ncfp-n
+posibilități	posibilitate	Ncfson
 de	de	Spsa
 utilizare	utilizare	Ncfsrn
 necorespunzătoare	necorespunzător	Afpf--n
@@ -4021,7 +4021,7 @@ tratamente	tratament	Ncfp-n
 pentru	pentru	Spsa
 care	care	Pw3--r
 nu	nu	Qz
-există	exista	Vmis3s
+există	exista	Vmip3
 alternative	alternativă	Ncfp-n
 eficiente	eficient	Afpfp-n
 viabile	viabil	Afpfp-n
@@ -4030,7 +4030,7 @@ viabile	viabil	Afpfp-n
 În	în	Spsa
 general	general	Ncms-n
 ,	,	Zc
-există	exista	Vmis3s
+există	exista	Vmip3
 alte	alt	Di3fpr---e
 tratamente	tratament	Ncfp-n
 sau	sau	Ccssp
@@ -4063,7 +4063,7 @@ să	să	Qs
 demonstreze	demonstra	Vmsp3
 că	că	Csssp
 nu	nu	Qz
-există	exista	Vmis3s
+există	exista	Vmip3
 ,	,	Zc
 în	în	Spsa
 momentul	moment	Ncmsry
@@ -4253,7 +4253,7 @@ determinat	determinat	Afpms-n
 13	13	Mc-s-d
 )	)	Z2p
 Modificările	modificare	Ncfpry
-propuse	propus	Afpfp-n
+propuse	propus	Vmp--pf
 la	la	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
@@ -4319,7 +4319,7 @@ De	de	Spsa
 asemenea	asemenea	Afp
 ,	,	Zc
 nu	nu	Qz
-există	exista	Vmis3s
+există	exista	Vmip3
 alt	alt	Di3ms----e
 mijloc	mijloc	Ncms-n
 semnificativ	semnificativ	Afpms-n
@@ -4425,7 +4425,7 @@ multe	mult	Di3fp
 clasificări	clasificare	Ncfp-n
 ,	,	Zc
 se	sine	Px3--a--------w
-aplică	aplica	Vmis3s
+aplică	aplica	Vmip3
 ,	,	Zc
 în	în	Spsa
 sensul	sens	Ncmsry
@@ -4626,7 +4626,7 @@ din	din	Spsa
 prezenta	prezent	Afpfsry
 directivă	directivă	Ncfsrn
 se	sine	Px3--a--------w
-aplică	aplica	Vmis3s
+aplică	aplica	Vmip3
 dacă	dacă	Csssp
 una	unul	Pi3fsr
 dintre	dintre	Spsa
@@ -4650,7 +4650,7 @@ c	c	Ncms-n
 )	)	Z2p
 este	fi	Vaip3s
 mai	mai	Rp
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 sau	sau	Ccssp
 egală	egal	Afpfsrn
 cu	cu	Spsa
@@ -4696,7 +4696,7 @@ mai	mai	Rp
 este	fi	Vaip3s
 necesar	necesar	Rgp
 și	și	Crssp
-potrivit	potrivit	Spsd
+potrivit	potrivit	Rgp
 ca	ca	Rc
 ,	,	Zc
 în	în	Spsa
@@ -4706,7 +4706,7 @@ privințe	privință	Ncfp-n
 dispozițiile	dispoziție	Ncfpry
 din	din	Spsa
 convenția	convenție	Ncfsry
-menționată	menționat	Afpfsrn
+menționată	menționa	Vmp--sf
 să	să	Qs
 fie	fi	Vasp3
 depășite	depăși	Vmp--pf
@@ -4779,7 +4779,7 @@ sunt	fi	Vaip3p
 supuse	supune	Vmp--pf
 procedurii	procedură	Ncfsoy
 APS	APS	Np
-internaționale	internațional	Afpfp-n
+internaționale	internațional	Afpfson
 trebuie	trebui	Vmip3
 să	să	Qs
 respecte	respecta	Vmsp3
@@ -4896,7 +4896,7 @@ dacă	dacă	Csssp
 acest	acest	Dd3msr---e
 lucru	lucru	Ncms-n
 se	sine	Px3--a--------w
-justifică	justifica	Vmis3s
+justifică	justifica	Vmip3
 .	.	Zp
 
 (	(	Z1p
@@ -4951,7 +4951,7 @@ convenției	convenție	Ncfsoy
 .	.	Zp
 
 Consiliul	consiliu	Ncmsry
-adoptă	adopta	Vmis3s
+adoptă	adopta	Vmip3
 ,	,	Zc
 cu	cu	Spsa
 o	un	Tifsr
@@ -5004,7 +5004,7 @@ chimice	chimic	Afpfp-n
 supuse	supune	Vmp--pf
 procedurii	procedură	Ncfsoy
 APS	APS	Np
-internaționale	internațional	Afpfp-n
+internaționale	internațional	Afpfson
 .	.	Zp
 
 (	(	Z1p
@@ -5250,7 +5250,7 @@ Plastice	plastic	Afpfp-n
 Iar	iar	Rc
 simțământul	simțământ	Ncmsry
 patriotic	patriotic	Afpms-n
-alunecă	aluneca	Vmis3s
+alunecă	aluneca	Vmip3
 uneori	uneori	Rgp
 ,	,	Zc
 din	din	Spsa
@@ -5657,7 +5657,7 @@ Robbe-Grillet	Robbe-Grillet	Np
 
 Procedeele	procedeu	Ncfpry
 folosite	folosi	Vmp--pf
-împiedică	împiedica	Vmis3s
+împiedică	împiedica	Vmip3
 sensul	sens	Ncmsry
 să	să	Qs
 se	sine	Px3--a--------w
@@ -5838,7 +5838,7 @@ trasați	trasa	Vmp--pm
 tușe	tușă	Ncfp-n
 avântate	avântat	Afpfp-n
 ,	,	Zc
-aspiră	aspira	Vmis3s
+aspiră	aspira	Vmip3
 spre	spre	Spsa
 perfecțiune	perfecțiune	Ncfsrn
 ,	,	Zc
@@ -5868,7 +5868,7 @@ de	de	Spsa
 preromantism	preromantism	Ncms-n
 .	.	Zp
 
-predomină	predomina	Vmis3s
+predomină	predomina	Vmip3
 succesiunea	succesiune	Ncfsry
 imagistică	imagistic	Afpfsrn
 particulară	particular	Afpfsrn
@@ -6100,7 +6100,7 @@ perfect	perfect	Rgs
 construit	construit	Afpms-n
 .	.	Zp
 
-Predomină	predomina	Vmis3s
+Predomină	predomina	Vmip3
 însă	însă	Ccssp
 originalitatea	originalitate	Ncfsry
 ,	,	Zc
@@ -6152,7 +6152,7 @@ lumii	lume	Ncfsoy
 În	în	Spsa
 1854	1854	Mc-s-d
 se	sine	Px3--a--------w
-află	afla	Vmis3s
+află	afla	Vmip3
 la	la	Spsa
 Londra	Londra	Np
 ,	,	Zc
@@ -6220,7 +6220,7 @@ bătrânesc	bătrânesc	Afpms-n
 ,	,	Zc
 care	care	Pw3--r
 se	sine	Px3--a--------w
-manifestă	manifesta	Vmis3s
+manifestă	manifesta	Vmip3
 în	în	Spsa
 timpul	timp	Ncmsry
 executării	executare	Ncfsoy
@@ -6231,7 +6231,7 @@ performer	performer	Ncms-n
 .	.	Zp
 
 Se	sine	Px3--a--------w
-observă	observa	Vmis3s
+observă	observa	Vmip3
 efortul	efort	Ncmsry
 de	de	Spsa
 lărgire	lărgire	Ncfsrn
@@ -6284,7 +6284,7 @@ Graur	graur	Ncms-n
 dezvăluie	dezvălui	Vmip3
 preocupările	preocupare	Ncfpry
 care	care	Pw3--r
-intră	intra	Vmis3s
+intră	intra	Vmip3
 în	în	Spsa
 profilul	profil	Ncmsry
 Secției	secție	Ncfsoy
@@ -6355,7 +6355,7 @@ Papastate	Papastate	Np
 Dramaturgia	dramaturgie	Ncfsry
 ,	,	Zc
 care	care	Pw3--r
-ocupă	ocupa	Vmis3s
+ocupă	ocupa	Vmip3
 un	un	Timsr
 loc	loc	Ncms-n
 mult	mult	Rgp
@@ -6369,13 +6369,13 @@ nu	nu	Qz
 scapă	scăpa	Vmip3
 totuși	totuși	Rgp
 atenției	atenție	Ncfsoy
-Sinei	Sinei	Np
+Sinei	Sina	Npfsoy
 Dănciulescu-Leonte	Dănciulescu-Leonte	Np
 ,	,	Zc
 Corneliei	Cornelia	Npfsoy
 Cârstea	Cârstea	Np
 și	și	Crssp
-Rodicăi	Rodicăi	Np
+Rodicăi	Rodica	Npfsoy
 Iordache	Iordache	Np
 .	.	Zp
 
@@ -6435,10 +6435,10 @@ Moldovei	Moldova	Npfsoy
 ,	,	Zc
 nu	nu	Qz
 -și	sine	Px3--d--y-----w
-exercită	exercita	Vmis3s
+exercită	exercita	Vmip3
 ,	,	Zc
 fiind	fi	Vag
-suferind	suferind	Ncms-n
+suferind	suferind	Afpms-n
 ,	,	Zc
 mandatul	mandat	Ncmsry
 de	de	Spsa
@@ -6448,7 +6448,7 @@ Bacăului	Bacău	Npmsoy
 .	.	Zp
 
 Versurile	vers	Ncfpry
-lui	lui	Ds3---s
+lui	lui	Tf-so
 A.	A.	Yn
 din	din	Spsa
 Poezii	poezie	Ncfp-n
@@ -6911,7 +6911,7 @@ curajul	curaj	Ncmsry
 duhului	duh	Ncmsoy
 .	.	Zp
 
-Simt	simți	Vmip3p
+Simt	simți	Vmip1s
 că	că	Csssp
 te	tu	Pp2-sa--------w
 iubesc	iubi	Vmip3p
@@ -6919,7 +6919,7 @@ puternic	puternic	Rgp
 ,	,	Zc
 că	că	Csssp
 ești	fi	Vaip2s
-prezent	prezent	Ncms-n
+prezent	prezent	Afpms-n
 ,	,	Zc
 că	că	Csssp
 nu	nu	Qz
@@ -7004,7 +7004,7 @@ Lăiță	Lăiță	Np
 cântă	cânta	Vmis3s
 marșul	marș	Ncmsry
 pe	pe	Spsa
-care	care	Dw3--r---e
+care	care	Pw3--r
 Ungurean	ungurean	Ncms-n
 tânărul	tânăr	Ncmsry
 cerca	cerca	Vmii3s
@@ -7058,9 +7058,9 @@ piperniciți	pipernicit	Afpmp-n
 Frunzele	frunză	Ncfpry
 acestor	acest	Dd3-po---e
 pomi	pom	Ncmp-n
-au	avea	Va--3p
-pete	pată	Ncfson
-cafenii	cafeniu	Afpfson
+au	avea	Vmip3p
+pete	pată	Ncfp-n
+cafenii	cafeniu	Afpfp-n
 .	.	Zp
 
 Cultura	cultură	Ncfsry
@@ -7145,7 +7145,7 @@ din	din	Spsa
 hăuri	hău	Ncfp-n
 să	să	Qs
 închege	închega	Vmsp3
-Năpraznicele	Năpraznicele	Np
+Năpraznicele	năpraznic	Afpfpry
 așchii	așchie	Ncfp-n
 de	de	Spsa
 mii	mie	Mcfp-ln
@@ -7205,7 +7205,7 @@ subțire	subțire	Afpfsrn
 .	.	Zp
 
 Slavici	Slavici	Np
-pretinde	pretinde	Vmnp
+pretinde	pretinde	Vmip3s
 că	că	Csssp
 acuma	acuma	Rgp
 începuse	începe	Vmil3s
@@ -7554,7 +7554,7 @@ declară	declara	Vmip3
 că	că	Csssp
 Pravila	pravilă	Ncfsry
 ,	,	Zc
-publicată	publicat	Afpfsrn
+publicată	publica	Vmp--sf
 ca	ca	Rc
 să	să	Qs
 fie	fi	Vasp3
@@ -7651,7 +7651,7 @@ silite	silit	Afpfson
 e	fi	Vaip3s
 un	un	Timsr
 principiu	principiu	Ncms-n
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 ,	,	Zc
 un	un	Timsr
 principiu	principiu	Ncms-n
@@ -7672,7 +7672,7 @@ cuvântului	cuvânt	Ncmsoy
 Locuitorii	locuitor	Ncmpry
 satului	sat	Ncmsoy
 Goicea	Goicea	Np
-reclamă	reclama	Vmis3s
+reclamă	reclama	Vmip3
 caimacamului	caimacam	Ncmsoy
 Craiovei	Craiova	Npfsoy
 că	că	Csssp
@@ -7681,7 +7681,7 @@ egumen	egumen	Ncms-n
 al	al	Tsms
 mănăstirii	mănăstire	Ncfsoy
 Jitia	jitie	Ncfsry
-le	el	Pp3fpa--------w
+le	el	Pp3-pd--------w
 -a	avea	Va--3s----y
 mărit	mări	Vmp--sm
 numărul	număr	Ncmsry
@@ -7710,7 +7710,7 @@ mănăstirii	mănăstire	Ncfsoy
 cosesc	cosi	Vmip3p
 fân	fân	Ncms-n
 și	și	Crssp
-cultivă	cultiva	Vmis3s
+cultivă	cultiva	Vmip3
 pepeni	pepene	Ncmp-n
 pentru	pentru	Spsa
 comerțul	comerț	Ncmsry
@@ -7868,7 +7868,7 @@ că	că	Csssp
 răul	rău	Ncmsry
 i	el	Pp3-sd--------w
 se	sine	Px3--a--------w
-întâmplă	întâmpla	Vmis3s
+întâmplă	întâmpla	Vmip3
 mai	mai	Rp
 des	des	Rgp
 decât	decât	Rc
@@ -7890,7 +7890,7 @@ la	la	Spsa
 un	un	Timsr
 grad	grad	Ncms-n
 mai	mai	Rp
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 de	de	Spsa
 generalitate	generalitate	Ncfsrn
 .	.	Zp
@@ -7957,7 +7957,7 @@ la	la	Spsa
 Isocrate	Isocrate	Np
 ,	,	Zc
 se	sine	Px3--a--------w
-ocupă	ocupa	Vmis3s
+ocupă	ocupa	Vmip3
 de	de	Spsa
 educația	educație	Ncfsry
 principilor	principe	Ncmpoy
@@ -8006,11 +8006,11 @@ parcursul	parcurs	Ncmsry
 studiului	studiu	Ncmsoy
 .	.	Zp
 
-Rosiglitazonă	Rosiglitazonă	Np
+Rosiglitazonă	rosiglitazonă	Ncfsrn
 Studiile	studiu	Ncfpry
 in	in	Spsa
 vitro	vitro	Nc
-demonstrează	demonstra	Vmm-2s
+demonstrează	demonstra	Vmip3
 că	că	Csssp
 rosiglitazona	rosiglitazonă	Ncfsry
 este	fi	Vaip3s
@@ -8051,10 +8051,10 @@ doze	doză	Ncfp-n
 categoria	categorie	Ncfsry
 de	de	Spsa
 frecvență	frecvență	Ncfsrn
-reflectă	reflecta	Vmis3s
+reflectă	reflecta	Vmip3
 doza	doză	Ncfsry
 mai	mai	Rp
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 de	de	Spsa
 rosiglitazonă	rosiglitazonă	Ncfsrn
 .	.	Zp
@@ -8178,7 +8178,7 @@ se	sine	Px3--a--------w
 face	face	Vmip3s
 în	în	Spsa
 proporție	proporție	Ncfsrn
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 ,	,	Zc
 niciun	nici_un	Dz3msr---e
 compus	compus	Ncms-n
@@ -8193,7 +8193,7 @@ active	activ	Afpfp-n
 nemetabolizate	nemetabolizat	Afpfp-n
 nu	nu	Qz
 se	sine	Px3--a--------w
-excretă	excreta	Vmis3s
+excretă	excreta	Vmip3
 în	în	Spsa
 urină	urină	Ncfsrn
 sau	sau	Ccssp
@@ -8544,7 +8544,7 @@ cazul	caz	Ncmsry
 în	în	Spsa
 care	care	Pw3--r
 vă	tu	Pp2-pa--------w
-confruntați	confrunta	Vmii2p
+confruntați	confrunta	Vmip2p
 pentru	pentru	Spsa
 prima	prim	Mofsrly
 dată	dată	Ncfsrn
@@ -8640,7 +8640,7 @@ Europeană	european	Afpfsrn
 a	avea	Va--3s
 acordat	acorda	Vmp--sm
 societății	societate	Ncfsoy
-Roche	roche	Ncfsrn
+Roche	Roche	Np
 Registration	Registration	Np
 Limited	Limited	Np
 o	un	Tifsr
@@ -8791,7 +8791,7 @@ metastatic	metastatic	Afpms-n
 local	local	Afpms-n
 avansat	avansat	Afpms-n
 ,	,	Zc
-derivă	deriva	Vmis3s
+derivă	deriva	Vmip3
 dintr-	dintru	Spsay
 o	un	Tifsr
 analiză	analiză	Ncfsrn
@@ -9076,7 +9076,7 @@ dezinfectant	dezinfectant	Afpms-n
 Opritorii	opritor	Ncmpry
 negri	negru	Afpmp-n
 se	sine	Px3--a--------w
-mișcă	mișca	Vmis3s
+mișcă	mișca	Vmip3
 în	în	Spsa
 sus	sus	Rgp
 și	și	Crssp
@@ -9262,7 +9262,7 @@ tenofovir	tenofovir	Ncms-n
 disoproxil	disoproxil	Ncms-n
 la	la	Spsa
 pacienții	pacient	Ncmpry
-infectați	infectat	Afpmp-n
+infectați	infectat	Vmp--pm
 cu	cu	Spsa
 HIV	HIV	Np
 ,	,	Zc
@@ -9278,7 +9278,7 @@ tenofovir	tenofovir	Ncms-n
 
 Persoana	persoană	Ncfsry
 care	care	Pw3--r
-prepară	prepara	Vmis3s
+prepară	prepara	Vmip3
 soluția	soluție	Ncfsry
 reconstituită	reconstituit	Afpfsrn
 trebuie	trebui	Vmip3
@@ -9309,7 +9309,7 @@ cerebral	cerebral	Afpms-n
 prin	prin	Spsa
 intermediul	intermediu	Ncmsry
 „	„	Z1q
-neurotransmițătorilor	neurotransmițător	Ncfpoy
+neurotransmițătorilor	neurotransmițător	Ncmpoy
 ”	”	Z2q
 ,	,	Zc
 substanțe	substanță	Ncfp-n
@@ -9358,7 +9358,7 @@ apropiat	apropiat	Afpms-n
 .	.	Zp
 
 Se	sine	Px3--a--------w
-recomandă	recomanda	Vmis3s
+recomandă	recomanda	Vmip3
 să	să	Qs
 întrerupeți	întrerupe	Vmip2p
 alăptarea	alăptare	Ncfsry
@@ -9451,7 +9451,7 @@ o	un	Tifsr
 creștere	creștere	Ncfsrn
 de	de	Spsa
 două	doi	Mcfp-l
-ori	ori	Ccssp
+ori	oară	Ncfp-n
 a	al	Tsfs
 concentrațiilor	concentrație	Ncfpoy
 plasmatice	plasmatic	Afpfp-n
@@ -9612,7 +9612,7 @@ Luminița	Luminița	Npfsry
 Huțupan	Huțupan	Np
 ,	,	Zc
 iar	iar	Rc
-cea	cel	Tdfsr
+cea	acela	Pd3fsr
 austriacă	austriac	Afpfsrn
 ,	,	Zc
 de	de	Spsa
@@ -9633,7 +9633,7 @@ Bucegi	Bucegi	Np
 Baiu	Baiu	Np
 ,	,	Zc
 Piatra	piatră	Ncfsry
-Mare	mare	Afpfsrn
+Mare	mare	Afp-s-n
 și	și	Crssp
 Postăvarul	Postăvarul	Np
 -	-	Zd
@@ -9695,7 +9695,7 @@ mulți	mult	Di3mp
 polițiști	polițist	Ncmp-n
 palestinieni	palestinian	Afpmp-n
 nemulțumiți	nemulțumit	Afpmp-n
-i-	el	Pp3-sd--y-----w
+i-	el	Pp3mpa--y-----w
 au	avea	Va--3p
 obligat	obliga	Vmp--sm
 pe	pe	Spsa
@@ -9811,12 +9811,12 @@ Apariția	apariție	Ncfsry
 comunității	comunitate	Ncfsoy
 este	fi	Vaip3s
 strâns	strâns	Rgp
-legată	legat	Afpfsrn
+legată	legat	Vmp--sf
 de	de	Spsa
 dispariția	dispariție	Ncfsry
 comunismului	comunism	Ncmsoy
 ,	,	Zc
-explică	explica	Vmis3s
+explică	explica	Vmip3
 în	în	Spsa
 postfața	postfață	Ncfsry
 sa	său	Ds3fsrs
@@ -9918,7 +9918,7 @@ un	un	Timsr
 rest	rest	Ncms-n
 de	de	Spsa
 țigară	țigară	Ncfsrn
-aprinsă	aprins	Afpfsrn
+aprinsă	aprinde	Vmp--sf
 ,	,	Zc
 generând	genera	Vmg
 incendiul	incendiu	Ncmsry
@@ -10013,7 +10013,7 @@ ușurare	ușurare	Ncfsrn
 Deasupra	deasupra	Spsg
 tuturora	tot	Pi3-po
 se	sine	Px3--a--------w
-ridică	ridica	Vmis3s
+ridică	ridica	Vmip3
 cine	cine	Pw3--r
 poate	putea	Vmip3s
 .	.	Zp
@@ -10415,7 +10415,7 @@ căldură	căldură	Ncfsrn
 și	și	Crssp
 frig	frig	Ncms-n
 ,	,	Zc
-combină	combină	Ncfsrn
+combină	combină	Vmip3
 ce	ce	Pw3--r
 e	fi	Vaip3s
 mai	mai	Rp
@@ -10511,12 +10511,12 @@ pace	pace	Ncfsrn
 și	și	Crssp
 deci	deci	Ccssp
 ,	,	Zc
-a	avea	Va--3s
+a	a	Qn
 încerca	încerca	Vmnp
 să	să	Qs
 demascăm	demasca	Vmip1p
 ierarhia	ierarhie	Ncfsry
-menționată	menționat	Afpfsrn
+menționată	menționa	Vmp--sf
 ca	ca	Rc
 un	un	Timsr
 fals	fals	Ncms-n
@@ -10589,7 +10589,7 @@ pe	pe	Spsa
 toată	tot	Di3fsr
 puntea	punte	Ncfsry
 partidului	partid	Ncmsoy
-Tory	tory	Ncm--n
+Tory	Tory	Np
 .	.	Zp
 
 Era	fi	Vmii3s
@@ -10633,7 +10633,7 @@ Doar	doar	Rgp
 în	în	Spsa
 perimetrul	perimetru	Ncmsry
 slab	slab	Rgp
-colonizat	colonizat	Afpms-n
+colonizat	coloniza	Vmp--sm
 din	din	Spsa
 Europa	Europa	Np
 au	avea	Va--3p
@@ -10658,7 +10658,7 @@ despre	despre	Spsa
 faptul	fapt	Ncmsry
 că	că	Csssp
 este	fi	Vaip3s
-infestat	infestat	Afpms-n
+infestat	infesta	Vmp--sm
 cu	cu	Spsa
 HIV	HIV	Np
 devine	deveni	Vmip3s
@@ -10745,7 +10745,7 @@ port	port	Ncms-n
 
 Împrejurările	împrejurare	Ncfpry
 morții	moarte	Ncfsoy
-sale	său	Ps3fp-s
+sale	său	Ds3fsos
 au	avea	Va--3p
 fost	fi	Vap--sm
 plastic	plastic	Rgp
@@ -10833,7 +10833,7 @@ au	avea	Va--3p
 în	în	Spsa
 mare	mare	Ncfsrn
 ca	ca	Rc
-Tom	tom	Ncms-n
+Tom	Tom	Np
 al	al	Tsms
 meu	meu	Ds1ms-s
 .	.	Zp
@@ -10944,7 +10944,7 @@ de	de	Spsa
 Redcar	Redcar	Np
 .	.	Zp
 
-'	'	Z1q
+"	"	Z1q
 El	el	Pp3msr--------s
 se	sine	Px3--a--------w
 va	vrea	Va--3s
@@ -10955,7 +10955,7 @@ flux	flux	Ncms-n
 ,	,	Zc
 a	avea	Va--3s
 spus	spune	Vmp--sm
-Marie	maria	Vmis3s
+Marie	Marie	Np
 .	.	Zp
 
 Consilierii	consilier	Ncmpry
@@ -10965,7 +10965,7 @@ au	avea	Va--3p
 adus	aduce	Vmp--sm
 un	un	Timsr
 omagiu	omagiu	Ncms-n
-noaptea	noaptea	Rgp
+noaptea	noapte	Ncfsry
 trecută	trecut	Afpfsrn
 fotografului	fotograf	Ncmsoy
 Winston	Winston	Np
@@ -11046,7 +11046,7 @@ Joi	joi	Ncf--n
 ,	,	Zc
 trei	trei	Mc-p-l
 alți	alt	Di3mpr---e
-saudiți	saudit	Afpmp-n
+saudiți	saudit	Ncmp-n
 au	avea	Va--3p
 fost	fi	Vap--sm
 de	de	Spsa
@@ -11224,7 +11224,7 @@ când	când	Rw
 un	un	Timsr
 val	val	Ncms-n
 neobișnuit	neobișnuit	Afpms-n
-le-	el	Pp3fpa--y-----w
+le-	el	Pp3-pd--y-----w
 a	avea	Va--3s
 scufundat	scufunda	Vmp--sm
 barca	barcă	Ncfsry
@@ -11254,7 +11254,7 @@ doamnă	doamnă	Ncfsrn
 care	care	Pw3--r
 decedase	deceda	Vmil3s
 dându	da	Vmg-------y
--i	el	Pp3-sd--------w
+-i	el	Pp3-sd--y-----w
 un	un	Timsr
 fiu	fiu	Ncms-n
 stăpânului	stăpân	Ncmsoy
@@ -11552,7 +11552,7 @@ campionatele	campionat	Ncfpry
 de	de	Spsa
 cai	cal	Ncmp-n
 și	și	Crssp
-ponei	ponei	Ncmp-n
+ponei	ponei	Ncm--n
 .	.	Zp
 
 Incidentul	incident	Ncmsry
@@ -11583,7 +11583,7 @@ sunt	fi	Vaip3p
 servite	servi	Vmp--pf
 gustări	gustare	Ncfp-n
 și	și	Crssp
-există	exista	Vmis3s
+există	exista	Vmip3
 o	un	Tifsr
 masă	masă	Ncfsrn
 de	de	Spsa
@@ -11608,7 +11608,7 @@ se	sine	Px3--a--------w
 țin	ține	Vmip3p
 în	în	Spsa
 holul	hol	Ncmsry
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 și	și	Crssp
 nopțile	noapte	Ncfpry
 excelente	excelent	Afpfp-n
@@ -11700,7 +11700,7 @@ an	an	Ncms-n
 .	.	Zp
 
 O	un	Tifsr
-zona	zona	Ncfsrn
+zonă	zonă	Ncfsrn
 mlăștinoasă	mlăștinos	Afpfsrn
 la	la	Spsa
 nord	nord	Ncms-n
@@ -11726,7 +11726,7 @@ probabil	probabil	Rgp
 construirea	construire	Ncfsry
 unui	un	Timso
 drum	drum	Ncms-n
-direct	direct	Rgp
+direct	direct	Afpms-n
 spre	spre	Spsa
 orașul	oraș	Ncmsry
 din	din	Spsa
@@ -11846,7 +11846,7 @@ se	sine	Px3--a--------w
 coloana	coloană	Ncfsry
 sa	său	Ds3fsrs
 se	sine	Px3--a--------w
-sfărâmița	sfărâmița	Np
+sfărâmița	sfărâmița	Vmii3s
 .	.	Zp
 
 Înhumări	înhumare	Ncfp-n
@@ -11910,7 +11910,7 @@ să	să	Qs
 știi	ști	Vmip2s
 cum	cum	Rw
 să	să	Qs
-le	el	Pp3fpa--------w
+le	el	Pp3-pd--------w
 dai	da	Vmip2s
 primul	prim	Momsrly
 ajutor	ajutor	Ncms-n
@@ -11961,7 +11961,7 @@ cu	cu	Spsa
 Hun	hun	Ncms-n
 Sen	sen	Ncms-n
 eliminarea	eliminare	Ncfsry
-kmerilor	kmerilor	Ncfpoy
+kmerilor	kmer	Ncmpoy
 roșii	roșu	Afp-p-n
 .	.	Zp
 
@@ -11975,7 +11975,7 @@ participante	participant	Afpfp-n
 la	la	Spsa
 Conferința	conferință	Ncfsry
 Islamică	islamic	Afpfsrn
-solicită	solicita	Vmis3s
+solicită	solicita	Vmip3
 "	"	Z1q
 găsirea	găsire	Ncfsry
 unei	un	Tifso
@@ -12085,7 +12085,7 @@ Eelam	Eelam	Np
 Acest	acest	Dd3msr---e
 lucru	lucru	Ncms-n
 ne	eu	Pp1-pa--------w
-asigură	asigura	Vmis3s
+asigură	asigura	Vmip3
 că	că	Csssp
 aprovizionarea	aprovizionare	Ncfsry
 continuă	continuu	Afpfsrn
@@ -12099,7 +12099,7 @@ de	de	Spsa
 altfel	altfel	Rgp
 ,	,	Zc
 însă	însă	Ccssp
-transformă	transforma	Vmis3s
+transformă	transforma	Vmip3
 deopotrivă	deopotrivă	Rgp
 întreruperea	întrerupere	Ncfsry
 aprovizionării	aprovizionare	Ncfsoy
@@ -12465,7 +12465,7 @@ Comisie	comisie	Ncfsrn
 )	)	Z2p
 Prezentul	prezent	Afpmsry
 protocol	protocol	Ncms-n
-intră	intra	Vmis3s
+intră	intra	Vmip3
 în	în	Spsa
 vigoare	vigoare	Ncfsrn
 în	în	Spsa
@@ -12504,7 +12504,7 @@ mijloc	mijloc	Ncms-n
 de	de	Spsa
 transport	transport	Ncms-n
 care	care	Pw3--r
-transportă	transporta	Vmis3s
+transportă	transporta	Vmip3
 alte	alt	Di3fpr---e
 animale	animal	Ncfp-n
 ce	ce	Pw3--r
@@ -12525,7 +12525,7 @@ inferioară	inferior	Afpfsrn
 9	9	Mc-s-d
 .	.	Zp
 Se	sine	Px3--a--------w
-agită	agita	Vmis3s
+agită	agita	Vmip3
 cu	cu	Spsa
 ajutorul	ajutor	Ncmsry
 unui	un	Timso
@@ -12534,7 +12534,7 @@ cu	cu	Spsa
 ultrasunete	ultrasunet	Ncfp-n
 și	și	Crssp
 se	sine	Px3--a--------w
-clarifică	clarifica	Vmis3s
+clarifică	clarifica	Vmip3
 ,	,	Zc
 de	de	Spsa
 trei	trei	Mc-p-l
@@ -12611,7 +12611,7 @@ n	n	Ncms-n
 :	:	Zl
 "	"	Z1q
 Populația	populație	Ncfsry
-expusă	expus	Afpfsrn
+expusă	expune	Vmp--sf
 la	la	Spsa
 un	un	Timsr
 nivel	nivel	Ncms-n
@@ -12645,7 +12645,7 @@ deja	deja	Rgp
 furnizate	furnizat	Afpfp-n
 ,	,	Zc
 dar	dar	Ccssp
-detaliați	detalia	Vmii2p
+detaliați	detalia	Vmip2p
 unde	unde	Rw
 și	și	Crssp
 când	când	Rw
@@ -12734,7 +12734,7 @@ mobilizeze	mobiliza	Vmsp3
 să	să	Qs
 trimită	trimite	Vmsp3
 experții	expert	Ncmpry
-desemnați	desemnat	Afpmp-n
+desemnați	desemna	Vmp--pm
 în	în	Spsa
 termen	termen	Ncms-n
 foarte	foarte	Rp
@@ -12852,7 +12852,7 @@ prin	prin	Spsa
 care	care	Pw3--r
 Comunitatea	comunitate	Ncfsry
 își	sine	Px3--d--------w
-asumă	asuma	Vmis3s
+asumă	asuma	Vmip3
 obligații	obligație	Ncfp-n
 .	.	Zp
 
@@ -12957,7 +12957,7 @@ beneficiarul	beneficiar	Ncmsry
 efectiv	efectiv	Afpms-n
 ,	,	Zc
 și	și	Crssp
-comunică	comunica	Vmis3s
+comunică	comunica	Vmip3
 agentului	agent	Ncmsoy
 plătitor	plătitor	Afpms-n
 identitatea	identitate	Ncfsry
@@ -12991,7 +12991,7 @@ consultativ	consultativ	Afpms-n
 care	care	Pw3--r
 să	să	Qs
 ofere	oferi	Vmsp3
-consiliere	consilieră	Ncfp-n
+consiliere	consiliere	Ncfsrn
 Comisiei	comisie	Ncfsoy
 în	în	Spsa
 elaborarea	elaborare	Ncfsry
@@ -13164,7 +13164,7 @@ probă	probă	Ncfsrn
 sau	sau	Ccssp
 un	un	Timsr
 test	test	Ncms-n
-continuate	continuat	Afpfp-n
+continuate	continua	Vmp--pf
 pe	pe	Spsa
 această	acest	Dd3fsr---e
 bază	bază	Ncfsrn
@@ -13362,7 +13362,7 @@ finanțate	finanța	Vmp--pf
 prezentul	prezent	Afpmsry
 cadru	cadru	Ncms-n
 se	sine	Px3--a--------w
-publică	publica	Vmis3s
+publică	publica	Vmip3
 în	în	Spsa
 fiecare	fiecare	Di3-sr---e
 an	an	Ncms-n
@@ -13376,7 +13376,7 @@ Comisiei	comisie	Ncfsoy
 menționându	menționa	Vmg-------y
 -se	sine	Px3--a--y-----w
 sumele	sumă	Ncfpry
-alocate	alocat	Afpfp-n
+alocate	aloca	Vmp--pf
 .	.	Zp
 
 (	(	Z1p
@@ -13458,7 +13458,7 @@ publice	public	Afpfp-n
 și	și	Crssp
 ușor	ușor	Rgp
 de	de	Spsa
-accesat	accesat	Afpms-n
+accesat	accesa	Vmp--sm
 ,	,	Zc
 referitoare	referitor	Afpf--n
 la	la	Spsa
@@ -13727,7 +13727,7 @@ un	un	Timsr
 înalt	înalt	Afpms-n
 reprezentant	reprezentant	Ncms-n
 care	care	Pw3--r
-participă	participa	Vmis3s
+participă	participa	Vmip3
 la	la	Spsa
 dezbateri	dezbatere	Ncfp-n
 .	.	Zp
@@ -13767,7 +13767,7 @@ un	un	Timsr
 înalt	înalt	Afpms-n
 reprezentant	reprezentant	Ncms-n
 care	care	Pw3--r
-participă	participa	Vmis3s
+participă	participa	Vmip3
 la	la	Spsa
 toate	tot	Di3fpr
 dezbaterile	dezbatere	Ncfpry
@@ -13847,7 +13847,7 @@ prin	prin	Spsa
 care	care	Pw3--r
 Comunitatea	comunitate	Ncfsry
 își	sine	Px3--d--------w
-asumă	asuma	Vmis3s
+asumă	asuma	Vmip3
 obligații	obligație	Ncfp-n
 .	.	Zp
 
@@ -13960,7 +13960,7 @@ barei	bară	Ncfsoy
 de	de	Spsa
 protecție	protecție	Ncfsrn
 se	sine	Px3--a--------w
-determină	determina	Vmis3s
+determină	determina	Vmip3
 în	în	Spsa
 conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
@@ -13981,7 +13981,7 @@ anterioare	anterior	Afpfson
 a	al	Tsfs
 capotei	capotă	Ncfsoy
 se	sine	Px3--a--------w
-determină	determina	Vmis3s
+determină	determina	Vmip3
 în	în	Spsa
 conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
@@ -13994,7 +13994,7 @@ punctul	punct	Ncmsry
 (	(	Z1p
 b	b	Ncms-n
 )	)	Z2p
-există	exista	Vmis3s
+există	exista	Vmip3
 elemente	element	Ncfp-n
 care	care	Pw3--r
 pot	putea	Vmip3p
@@ -14053,7 +14053,7 @@ ianuarie	ianuarie	Ncm--n
 2004	2004	Mc-s-d
 și	și	Crssp
 se	sine	Px3--a--------w
-încheie	încheia	Vmis3s
+încheie	încheia	Vmip3
 la	la	Spsa
 31	31	Mc-s-d
 decembrie	decembrie	Ncm--n
@@ -14174,7 +14174,7 @@ nu	nu	Qz
 cuprinde	cuprinde	Vmip3s
 articolele	articol	Ncfpry
 destinate	destinat	Afpfp-n
-a	avea	Va--3s
+a	a	Qn
 fi	fi	Vanp
 așezate	așeza	Vmp--pf
 sub	sub	Spsa
@@ -14191,7 +14191,7 @@ că	că	Csssp
 ora	oră	Ncfsry
 mea	meu	Ds1fsrs
 te	tu	Pp2-sa--------w
-inspiră	inspira	Vmis3s
+inspiră	inspira	Vmip3
 să	să	Qs
 scrii	scrie	Vmip2s
 poezii	poezie	Ncfp-n
@@ -14414,7 +14414,7 @@ drug	drug	Ncms-n
 ,	,	Zc
 se	sine	Px3--a--------w
 înălța	înălța	Vmii3s
-c-	că	Cssspy
+c-	cu	Spsay
 o	un	Tifsr
 palmă	palmă	Ncfsrn
 și	și	Crssp
@@ -14446,11 +14446,11 @@ după	după	Spsa
 felul	fel	Ncmsry
 în	în	Spsa
 care	care	Pw3--r
-mi-	eu	Pp1-sd--y-----w
-i	el	Pp3-sd--------w
+mi	eu	Pp1-sd--------w
+-i	el	Pp3mpa--y-----w
 culegi	culege	Vmip2s
 pe	pe	Spsa
-licurici	licurici	Ncms-n
+licurici	licurici	Ncm--n
 "	"	Z1q
 .	.	Zp
 
@@ -14677,7 +14677,7 @@ mâna	mână	Ncfsry
 și	și	Crssp
 să	să	Qs
 nu	nu	Qz
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 lași	lăsa	Vmip2s
 decât	decât	Rc
 atât	atât	Rgp
@@ -14689,7 +14689,7 @@ altfel	altfel	Rgp
 nu	nu	Qz
 te	tu	Pp2-sa--------w
 mai	mai	Rp
-respectă	respecta	Vmis3s
+respectă	respecta	Vmip3
 .	.	Zp
 
 Cestorul	Cestorul	Np
@@ -14751,7 +14751,7 @@ ei	lui	Ds3---s
 se	sine	Px3--a--------w
 risipea	risipi	Vmii3s
 pe	pe	Spsa
-neștiute	neștiut	Afpfson
+neștiute	neștiut	Afpfp-n
 și	și	Crssp
 ,	,	Zc
 când	când	Rw
@@ -14783,7 +14783,7 @@ nașul	naș	Ncmsry
 se	sine	Px3--a--------w
 îngrijise	îngriji	Vmil3s
 să	să	Qs
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 spună	spune	Vmsp3
 de	de	Spsa
 unde	unde	Rw
@@ -14853,7 +14853,7 @@ din	din	Spsa
 chirpici	chirpici	Ncms-n
 ,	,	Zc
 nu	nu	Qz
-le	el	Pp3fpa--------w
+le	el	Pp3-pd--------w
 păsa	păsa	Vmii3s
 ,	,	Zc
 obișnuiți	obișnui	Vmp--pm
@@ -14887,7 +14887,7 @@ se	sine	Px3--a--------w
 obișnuise	obișnui	Vmil3s
 ,	,	Zc
 nu	nu	Qz
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 păsa	păsa	Vmii3s
 .	.	Zp
 
@@ -15168,8 +15168,8 @@ vechi	vechi	Afp-p-n
 un	un	Timsr
 portofel	portofel	Ncms-n
 umflat	umflat	Afpms-n
-și-	și	Crssp
-l	el	Pp3msa--y-----w
+și	și	Crssp
+-l	el	Pp3msa--y-----w
 puse	pune	Vmis3s
 pe	pe	Spsa
 masă	masă	Ncfsrn
@@ -15374,12 +15374,12 @@ fața	față	Ncfsry
 lui	lui	Ds3---s
 pestriță	pestriț	Afpfsrn
 ,	,	Zc
-aprinsă	aprins	Afpfsrn
+aprinsă	aprinde	Vmp--sf
 de	de	Spsa
 o	un	Tifsr
 putere	putere	Ncfsrn
 care	care	Pw3--r
--i	el	Pp3mpa--y-----w
+-i	el	Pp3-sd--y-----w
 lucea	luci	Vmii3s
 în	în	Spsa
 ochi	ochi	Ncm--n
@@ -15431,7 +15431,7 @@ căldare	căldare	Ncfsrn
 
 Ajungând	ajunge	Vmg
 la	la	Spsa
-biserica	biserică	Ncfsry
+biserică	biserică	Ncfsrn
 ,	,	Zc
 intrară	intra	Vmis3p
 în	în	Spsa
@@ -15686,7 +15686,7 @@ se	sine	Px3--a--------w
 Noroade	norod	Ncfp-n
 -ntregi	întreg	Afp-p-ny
 ,	,	Zc
-plecate	plecat	Afpfp-n
+plecate	pleca	Vmp--pf
 puternicului	puternic	Afpmsoy
 cer	cer	Ncms-n
 .	.	Zp
@@ -15971,8 +15971,7 @@ variat	varia	Vmp--sm
 1	1	Mc-s-d
 (	(	Z1p
 valoarea	valoare	Ncfsry
-mini	mini	Nc
-mă	eu	Pp1-sa--------w
+minimă	minim	Afpfsrn
 )	)	Z2p
 și	și	Crssp
 9	9	Mc-s-d
@@ -16046,7 +16045,7 @@ uneori	uneori	Rgp
 eliminarea	eliminare	Ncfsry
 ;	;	Zs
 
-Sunt	fi	Vaip1s
+Sunt	fi	Vaip3p
 cunoscute	cunoaște	Vmp--pf
 astfel	astfel	Rgp
 :	:	Zl
@@ -16127,7 +16126,7 @@ calculul	calcul	Ncmsry
 Eficacitatea	eficacitate	Ncfsry
 antispastisticelor	antispastistic	Ncfpoy
 este	fi	Vaip3s
-controversată	controversa	Vmp--sf
+controversată	controversat	Afpfsrn
 ,	,	Zc
 majoritatea	majoritate	Ncfsry
 autorilor	autor	Ncmpoy
@@ -16353,7 +16352,7 @@ dar	dar	Ccssp
 ele	el	Pp3fpr--------s
 nu	nu	Qz
 trebuie	trebui	Vmip3
-utilizate	utilizat	Afpfp-n
+utilizate	utiliza	Vmp--pf
 decât	decât	Rc
 dacă	dacă	Csssp
 diagnosticul	diagnostic	Ncmsry
@@ -16621,7 +16620,7 @@ rumâni	rumân	Ncmp-n
 alături	alături	Rgp
 de	de	Spsa
 „	„	Z1q
-români	român	Afpmp-n
+români	român	Ncmp-n
 ”	”	Z2q
 ,	,	Zc
 forma	formă	Ncfsry
@@ -16744,12 +16743,12 @@ XIII	treisprezece	Mo-s-r
 .	.	Zp
 
 Alexandru	Alexandru	Np
-cel	acela	Pd3msr
+cel	cel	Tdmsr
 Bun	bun	Afpms-n
 ,	,	Zc
 Ștefan	Ștefan	Np
-cel	acela	Pd3msr
-Mare	mare	Afpms-n
+cel	cel	Tdmsr
+Mare	mare	Afp-s-n
 ,	,	Zc
 Petru	Petru	Np
 Rareș	Rareș	Np
@@ -17119,7 +17118,7 @@ zile	zi	Ncfp-n
 în	în	Spsa
 care	care	Pw3--r
 o	un	Tifsr
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 parte	parte	Ncfsrn
 din	din	Spsa
 zonele	zonă	Ncfpry
@@ -17171,7 +17170,7 @@ dezvolte	dezvolta	Vmsp3
 ,	,	Zc
 construindu	construi	Vmg-------y
 -se	sine	Px3--a--y-----w
-noi	eu	Pp1-pr--------s
+noi	nou	Afp-p-n
 cartiere	cartier	Ncfp-n
 și	și	Crssp
 întreprinderi	întreprindere	Ncfp-n
@@ -17333,7 +17332,7 @@ pentru	pentru	Spsa
 toate	tot	Di3fpr
 frecvențele	frecvență	Ncfpry
 radiațiilor	radiație	Ncfpoy
-emise	emis	Afpfp-n
+emise	emite	Vmp--pf
 .	.	Zp
 
 Acest	acest	Dd3msr---e
@@ -17423,9 +17422,9 @@ iar	iar	Rc
 la	la	Spsa
 echilibru	echilibru	Ncms-n
 energiile	energie	Ncfpry
-emise	emis	Afpfp-n
+emise	emite	Vmp--pf
 și	și	Crssp
-absorbite	absorbit	Afpfp-n
+absorbite	absorbi	Vmp--pf
 sunt	fi	Vaip3p
 egale	egal	Afpfp-n
 .	.	Zp
@@ -17491,7 +17490,7 @@ orificiu	orificiu	Ncms-n
 este	fi	Vaip3s
 întotdeauna	întotdeauna	Rgp
 mai	mai	Rp
-mare	mare	Afpms-n
+mare	mare	Afp-s-n
 decât	decât	Rc
 intensitatea	intensitate	Ncfsry
 corespunzătoare	corespunzător	Afpf--n
@@ -17511,7 +17510,7 @@ cavității	cavitate	Ncfsoy
 
 Cea	cel	Tdfsr
 mai	mai	Rp
-mare	mare	Afpfsrn
+mare	mare	Afp-s-n
 putere	putere	Ncfsrn
 de	de	Spsa
 emisie	emisie	Ncfsrn
@@ -17619,7 +17618,7 @@ cavitate	cavitate	Ncfsrn
 
 Relația	relație	Ncfsry
 (	(	Z1p
-117	117	Mc-s-b
+117	117	Mc-s-d
 )	)	Z2p
 stabilește	stabili	Vmip3s
 legătura	legătură	Ncfsry

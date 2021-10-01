@@ -23,6 +23,8 @@ class Lex(object):
     mixed_case_pattern = re.compile(
         "^[a-zA-ZșțăîâȘȚĂÎÂ]*[a-zșțăîâ-][A-ZȘȚĂÎÂ][a-zA-ZșțăîâȘȚĂÎÂ-]*$")
     upper_case_pattern = re.compile("^[A-ZȘȚĂÎÂ_-]+$")
+    _number_pattern = re.compile("^[0-9]+$")
+    _bullet_number_pattern = re.compile("[0-9][./]")
     _case_patterns = [
         # Lower
         re.compile("^[a-zșțăîâ_-]+$"),
@@ -647,13 +649,18 @@ class Lex(object):
                 msd_v = msdobj.msd_input_vector(msd)
                 features2 += msd_v
             # end for
-        elif word in MSD._punct_msd_inventory:
-            msd = MSD._punct_msd_inventory[word]
+        elif word in MSD.punct_msd_inventory:
+            msd = MSD.punct_msd_inventory[word]
             msd_v = msdobj.msd_input_vector(msd)
             features2 += msd_v
-        elif re.match(MSD._punct_patt, word) != None:
-            msd = "Z"
-            msd_v = msdobj.msd_input_vector(msd)
+        elif MSD.punct_patt.match(word) != None:
+            msd_v = msdobj.msd_input_vector("Z")
+            features2 += msd_v
+        elif Lex._number_pattern.match(word):
+            msd_v = msdobj.msd_input_vector("Mc-s-d")
+            features2 += msd_v
+        elif Lex._bullet_number_pattern.match(word):
+            msd_v = msdobj.msd_input_vector("Mc-s-b")
             features2 += msd_v
         else:
             affix_msds = self.get_unknown_msd_ambiguity_class(word)

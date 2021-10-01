@@ -35,7 +35,7 @@ class MSD(object):
         "Z1q",
         "Z2q"
     ]
-    _punct_msd_inventory = {
+    punct_msd_inventory = {
         ".": "Zp",
         ",": "Zc",
         ":": "Zl",
@@ -61,7 +61,7 @@ class MSD(object):
         "«": "Z1q",
         "»": "Z2q"
     }
-    _punct_patt = re.compile("^\\W+$")
+    punct_patt = re.compile("^\\W+$")
 
     def __init__(self):
         """Takes the MSD -> CTAG map file, commonly named msdtag.ro.map"""
