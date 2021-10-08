@@ -1,4 +1,7 @@
 epoch-20-debug.txt
 __pycache__
 .vscode/launch.json
-data/resources/
+data/resources/cc.ro.300.vec.gz
+data/resources/morphalt.xml
+papers/
+debug.py

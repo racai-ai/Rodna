@@ -204,7 +204,7 @@ class RoSentenceSplitter(object):
         print(stack()[0][3] + ": {0} test F-measure is F1 = {1!s}".format(
             RoSentenceSplitter.eos_label, F), file=sys.stderr, flush=True)
 
-    def load_keras_model(self):
+    def load(self):
         self._model = tf.keras.models.load_model(SENT_SPLITTER_MODEL_FOLDER)
 
         if Path(UNICODE_PROPERTY_FILE).is_file():

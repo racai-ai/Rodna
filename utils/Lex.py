@@ -1,10 +1,12 @@
-import re
-from typing import Pattern
-from inspect import stack
 import sys
+import re
+from inspect import stack
+from typing import Pattern
+import gzip
 import numpy as np
 from .MSD import MSD
 from config import TBL_WORDFORM_FILE, WORD_EMBEDDINGS_FILE
+from utils.errors import print_error
 
 
 class Lex(object):
@@ -14,7 +16,7 @@ class Lex(object):
     # proper nouns, numerals, adverbs, not general.
     _mwe_pos_pattern = re.compile("^([PDQSCYMI]|Np|R[^g])")
     _abbr_pos_pattern = re.compile("^Y")
-    _content_word_pos_pattern = re.compile("^([YNAM]|Vm|Rg)")
+    content_word_pos_pattern = re.compile("^([YNAM]|Vm|Rg)")
     _comm_pattern = re.compile("^\\s*#")
     # Length of the affixes to do affix analysis.
     _prefix_length = 5
@@ -35,7 +37,7 @@ class Lex(object):
         # Mixed
         mixed_case_pattern,
         # Code
-        re.compile("^[a-z][a-z0-9șțăîâ-]*[0-9][a-z0-9șțăîâ-]*$", re.IGNORECASE),
+        re.compile("^[A-Z][A-ZȘȚĂÎÂ-]*[0-9][A-Za-z0-9șțăîâȘȚĂÎÂ-]*$"),
         # Punctuation
         re.compile("^\\W+$"),
     ]
@@ -76,30 +78,36 @@ class Lex(object):
     def _read_word_embeddings(self, embed_file: str) -> None:
         counter = 0
 
-        with open(embed_file, "r", encoding="utf-8") as f:
-            line = f.readline()
+        if embed_file.endswith(".gz"):
+            f = gzip.open(embed_file, mode="rt", encoding="utf-8")
+        else:
+            f = open(embed_file, mode="r", encoding="utf-8")
+        # end if
+
+        line = f.readline()
+        parts = line.strip().split()
+        self._wembdim = int(parts[1])
+
+        for line in f:
+            counter += 1
+
+            if counter % 100000 == 0:
+                print(stack()[0][3] + ": read {0!s} lines from file {1}".format(counter, embed_file),
+                        file=sys.stderr, flush=True)
+
             parts = line.strip().split()
-            self._wembdim = int(parts[1])
+            word = parts.pop(0)
 
-            for line in f:
-                counter += 1
+            if self._wembdim != len(parts):
+                print(stack()[0][3] + ": incorrect dimension of {0} vs. {1} in file {2} at line {3}".format(len(parts), self._wembdim, embed_file, counter),
+                        file=sys.stderr, flush=True)
+                continue
+            # end if
 
-                if counter % 100000 == 0:
-                    print(stack()[0][3] + ": read {0!s} lines from file {1}".format(counter, embed_file),
-                          file=sys.stderr, flush=True)
+            self._wdembed[word] = np.asarray(parts, dtype=np.float32)
+        # end for
 
-                parts = line.strip().split()
-                word = parts.pop(0)
-
-                if self._wembdim != len(parts):
-                    print(stack()[0][3] + ": incorrect dimension of {0} vs. {1} in file {2} at line {3}".format(len(parts), self._wembdim, embed_file, counter),
-                          file=sys.stderr, flush=True)
-                    continue
-                # end if
-
-                self._wdembed[word] = np.asarray(parts, dtype=np.float32)
-            # end for
-        # end with
+        f.close()
 
     def _remove_abbr_first_words_that_are_lex_words(self) -> None:
         """We don't want to tag 'loc.' in e.g. 'au adus-o pe loc.' as an abbreviation."""
@@ -127,7 +135,7 @@ class Lex(object):
         # end for
 
     @staticmethod
-    def _repl_sgml_wih_utf8(word: str) -> str:
+    def repl_sgml_wih_utf8(word: str) -> str:
         word = word.replace("&abreve;", "ă")
         word = word.replace("&acirc;", "â")
         word = word.replace("&icirc;", "î")
@@ -162,7 +170,7 @@ class Lex(object):
 
                 if len(parts) == 3:
                     word = parts[0]
-                    word = Lex._repl_sgml_wih_utf8(word)
+                    word = Lex.repl_sgml_wih_utf8(word)
                     wl = len(word)
 
                     # Word length analysis
@@ -177,7 +185,7 @@ class Lex(object):
                     if lemma == '=':
                         lemma = word
                     else:
-                        lemma = Lex._repl_sgml_wih_utf8(lemma)
+                        lemma = Lex.repl_sgml_wih_utf8(lemma)
                     # end if
 
                     # 'îi' is also a pronoun, do not count it a to be form
@@ -228,7 +236,7 @@ class Lex(object):
                         self._mwefirstword.add(parts[0])
                     # end if
 
-                    if Lex._content_word_pos_pattern.match(msd):
+                    if Lex.content_word_pos_pattern.match(msd):
                         # Affix analysis
                         if len(word) >= Lex._prefix_length:
                             prefix = word[0:Lex._prefix_length]
@@ -612,6 +620,35 @@ class Lex(object):
         # 4. Concatenate 1, 1.1, 2 and 3
         return np.concatenate((features1, features11, features2, features3))
 
+    def get_word_embedding_vector(self, word: str) -> np.ndarray:
+        features = np.asarray([0.1] * self._wembdim, dtype=np.float32)
+
+        if word in self._wdembed:
+            features = self._wdembed[word]
+        elif word.lower() in self._wdembed:
+            features = self._wdembed[word.lower()]
+        else:
+            print_error("unknown word '{0}'".format(word), stack()[0][3])
+        # end if
+
+        return features
+
+    def get_start_sentence_embedding_vector(self) -> np.ndarray:
+        return np.asarray([1.0] * self._wembdim, dtype=np.float32)
+
+    def get_end_sentence_embedding_vector(self) -> np.ndarray:
+        features = np.asarray([2.0] * self._wembdim, dtype=np.float32)
+        eos_word = "</s>"
+
+        if eos_word in self._wdembed:
+            features = self._wdembed[eos_word]
+        # end if
+
+        return features
+
+    def get_wemb_vector_length(self) -> int:
+        return self._wembdim
+
     def get_word_features_for_pos_tagging(self, word: str, msdobj: MSD, ptfeatures: list, ptfeatures_dict: dict) -> np.ndarray:
         """Will get an np.array of lexical features for word,
         including the possible MSDs."""
@@ -625,70 +662,61 @@ class Lex(object):
             # end for
         # end if
 
-        # 1.1 Casing features
-        features11 = np.zeros(len(Lex._case_patterns), dtype=np.float32)
+        # 2. Casing features
+        features2 = np.zeros(len(Lex._case_patterns), dtype=np.float32)
 
         for i in range(len(Lex._case_patterns)):
             patt = Lex._case_patterns[i]
 
             if patt.match(word):
-                features11[i] = 1.0
+                features2[i] = 1.0
             # end if
         # end for
 
-        # 2. MSD features for word: the vector of possible MSDs
-        features2 = np.zeros(msdobj.get_input_vector_size(), dtype=np.float32)
+        # 3. MSD features for word: the vector of possible MSDs
+        features3 = np.zeros(msdobj.get_input_vector_size(), dtype=np.float32)
 
         if word in self._lexicon:
             for msd in self._lexicon[word]:
                 msd_v = msdobj.msd_input_vector(msd)
-                features2 += msd_v
+                features3 += msd_v
             # end for
         elif word.lower() in self._lexicon:
             for msd in self._lexicon[word.lower()]:
                 msd_v = msdobj.msd_input_vector(msd)
-                features2 += msd_v
+                features3 += msd_v
             # end for
         elif word in MSD.punct_msd_inventory:
             msd = MSD.punct_msd_inventory[word]
             msd_v = msdobj.msd_input_vector(msd)
-            features2 += msd_v
+            features3 += msd_v
         elif MSD.punct_patt.match(word) != None:
             msd_v = msdobj.msd_input_vector("Z")
-            features2 += msd_v
+            features3 += msd_v
         elif Lex._number_pattern.match(word):
             msd_v = msdobj.msd_input_vector("Mc-s-d")
-            features2 += msd_v
+            features3 += msd_v
         elif Lex._bullet_number_pattern.match(word):
             msd_v = msdobj.msd_input_vector("Mc-s-b")
-            features2 += msd_v
+            features3 += msd_v
         else:
             affix_msds = self.get_unknown_msd_ambiguity_class(word)
 
             if affix_msds:
-                #print(stack()[0][3] + ": for unknown word '{0}', affix MSDs are: {1}".format(word, ', '.join([x for x in affix_msds])),
-                #        file=sys.stderr, flush=True)
+                print_error("for unknown word '{0}', affix MSDs are: {1}".format(
+                    word, ', '.join([x for x in affix_msds])), stack()[0][3])
 
                 for msd in affix_msds:
                     msd_v = msdobj.msd_input_vector(msd)
-                    features2 += msd_v
+                    features3 += msd_v
                 # end for
             else:
-                features2 = msdobj.get_x_input_vector()
+                features3 = msdobj.get_x_input_vector()
             # end if
         # end if
 
-        # No normalization
-        # features2[features2 > 1.0] = 1.0
+        # Maximum normalization
+        features3[features3 > 1.0] = 1.0
 
-        # 3. The embedding vector for word
-        features3 = np.zeros(self._wembdim, dtype=np.float32)
-
-        if word in self._wdembed:
-            features3 = self._wdembed[word]
-        elif word.lower() in self._wdembed:
-            features3 = self._wdembed[word.lower()]
-        # end if
-
-        # 4. Concatenate 1, 1.1, 2 and 3
-        return np.concatenate((features1, features11, features2, features3))
+        # 4. Concatenate 1, 2 and 3
+        return np.concatenate((features1, features2, features3))
