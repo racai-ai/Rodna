@@ -292,7 +292,7 @@ class Lex(object):
         return word.lower() in self._tobewordforms
 
     def has_ambiguity_class(self, word: str, msd1: str, msd2: str) -> bool:
-        word_msds = self.get_word_msd_ambiguity_class(word)
+        word_msds = self.get_word_ambiguity_class(word)
         is_msd1 = False
         is_msd2 = False
 
@@ -309,7 +309,7 @@ class Lex(object):
         return is_msd1 and is_msd2
 
     def can_be_msd(self, word: str, msd: str) -> bool:
-        word_msds = self.get_word_msd_ambiguity_class(word)
+        word_msds = self.get_word_ambiguity_class(word)
 
         for m in word_msds:
             if m == msd or m.startswith(msd):
@@ -374,10 +374,13 @@ class Lex(object):
 
         return True
 
-    def is_lex_word(self, word: str) -> bool:
+    def is_lex_word(self, word: str, exact_match: bool = False) -> bool:
         """Tests if word is in this lexicon or not."""
 
-        return word in self._lexicon or word.lower() in self._lexicon
+        if exact_match:
+            return word in self._lexicon
+        else:    
+            return word in self._lexicon or word.lower() in self._lexicon
 
     def is_wemb_word(self, word: str) -> bool:
         """Tests if word is in the word embeddings or not."""
@@ -430,18 +433,26 @@ class Lex(object):
 
         return phrOK
 
-    def get_word_msd_ambiguity_class(self, word: str) -> list:
+    def get_word_ambiguity_class(self, word: str, exact_match: bool = False) -> list:
         all_msds = set()
 
         if word in self._lexicon:
             all_msds.update(self._lexicon[word])
+        # end if
+
+        if exact_match:
+            return list(all_msds)
+        # end if
 
         if word.lower() in self._lexicon:
             all_msds.update(self._lexicon[word.lower()])
+        # end if
 
         return list(all_msds)
 
-    def get_unknown_msd_ambiguity_class(self, word: str) -> set:
+    def get_unknown_ambiguity_class(self, word: str) -> list:
+        """Deprecated in favour of RoInflect neural network."""
+
         prefix_msds = self._get_possible_msds_from_prefix(word)
         suffix_msds = self._get_possible_msds_from_suffix(word)
         affix_msds = prefix_msds.union(suffix_msds)
@@ -487,7 +498,7 @@ class Lex(object):
             # end if
         # end if
 
-        return affix_msds
+        return list(affix_msds)
 
     def _get_possible_msds_from_prefix(self, word: str, min_pref_len: int = 2) -> set:
         """This method minimizes the entropy of possible MSDs for a given prefix."""
@@ -648,75 +659,3 @@ class Lex(object):
 
     def get_wemb_vector_length(self) -> int:
         return self._wembdim
-
-    def get_word_features_for_pos_tagging(self, word: str, msdobj: MSD, ptfeatures: list, ptfeatures_dict: dict) -> np.ndarray:
-        """Will get an np.array of lexical features for word,
-        including the possible MSDs."""
-
-        # 1. If word is the first in the sentence or not
-        features1 = np.zeros(len(ptfeatures_dict), dtype=np.float32)
-
-        if ptfeatures:
-            for f in ptfeatures:
-                features1[ptfeatures_dict[f]] = 1.0
-            # end for
-        # end if
-
-        # 2. Casing features
-        features2 = np.zeros(len(Lex._case_patterns), dtype=np.float32)
-
-        for i in range(len(Lex._case_patterns)):
-            patt = Lex._case_patterns[i]
-
-            if patt.match(word):
-                features2[i] = 1.0
-            # end if
-        # end for
-
-        # 3. MSD features for word: the vector of possible MSDs
-        features3 = np.zeros(msdobj.get_input_vector_size(), dtype=np.float32)
-
-        if word in self._lexicon:
-            for msd in self._lexicon[word]:
-                msd_v = msdobj.msd_input_vector(msd)
-                features3 += msd_v
-            # end for
-        elif word.lower() in self._lexicon:
-            for msd in self._lexicon[word.lower()]:
-                msd_v = msdobj.msd_input_vector(msd)
-                features3 += msd_v
-            # end for
-        elif word in MSD.punct_msd_inventory:
-            msd = MSD.punct_msd_inventory[word]
-            msd_v = msdobj.msd_input_vector(msd)
-            features3 += msd_v
-        elif MSD.punct_patt.match(word) != None:
-            msd_v = msdobj.msd_input_vector("Z")
-            features3 += msd_v
-        elif Lex._number_pattern.match(word):
-            msd_v = msdobj.msd_input_vector("Mc-s-d")
-            features3 += msd_v
-        elif Lex._bullet_number_pattern.match(word):
-            msd_v = msdobj.msd_input_vector("Mc-s-b")
-            features3 += msd_v
-        else:
-            affix_msds = self.get_unknown_msd_ambiguity_class(word)
-
-            if affix_msds:
-                print_error("for unknown word '{0}', affix MSDs are: {1}".format(
-                    word, ', '.join([x for x in affix_msds])), stack()[0][3])
-
-                for msd in affix_msds:
-                    msd_v = msdobj.msd_input_vector(msd)
-                    features3 += msd_v
-                # end for
-            else:
-                features3 = msdobj.get_x_input_vector()
-            # end if
-        # end if
-
-        # Maximum normalization
-        features3[features3 > 1.0] = 1.0
-
-        # 4. Concatenate 1, 2 and 3
-        return np.concatenate((features1, features2, features3))

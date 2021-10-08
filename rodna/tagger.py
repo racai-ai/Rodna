@@ -7,9 +7,12 @@ from inspect import stack
 
 from utils.MSD import MSD
 from utils.datafile import read_all_ext_files_from_dir
-from rodna.splitter import RoSentenceSplitter
-from rodna.tokenizer import RoTokenizer
+from .splitter import RoSentenceSplitter
+from .tokenizer import RoTokenizer
+from .features import RoFeatures
+from .morphology import RoInflect
 from utils.Lex import Lex
+from utils.errors import print_error
 from config import PREDICTED_AMB_CLASSES_FILE
 
 _predict_str_const = ": predicted MSD {0}/{1:.5f} preferred over lexicon MSD {2}/{3:.5f} for word '{4}'"
@@ -119,24 +122,9 @@ class RoPOSTagger(object):
     _conf_map_hidden_size = 512
     # CharWNN configuration parameters
     _conf_charwnn_wemb_output = 32
-    _conf_charwnn_k = 5
+    _conf_charwnn_k = 7
     _conf_charwnn_conv_output = 16
     _conf_epochs = 20
-    # Special POS tagging features for Romanian
-    # Computed here for any Romanian sentence
-    # Format: str: int (which is the feature index)
-    _romanian_pos_tagging_features = {
-        # Word is at the beginning of the sentence
-        "WORD_AT_BOS": 0,
-        # Word is at the end of the sentence
-        "WORD_AT_EOS": 1,
-        # Word is some form of 'a fi'
-        "TO_BE_AUX": 2,
-        "TO_BE_MAIN": 3,
-        # Resolve Afp/Rgp ambiguity
-        "SHOULD_BE_ADVERB": 4,
-        "SHOULD_BE_ADJECTIVE": 5
-    }
 
     def __init__(self, splitter: RoSentenceSplitter):
         """Takes a trained instance of the RoSentenceSplitter object."""
@@ -145,6 +133,9 @@ class RoPOSTagger(object):
         self._uniprops = splitter.get_unicode_props()
         self._lexicon = splitter.get_lexicon()
         self._msd = self._lexicon.get_msd_object()
+        self._rofeatures = RoFeatures(self._lexicon)
+        self._romorphology = RoInflect(self._lexicon)
+        self._romorphology.load()
         self._predambclasses = self._read_pred_amb_classes(PREDICTED_AMB_CLASSES_FILE)
         # The fixed length of a word
         self._M = self._lexicon.longestwordlen
@@ -200,31 +191,36 @@ class RoPOSTagger(object):
             print(stack()[0][3] + ": building ENC/CLS {0} tensors".format(ml_type),
                   file=sys.stderr, flush=True)
 
-            (x, xc, y_enc, y_cls) = self._build_model_io_tensors(examples)
+            (x, xc, xwe, xwe_ctx, y_enc, y_cls) = self._build_model_io_tensors(examples)
 
             print(stack()[0][3] + ": x.shape is {0!s}".format(
                 x.shape), file=sys.stderr, flush=True)
             print(stack()[0][3] + ": xc.shape is {0!s}".format(
                 xc.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": xwe.shape is {0!s}".format(
+                xwe.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": xwe_ctx.shape is {0!s}".format(
+                xwe_ctx.shape), file=sys.stderr, flush=True)
             print(stack()[0][3] + ": ENC y.shape is {0!s}".format(
                 y_enc.shape), file=sys.stderr, flush=True)
             print(stack()[0][3] + ": CLS y.shape is {0!s}".format(
                 y_cls.shape), file=sys.stderr, flush=True)
 
-            return (x, xc, y_enc, y_cls)
+            return (x, xc, xwe, xwe_ctx, y_enc, y_cls)
         # end def
 
-        (x_train, xc_train, y_train_enc, y_train_cls) = _generate_tensors(
+        (x_train, xc_train, xwe_train, xwe_ctx_train, y_train_enc, y_train_cls) = _generate_tensors(
             'train', train_examples)
-        (x_dev, xc_dev, y_dev_enc, y_dev_cls) = _generate_tensors('dev', dev_examples)
+        (x_dev, xc_dev, xwe_dev, xwe_ctx_dev, y_dev_enc, y_dev_cls) = _generate_tensors('dev', dev_examples)
 
         input_dim = x_train.shape[2]
+        wemb_dim = xwe_train.shape[2]
         encoding_dim = y_train_enc.shape[2]
         output_dim = y_train_cls.shape[2]
 
         # 5. Creating the tagging Keras model
         self._model = self._build_keras_model(
-            input_dim, encoding_dim, output_dim,
+            input_dim, wemb_dim, encoding_dim, output_dim,
             self._charid, self._M,
             RoPOSTagger._conf_charwnn_wemb_output, RoPOSTagger._conf_charwnn_k, RoPOSTagger._conf_charwnn_conv_output)
 
@@ -232,8 +228,8 @@ class RoPOSTagger(object):
         self._model.summary()
 
         # 6. Train the tagging model
-        self._train_keras_model(train=(x_train, xc_train, y_train_enc, y_train_cls), dev=(
-            x_dev, xc_dev, y_dev_enc, y_dev_cls), gold_sentences=dev_sentences)
+        self._train_keras_model(train=(x_train, xc_train, xwe_train, xwe_ctx_train, y_train_enc, y_train_cls), dev=(
+            x_dev, xc_dev, xwe_dev, xwe_ctx_dev, y_dev_enc, y_dev_cls), gold_sentences=dev_sentences)
 
     def _read_pred_amb_classes(self, file: str) -> list:
         aclasses = []
@@ -311,7 +307,7 @@ class RoPOSTagger(object):
         best_pred_msd_p = y_pred[y_best_idx]
 
         if self._lexicon.is_lex_word(word):
-            word_msds = self._lexicon.get_word_msd_ambiguity_class(word)
+            word_msds = self._lexicon.get_word_ambiguity_class(word)
 
             if best_pred_msd in word_msds:
                 # 1. Predicted MSD is in the ambiguity class for word.
@@ -361,64 +357,16 @@ class RoPOSTagger(object):
 
         return (best_pred_msd, best_pred_msd_p)
 
-    def _compute_sentence_wide_features(self, sentence: list) -> None:
-        """Will take a sentence and update it with sentence-wide POS tagging features."""
-
-        for i in range(len(sentence)):
-            parts = sentence[i]
-
-            if i == 0:
-                sentence[i] = (parts[0], parts[1], ["WORD_AT_BOS"])
-            elif i == len(sentence) - 1:
-                sentence[i] = (parts[0], parts[1], ["WORD_AT_EOS"])
-            else:
-                sentence[i] = (parts[0], parts[1], [])
-            # end if
-
-            if self._lexicon.is_to_be_word(parts[0]):
-                win_size = 0
-                is_aux = False
-
-                for j in range(i + 1, len(sentence)):
-                    if win_size == 3:
-                        break
-
-                    if self._lexicon.can_be_msd(sentence[j][0], "Vmp"):
-                        sentence[i][2].append("TO_BE_AUX")
-                        is_aux = True
-                        break
-                    # end if
-
-                    win_size += 1
-                # end for j
-
-                if not is_aux:
-                    sentence[i][2].append("TO_BE_MAIN")
-                # end if
-
-            if self._lexicon.has_ambiguity_class(parts[0], "Afpms-n", "Rgp") and not self._lexicon.can_be_msd(parts[0], "N"):
-                if i < len(sentence) - 1 and \
-                        (self._lexicon.can_be_msd(sentence[i + 1][0], "Af") or sentence[i + 1][0].lower() == 'de'):
-                    sentence[i][2].append("SHOULD_BE_ADVERB")
-                # end if
-
-                if i >= 2 and \
-                        ("TO_BE_MAIN" in sentence[i - 1][2] or "TO_BE_MAIN" in sentence[i - 2][2]):
-                    sentence[i][2].append("SHOULD_BE_ADJECTIVE")
-                # end if
-            # end if
-        # end for i
-
     def _run_sentence(self, sentence):
         tagged_sentence = []
 
         # 1. Build the fixed-length samples from the input sentence
         sent_samples = self._build_samples([sentence])
         # 2. Get the TAG tensors, only care about X
-        (x_run, xc_run, _, _) = self._build_model_io_tensors(
+        (x_run, xc_run, xwe_run, xwe_ctx_run, _, _) = self._build_model_io_tensors(
             sent_samples, runtime=True)
         # 3. Use the TAG model to get MSD attribute vectors
-        (_, y_pred_cls) = self._model.predict(x=[x_run, xc_run])
+        (_, y_pred_cls) = self._model.predict(x=[x_run, xc_run, xwe_run, xwe_ctx_run])
 
         for i in range(len(sent_samples)):
             sample = sent_samples[i]
@@ -475,25 +423,30 @@ class RoPOSTagger(object):
 
         x_train = train[0]
         xc_train = train[1]
+        xwe_train = train[2]
+        xwe_ctx_train = train[3]
         y_train = {
-            'encoding': train[2],
-            'classification': train[3]
+            'encoding': train[4],
+            'classification': train[5]
         }
         x_dev = dev[0]
         xc_dev = dev[1]
+        xwe_dev = dev[2]
+        xwe_ctx_dev = dev[3]
         y_dev = {
-            'encoding': dev[2],
-            'classification': dev[3]
+            'encoding': dev[4],
+            'classification': dev[5]
         }
 
         # Fit model
         acc_callback = AccCallback(
             self, gold_sentences, RoPOSTagger._conf_epochs)
-        self._model.fit(x=[x_train, xc_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=128,
-                        shuffle=True, validation_data=([x_dev, xc_dev], y_dev), callbacks=[acc_callback])
+        self._model.fit(x=[x_train, xc_train, xwe_train, xwe_ctx_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=128,
+                        shuffle=True, validation_data=([x_dev, xc_dev, xwe_dev, xwe_ctx_dev], y_dev), callbacks=[acc_callback])
 
     def _build_keras_model(self,
             input_vector_size: int,
+            wemb_vector_size: int,
             msd_encoding_vector_size: int,
             output_vector_size: int,
             # Size of the char-based one-hot vocabulary
@@ -510,20 +463,23 @@ class RoPOSTagger(object):
         # CharWNN neural net: http://proceedings.mlr.press/v32/santos14.pdf
         # This neural net models the morphology of the word, i.e. inflectional/derivational affixes.
         xc = tf.keras.layers.Input(
-            shape=(RoPOSTagger._conf_max_seq_length, max_word_length), dtype='int32')
+            shape=(RoPOSTagger._conf_max_seq_length, max_word_length), dtype='int32', name="charwnn-input")
         ch_wemb = tf.keras.layers.Embedding(
             char_vocabulary_size, d_chr, input_length=max_word_length)(xc)
         conv_1d = tf.keras.layers.Conv1D(cl_u, k_chr, activation=None, use_bias=True)(ch_wemb)
         conv_1d_rsh = tf.keras.layers.Reshape((conv_1d.shape[1] * conv_1d.shape[2], conv_1d.shape[3]))(conv_1d)
         max_pool = tf.keras.layers.GlobalMaxPool1D(data_format='channels_first')(conv_1d_rsh)
-        conv_1d_rsh2 = tf.keras.layers.Reshape((conv_1d.shape[1], conv_1d.shape[2]))(max_pool)
+        charwnn_output = tf.keras.layers.Reshape((conv_1d.shape[1], conv_1d.shape[2]))(max_pool)
         # End CharWNN Keras implementation.
 
         x = tf.keras.layers.Input(shape=(RoPOSTagger._conf_max_seq_length,
-                                         input_vector_size), dtype='float32')
-        x_xc_conc = tf.keras.layers.Concatenate()([x, conv_1d_rsh2])
+                                         input_vector_size), dtype='float32', name="word-lexical-input")
+        x_charwnn_conc = tf.keras.layers.Concatenate()([x, charwnn_output])
+        xwe = tf.keras.layers.Input(shape=(RoPOSTagger._conf_max_seq_length,
+                                           wemb_vector_size), dtype='float32', name="word-embedding-input")
+        x_charwnn_xwe_conc = tf.keras.layers.Concatenate()([x_charwnn_conc, xwe])
         bd_lstm_1 = tf.keras.layers.Bidirectional(
-            tf.keras.layers.GRU(RoPOSTagger._conf_lstm_size_1, return_sequences=True))(x_xc_conc)
+            tf.keras.layers.GRU(RoPOSTagger._conf_lstm_size_1, return_sequences=True))(x_charwnn_xwe_conc)
         drop_1 = tf.keras.layers.Dropout(0.25)(bd_lstm_1)
         msd_enc = tf.keras.layers.Dense(
             msd_encoding_vector_size, activation='sigmoid', name='encoding')(drop_1)
@@ -533,10 +489,15 @@ class RoPOSTagger(object):
         #drop_2 = tf.keras.layers.Dropout(0.25)(dense_1)
         
         # This is the variant with the MSD language model
-        bd_lsdm_2 = tf.keras.layers.Bidirectional(
-            tf.keras.layers.GRU(RoPOSTagger._conf_lstm_size_2, return_sequences=True))(msd_enc)
+        # Lexicalize it by concatenating the MSD encoding output with the word embedding vector
+        xwe_ctx = tf.keras.layers.Input(shape=(RoPOSTagger._conf_max_seq_length,
+                                               2 * wemb_vector_size), dtype='float32', name="word-embedding-context-input")
+        msd_enc_xwe_ctx_conc = tf.keras.layers.Concatenate()(
+            [xwe_ctx, msd_enc])
+        bd_lstm_2 = tf.keras.layers.Bidirectional(
+            tf.keras.layers.GRU(RoPOSTagger._conf_lstm_size_2, return_sequences=True))(msd_enc_xwe_ctx_conc)
         dense_2 = tf.keras.layers.Dense(
-            RoPOSTagger._conf_map_hidden_size, activation='tanh')(bd_lsdm_2)
+            RoPOSTagger._conf_map_hidden_size, activation='tanh')(bd_lstm_2)
         drop_2 = tf.keras.layers.Dropout(0.25)(dense_2)
         
         dense_3 = tf.keras.layers.Dense(
@@ -544,7 +505,7 @@ class RoPOSTagger(object):
         msd_cls = tf.keras.layers.Activation(
             'softmax', name='classification')(dense_3)
 
-        return tf.keras.Model(inputs=[x, xc], outputs=[msd_enc, msd_cls])
+        return tf.keras.Model(inputs=[x, xc, xwe, xwe_ctx], outputs=[msd_enc, msd_cls])
 
     def _build_model_io_tensors(self, data_samples, runtime=False):
         # No of examples
@@ -556,6 +517,9 @@ class RoPOSTagger(object):
         n = -1
         x_tensor = None
         xc_tensor = np.empty((m, tx, self._M), dtype=np.int32)
+        xwe_tensor = np.empty((m, tx, self._lexicon.get_wemb_vector_length()), dtype=np.float32)
+        # Left and right word embeddings for the current word
+        xwe_cntx_tensor = np.empty((m, tx, 2 * self._lexicon.get_wemb_vector_length()), dtype=np.float32)
         # Ys for the Keras MSD encoding part
         y_tensor_enc = None
         # Ys for the Keras MSD classification part
@@ -571,13 +535,37 @@ class RoPOSTagger(object):
                     i, len(data_samples)), file=sys.stderr, flush=True)
             # end if
 
-
             for j in range(len(sample)):
                 parts = sample[j]
                 word = parts[0]
                 msd = parts[1]
                 feats = parts[2]
                 tlabel = self._tokenizer.tag_word(word)
+
+                if 'WORD_AT_BOS' in feats:
+                    before_word = '<s>'
+                elif j == 0:
+                    if i > 0:
+                        prev_sample = data_samples[i - 1]
+                        before_word = prev_sample[0][0]
+                    else:
+                        before_word = '<s>'
+                    # end if
+                # end if
+
+                if 'WORD_AT_EOS' in feats:
+                    after_word = '</s>'
+                else:
+                    if j < len(sample) - 1:
+                        next_parts = sample[j + 1]
+                        after_word = next_parts[0]
+                    elif i < len(data_samples) - 1:
+                        next_sample = data_samples[i + 1]
+                        after_word = next_sample[-1][0]
+                    else:
+                        after_word = '</s>'
+                    # end if
+                # end if
 
                 if not runtime:
                     y_in = self._msd.msd_input_vector(msd)
@@ -589,8 +577,7 @@ class RoPOSTagger(object):
 
                 label_features = self._tokenizer.get_label_features(tlabel)
                 uni_features = self._uniprops.get_unicode_features(word)
-                lexical_features = self._lexicon.get_word_features_for_pos_tagging(
-                    word, self._msd, feats, RoPOSTagger._romanian_pos_tagging_features)
+                lexical_features = self._get_word_features_for_pos_tagging(word, feats)
 
                 # This is the featurized version of a word in the sequence
                 x = np.concatenate(
@@ -608,15 +595,35 @@ class RoPOSTagger(object):
 
                 # Computing xc for word
                 xc = self._get_word_onehot_char_vector(word)
+                xwe = self._lexicon.get_word_embedding_vector(word)
+
+                # Computing prev/next word embeddings vector
+                if before_word == '<s>':
+                    p_xwe = self._lexicon.get_start_sentence_embedding_vector()
+                else:
+                    p_xwe = self._lexicon.get_word_embedding_vector(before_word)
+                # end if
+
+                if after_word == '</s>':
+                    n_xwe = self._lexicon.get_end_sentence_embedding_vector()
+                else:
+                    n_xwe = self._lexicon.get_word_embedding_vector(after_word)
+                # end if
+
+                xwe_cntx = np.concatenate((p_xwe, n_xwe))
 
                 x_tensor[i, j, :] = x
                 xc_tensor[i, j, :] = xc
+                xwe_tensor[i, j, :] = xwe
+                xwe_cntx_tensor[i, j, :] = xwe_cntx
                 y_tensor_enc[i, j, :] = y_in
                 y_tensor_cls[i, j, :] = y_out
+
+                before_word = word
             # end j
         # end i
 
-        return (x_tensor, xc_tensor, y_tensor_enc, y_tensor_cls)
+        return (x_tensor, xc_tensor, xwe_tensor, xwe_cntx_tensor, y_tensor_enc, y_tensor_cls)
 
     def _build_samples(self, sentences: list) -> list:
         all_samples = []
@@ -764,6 +771,82 @@ class RoPOSTagger(object):
 
         return padded_sentence
 
+    def _get_word_features_for_pos_tagging(self, word: str, ptfeatures: list) -> np.ndarray:
+        """Will get an np.array of lexical features for word,
+        including the possible MSDs."""
+
+        # 1. If word is the first in the sentence or not
+        features1 = np.zeros(
+            len(RoFeatures.romanian_pos_tagging_features), dtype=np.float32)
+
+        if ptfeatures:
+            for f in ptfeatures:
+                features1[RoFeatures.romanian_pos_tagging_features[f]] = 1.0
+            # end for
+        # end if
+
+        # 2. Casing features
+        features2 = np.zeros(len(Lex._case_patterns), dtype=np.float32)
+
+        for i in range(len(Lex._case_patterns)):
+            patt = Lex._case_patterns[i]
+
+            if patt.match(word):
+                features2[i] = 1.0
+            # end if
+        # end for
+
+        # 3. MSD features for word: the vector of possible MSDs
+        features3 = np.zeros(
+            self._msd.get_input_vector_size(), dtype=np.float32)
+
+        if self._lexicon.is_lex_word(word, exact_match=True):
+            for msd in self._lexicon.get_word_ambiguity_class(word, exact_match=True):
+                msd_v = self._msd.msd_input_vector(msd)
+                features3 += msd_v
+            # end for
+        elif self._lexicon.is_lex_word(word.lower(), exact_match=True):
+            for msd in self._lexicon.get_word_ambiguity_class(word.lower(), exact_match=True):
+                msd_v = self._msd.msd_input_vector(msd)
+                features3 += msd_v
+            # end for
+        elif word in MSD.punct_msd_inventory:
+            msd = MSD.punct_msd_inventory[word]
+            msd_v = self._msd.msd_input_vector(msd)
+            features3 += msd_v
+        elif MSD.punct_patt.match(word) != None:
+            msd_v = self._msd.msd_input_vector("Z")
+            features3 += msd_v
+        elif Lex._number_pattern.match(word):
+            msd_v = self._msd.msd_input_vector("Mc-s-d")
+            features3 += msd_v
+        elif Lex._bullet_number_pattern.match(word):
+            msd_v = self._msd.msd_input_vector("Mc-s-b")
+            features3 += msd_v
+        else:
+            # Use a better solution here.
+            # affix_msds = self._lexicon.get_unknown_msd_ambiguity_class(word)
+            affix_msds = self._romorphology.ambiguity_class(word)
+
+            if affix_msds:
+                print_error("for unknown word '{0}', affix MSDs are: {1}".format(
+                    word, ', '.join([x for x in affix_msds])), stack()[0][3])
+
+                for msd in affix_msds:
+                    msd_v = self._msd.msd_input_vector(msd)
+                    features3 += msd_v
+                # end for
+            else:
+                features3 = self._msd.get_x_input_vector()
+            # end if
+        # end if
+
+        # Maximum normalization
+        features3[features3 > 1.0] = 1.0
+
+        # 4. Concatenate 1, 2 and 3
+        return np.concatenate((features1, features2, features3))
+
     def read_tagged_file(self, file: str) -> list:
         """Will read in file and return a sequence of tokens from it
         each token with its assigned MSD."""
@@ -778,7 +861,7 @@ class RoPOSTagger(object):
                 parts = line.split()
 
                 if not line and current_sentence:
-                    self._compute_sentence_wide_features(current_sentence)
+                    self._rofeatures.compute_sentence_wide_features(current_sentence)
                     sentences.append(current_sentence)
                     current_sentence = []
                     continue
@@ -856,7 +939,7 @@ if __name__ == '__main__':
     # Use this module to train the sentence splitter.
     tk = RoTokenizer()
     ss = RoSentenceSplitter(tk)
-    ss.load_keras_model()
+    ss.load()
     tg = RoPOSTagger(ss)
 
     # When we have multiple files
