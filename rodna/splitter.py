@@ -8,7 +8,6 @@ from utils.CharUni import CharUni
 from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from config import SENT_SPLITTER_MODEL_FOLDER, UNICODE_PROPERTY_FILE
-from config import TBL_WORDFORM_FILE, WORD_EMBEDDINGS_FILE
 
 
 class PRFCallback(tf.keras.callbacks.Callback):
@@ -503,7 +502,7 @@ class RoSentenceSplitter(object):
 
 if __name__ == '__main__':
     # Use this module to train the sentence splitter.
-    tk = RoTokenizer(TBL_WORDFORM_FILE, WORD_EMBEDDINGS_FILE)
+    tk = RoTokenizer()
     ss = RoSentenceSplitter(tk)
 
     # Using the .tok files for now.

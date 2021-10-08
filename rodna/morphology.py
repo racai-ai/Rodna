@@ -14,7 +14,7 @@ class RoInflect(object):
     """This class implements a RNN to recognize the mapping
     from the word form to the possible MSDs of it."""
 
-    _conf_keep_msd_prob_threshold = 0.1
+    _conf_keep_msd_prob_threshold = 0.01
     _conf_dev_size = 0.1
     _conf_char_embed_size = 32
     _conf_lstm_size = 256
@@ -184,20 +184,27 @@ class RoInflect(object):
               file=sys.stderr, flush=True)
         self._load_char_map()
 
-    def ambiguity_class(self, word: str) -> list:
+    def ambiguity_class(self, word: str, min_msds: int = 3) -> list:
         """Returns a list of possible MSDs for the given word.
-        The list was learned from the training corpus and the lexicon."""
+        The list was learned from the training corpus and the lexicon.
+        If no MSD is found at `prob_thr`, this is automatically decreased by 1%
+        to try and find some MSDs. `prob_thr` is automatically decreased until at least
+        `min_msds` have been found."""
 
         (x_word, _) = self._build_io_vectors(word, [])
         x_word = np.reshape(x_word, (1, x_word.shape[0]))
         y_pred = self._model.predict(x=x_word)
-        # Indexes of the positions in y_pred that are > RoInflect._conf_keep_msd_prob_threshold
-        y_idx = np.nonzero(y_pred > RoInflect._conf_keep_msd_prob_threshold)[1]
-        word_amb_class = []
-
-        if not np.any(y_idx):
-            y_idx = np.nonzero(y_pred > RoInflect._conf_keep_msd_prob_threshold / 10.)[1]
+        # Default for the Precition/Recall computation of a '1'
+        prob_thr = 0.5
+        # Indexes of the positions in y_pred that are > prob_thr
+        y_idx = np.nonzero(y_pred > prob_thr)[1]
+        
+        while y_idx.shape[0] < min_msds and prob_thr > 0.01:
+            prob_thr -= 0.01
+            y_idx = np.nonzero(y_pred > prob_thr)[1]
         # end if
+
+        word_amb_class = []
 
         for i in y_idx:
             # Probability of MSD @ i is in y_pred[0, i]
