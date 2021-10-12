@@ -5,9 +5,11 @@ import tensorflow as tf
 from random import shuffle
 from inspect import stack
 
+from utils.errors import print_error
 from utils.Lex import Lex
 from config import TBL_WORDFORM_FILE, \
-    ROINFLECT_MODEL_FOLDER, ROINFLECT_CHARID_FILE
+    ROINFLECT_MODEL_FOLDER, ROINFLECT_CHARID_FILE, \
+    ROINFLECT_CACHE_FILE
 
 
 class RoInflect(object):
@@ -28,6 +30,8 @@ class RoInflect(object):
         self._dataset = {}
         self._charid = 2
         self._charmap = {'UNK': 0, ' ': 1}
+        self._cache = {}
+        self.load_cache()
 
     def _add_word_to_dataset(self, word: str, msds: list) -> None:
         if word not in self._dataset:
@@ -184,12 +188,38 @@ class RoInflect(object):
               file=sys.stderr, flush=True)
         self._load_char_map()
 
+    def save_cache(self) -> None:
+        with open(ROINFLECT_CACHE_FILE, mode='w', encoding='utf-8') as f:
+            for word in sorted(self._cache.keys()):
+                print('{0}\t{1}'.format(word, ', '.join([m for m in self._cache[word]])), file=f)
+            # end all words
+        # end with
+
+    def load_cache(self) -> None:
+        if os.path.exists(ROINFLECT_CACHE_FILE):
+            with open(ROINFLECT_CACHE_FILE, mode='r', encoding='utf-8') as f:
+                for line in f:
+                    line = line.rstrip()
+                    parts = line.split('\t')
+                    word = parts[0]
+                    msds = parts[1].split(', ')
+                    self._cache[word] = msds
+                # end for
+            # end with
+        # end if
+
     def ambiguity_class(self, word: str, min_msds: int = 3) -> list:
         """Returns a list of possible MSDs for the given word.
         The list was learned from the training corpus and the lexicon.
         If no MSD is found at `prob_thr`, this is automatically decreased by 1%
         to try and find some MSDs. `prob_thr` is automatically decreased until at least
         `min_msds` have been found."""
+
+        word_key = word + '@' + str(min_msds)
+
+        if word_key in self._cache:
+            return self._cache[word_key]
+        # end if
 
         (x_word, _) = self._build_io_vectors(word, [])
         x_word = np.reshape(x_word, (1, x_word.shape[0]))
@@ -210,6 +240,13 @@ class RoInflect(object):
             # Probability of MSD @ i is in y_pred[0, i]
             word_amb_class.append(self._msd.idx_to_msd(i))
         # end for
+
+        if word_amb_class:
+            print_error("unknown word '{0}' has ambiguity class [{1}]".format(
+                word, ', '.join([x for x in word_amb_class])), stack()[0][3])
+
+            self._cache[word_key] = word_amb_class
+        # end if
 
         return word_amb_class
 

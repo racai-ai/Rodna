@@ -1,11 +1,11 @@
 import sys
 import re
+import gzip
 from inspect import stack
 from typing import Pattern
-import gzip
 import numpy as np
 from .MSD import MSD
-from config import TBL_WORDFORM_FILE, WORD_EMBEDDINGS_FILE
+from config import TBL_WORDFORM_FILE, EXTERNAL_WORD_EMBEDDINGS_FILE
 from utils.errors import print_error
 
 
@@ -26,7 +26,7 @@ class Lex(object):
         "^[a-zA-ZșțăîâȘȚĂÎÂ]*[a-zșțăîâ-][A-ZȘȚĂÎÂ][a-zA-ZșțăîâȘȚĂÎÂ-]*$")
     upper_case_pattern = re.compile("^[A-ZȘȚĂÎÂ_-]+$")
     _number_pattern = re.compile("^[0-9]+$")
-    _bullet_number_pattern = re.compile("[0-9][./]")
+    _bullet_number_pattern = re.compile("^[0-9].*[0-9]?[./]")
     _case_patterns = [
         # Lower
         re.compile("^[a-zșțăîâ_-]+$"),
@@ -61,53 +61,55 @@ class Lex(object):
         self._abbrfirstword = set()
         # The set of 'a fi' word forms, lower-cased
         self._tobewordforms = set()
+        self._canwordforms = set()
         # For abbreviations with 2 tokens, e.g. 'etc.', 'nr.', etc.
         # They have effectively one token
         self._abbrfirstword1 = set()
         self.longestwordlen = 20
         self._prefixes = {}
         self._suffixes = {}
-        self._read_tbl_wordform(TBL_WORDFORM_FILE)
+        self._read_word_embeddings()
+        self._read_tbl_wordform()
         self._remove_abbr_first_words_that_are_lex_words()
-        self._read_word_embeddings(WORD_EMBEDDINGS_FILE)
         self._add_no_diac_words_to_embeddings()
 
-    def get_msd_object(self) -> MSD:
-        return self._msd
-
-    def _read_word_embeddings(self, embed_file: str) -> None:
-        counter = 0
-
-        if embed_file.endswith(".gz"):
-            f = gzip.open(embed_file, mode="rt", encoding="utf-8")
+    def _read_word_embeddings(self):
+        if EXTERNAL_WORD_EMBEDDINGS_FILE.endswith(".gz"):
+            f = gzip.open(EXTERNAL_WORD_EMBEDDINGS_FILE,
+                          mode="rt", encoding="utf-8")
         else:
-            f = open(embed_file, mode="r", encoding="utf-8")
+            f = open(EXTERNAL_WORD_EMBEDDINGS_FILE, mode="r", encoding="utf-8")
         # end if
 
         line = f.readline()
         parts = line.strip().split()
+        # Add the unknown word to the size
         self._wembdim = int(parts[1])
+        counter = 0
 
         for line in f:
             counter += 1
 
             if counter % 100000 == 0:
-                print(stack()[0][3] + ": read {0!s} lines from file {1}".format(counter, embed_file),
-                        file=sys.stderr, flush=True)
+                print(stack()[0][3] + ": read {0!s} lines from file {1}".format(counter, EXTERNAL_WORD_EMBEDDINGS_FILE),
+                      file=sys.stderr, flush=True)
 
             parts = line.strip().split()
             word = parts.pop(0)
 
             if self._wembdim != len(parts):
-                print(stack()[0][3] + ": incorrect dimension of {0} vs. {1} in file {2} at line {3}".format(len(parts), self._wembdim, embed_file, counter),
-                        file=sys.stderr, flush=True)
+                print(stack()[0][3] + ": incorrect dimension of {0} vs. {1} in file {2} at line {3}".format(len(parts),
+                                                                                                            self._wembdim, EXTERNAL_WORD_EMBEDDINGS_FILE, counter), file=sys.stderr, flush=True)
                 continue
             # end if
 
-            self._wdembed[word] = np.asarray(parts, dtype=np.float32)
+            self._wdembed[word] = [float(x) for x in parts]
         # end for
 
         f.close()
+
+    def get_msd_object(self) -> MSD:
+        return self._msd
 
     def _remove_abbr_first_words_that_are_lex_words(self) -> None:
         """We don't want to tag 'loc.' in e.g. 'au adus-o pe loc.' as an abbreviation."""
@@ -126,7 +128,7 @@ class Lex(object):
             nd_word = self._get_romanian_word_with_no_diacs(word)
 
             if word != nd_word and nd_word not in self._wdembed:
-                nd_embed[nd_word] = np.copy(self._wdembed[word])
+                nd_embed[nd_word] = self._wdembed[word]
             # end if
         # end for
 
@@ -149,18 +151,18 @@ class Lex(object):
 
         return word
 
-    def _read_tbl_wordform(self, tbl_file: str) -> None:
+    def _read_tbl_wordform(self) -> None:
         counter = 0
         word_lengths = {}
 
-        with open(tbl_file, mode='r', encoding='utf-8') as f:
+        with open(TBL_WORDFORM_FILE, mode='r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
                 counter += 1
 
                 if counter % 100000 == 0:
                     print(stack()[0][3] + ": read {0!s} lines from file {1!s}".format(
-                        counter, tbl_file), file=sys.stderr, flush=True)
+                        counter, TBL_WORDFORM_FILE), file=sys.stderr, flush=True)
 
                 if Lex._comm_pattern.search(line) != None:
                     continue
@@ -192,6 +194,10 @@ class Lex(object):
                     # It's a rarely used form for 'este'
                     if lemma.lower() == 'fi' and word.lower() != "îi":
                         self._tobewordforms.add(word.lower())
+                    # end if
+
+                    if lemma.lower() == 'putea':
+                        self._canwordforms.add(word.lower())
                     # end if
 
                     msd = parts[2]
@@ -290,6 +296,9 @@ class Lex(object):
 
     def is_to_be_word(self, word: str) -> bool:
         return word.lower() in self._tobewordforms
+
+    def is_can_word(self, word: str) -> bool:
+        return word.lower() in self._canwordforms
 
     def has_ambiguity_class(self, word: str, msd1: str, msd2: str) -> bool:
         word_msds = self.get_word_ambiguity_class(word)
@@ -498,7 +507,12 @@ class Lex(object):
             # end if
         # end if
 
-        return list(affix_msds)
+        word_amb_class = list(affix_msds)
+
+        print_error("unknown word '{0}' has ambiguity class [{1}]".format(
+            word, ', '.join([x for x in word_amb_class])), stack()[0][3])
+
+        return word_amb_class
 
     def _get_possible_msds_from_prefix(self, word: str, min_pref_len: int = 2) -> set:
         """This method minimizes the entropy of possible MSDs for a given prefix."""
@@ -574,6 +588,15 @@ class Lex(object):
 
         return possible_msds
 
+    def get_word_embeddings_size(self) -> int:
+        return self._wembdim
+
+    def get_word_embeddings_exact(self, word: str) -> list:
+        if word in self._wdembed:
+            return self._wdembed[word]
+        else:
+            return []
+
     def get_word_features(self, word: str) -> np.ndarray:
         """Will get an np.array of lexical features for word."""
 
@@ -623,39 +646,10 @@ class Lex(object):
         features3 = np.zeros(self._wembdim, dtype=np.float32)
 
         if word in self._wdembed:
-            features3 = self._wdembed[word]
+            features3 = np.array(self._wdembed[word], dtype=np.float32)
         elif word.lower() in self._wdembed:
-            features3 = self._wdembed[word.lower()]
+            features3 = np.array(self._wdembed[word.lower()], dtype=np.float32)
         # end if
 
         # 4. Concatenate 1, 1.1, 2 and 3
         return np.concatenate((features1, features11, features2, features3))
-
-    def get_word_embedding_vector(self, word: str) -> np.ndarray:
-        features = np.asarray([0.1] * self._wembdim, dtype=np.float32)
-
-        if word in self._wdembed:
-            features = self._wdembed[word]
-        elif word.lower() in self._wdembed:
-            features = self._wdembed[word.lower()]
-        else:
-            print_error("unknown word '{0}'".format(word), stack()[0][3])
-        # end if
-
-        return features
-
-    def get_start_sentence_embedding_vector(self) -> np.ndarray:
-        return np.asarray([1.0] * self._wembdim, dtype=np.float32)
-
-    def get_end_sentence_embedding_vector(self) -> np.ndarray:
-        features = np.asarray([2.0] * self._wembdim, dtype=np.float32)
-        eos_word = "</s>"
-
-        if eos_word in self._wdembed:
-            features = self._wdembed[eos_word]
-        # end if
-
-        return features
-
-    def get_wemb_vector_length(self) -> int:
-        return self._wembdim

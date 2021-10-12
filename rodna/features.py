@@ -1,3 +1,4 @@
+import numpy as np
 from utils.Lex import Lex
 
 
@@ -36,12 +37,24 @@ class RoFeatures(object):
         self._set_bos_and_eos(sentence)
         self._set_to_be_aux(sentence)
         self._set_adjective(sentence)
+        self._set_adverb(sentence)
+        self._set_verb_inf(sentence)
 
-    def _set_bos_and_eos(self, sentence: list) -> None:
+    def get_context_feature_vector(self, computed_features: list) -> np.ndarray:
+        features = np.zeros(
+            len(RoFeatures.romanian_pos_tagging_features), dtype=np.float32)
+
+        for f in computed_features:
+            features[RoFeatures.romanian_pos_tagging_features[f]] = 1.0
+        # end for
+
+        return features
+
+    def _set_bos_and_eos(self, sentence: list):
         sentence[0] = (sentence[0][0], sentence[0][1], ["WORD_AT_BOS"])
         sentence[-1] = (sentence[-1][0], sentence[-1][1], ["WORD_AT_EOS"])
 
-    def _set_adjective(self, sentence: list) -> None:
+    def _set_adjective(self, sentence: list):
         """Patterns:
         - cel/cea/cei/cele/celui/celei/celor mai ADJECTIV"""
 
@@ -59,12 +72,64 @@ class RoFeatures(object):
             # end if
         # end for
 
-    def _set_verb_inf(self, sentence: list) -> None:
+    def _set_adverb(self, sentence: list):
+        """Patterns:
+        - ADVERB de Vmp--sm
+        - VERB ADVERB
+        - A FI + ADVERB + ADJECTIV"""
+
+        for i in range(len(sentence)):
+            word = sentence[i][0]
+
+            if i < len(sentence) - 2:
+                next_word = sentence[i + 1][0]
+                next_next_word = sentence[i + 2][0]
+
+                if next_word.lower() == 'de' and self._lexicon.can_be_msd(next_next_word, "Vmp--sm"):
+                    sentence[i][2].append("SHOULD_BE_ADVERB")
+                # end if
+
+                if self._lexicon.is_to_be_word(word) and self._lexicon.can_be_msd(next_word, "Rgp") and \
+                    self._lexicon.can_be_msd(next_next_word, "Afp"):
+                    sentence[i + 1][2].append("SHOULD_BE_ADVERB")
+                # end if
+            # end if
+
+            if i > 1:
+                prev_word = sentence[i - 1][0]
+
+                if self._lexicon.can_be_msd(prev_word, "Vm") and self._lexicon.can_be_msd(word, "Rgp"):
+                    sentence[i][2].append("SHOULD_BE_ADVERB")
+                # end if
+        # end for
+
+    def _set_verb_inf(self, sentence: list):
         """Patterns:
         - a ... <VINF>
         - putea <VINF>"""
 
-    def _set_to_be_aux(self, sentence: list) -> None:
+        for i in range(len(sentence)):
+            word = sentence[i][0]
+
+            if i > 2 and self._lexicon.can_be_msd(word, "Vmnp"):
+                prev_word = sentence[i - 1][0]
+                prev_prev_word = sentence[i - 2][0]
+
+                if prev_word.lower() == 'a' or prev_prev_word.lower() == 'a':
+                    sentence[i][2].append("SHOULD_BE_VINF")
+                # end if
+            # end if
+
+            if i < len(sentence) - 1 and self._lexicon.is_can_word(word):
+                next_word = sentence[i + 1][0]
+
+                if self._lexicon.can_be_msd(next_word, "Vmnp"):
+                    sentence[i + 1][2].append("SHOULD_BE_VINF")
+                # end if
+            # end if
+        # end for
+
+    def _set_to_be_aux(self, sentence: list):
         """Patterns:
         - a fi ... ADJECTIV/PARTICIPIU
         - a fi ... NOUN (fara prepozitie)"""
