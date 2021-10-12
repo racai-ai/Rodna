@@ -222,14 +222,14 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 50
+    _conf_maxseqlen = 100
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
     _conf_test_percent = 0.0
     # RNN state size
-    _conf_rnn_size_1 = 256
-    _conf_rnn_size_2 = 256
+    _conf_rnn_size_1 = 512
+    _conf_rnn_size_2 = 512
     _conf_epochs = 15
 
     def __init__(self, splitter: RoSentenceSplitter):
