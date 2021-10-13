@@ -222,7 +222,7 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 100
+    _conf_maxseqlen = 200
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -230,7 +230,7 @@ class RoPOSTagger(object):
     # RNN state size
     _conf_rnn_size_1 = 512
     _conf_rnn_size_2 = 512
-    _conf_epochs = 15
+    _conf_epochs = 10
 
     def __init__(self, splitter: RoSentenceSplitter):
         """Takes a trained instance of the RoSentenceSplitter object."""
@@ -527,7 +527,7 @@ class RoPOSTagger(object):
         # Fit model
         acc_callback = AccCallback(
             self, gold_sentences, RoPOSTagger._conf_epochs)
-        self._model.fit(x=[x_lex_train, x_emb_train, x_ctx_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=128,
+        self._model.fit(x=[x_lex_train, x_emb_train, x_ctx_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=32,
                         shuffle=True, validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev], y_dev), callbacks=[acc_callback])
 
     def _build_keras_model(self,
@@ -555,17 +555,17 @@ class RoPOSTagger(object):
         l_lex_emb_conc = tf.keras.layers.Concatenate()([x_lex, l_emb])
         l_bd_gru_1 = tf.keras.layers.Bidirectional(
             tf.keras.layers.GRU(RoPOSTagger._conf_rnn_size_1, return_sequences=True))(l_lex_emb_conc)
-        l_drop_1 = tf.keras.layers.Dropout(0.1)(l_bd_gru_1)
         o_msd_enc = tf.keras.layers.Dense(
-            msd_encoding_vector_size, activation='sigmoid', name='encoding')(l_drop_1)
+            msd_encoding_vector_size, activation='sigmoid', name='encoding')(l_bd_gru_1)
         # End MSD encoding
 
         # Language model
         l_bd_gru_2 = tf.keras.layers.Bidirectional(tf.keras.layers.GRU(
             RoPOSTagger._conf_rnn_size_2, return_sequences=True))(o_msd_enc)
         l_bd_gru2_ctx_conc = tf.keras.layers.Concatenate()([l_bd_gru_2, x_ctx])
-        l_drop_2 = tf.keras.layers.Dropout(0.1)(l_bd_gru2_ctx_conc)
-        l_dense_1 = tf.keras.layers.Dense(output_vector_size)(l_drop_2)
+        l_attn = tf.keras.layers.Attention()(
+            [l_bd_gru2_ctx_conc, l_bd_gru2_ctx_conc])
+        l_dense_1 = tf.keras.layers.Dense(output_vector_size)(l_attn)
         o_msd_cls = tf.keras.layers.Activation(
             'softmax', name='classification')(l_dense_1)
         # End language model
