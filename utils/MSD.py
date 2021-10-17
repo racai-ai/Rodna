@@ -159,7 +159,7 @@ class MSD(object):
         if msd in self._msdinventory:
             return self._msdinventory[msd]
         else:
-            return -1
+            return self._xindex
         # end if
 
     def is_valid_msd(self, msd: str) -> bool:

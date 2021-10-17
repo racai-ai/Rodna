@@ -142,7 +142,7 @@ def conllu_corpus_to_tab_file(corpus: list, output_file: str) -> None:
     punct_rx = re.compile('^\\W+$')
 
     with open(output_file, mode='w', encoding='utf-8') as f:
-        for (comm, sent) in corpus:
+        for (_, sent) in corpus:
             for parts in sent:
                 word = parts[1]
                 lemma = parts[2]
