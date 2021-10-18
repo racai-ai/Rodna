@@ -1,0 +1,3542 @@
+'90@3	Mc-p-d
+-36,3@3	Afpfsry, Mc-p-d, Np
+-6@3	Mc-p-d, Np, Rgp
+-Ca@3	Np, Yn
+-Făgăraș@3	Np
+-K@3	Np, Yn
+-Mare@3	Np
+-Vcdă@3	Ncfsrn, Vmis3s----y
+-abia@3	Np, Rgp
+-acum@3	Rgp
+-afară@3	Rgp
+-afunde@3	Afpfp-n, Afpfson
+-ale@3	Ncfpry, Rgp, Yp-so
+-alunecoasă@3	Afpfsrn
+-alături@3	Rgp
+-aminte@3	Ncfsrn, Ncms-n, Rgp
+-amăruntul@3	Ncm--n, Ncmsry, Ncmsryy, Ncmsvn
+-apoi@3	Ncms-n, Rgp, Vmip2s
+-apune@3	Ncfsrn, Vmip3s, Vmm-2s
+-apărându@3	Vmg-------y
+-apărări@3	Ncfp-n
+-atunci@3	Np, Rgp
+-automate@3	Afpfp-n, Ncfp-n, Ncfsrn
+-avea@3	Afp, Np, Vmii3s----y
+-bucătar@3	Ncfsrny, Ncms-n, Ncms-ny
+-credință@3	Afpfsrn, Ncfsrn
+-intrări@3	Ncfp-n, Rgp
+-mai@3	Ncms-ny
+-ncleștate@3	Afpfp-ny, Afpfsony, Vmp--pf
+-ndărătul@3	Afpmsryy, Mmmsr-yy
+-nlăuntrul@3	Ncmsryy
+-nnoptat@3	Afpms-ny, Vmp--sm, Vmp--sm---y
+-npicioarele@3	Ncfpry, Ncfpryy
+-nserase@3	Vmil3s----y
+-ntors@3	Vmip1s----y, Vmip3p----y, Vmp--sm, Vmp--sm---y
+-născuți@3	Afpmp-ny, Vmp--pm
+-oceane@3	Ncfp-n
+-seară@3	Ncfsrn
+-simț@3	Ncms-n, Np
+0,0005@3	Mc-s-d
+0,00@3	Mc-s-d
+0,01@3	Mc-s-d
+0,111@3	Mc-s-d
+0,243@3	Mc-s-d
+0,278@3	Mc-s-d
+0,280@3	Mc-s-d
+0,2@3	Mc-s-d
+0,54@3	Mc-s-d
+0,5@3	Mc-s-d
+0,63@3	Mc-s-d
+0-255@3	Mc-p-d
+0256-246490@3	Mc-s-d
+0256-490281@3	Mc-p-d, Mc-s-d
+0256-494030@3	Mc-p-d, Mc-s-d
+0721-188042@3	Mc-p-d, Mc-s-d
+0745-586708@3	Mc-s-d, Np
+1%@3	Mc-p-d, Yn
+1,3@3	Mc-s-d
+1,5%@3	Mc-p-d, Np
+1,7@3	Mc-s-d
+1,85@3	Mc-s-d
+1-2@3	Mc-p-d
+1-3@3	Mc-p-d
+1-4@3	Mc-p-d
+10%@3	Mc-p-d
+10,32@3	Mc-s-d
+10,8%@3	Mc-p-d
+10-20@3	Mc-p-d
+100%@3	Mc-p-d, Np
+100-200@3	Mc-p-d
+101,3@3	Mc-s-d
+104UFC@3	Yn
+10–15@3	Mc-p-d
+11,9%@3	Mc-p-d
+11-18@3	Mc-p-d
+12,7@3	Mc-s-d
+12-18@3	Mc-p-d
+13%@3	Mc-p-d
+13C@3	Ncfsrn, Ncms-n, Np
+14-21@3	Mc-p-d
+1485-1547@3	Mc-p-d
+14C@3	Ncfsrn, Ncms-n, Np
+14–17@3	Mc-p-d
+15-20@3	Mc-p-d
+16%@3	Mc-p-d
+16,20@3	Mc-s-d
+16-18@3	Mc-p-d
+161,6@3	Mc-s-d
+17-19@3	Mc-p-d
+17-20@3	Mc-p-d
+17-beta@3	Mc-p-d, Rgp
+171,333@3	Mc-s-d
+1758-1760@3	Mc-p-d
+18,47@3	Mc-s-d
+18093,40@3	Mc-p-d, Mc-s-d
+1862–1863@3	Mc-p-d
+1878–1879@3	Mc-p-d
+18a@3	Mofs-l, Ncmsry, Np
+19,30@3	Mc-s-d
+19,4@3	Mc-s-d
+1908–1909@3	Mc-p-d, Mc-s-d
+1918–1920@3	Mc-p-d, Mc-s-d
+1922–1923@3	Mc-p-d
+1922–1925@3	Mc-p-d
+1926–1932@3	Mc-p-d, Mc-s-d
+1932–1947@3	Mc-p-d, Mc-s-d
+1948–1977@3	Mc-p-d
+1955–1961@3	Mc-p-d, Mc-s-d
+1963–1983@3	Mc-p-d, Mc-s-d
+1973–1977@3	Mc-p-d, Mc-s-d
+1983–1997@3	Mc-p-d, Mc-s-d
+1989-1995@3	Mc-p-d
+1996-1997@3	Mc-p-d
+1996-2004@3	Mc-p-d
+1997-2000@3	Mc-p-d
+1997–1999@3	Mc-p-d, Mc-s-d
+1A1@3	Np
+1A2@3	Np
+1A3@3	Np
+1A9@3	Np
+1B1@3	Np
+1a@3	Ncfsrn, Np, Rgp
+1–2@3	Mc-p-d, Mc-s-d
+2,03@3	Mc-s-d
+2,30@3	Mc-s-d
+2,700@3	Mc-s-d
+2-3@3	Mc-p-d
+2-5@3	Mc-p-d
+2-8ºC@3	Vmip3s, Yn
+20%@3	Mc-p-d
+20,50@3	Mc-s-d
+20-2@3	Mc-p-d
+2004-2005@3	Mc-p-d
+2004-2006@3	Afpms-n, Mc-p-d
+2005-2008@3	Mc-p-d
+2007-2008@3	Mc-p-d
+21,7%@3	Mc-p-d
+21-23@3	Mc-p-d
+22,95@3	Mc-s-d
+23–25@3	Mc-p-d
+24,00@3	Mc-s-d
+24,5@3	Mc-s-d
+25%@3	Mc-p-d
+25-97@3	Mc-p-d
+25ºC@3	Afpfsrn, Vmip3s, Yn
+26%@3	Mc-p-d
+26S@3	Nc, Ncms-n, Np
+26–27@3	Mc-p-d
+27%@3	Mc-p-d
+28,63@3	Mc-s-d
+2B7@3	Np
+2C9@3	Np
+2K@3	Afpmsoy, Np
+2pi@3	Np, Rgp
+2°C@3	Vmip3s, Vmm-2s----y, Vmnp------y
+2–3@3	Mc-p-d, Mc-s-d
+3%@3	Mc-p-d, Vmip1s
+3,4%@3	Mc-p-d, Np
+3,635@3	Mc-s-d
+3,706@3	Mc-s-d
+3-0@3	Mc-p-d
+3-17-A3@3	Mc-p-d, Vmg, Yn
+3-5@3	Mc-p-d
+30%@3	Mc-p-d
+30-65@3	Mc-p-d
+31–33@3	Mc-p-d
+35%@3	Mc-p-d
+37-42@3	Mc-p-d
+38-14@3	Mc-p-d
+3901-3906@3	Mc-p-d
+3907-3911@3	Mc-p-d
+39°C@3	Nc, Vmip3s, Yn
+3Na@3	Np, Vmii3s
+3a@3	Np, Rgp
+4,466@3	Mc-s-d
+4,5%@3	Mc-p-d
+4,5@3	Mc-s-d
+4,8@3	Mc-s-d
+4,9@3	Mc-s-d
+4-12@3	Mc-p-d
+4-1@3	Mc-p-d
+4-7@3	Mc-p-d
+4-hidroxi-duloxetinei@3	Ncfpry, Ncfsoy
+40%@3	Mc-p-d
+40-60@3	Mc-p-d
+430,44@3	Mc-s-d
+45%@3	Mc-p-d
+45-50@3	Mc-p-d
+47%@3	Mc-p-d
+48-72@3	Mc-p-d
+4G@3	Np
+5%@3	Mc-p-d, Mc-s-d
+5,443@3	Mc-s-d
+5,73@3	Mc-s-d
+5,7@3	Mc-s-d
+5,8@3	Mc-s-d
+5-10@3	Mc-p-d
+5-161@3	Mc-p-d, Vmip1s, Vmip1s----y, Vmis3s----y
+5-20@3	Mc-p-d
+5-4@3	Mc-p-d
+5-6@3	Mc-p-d
+5-7@3	Mc-p-d
+5-Fluorouracil@3	Ncms-n, Rgp
+5-hidroxitriptamină@3	Ncfsrn
+50%@3	Mc-p-d
+50-63@3	Mc-p-d
+58%@3	Mc-p-d
+5a@3	Ncfsrn, Ncms-n, Np, Rgp
+6,29@3	Mc-s-d
+6,48@3	Mc-s-d
+6-metoxi-duloxetinei@3	Np
+60%@3	Mc-p-d
+61%@3	Mc-p-d
+63,7@3	Mc-s-d
+64K@3	Ncfsrn, Np, Vmm-2p
+65%@3	Mc-p-d
+68%@3	Mc-p-d
+69,87@3	Mc-s-d
+7,15@3	Mc-s-d
+7,28@3	Mc-s-d
+7,45@3	Mc-s-d
+7,5%@3	Mc-p-d, Np
+7,65@3	Mc-s-d
+7,909@3	Mc-s-d
+7,9@3	Mc-s-d
+70%@3	Mc-p-d
+70,87@3	Mc-s-d
+75%@3	Mc-p-d
+75,8%@3	Mc-p-d
+79,34@3	Mc-s-d
+8,40@3	Mc-s-d
+8-13@3	Mc-p-d
+8-14@3	Mc-p-d
+8-16@3	Mc-p-d
+80%@3	Mc-p-d
+80–120@3	Mc-p-d
+89%@3	Mc-p-d
+8:30@3	Mc-p-d, Ncms-n
+8°C@3	Nc, Vmip3s, Yn
+9,1%@3	Mc-p-d, Np
+9,25@3	Mc-s-d
+9,3%@3	Mc-p-d
+9,8@3	Mc-s-d
+90°@3	Mc-s-d, Ncms-n
+92,1%@3	Mc-p-d
+92,3@3	Mc-s-d
+95%@3	Mc-p-d
+97,6%@3	Mc-p-d
+99-06@3	Mc-p-d
+A.@3	Yn
+A.B.C.@3	Yn
+A.N.V.@3	Yn
+A.R.@3	Ncfsrn, Yn
+A.U.@3	Yn
+A.V.P.@3	Yn
+A.f.@3	Yn
+A.r.@3	Vmip3s, Yn
+A2-s1@3	Np
+A3@3	Np
+A4@3	Np
+A559@3	Np
+A985@3	Np
+AB4@3	Np, Yn
+ACCOLA@3	Ncfsry, Np, Vmm-2s
+ADI@3	Np, Yn
+ADN-HBV@3	Mo-s-r, Np, Yn
+AEG@3	Np, Yn
+AELS@3	Np, Yn
+AG36@3	Afpfsrn, Np
+AG51@3	Afpfsrn, Np
+AG52@3	Afpfsrn, Np
+AIEA@3	Ncfsry, Np, Yn
+AIS@3	Np, Yn
+AMF@3	Np, Yn
+AMPP@3	Afpfsrn, Np
+APC@3	Np, Yn
+APS@3	Np, Yn
+APSE@3	Np
+APTT@3	Np
+ARP@3	Np, Yn
+ASC@3	Ncms-n, Np, Yn
+ATM@3	Np, Yn
+ATP-aza@3	Ncfsry, Np, Ynfsoy
+ATP-azei@3	Np, Ynfsoy
+ATP@3	Np, Yn
+AVAB@3	Np, Yn
+AVAGLIM@3	Ncfp-n, Ncmpry, Np
+AVAMYS@3	Ncfp-n, Ncfson, Np
+AVOH@3	Ncms-n, Np
+AVONEX@3	Np, Vmip1s
+AZOMYR@3	Mc-p-l, Ncmsoy, Np
+Aamir@3	Np
+Abașidze@3	Afpfsrn, Ncfsrn, Np
+Abbas@3	Np
+Abdel@3	Ncms-n, Np
+Abdullah@3	Np
+Abel@3	Ncms-n, Np
+Abhazia@3	Np
+Abidjan@3	Np
+Abigail@3	Ncms-n, Np
+Abilify@3	Np
+Abrud@3	Afpms-n, Np
+Abseamed@3	Ncms-n, Np
+Absolutio@3	Ncfsvy, Np
+Abu@3	Ncfsrn, Np
+AcM@3	Np, Yn
+Achile@3	Np, Rgp
+Acinetobacter@3	Ncms-n, Np
+Aclasta@3	Ncfsry, Np
+Actelion@3	Np
+Acterian@3	Afpms-n, Np
+Actraphane@3	Ncfp-n, Np
+Actrapid@3	Ncms-n, Np
+Ad@3	Np, Yn
+Adalimumab@3	Np
+Adalimumabul@3	Ncmsry, Np, Npmsry
+Adelinei@3	Ncms-n, Np, Npfsoy
+Adercu@3	Np
+Adi@3	Ncfp-n, Np, Rgp
+Adjaria@3	Np
+Adriatice@3	Afpfp-n, Afpfson, Afpfsrn
+Aeroflot@3	Np
+Affleck@3	Ncms-n, Np
+Afganistan@3	Np
+AgHBE@3	Ncfsrn, Np, Vmip3s
+Agassi@3	Np
+Aglae@3	Ncfp-n, Np
+Aglaia@3	Np
+Aglaiei@3	Np, Npfsoy
+Agopian@3	Afpms-n, Np
+Agârbiceanu@3	Np
+Ahmadinejad@3	Np
+Ahmed@3	Ncms-n, Np
+Air@3	Ncfp-n, Np
+Ajax@3	Ncms-n, Np
+Akhenaten@3	Np
+Al-Anbar@3	Np
+Al-Jazeera@3	Ncfsry, Np
+Al-Qaida@3	Np
+Al-Rantisi@3	Ncmpoy, Np, Vmm-2p
+Al.I.Cuza@3	Ncfsry, Np
+Albani@3	Afpmp-n, Np
+Alberts@3	Np
+Albion@3	Np
+Albu@3	Np, Vmis3s
+Albulescu@3	Np
+Aldea@3	Np
+Alecsandri@3	Np
+Alexandre@3	Ncfsrn, Np
+Alexe@3	Afpfson, Ncfp-n, Np
+Alexil@3	Np
+Alexiu@3	Np
+Alfonso@3	Np
+Alfred@3	Np
+Algeria@3	Np
+Ali@3	Ncfp-n, Np, Rgp
+Aliskiren@3	Np
+Alix@3	Ncms-n, Np
+Almeida@3	Ncfsry, Np
+Alsacia@3	Np
+Amada@3	Ncfsry, Np
+Amilcar@3	Afpms-n, Np, Rgp
+Amis@3	Np
+Ammanford@3	Ncms-n, Np
+Ampelum@3	Np
+Ampoi@3	Ncmp-n, Np, Vmip2s
+Ampoiului@3	Ncmsoy, Np
+Amprenavirul@3	Ncmsry, Np
+Anania@3	Np, Vmii3s
+Anastasescu@3	Np
+Anatol@3	Np
+Anderson@3	Np
+Andijan@3	Afpms-n, Np
+Andorra@3	Np
+Andrassy@3	Np
+Andre@3	Ncfp-n, Np, Npfson
+Andrew@3	Np
+Andriescu@3	Np
+Andronico@3	Np
+Andrus@3	Np
+André@3	Np
+Angeles@3	Ncms-n, Np
+Anghel@3	Afpms-n, Np
+Angiotensina@3	Ncfsry
+Aniston@3	Ncms-n, Np
+Anna@3	Np
+Annan@3	Np
+Anne@3	Ncfp-n, Np, Npfson
+Annie@3	Ncfsrn, Np, Npfsrn
+Anonymous@3	Np
+Ansar@3	Afpms-n, Ncms-n, Np
+Anselm@3	Ncfp-n, Np
+Antares@3	Np
+Anthony@3	Np
+Anthropos@3	Np
+Antigona@3	Np
+Antipa@3	Np
+Antohi@3	Ncfp-n, Np
+Appenine@3	Ncfp-n, Np
+Aquatim@3	Np
+Arabesque@3	Np
+Arcachon@3	Np
+Archirie@3	Ncfsrn, Np
+Arcidava@3	Ncfsry, Np
+Arcudei@3	Np, Npfsoy
+Ardiles@3	Np
+Arghezi@3	Ncmp-n, Np
+Arhitecture@3	Ncfp-n, Ncfsrn, Np
+Ariel@3	Np
+Aristarchi@3	Ncmp-n, Np
+Aristide@3	Np
+Armagh@3	Np, Rgp
+Armstrong@3	Np
+Arsene@3	Afpfson, Np
+Arthur@3	Ncfp-n, Ncms-n, Np
+Articolul-program@3	Np
+Arșavir@3	Np
+AsIII@3	Ncms-n, Np
+AsV@3	Mo-s-r, Np, Yn
+Asiria@3	Np
+Aslan@3	Np
+Atal@3	Np
+Athanasie@3	Ncfsrn, Np
+Athelstan@3	Np
+Atila@3	Ncfsry, Np
+Atlantida@3	Np
+Atletico@3	Np
+Aulida@3	Ncfsry, Np
+Aurelia@3	Np
+Austro-@3	Afp, Np
+Austro-Ungaria@3	Np
+Austro-Ungariei@3	Ncfsoy, Np
+Auvergne@3	Ncf--n, Np
+Avamys@3	Ncms-n, Np
+Avandamet@3	Ncms-n, Np
+Avandia@3	Np
+Avastin@3	Ncms-n, Np
+Aviv@3	Np, Vmip1s, Vmip3p
+Avon@3	Np
+Avonex@3	Np
+Awards@3	Np
+Axios@3	Ncms-n, Np
+Aziz@3	Np
+Azuga@3	Ncfsry, Np
+A­@3	Np, Yn
+B.J.T.@3	Ncfsrn, Yn
+B3@3	Np, Yn
+BBC@3	Ncms-n, Np, Yn
+BCPL@3	Afpfp-n, Np, Yn
+BEGA@3	Nc, Np, Yn
+BGN@3	Ncms-n, Np, Yn
+BHK-21@3	Np, Vmis3s, Vmp--sm
+BOEHRINGER@3	Ncms-n, Np, Vmip1s
+BRAILLE@3	Ncfsrn, Ncmsry, Np
+Babeș-Bolyai@3	Np
+Babeș@3	Np
+Babilon@3	Np
+Baby@3	Np
+Bacalbașa@3	Np
+Bachelet@3	Np
+Bachmann@3	Np
+Baciu@3	Np
+Bacovia@3	Np
+Bagdad@3	Np
+Bahlui@3	Np
+Baidoa@3	Np
+Balcanii@3	Ncfp-n, Ncmpry, Np
+Balkenende@3	Ncfp-n, Ncfson, Np
+Balmer@3	Ncms-n, Np
+Baltimore@3	Ncfsrn, Ncmpoy, Np
+Banach@3	Np
+Banciu@3	Np
+Bandur@3	Np
+Bangladesh@3	Np
+Barac@3	Ncms-n, Np
+Barber@3	Ncms-n, Np
+Barițiu@3	Np
+Barnardos@3	Np
+Barnswick@3	Ncms-n, Np
+Barroso@3	Np
+Barry@3	Np
+Barrès@3	Np
+Bart@3	Np
+Bartolomeu@3	Np
+Basal@3	Afpms-n, Np
+Basarab@3	Np
+Basarabe@3	Ncfp-n, Np
+Bassai@3	Np
+Bastide@3	Np, Vmip3s
+Bath@3	Ncms-n, Np
+Battenberg@3	Np
+Baumax@3	Np
+BaxJect@3	Np
+Bayfield@3	Np
+Beauty@3	Np
+Bedfordshire@3	Ncfp-n, Np
+Beecham@3	Np
+Beethoven@3	Np
+Bega@3	Np
+Behari@3	Afpmp-n, Ncmp-n, Np
+Beiuș@3	Np
+Beldiceanu@3	Np
+Belgrad@3	Np
+Beligan@3	Np
+Beltane@3	Np, Npfson
+Belu@3	Np
+Benazir@3	Np
+BeneFIX@3	Np
+Benedict@3	Np
+Bennet@3	Np
+Berlaymont@3	Np
+Berlusconi@3	Ncmp-n, Np
+Berrio@3	Afpfsvy, Np
+Bessie@3	Np
+Betaferon@3	Np
+Betleem@3	Np
+Bett@3	Ncms-n, Np
+Betti@3	Np
+Betty@3	Np
+Bevin@3	Np
+Bezidu@3	Ncmsry, Np
+Bhutto@3	Np
+Bibescu@3	Np
+Bibița@3	Np
+Bihoi@3	Ncmp-n, Np, Vmip2s
+Billa@3	Ncfsry, Np
+Billingham@3	Np
+Binoche@3	Afpmpry, Ncfsrn, Np
+Bio-compatibilitatea@3	Ncfsry, Np
+Biograstim@3	Np
+Bissell@3	Np
+Bjarne@3	Ncmsry, Np
+Blackpool@3	Np
+Blanche@3	Ncms-n, Np, Rgp
+Bloomington@3	Np
+Blumenthal@3	Np
+Bo@3	Np, Yn
+Bogdan-Duică@3	Np, Npms-n
+Bohr@3	Np
+Boldescu@3	Np
+Bologna@3	Np
+Bolton@3	Np
+Bolyai@3	Np
+Book@3	Np
+Booth@3	Np
+Borinage@3	Ncfp-n, Np, Npfson
+Borst-Eilers@3	Np
+Bosniei@3	Np, Npfsoy
+Botezătorul@3	Afpmsry, Ncmsry, Np
+Boulting@3	Ncms-n, Np
+Bovary@3	Np
+Bowbazaar@3	Np
+Bowyer@3	Np
+Boyer@3	Ncms-n, Np
+Bpzoncea@3	Np, Vmii3s
+Bradbury@3	Np
+Bradley@3	Np
+Braille@3	Np
+Brancovici@3	Ncfp-n, Np
+Branea@3	Ncfsry, Np
+Breazu@3	Np, Vmip3-----y
+Breban@3	Np
+Breeze@3	Np, Vmip3s
+Breisgau@3	Np
+Brentford@3	Np
+Brian@3	Ncms-n, Np
+Bridget@3	Np
+Bridion@3	Np
+Briggs@3	Np
+Brisbane@3	Afpfson, Np, Npfson
+Britanie@3	Np
+Brithish@3	Np
+Britney@3	Np
+Bromwich@3	Np
+Brooke@3	Np
+Brown@3	Np
+Broz@3	Np
+Bruegel@3	Np
+Brâncovanul@3	Afpmp-n, Ncmsry, Npmsry
+Brătianu@3	Np
+Bucium-Șasa@3	Np
+Bucov@3	Afpms-n, Np
+Budai-Deleanu@3	Np
+Budgen@3	Np
+Budworth@3	Np
+Buget-Venituri@3	Np
+Bulgăruș@3	Ncfp-n, Np
+Bunce@3	Afpf--n, Np
+Burnley@3	Np
+Bush@3	Np
+Busuttil@3	Np
+Butoiescu@3	Np
+Butragueno@3	Np
+Butucani@3	Afpmp-n, Np
+Bușteniului@3	Ncmsoy, Np
+Bârnova@3	Np
+Bârzava@3	Ncfsry, Np
+Bâstroe@3	Np
+Békéscsaba@3	Ncfsry, Np
+Bădescu@3	Afpmsry, Np
+Băeții@3	Ncfpry, Np
+Băjenaru@3	Np
+Bălcescu@3	Np
+Bălteanu@3	Ncfsrn, Np
+Bălăceanul@3	Npmsry
+Băncilă@3	Np, Npms-n
+Bănuțiu@3	Afpms-n, Np
+C.A.@3	Yn
+C.C.G.@3	Yn
+C.C.I.A.T.@3	Ncfsrn, Yn
+C.J.T.@3	Yn
+C.L.R.@3	Yn
+C.L.T.@3	Yn
+C.N.@3	Yn
+C.N.A.S.@3	Yn
+C.P.P.P.@3	Yn
+C.S.D.@3	Yn
+C38@3	Np, Yn
+CBP@3	Ncms-n, Np, Yn
+CBR@3	Np, Yn
+CBS@3	Np, Yn
+CD@3	Yn
+CDI@3	Np, Yn
+CDU@3	Ncms-n, Np, Yn
+CE2@3	Np, Vmip1s, Yn
+CE3@3	Np, Yn
+CECIS@3	Np
+CECO@3	Ncfp-n, Np, Yn
+CEDO@3	Np, Yn
+CEE20@3	Np
+CEE4@3	Ncfp-n, Ncfson, Yn
+CFTC@3	Ncfp-n, Np, Yn
+CHAMPIX@3	Ncmpry, Ncms-n, Np
+CHMP@3	Ncmsry, Np, Yn
+CIJ@3	Ncms-n, Np, Yn
+CITES@3	Np
+CJ@3	Np, Yn
+CMEAA@3	Afpfsrn, Ncfsrn, Np, Vmp--sm, Yn
+CMI@3	Np, Yn
+CMUU@3	Ncmpoy, Ncmsry, Np
+CMV@3	Np, Yn
+CO2@3	Yn
+COLTERM@3	Np
+COOPENER@3	Np
+CPU@3	Np, Yn
+CRF@3	Ncms-n, Np
+CSI@3	Np, Yn
+CSMVSP@3	Ncms-n, Np, Yn
+CUG@3	Np, Yn
+CV@3	Yn
+CYP1A1@3	Np
+CYP1A2@3	Np
+CYP1B1@3	Np
+CYP2C19@3	Np
+CYP2C8@3	Ncmsvn, Np, Rgp
+CYP2C9@3	Ncmsvn, Np
+CYP2D6@3	Np
+CYP3A4@3	Mc-p-d, Np
+CaCl2@3	Np
+CaO@3	Np, Yn
+Cacaina@3	Ncfsry, Np
+Cadrilaterul@3	Ncmsry, Np, Npmsry
+Cadrilaterului@3	Ncmsoy, Np
+Caelyx@3	Np
+Cahir@3	Np
+Caion@3	Np
+Camborne@3	Afpfp-n, Afpfsrn, Np
+Cambridge@3	Ncfsrn, Np
+Camille@3	Np
+Capetele-manechin@3	Ncmsoy, Np
+Capul-manechin@3	Np
+Caracostea@3	Ncfsry, Np
+Caragiani@3	Afpmp-n, Np
+Caraiman@3	Np
+Caraion@3	Np
+Caransebeș@3	Afpms-n, Np
+Caraorman@3	Np
+Cardiff@3	Np
+Carey@3	Np, Vmip1s
+Carl@3	Ncms-n, Np
+Carling@3	Np
+Carlo@3	Np
+Carlton@3	Np
+Carnevale@3	Np
+Caroline@3	Np, Rgp, Vmil1
+Carolyn@3	Np
+Carpato-Dunăreano-Pontic@3	Ncfsry, Np
+Carpenter@3	Ncms-n, Np
+Carrefour@3	Np
+Cartaginei@3	Np, Npfsoy
+Caskie@3	Afpfsrn, Np, Npfsrn
+Caspar@3	Np
+Cassiu@3	Np
+Castenada@3	Ncfsry, Np
+Caterina@3	Ncfsry, Np
+Catrina@3	Np
+Cauchy@3	Np, Vmm-2s
+Cazimir@3	Np
+Cațaveiului@3	Ncmsoy, Np, Npmsoy
+Ceamurlia@3	Ncfsry, Np
+Ceaurului@3	Np, Npmsoy
+Cebîșev@3	Ncms-n, Np
+Cecil@3	Afpms-n, Np
+Cehiei@3	Ncfsoy, Np, Npfsoy
+Celan@3	Afpms-n, Np
+Celibidache@3	Afpfsrn, Np
+CellCept@3	Np
+Celvapan@3	Np
+Cenadului@3	Ncmsoy, Np, Npmsoy
+Certolizumab@3	Np
+Cervarix@3	Np
+Cesianu@3	Np
+Cesonia@3	Ncfsry, Np
+Cestorul@3	Afpmsry, Np, Npmsry
+Ceterea@3	Ncfsry, Np, Vmii3s
+Ceteruca@3	Ncfsry, Np
+Chaise@3	Ncfp-n, Np
+Chalbury@3	Np
+Chang@3	Np
+Chant@3	Np
+Chapman@3	Np
+Charlotte@3	Np, Rgp
+Chelsea@3	Np
+Cheltenham@3	Np
+Cheshire@3	Ncfsrn, Np
+Chi@3	Np
+Chikatilo@3	Np
+Chippenham@3	Np
+Chiralievskaia@3	Ncfsry, Np
+Chirilă@3	Np
+Chivu@3	Ncms-n, Np
+Christa@3	Np
+Christine@3	Ncfp-n, Np, Vmip3s
+Christopher@3	Ncms-n, Np
+Chron@3	Np
+Cialis@3	Np
+Ciao@3	Ncfsvy, Np
+Cincalli@3	Afpmp-n, Np
+Cioculescu@3	Np
+Ciopraga@3	Np
+Cioroianu@3	Np
+Cipariu@3	Np
+Ciprului@3	Afpmp-n, Ncmsoy, Np
+Circadin@3	Np
+Ciric@3	Np, Vmip1s
+Ciru@3	Np
+Cisiordania@3	Np
+Citizen@3	Np
+City@3	Np
+Ciuhandu@3	Np
+Ciura@3	Ncfsry, Np
+Ciurchi@3	Np
+Ciurea@3	Ncfsry, Np, Npfsry
+Clacton@3	Np
+Clary@3	Np
+Clashfern@3	Np
+Cleaver@3	Np
+Clestin@3	Np, Rgp
+Cluj-Victor@3	Ncfpoy, Np
+Clyde@3	Np, Npfson
+Clăbucet@3	Ncms-n, Np
+Cmax@3	Np
+Cmin@3	Np
+Codoliprane@3	Afpfp-n, Np, Npfson
+Codreanu@3	Np
+Codrescu@3	Np, Vmsp3
+Coifan@3	Np
+Coja@3	Np, Rgp
+Cojocaru@3	Np
+Collar@3	Np
+Colona@3	Np
+Columbus@3	Np
+Comaneci@3	Np, Rgp
+Combivir@3	Np
+Commonwealth@3	Np
+Compediu@3	Np
+Compton@3	Np
+Comăneci@3	Ncfp-n, Np
+Comșa@3	Np
+Conan@3	Np, Npms-n
+Condoleezza@3	Np, Rgp
+Connecticut@3	Afpms-n, Np
+Conner@3	Ncms-n, Np
+Connors@3	Np, Vmp--sm
+Considerazioni@3	Ncmp-n, Np
+Constandachi@3	Mc-p-l, Ncmp-n, Np
+Constantinopol@3	Np
+Constantinopolului@3	Ncmsoy
+Constituțiunei@3	Ncfsoy, Np
+Cont'Rol@3	Np
+Conțescu@3	Np
+Cooper@3	Ncms-n, Np
+Copeland@3	Np
+Copenhaga@3	Ncfsry, Np
+Copou@3	Ncms-n, Np
+Copoului@3	Ncmsoy, Np
+Coppée@3	Ncfp-n, Ncfsrn, Np
+Corbea@3	Np, Vmii3s
+Corden@3	Np
+Cormack@3	Ncfp-n, Np
+Corneanu@3	Np
+Cornmarket@3	Ncms-n, Np
+Coronius@3	Np
+Corrado@3	Np
+Cortez@3	Np, Vmip1s
+Cosmas@3	Np
+Costescu@3	Np
+Council@3	Np
+Country@3	Np
+Countryside@3	Ncfp-n, Np
+Courteline@3	Afpfson, Np
+Courtney@3	Np
+Cox@3	Ncms-n, Np
+Coțovanu@3	Np
+Cracănel@3	Afpms-n, Ncms-n, Np
+Craig@3	Np, Vmip1s
+Cransley@3	Ncms-n, Np
+Cranston@3	Np
+Crawford@3	Np
+Creggan@3	Ncms-n, Np
+Cresson@3	Ncmsoy, Ncmsvn, Np
+Cresswell@3	Np
+Cretzeanu@3	Np
+Cristijan@3	Np
+Crombie@3	Ncfsrn, Np
+Cruceru@3	Np
+Crutzen@3	Np
+Crâșmaru@3	Np
+Crăcănel@3	Np
+Cugir@3	Np
+Cuhalmu@3	Np
+Curbishley@3	Np
+Cuza@3	Ncfsry, Np
+Cuțarida@3	Np
+Cyclosporin@3	Np
+Câineni@3	Np
+Cârneci@3	Ncmp-n, Np, Rgp
+Cârstea@3	Np, Vmii3s
+Céline@3	Np, Npfson
+Căprariu@3	Np
+D.A.D.L.@3	Yn
+D.G.A.S.P.C.@3	Yn
+DAPP@3	Afpfsry, Np, Yn
+DJ@3	Np, Yn
+DN59@3	Afpfsrn, Np
+DN6@3	Ncm--n, Np, Yn
+DS@3	Np, Yn
+DTPc@3	Afpfsry, Np, Yn
+DULOXETINE@3	Ncm--n, Ncmsvn, Np
+DVCI@3	Np, Yn
+DVD@3	Yn
+DX@3	Yn
+Dachau@3	Np
+Dafiro@3	Np
+Daily@3	Np
+Dakar@3	Ncms-n, Np
+Dalglish@3	Ncms-n, Np
+Daliu@3	Np
+Damian@3	Np
+Damien@3	Np
+Dance@3	Afpf--n, Np
+Dancu@3	Np
+Danemarcei@3	Np, Npfsoy
+Daniil@3	Np
+Danny@3	Np
+Danubiu@3	Np
+Dap@3	Ncms-n, Np, Vmip1s
+Darfur@3	Ncfp-n, Ncms-n, Np
+Darlington@3	Np
+Daumier@3	Np
+Dave@3	Ncfp-n, Ncfson, Np
+Davidescu@3	Np
+Davidsons@3	Np
+Davis@3	Np
+Debora@3	Ncfsry, Np
+Deborei@3	Np, Npfsoy
+Decembre@3	Ncfp-n, Ncfson, Np
+Dedeman@3	Np
+Delavrancea@3	Np
+Delay@3	Np
+Delhi@3	Np, Npfsrn
+Dem.@3	Yn
+Deniker@3	Np
+Denkstatt@3	Np
+Dennis@3	Np
+Densusianu@3	Np
+Department@3	Ncms-n, Np
+Der@3	Ncms-n, Np
+Derek@3	Np, Vmip1s
+Derry@3	Ncm--n, Np
+Deta@3	Ncfsry, Np
+Deum@3	Ncms-n, Np
+Devonport@3	Np
+Dhabi@3	Np
+Diavolia@3	Ncfsry, Np
+Didinei@3	Np, Npfsoy
+Dietrich@3	Np
+Diltiazem@3	Np, Vmil1
+Dimitriu-Bîrlad@3	Np
+Dinga@3	Ncms-n, Np
+Dionis@3	Np
+Discus@3	Np
+Distrigaz@3	Np
+Djindjici@3	Ncfp-n, Np
+Dobrișei@3	Np, Npfsoy
+Dobrogeanu-Gherea@3	Np
+Docan@3	Np
+Docetaxel@3	Np
+Dochia@3	Ncfsry, Np
+Doha@3	Np
+Dolan@3	Np
+Domunului@3	Ncmsoy, Np, Npmsoy
+Domus@3	Np
+Donaris@3	Np
+Dongo@3	Np
+Donnei@3	Np, Npfsoy
+Doripenem@3	Ncfsrn, Ncms-n, Vmip1p
+Doru@3	Np
+Dorý@3	Np
+Dosoftei@3	Np, Npfsoy
+Dot@3	Np, Rgp
+Double@3	Ncmsvy, Np
+Doyle@3	Afpfp-n, Ncfpoy, Ncmsvy, Np
+Dragomirescu@3	Ncms-n, Np
+Dragu@3	Np
+Drake@3	Np, Npfson, Vmii3s
+Drayton@3	Np
+Drașovean@3	Afpms-n, Np
+Dresda@3	Ncfsry, Np
+Drive@3	Afpfp-n, Ncfp-n, Np
+Drăghiceanu@3	Np
+Drăghicescu@3	Np
+Drăgănescu@3	Np
+Dubai@3	Np, Rgp, Vmis1s
+Ducu@3	Np
+Dudeștii@3	Afpmpry, Np, Npmpry
+Dudia@3	Ncfsry, Np, Vmii3s
+Duiliu@3	Np, Vmip1s
+Dulfu@3	Np
+Dunedin@3	Afpms-n, Np
+Dunfermline@3	Np
+Dunkirk@3	Np
+Durao@3	Np
+Durban@3	Np
+Durie@3	Afpfsrn, Ncfsrn, Npfsrn
+Dustin@3	Np
+Dănciulescu-Leonte@3	Npms-n, Npmsoy
+EAX@3	Np, Yn
+ECDL@3	Ncms-n, Np
+ECSA@3	Np
+EFLAGS@3	Np
+ELISA@3	Ncfsry, Np, Yn
+EMEA@3	Ncmsry, Np
+EN@3	Ncms-n, Np, Yn
+EPAR@3	Np, Yn
+ES@3	Ncms-n, Np, Yn
+ESBL@3	Np, Yn
+ESP0@3	Ncfson, Rgp, Yn
+ESP1@3	Rgp, Yn
+ESP2@3	Rgp, Yn
+ESP@3	Np, Yn
+ETA@3	Np, Yn
+ETB@3	Ncms-n, Np, Yn
+EUJUST@3	Ncms-n, Np, Vmip2p
+EUPOL@3	Ncfsry, Np, Vmip3s
+EUR@3	Afpms-n, Np, Yn
+EXP@3	Np, Yn
+Eagle@3	Afpf--n, Ncfp-n, Np
+East@3	Np
+Ecclesiast@3	Ncms-n, Np
+Eco@3	Np
+Eddie@3	Afpfsrn, Np
+Edgar@3	Np, Rgp
+Edith@3	Ncms-n, Np
+Edward@3	Ncms-n, Np
+Eelam@3	Np
+Eftimie@3	Ncfsrn, Np
+Eftimiu@3	Np
+Eglinton@3	Ncms-n, Np
+Eladă@3	Ncfsrn, Np, Npfsrn
+Eldon@3	Np
+Eleanor@3	Ncmpoy, Ncms-n, Np
+Elek@3	Ncms-n, Np
+Eleutheriades@3	Ncms-n, Np
+Eli@3	Ncfp-n, Np, Yn
+Elinor@3	Ncmpoy, Np
+Elisabetin@3	Afp, Np
+Elizabeth@3	Ncms-n, Np
+Elmers@3	Np
+Els@3	Np, Rgp, Yn
+Elt@3	Ncms-n, Np
+Em@3	Np, Yn
+Ember@3	Np
+Emerson@3	Np
+Emilio@3	Np
+Emily@3	Np, Rgp
+Emmeline@3	Np, Npfson
+Emmerdale@3	Np
+Endhoven@3	Np
+Endill@3	Np
+English@3	Ncms-n, Np
+Eniu@3	Np
+Enschede@3	Mc-p-l, Ncfp-n, Np, Rgp
+Entero@3	Np
+Enterobac@3	Np
+Entusiasta@3	Afpfsry
+Enviage@3	Afpfp-n, Afpfson, Np, Npfson
+Epoetina@3	Ncfsry, Np
+Eremia@3	Ncfsry, Np, Rgp
+Eritropoetina@3	Ncfsry, Np
+Erlotinib@3	Np
+Erlotinibul@3	Np
+Ernest@3	Ncms-n, Np
+Esau@3	Np, Vmii3p
+Escherichia@3	Ncfsry, Np
+Escort@3	Afpms-n, Ncms-n, Np
+Esquerra@3	Np
+Esquestrian@3	Afpms-n, Np
+Essen@3	Np, Vmip1s
+Essex@3	Np, Vmip1s, Vmip3p
+Estiotu@3	Np
+Esztergom@3	Np
+Etiopia@3	Np
+Etiopiei@3	Ncfsoy, Np, Npfsoy
+Etzell@3	Np
+Eugenio@3	Ncfsvy, Np
+Euler@3	Ncms-n, Np
+Euratom@3	Ncms-n, Np
+Eurogiro@3	Np
+Europass@3	Np, Npms-n
+Europe@3	Np, Npfson, Rgp
+Europă@3	Ncfsrn, Np
+Euroski@3	Ncmp-n, Np
+Eusebio@3	Np
+Eusebiu@3	Np
+Evangeline@3	Np
+Exarhu@3	Np
+Execution@3	Afpms-n, Ncms-n
+Extra'Rol@3	Np
+Extra-Teritorial@3	Afpms-n, Ncms-n, Np
+Eyadema@3	Ncfsry, Np
+F.C.U.@3	Yn
+F.I.B.A.@3	Yn
+F2@3	Np, Yn
+FAO@3	Np, Yn
+FBI@3	Np, Yn
+FD@3	Np, Yn
+FEOGA@3	Ncfsry, Np, Yn
+FIBA@3	Ncfsry, Np, Yn
+FKBP-12@3	Mc-p-d, Np
+FOLFOX-4@3	Mc-p-d, Np, Yn
+FPV@3	Np, Yn
+FRF@3	Np, Yn
+FSR@3	Np, Yn
+FSSR@3	Np, Yn
+FST@3	Np, Yn
+Fahrenheit@3	Ncms-n, Np
+Faifer@3	Ncms-n, Np
+Faith@3	Np
+Fallujah@3	Np
+Faraj@3	Ncms-n, Np
+Farj@3	Np
+Farmacopeei@3	Np
+Farrakhan@3	Np
+Farw@3	Ncms-n, Np
+Faulkner@3	Np
+Faustus@3	Afpms-n, Np
+Fefeleaga@3	Ncfsry, Np, Rgp
+Felicia@3	Np
+Felipe@3	Np
+Felixtowe@3	Ncfp-n, Np, Rgp
+Fender@3	Np
+Feng@3	Np
+Fentanyl@3	Np
+Fenton@3	Np
+Ferdinand@3	Np
+Ferentzi@3	Ncmp-n, Np
+Fergie@3	Afpfsrn, Np, Npfsrn
+Fernando@3	Np
+Ferrero-Waldner@3	Ncms-n, Ncmsvy, Np
+Fetch@3	Nc, Np, Rgp
+Fibromialgia@3	Ncfsry, Np
+Fife@3	Ncf--n, Np, Vmsp3
+Filgrastimul@3	Ncmsry, Np, Npmsry
+Filimon@3	Np
+Filipinelor@3	Ncfpoy, Np
+Filoctet@3	Np
+Fink@3	Np, Rgp, Vmip3p
+Fisheries@3	Np
+Fitzsimmons@3	Np
+Fizeș@3	Np
+Fizico-Chimicele@3	Np, Rgp
+Flag@3	Np
+Flaubert@3	Np
+Fletcher@3	Afpms-n, Ncms-n, Np
+Florența@3	Ncfsry
+Floyd@3	Np
+Flueraș@3	Ncms-n, Np
+Flunixina@3	Ncfsry
+Foct@3	Ncms-n, Np, Rgp
+Focșani@3	Np
+Forbes@3	Ncms-n, Np
+Ford@3	Afpms-n, Ncms-n, Np
+Forest@3	Np
+Formidable@3	Afpfp-n, Afpfson, Np
+Foskett@3	Np
+Fotianu@3	Np
+Fotino@3	Np
+Four@3	Ncms-n, Np
+Fourier@3	Ncms-n, Np
+Framaut@3	Np
+Franck@3	Np
+Franco-Română@3	Afpfsrn, Np, Npfsrn
+Frandeș@3	Ncms-n, Np
+Franks@3	Afpf--n, Ncfsrn, Np
+François@3	Np
+Fraser@3	Np
+Freiberg@3	Np
+Freiburg@3	Np
+Fribourg@3	Ncmsvn, Np
+Froim@3	Np
+Fudokan@3	Np
+Fujiyama@3	Ncmsry, Np, Rgp
+Fumaratul@3	Ncmsry
+Fundoianu@3	Np
+Fyn@3	Np
+Făgăraș@3	Ncms-n, Np
+Fănuș@3	Ncms-n, Np, Rgp
+Fănuță@3	Np
+Fărcaș@3	Ncms-n, Np
+Fărcașa@3	Ncmsry, Np
+Făurei@3	Ncfsoy, Np, Npfsoy
+G-CSF@3	Np, Vmnp------y, Yn
+G7@3	Np, Yn
+G8@3	Np, Yn
+GATT@3	Afpfsrn, Ncfsrn, Np
+GM-CSF@3	Ncfsry, Np, Vmnp------y
+GMPc@3	Ncfpry, Np, Vmip1s, Vmis1s
+GMTV@3	Np, Vmip1s, Yn
+GONAL-f@3	Np
+GP@3	Mo-s-r, Np, Yn
+GST@3	Np, Yn
+GUNG@3	Np, Yn
+GXLL7@3	Np
+Gaittany@3	Np
+Galaction@3	Np
+Galata@3	Ncfsry, Np
+Galeriu@3	Np
+Galileo@3	Np
+Galois@3	Np
+Gandhi@3	Np
+Gardei@3	Np, Npfsoy
+Gardiner@3	Np
+Garner@3	Ncms-n, Np
+Garrick@3	Np
+Gary@3	Np
+Gavriil@3	Np
+Gavrilcea@3	Np
+Gebhart@3	Np
+Gedge@3	Afpf--n, Np
+Geisler@3	Np
+Gellu@3	Np
+Gentzen@3	Np
+Geoană@3	Afpfsrn, Ncfsrn, Np
+Georges@3	Np
+Georgia@3	Ncfsry, Np
+Georgiei@3	Np, Npfsoy
+Georgiu@3	Np
+Gerhard@3	Np
+Gherea@3	Ncfsry, Np
+Ghermanschi@3	Np, Npms-n
+Ghica@3	Ncfsry, Np
+Ghraib@3	Ncms-n, Np
+Gib@3	Np
+Gibson@3	Np
+Gică@3	Afpfsrn, Ncfsrn, Np
+Giesecke@3	Np
+Gieves@3	Np
+Gigurtu@3	Np
+Gil@3	Ncms-n, Np
+Gima@3	Ncfsry, Np
+Giorgioni@3	Afpmp-n, Ncmp-n, Np
+Glasgow@3	Np
+Glaxo@3	Np
+Glazier@3	Np
+Glimepirida@3	Afpfsry, Ncfsry, Np
+Glimepiridă@3	Afpfsrn, Ncfsrn
+Gloucestershire@3	Np
+Glück@3	Np
+GmbH@3	Afpms-ny, Ncfsrn, Np
+GnRH@3	Np, Vmip3s
+Gnassingbe@3	Np
+Godstowe@3	Ncfp-n, Ncfson, Np
+Goethe@3	Np
+Goga@3	Ncfsry, Np
+Gogu@3	Np
+Goicea@3	Ncfsry, Np, Vmii3s
+Gold@3	Np
+Gonaives@3	Ncms-n, Np
+Gonzalv@3	Np
+Gooch@3	Np
+Gordon@3	Np
+Grafto@3	Np
+Grandstand@3	Np
+Gray@3	Np
+Greceanu@3	Np
+Greysteel@3	Ncms-n, Np
+Griselini@3	Np
+Grodno@3	Np
+Groenlandei@3	Np
+Gronkjaer@3	Ncms-n, Np
+Gross@3	Ncmsry, Np
+Grosvenor@3	Np
+Group@3	Ncms-n, Np
+Groza@3	Np
+Großdeutschland@3	Np
+Guantanamo@3	Ncfsvy, Np
+Guardian@3	Np
+Guildford@3	Np
+Guiness@3	Np
+Guisborough@3	Ncmpoy, Np
+Gulf@3	Np, Rgp
+Gustave@3	Afpfp-n, Np
+Gusty@3	Np
+Guy@3	Ncfp-n, Np
+Guția@3	Np, Vmii3s
+Gyr@3	Ncms-n, Np
+Gyurcsany@3	Np
+Györfi-Deák@3	Np
+György@3	Np
+Göttingen@3	Np
+Gădinții@3	Afpmpry, Ncfsoy, Np
+Gătaia@3	Np
+H1@3	Np, Yn
+H5@3	Np
+H5N1@3	Np
+H7@3	Np
+H7N1@3	Np
+H7N3@3	Np, Vmip3s
+HB@3	Yn
+HBV@3	Ncms-n, Np, Yn
+HCT@3	Np, Yn
+HDL@3	Ncms-n, Np, Yn
+HDLc@3	Np, Yn
+HER2@3	Ncfsrn, Np
+HIV-1@3	Np
+HMG-CoA@3	Afpfsry, Afpmsoy, Ncfsrn, Np
+HMS@3	Np, Yn
+HPV@3	Np, Yn
+Hadley@3	Np
+Hagi@3	Np, Rgp
+Hagienuș@3	Np
+Haguenau@3	Np
+Haiderabad@3	Np
+Haliciului@3	Ncmsoy, Np, Npmsoy
+Hall@3	Ncms-n, Np
+Hamas@3	Np
+Hamburg@3	Np
+Hammersmith@3	Ncfp-n, Np
+Hammond@3	Np, Rgp
+Hampson@3	Np
+Hangerliu-Gaittany-Farfara@3	Ncfsrn, Np
+Hangerliu@3	Np
+Hanovra@3	Np
+Hard-pressed@3	Np
+Hardcomics@3	Np, Rgp
+Harley@3	Np
+Harold@3	Ncms-n, Np
+Harriet@3	Np
+Hartlepool@3	Np
+Hasdeu@3	Np
+Hawkendon@3	Np
+Hawkins@3	Ncfsrn, Np
+Hawtorns@3	Np
+Hazell@3	Ncms-n, Np
+HbA1c@3	Np
+Heidegger@3	Np
+Heinrich@3	Np
+Heinz@3	Np
+Heliade-Rădulescu@3	Np, Npms-n, Vmis3s
+Helios@3	Np
+Helmut@3	Np
+Heparin@3	Ncms-n, Np
+Heparinul@3	Ncmsry, Np, Npmsry
+Hepites@3	Ncms-n, Np
+Herbert@3	Afpms-n, Np
+Hergot@3	Np
+Herța@3	Ncfsry, Np
+Herțegovina@3	Ncfsry, Np
+Hestia@3	Np, Vmii3s
+Hetfield@3	Np
+Hilbert@3	Ncms-n, Np
+Hiroshimei@3	Np, Npfsoy
+Hodge@3	Ncfp-n, Ncfsrn, Np
+Hodgkin@3	Ncmsoy, Np
+Hodoș@3	Np
+Hogg@3	Ncfp-n, Ncmsvn, Np
+Homecare@3	Ncfsrn, Np
+Honda@3	Np
+Horațiu@3	Np
+Horne@3	Ncfsrn, Np
+Horpaz@3	Np
+Howard@3	Np
+Hu@3	Yn
+Huelva@3	Ncmsoy, Np
+Hugh@3	Np
+Hugo@3	Np
+Humalog@3	Ncms-n, Np
+Hummersknott@3	Np
+Hunt@3	Np
+Huong@3	Ncfsrn, Np
+Hurwitz@3	Np
+Hussein@3	Afpms-n, Np
+Husserl@3	Np
+Huțupan@3	Np
+Hyams@3	Np
+Hyeres@3	Np
+Hârlău@3	Np
+I.B.@3	Yn
+I.P.J.@3	Yn
+ICRC@3	Np, Yn
+ICa-L@3	Ncfsry, Np, Yn
+IDA@3	Ncms-n, Np, Yn
+IEC@3	Ncms-n, Np, Yn
+IELTS@3	Np, Yn
+IFS@3	Np, Yn
+III-IV@3	Mo-s-r, Np
+IK@3	Np, Yn
+IKir@3	Afpfp-n, Afpfson, Afpfsvy, Ncms-n, Np
+INDONEZIA@3	Ncfsry, Ncmsry, Np
+INGELHEIM@3	Ncfsrn, Ncfsry, Np
+INR@3	Np, Yn
+INa@3	Np, Yn
+IONSYS@3	Ncfsrn, Np, Yn
+IP@3	Mo-s-r, Np, Yn
+IRM@3	Ncms-n, Np, Yn
+IURI@3	Ncfpry, Ncmpry, Np, Yn
+IWC@3	Ncms-n, Np
+IX-X@3	Mo-s-r, Np, Yn
+Iandarbiev@3	Np
+Ianovici-Jecza@3	Np
+IasiConf@3	Np
+Iasitex@3	Ncms-n, Np
+Iașul@3	Ncmsry, Np
+Ibsen@3	Np
+Iconomu@3	Np
+Iecea@3	Afpfsry, Mofs-l, Np
+Ieșilor@3	Ncfp-n, Ncfpoy, Np
+Ifigenia@3	Np
+Igor@3	Afpms-n, Ncms-n, Np
+Iktinos@3	Np
+Ilasciuk@3	Np
+Ilașcu@3	Np
+Ilieșiu@3	Ncms-n, Np
+Indies@3	Np
+Indinavirul@3	Ncmsry, Np, Npmsry
+Indépendance@3	Afpfson, Np
+Inn@3	Nc, Np
+Instrumentalizarea@3	Ncfsry
+Integării@3	Afp, Ncfsoy, Np
+Interarme@3	Ncf--n, Np
+Ioanide@3	Afpfson, Ncfp-n, Np
+Ionaș@3	Np
+Iordachi@3	Ncmp-n, Np
+Iordanes@3	Np
+Iorga@3	Ncfsry, Np
+Ipsilanti@3	Np
+Iranul@3	Ncmsry, Np
+Iranului@3	Ncmsoy, Np, Npmsoy
+Irișor@3	Np
+Irlanda@3	Ncfsry, Np
+Iron@3	Np
+Isabel@3	Np
+Isac@3	Ncms-n, Np
+Iscia@3	Np, Npms-n, Rgp
+Island@3	Np, Rgp
+Islands@3	Np
+Ismail@3	Ncms-n, Np
+Istrului@3	Ncmsoy, Np
+Isus@3	Ncmsry, Np, Yn
+Ito@3	Ncfp-n, Np
+Iudeei@3	Ncfsoy, Np, Npfsoy
+Iunion@3	Ncms-n, Np
+Iușcenko@3	Np
+JO@3	Np, Yn
+JONJO@3	Afpfsrn, Np
+Jackie@3	Np
+Jacob@3	Np
+Jacobi@3	Np
+Jacobs@3	Np
+Jaeger@3	Np
+James@3	Np
+Jane@3	Np
+Januvia@3	Np
+Jarama@3	Np
+Jassiorum@3	Np, Rgp
+Jeannot@3	Np
+Jebel@3	Np
+Jeffries@3	Np
+Jennifer@3	Np
+Jerviston@3	Np
+Jesper@3	Np
+Jewels@3	Np
+Jeyes@3	Afpms-n, Np
+Jihadul@3	Ncmsry, Np, Npmsry
+Jihn@3	Np
+Jijiei@3	Np, Npfsoy
+Jim@3	Np
+Jimbolia@3	Np
+Jintao@3	Ncfsvy, Np
+Jngerul@3	Ncmsry, Np
+Johann@3	Np
+Johnny@3	Np
+Johnson@3	Np
+Joi,@3	Np
+Jonathan@3	Np
+Jonsson@3	Np
+Jordan@3	Np
+Jose@3	Ncfp-n, Ncfson, Np
+Josef@3	Ncms-n, Np
+Joseph@3	Ncfp-n, Np
+Joyce@3	Np
+Jozsef@3	Np
+Juan@3	Np
+Julian@3	Afpms-n, Np
+Julie@3	Afpfsrn, Np
+Juliette@3	Ncf--n, Ncfp-n, Ncfson
+Jászvásár@3	Np
+K65R@3	Ncfsoy, Np
+K8@3	Np
+KATE@3	Ncfp-n, Np, Yn
+KCl@3	Ncms-n, Np
+Kant@3	Ncms-n, Np
+Kapolcs@3	Ncmsoy, Np
+Karajan@3	Np
+Karsten@3	Np
+Kashifi@3	Np, Npfson
+Kashmirului@3	Np, Npmsoy
+Kaufland@3	Np
+Kellner@3	Ncms-n, Np
+Kelso@3	Np
+Kemal@3	Np
+Kenny@3	Np
+Kernighan@3	Np
+Key@3	Np, Vmip1s
+Keynes@3	Np
+Khrushchev@3	Np
+Kierkegaard@3	Np
+Kiev@3	Np
+Kimberley@3	Np
+Kingsley@3	Np
+Kiseleff@3	Np
+Kistermaeckens@3	Np
+Kizzy@3	Np
+Klebsiella@3	Ncfsry, Np
+Klein@3	Np, Rgp
+Klestil@3	Np
+Kofi@3	Np
+Kogălniceanu@3	Np
+Kohelet@3	Np
+Kong@3	Np
+Korona@3	Np
+Kortnerstrasse@3	Np
+Kosovo@3	Np
+Kotzebue@3	Np
+Krebs@3	Ncms-n, Np
+Krishna@3	Ncfsry, Np
+Kudrow@3	Np
+Kufa@3	Ncfsry, Np
+Kurdistan@3	Np
+Kyoto@3	Np
+Käthe@3	Np
+Köln@3	Ncms-n, Np
+Königsberg@3	Np
+L.P.@3	Yn
+L.P.S.@3	Yn
+L03AA02@3	Np
+L74V@3	Np
+LDL@3	Np, Yn
+LEARNING@3	Afpfsrn, Np, Yn
+LGC@3	Ncms-n, Np
+LH@3	Np, Yn
+LMA@3	Np, Yn
+LOUISE@3	Ncms-n, Ncmsvy, Vmis1s----y, Vmp--sm
+LTTE@3	Np, Yn
+Ladbrokes@3	Np
+Laden@3	Np, Vmip3p
+Lagrange@3	Np
+Lalande@3	Np
+Lamia@3	Np
+Lane@3	Ncfsrn, Np
+Langbaurgh@3	Np
+Lansbury@3	Np
+Laropiprantul@3	Ncmsry, Np, Npmsry
+Larousse@3	Np
+Larry@3	Np
+Lavelle@3	Np
+Lavi@3	Np, Rgp
+Lavinia@3	Np
+Lawn@3	Ncfsrn, Np
+Lawrence@3	Ncmsvn, Np, Vmsp3
+Lazecico@3	Np
+Lazu@3	Np
+Lazărul@3	Ncmsry, Npmsry
+Lazărului@3	Ncmsoy, Np, Npmsoy
+LeBlanc@3	Np
+Leaderii@3	Afpmpry, Ncmpry, Np
+League@3	Afpf--n, Ncf--n, Np
+Leeward@3	Np
+Legendre@3	Np
+Leicard@3	Np
+Leicester@3	Ncms-n, Np
+Leith@3	Np
+Lenau@3	Np
+Lendl@3	Np
+Leon@3	Ncms-n, Np
+Leonard@3	Np
+Leonardo@3	Np
+Leonidovich@3	Np
+Leopardi@3	Afpmp-n, Np
+Leroux-Robert@3	Np
+Lesser@3	Np
+Lester@3	Np
+Letizia@3	Ncfsry, Np
+Letiția@3	Np
+Letopisiți@3	Np
+Lhotse@3	Np
+Liberation@3	Np
+Libia@3	Np
+Lidocaina@3	Np
+Lille@3	Ncfsrn, Np
+Lilleshall@3	Np
+Lilly@3	Np
+Limited@3	Np
+Liprolog@3	Np
+Listening@3	Ncms-n, Np
+Litaw@3	Np
+Little@3	Ncms-n, Ncmsry, Ncmsvy, Np
+Livemore@3	Ncfp-n, Np
+Liverpool@3	Ncms-n, Np
+Lizzie@3	Ncfsrn, Np
+Llanelli@3	Np
+Lobacevski@3	Np
+Locke@3	Afpf--n, Np
+Logan@3	Np
+Lombardia@3	Np
+Londonderry@3	Ncms-n, Np
+Lonely@3	Ncfp-n, Np
+Looe@3	Ncfsrn, Np
+Loos@3	Np
+Lopez@3	Ncms-n, Np
+Los@3	Afpms-n, Np, Rgp
+Loughlin@3	Np
+Louis@3	Np, Vmp--sm
+Lovinescu@3	Np
+Lovrin@3	Np
+Ltd@3	Nc, Np, Rgp, Yn
+Lucenzo@3	Np
+Luciferii@3	Ncmpry, Np
+Lucky@3	Afp, Np
+Ludo@3	Np
+Ludwig@3	Np
+Lugoj@3	Np
+Luis@3	Np
+Luke@3	Np, Rgp
+Luluța@3	Ncfsry, Np
+Luxița@3	Np
+Luzula@3	Ncfsry, Np, Vmii3s
+Lycopersicon@3	Ncms-n, Np
+Lyman@3	Afpms-n, Np
+Lyons@3	Ncfsrn, Np, Vmp--sm
+Lýonie@3	Np, Npfson, Npfsrn
+Lăiță@3	Ncfsrn
+Lăpușneanu@3	Np
+Lăzărescu-Laerțiu@3	Np
+M-Fifty@3	Np
+M.M.@3	Yn
+M184I@3	Np
+M184V@3	Np
+M1@3	Np
+M2@3	Ncm--n, Np
+M8@3	Ncm--n, Np
+MAFWM@3	Ncfsry, Np, Yn
+MARPOL@3	Ncfsrn, Ncfsry, Np
+MApN@3	Ncfsrn, Np, Yn
+MD-BVD@3	Afpmsoy, Ncmpry, Np
+MDR@3	Np, Yn
+MRSA@3	Np, Yn
+MSE@3	Np, Yn
+MTF@3	Ncms-n, Np
+MTIC@3	Np, Yn
+MUI@3	Np, Yn
+Maastricht@3	Ncms-n, Np
+MacKenzie@3	Ncfsrn, Np
+Macca@3	Ncfsry, Np
+Macdonald@3	Np
+Macedonski@3	Np
+Mackay@3	Np
+Madeleine@3	Np
+Madravilele@3	Ncfpry, Np
+Mafeking@3	Np
+Magherescu@3	Np
+Maharashtra@3	Np
+Mahmoud@3	Np
+Mahmud@3	Np
+Maiden@3	Np
+Maktoum@3	Np, Rgp
+Makó@3	Np
+Malabarului@3	Np, Npmsoy
+Mallarmé@3	Np
+Malraux@3	Np
+Maltese@3	Afpfp-n, Afpfson, Np
+Mancha@3	Np
+Manchester@3	Np
+Manigomian@3	Np
+Manning@3	Np
+Mannitol@3	Afpms-n, Ncms-n, Np
+Manolescu@3	Ncms-n, Np
+Manuc@3	Ncms-n, Np
+Manuel@3	Np
+Manuscriptum@3	Np
+Manýge@3	Ncmsvy, Np, Npfson
+Marcela@3	Np
+Margaret@3	Np
+Marguerite@3	Ncfp-n, Ncmsvn, Np
+Margul@3	Ncmsry, Np
+Marks@3	Np
+Marmosim@3	Np
+Marte@3	Ncf--n, Ncfsrn, Np
+Martonne@3	Ncfsrn, Np
+Mary@3	Np
+Mashadov@3	Ncms-n, Np
+Massachusetts@3	Np
+Matos@3	Ncms-n, Np
+Matt@3	Ncms-n, Np
+Matthew@3	Ncms-n, Np
+Mauritius@3	Np, Npms-n
+Mavrocordat@3	Np
+Max-Planck@3	Np
+Maximall@3	Np
+Maximilian@3	Np
+Mayer@3	Ncms-n, Np
+Mayo@3	Ncms-n, Ncmsry, Np
+Mazar-Pașa@3	Np
+McCall@3	Ncmsry, Np
+McCarthy@3	Np
+McClair@3	Np
+McConville@3	Ncf--n, Np
+McDermott@3	Np
+McGovern@3	Np
+MedDRA@3	Ncfsrn, Np
+Medeea@3	Np
+Mediterană@3	Afpfsrn, Np
+Melanie@3	Np, Npfsrn
+Melatonina@3	Np
+Mendoza@3	Np
+Menzies@3	Np
+Merseyside@3	Ncfp-n, Np
+Metallica@3	Np
+Metamorf@3	Np, Rgp
+Metopolis@3	Np
+Metyard@3	Np
+Mg2@3	Ncfp-n, Np, Yn
+MgO@3	Np, Yn
+Micescu@3	Np
+Michele@3	Afpms-n, Ncfpry, Np
+Michelle@3	Ncf--n, Np
+Mico-May@3	Np
+Microdicționar@3	Np
+Middlesbrough@3	Afp, Ncmpoy, Np
+Midgley@3	Np
+Miezonoptică@3	Afpfsrn, Np
+Mihăescu@3	Np
+Mihăileană@3	Afpfsrn, Np
+Mihăilene@3	Afpfp-n, Afpfson, Np
+Mikene@3	Ncfp-n, Ncfson, Np
+Miles@3	Np
+Miletti@3	Np
+Mille@3	Np
+Millikan@3	Np
+Miloșevici@3	Ncfp-n, Np, Npfson
+Minamichita@3	Np
+Minciu@3	Np
+Minkowsky@3	Np
+Mirceo@3	Np
+Mircești@3	Np
+Mironescu@3	Np
+Miroslava@3	Afpfsry, Np
+Mississippi@3	Ncfp-n, Np
+Mitchell@3	Np
+Mittal@3	Np
+Mobexpert@3	Ncfsrn, Np, Rgp
+Mocsonyi@3	Np
+Mogadishu@3	Np
+Moisil@3	Ncms-n, Np
+Moldovii@3	Np, Npfson
+Moldovitei@3	Np, Npfsoy
+Moldovița@3	Np, Npfsry
+Monaco@3	Np
+Montale@3	Afpfp-n, Afpfson
+Monty@3	Np
+Moon@3	Np
+Moqtada@3	Ncfsry, Np
+Morgan@3	Np
+Morte@3	Ncfp-n, Np
+Mortuary@3	Np
+Moréas@3	Np
+Moscovici@3	Np
+Moscu@3	Np
+Moteanu@3	Np
+Motorola@3	Np
+Movita@3	Ncfsry, Np
+Mozart@3	Np
+Mr@3	Np, Yn
+Muise@3	Ncfpry, Np
+Mulder@3	Ncms-n, Np
+Muntenegru@3	Ncms-n, Np
+Mureșanu@3	Np
+Murgu@3	Np
+Murrau@3	Np
+Murășanu@3	Np
+Musharaf@3	Np
+Musharraf@3	Np
+Musicosophia@3	Ncfsry, Np
+Mussolini@3	Np
+Mustafa@3	Ncfsry, Np
+Mutu@3	Np
+Myers@3	Ncfsry, Np
+Myozyme@3	Ncfp-n, Ncfson
+Mârza@3	Np
+Mârzo@3	Np
+Mérimée@3	Ncfson, Np, Npfson
+Möbius@3	Np
+München@3	Np
+Mădălina@3	Ncfsry, Np
+Mănucă@3	Ncfsrn, Np
+N-etil-N-[2-(1-izobutoxietoxi)etil]-4-(fenilazo)anilină@3	Nc, Ncfsrn, Ncms-n
+N13@3	Np, Yn
+N1@3	Np, Yn
+N7@3	Np
+NAFO@3	Ncfp-n, Ncfson, Np, Yn
+NATO@3	Ncfp-n, Np, Yn
+NAUMOV@3	Ncms-n, Ncmsoy, Np
+NB@3	Yn
+NUA@3	Np, Yn
+NUTS@3	Np
+NVR@3	Np, Yn
+NZ@3	Np, Yn
+NaCl@3	Np
+Nabil@3	Afpms-n, Np
+Nadia@3	Ncms-n, Np
+Najaf@3	Np
+Naum@3	Ncmsry
+Ndembu@3	Np
+Neagu@3	Np
+Neapolul@3	Ncmsry, Np
+Nedelciu@3	Np
+Nederland@3	Np
+Neil@3	Np
+Nemo@3	Np
+Nenna@3	Ncms-n, Np
+Nerst@3	Mc-p-l, Np
+Nestor@3	Np
+Nestorul@3	Afpmsry, Np, Npmsry
+Neumann@3	Np
+New@3	Ncms-n, Np, Vmip1s
+News@3	Np
+Nibelungilor@3	Ncfpoy, Ncmpoy, Np
+Nichipercea@3	Ncfsry, Np
+Nichita@3	Ncfsry, Np
+Niciman@3	Np
+Nicola@3	Ncfsry, Np
+Nicolas@3	Ncms-n, Np
+Nicolici@3	Np, Rgp
+Nicolina@3	Ncfsry, Np
+Nicosia@3	Np
+Niculescu@3	Np
+Nightclubs@3	Np
+Niminea@3	Np
+Noica@3	Ncfsry, Np
+Nomenklatura@3	Np
+Norman@3	Np
+North@3	Np
+Northern@3	Np
+Northwestern@3	Ncmsvn, Np
+Northwich@3	Np
+Norwich@3	Np
+Nothallertonului@3	Ncmsoy, Np
+Novi@3	Ncfp-n, Np, Vmip2s
+NovoLet@3	Np
+Nowak@3	Afpms-n, Np
+Nunnery@3	Np
+Nux@3	Ncms-n, Np
+Năpraznicele@3	Ncfpry, Np
+Năstase@3	Np
+O'Neil@3	Np
+O.E.P.@3	Yn
+O.M.S.@3	Yn
+O.N.U.@3	Yn
+O.S.C.E.@3	Yn
+O405@3	Mc-s-d, Np
+O6@3	Np, Yn
+OBD@3	Np, Yn
+OGSV@3	Np, Yn
+OMC-GATT@3	Ncms-n, Np, Yn
+OMC@3	Ncms-n, Np, Yn
+OMS@3	Np, Yn
+OPCON@3	Ncms-n, Np, Vmip3s
+ORODISPERSABIL@3	Afpfsry, Ncfsry, Ncm--n, Ncmsry, Np, Vmis3s, Vmsp3
+Oct@3	Np
+Odobescu@3	Np
+Odorheiului@3	Ncmsoy, Np
+Oeconomu@3	Np
+Oedip@3	Ncms-n, Np
+Oklahoma@3	Np
+Oltul@3	Afpfsry, Ncmsry, Np
+Oltului@3	Ncms-n, Ncmsoy, Np
+Olympus@3	Np
+Omarska@3	Np
+Onchorhynchus@3	Np
+Onciul@3	Ncmsry, Np, Npmsry
+Onu@3	Mcmsrl, Nc, Ncmpry, Np
+Opportunity@3	Np
+Oprică@3	Afpfsrn, Np, Npfsrn
+Orașul-stațiune@3	Ncfsrn, Np
+Orlat@3	Np
+Ortiz@3	Np
+Osama@3	Ncfsry, Np
+Oscarurile@3	Ncfpry, Np
+Oseltamivirul@3	Ncmsry, Np
+Osetia@3	Np
+Osijek@3	Np
+Oswiu@3	Afpms-n, Np, Vmip1s
+Otilia@3	Np
+Otiliei@3	Np, Npfsoy
+Otsuka@3	Ncfsry, Np
+Ottonel@3	Np
+Ovid@3	Ncms-n, Np
+Owen@3	Ncfsrn, Np
+P.E.@3	Yn
+P450-2D6@3	Mc-p-d, Np
+P450@3	Np
+PAUL@3	Afpfsry, Ncmsry, Np
+PBS@3	Np, Yn
+PBST@3	Ncfp-n, Np, Yn
+PCCPLTT@3	Afpfsrn, Np, Vmp--sm
+PCE@3	Np, Yn
+PCI@3	Np, Yn
+PDE3@3	Npfsrn, Vmip3p, Yn
+PDE5@3	Vmip1s, Vmip3p, Yn
+PDP11@3	Np
+PEATE@3	Np
+PEÎD@3	Ncfp-n, Ncfson, Np
+PGD2@3	Ncfsrn, Np, Yn
+PHARE@3	Ncmsry, Ncmsvy, Np
+PJ@3	Np, Yn
+PLEP@3	Np, Vmip3p
+PMS@3	Np, Yn
+PNL-PD@3	Np, Yn
+PPC@3	Ncms-n, Np
+PRODI@3	Afp, Ncfp-n, Np, Yn
+PSD@3	Ncms-n, Np, Yn
+PSV@3	Ncms-n, Np
+Pacha@3	Np
+Paediatric@3	Np
+Pakistan@3	Np
+Pakistanul@3	Ncmsry, Npmsry
+Pakistanului@3	Np, Npmsoy
+Paksas@3	Np
+Paleologu@3	Np
+Palestina@3	Np
+Pamfil@3	Ncms-n, Np
+Pandrea@3	Np
+Panitumumab@3	Afpms-n, Np
+Panitumumabul@3	Ncmsry, Np
+Pann@3	Ncms-n, Np
+Pantazi@3	Np
+Pantene@3	Ncf--n, Np
+Panzergrenadier@3	Ncfp-n, Np
+Papastate@3	Np, Rgp, Vmp--pf
+Papu@3	Np
+Paracelsus@3	Np, Npmsry
+Paraschiv@3	Np
+Parfitt@3	Ncms-n, Np
+Paschen@3	Ncfpoy, Ncms-n, Np
+Paterson@3	Np
+Patologistul@3	Afpmsry, Ncmsry, Np
+Patten@3	Ncmpry, Ncms-n, Np, Npfsoy
+Paula@3	Ncfsry, Np
+Pavelescu@3	Np
+Pașcanii@3	Ncfp-n, Ncmpry, Npfson
+Peltz@3	Np
+Pelvin@3	Afpfsry, Afpms-n, Np
+Pembrokeshire@3	Np
+Pen@3	Ncms-n, Np
+Penelope@3	Ncfp-n, Np, Rgp
+Perlea@3	Np, Vmii3s
+Perpessicius@3	Np
+Perry@3	Np
+Persu@3	Ncfp-n, Np
+Pervez@3	Np
+Petcu@3	Ncms-n, Np
+Peter@3	Np
+Petrașincu@3	Np
+Petrotub@3	Ncms-n, Np
+Petöfi@3	Ncmp-n, Np
+Pharmaceutical@3	Ncms-n, Ncmsry, Np
+Phoebe@3	Np, Vmil1
+Picuraru@3	Ncms-n, Np
+Pierre@3	Afpfson, Ncfsrn, Np
+Piet@3	Afpfsry, Ncms-n, Np
+Pignatelli@3	Ncmp-n, Np
+Pillat@3	Ncms-n, Np
+Pimen@3	Np, Vmip1s
+Ping@3	Np
+Pink@3	Ncms-n, Np
+Pioglitazona@3	Np
+Pitt@3	Ncfp-n, Ncms-n, Np
+Pișculescu@3	Np
+Planck@3	Np
+Plaza@3	Ncfsry, Np
+Plopeanu@3	Np
+Plutarh@3	Np
+Pneumocystisi@3	Np
+Podu@3	Np
+Poe@3	Ncms-n, Np
+Poghirc@3	Np
+Poincare@3	Afpfson, Ncfsrn, Np
+Poisson@3	Np
+Poligriv@3	Np
+Polka@3	Np
+Poll@3	Afpmsry, Ncms-n, Np
+Pompiliu@3	Np
+Pomponescu@3	Ncms-n, Np
+Pool@3	Ncms-n, Np
+Popescu-Tăriceanu@3	Ncms-n, Np
+Poppesco@3	Np
+Porumbescu@3	Np
+Postelnicu@3	Np
+Potter@3	Ncms-n, Np
+Powell@3	Np
+Poznan@3	Np
+Praktiker@3	Ncms-n, Np
+Predescu@3	Np
+Premadasa@3	Np
+Preston@3	Np
+Prinzmetal@3	Afpms-n, Np
+Prodi@3	Ncmp-n, Np
+Products@3	Np
+Prometeu@3	Np
+Proteazomul@3	Ncmsry, Np
+Prudhomme@3	Afpf--n, Np
+Pseudomonas@3	Np
+Pseudomonasaeruginosa@3	Np
+Pugh@3	Np
+Puiu@3	Np, Vmip1s
+Puregon@3	Np
+Purkinje@3	Afpfsrn, Ncfsrn, Np
+Pârvan@3	Np
+Pârvulescu@3	Np
+Părâuiui@3	Np
+Păscălierul@3	Ncmsry, Np
+Q1@3	Ncm--n, Np, Vmip3s, Yn
+Q2@3	Ncm--n, Np, Yn
+Q3@3	Ncm--n, Vmip3s, Yn
+QPR@3	Np, Yn
+QT@3	Np
+Qaida@3	Ncfsry, Np
+Qantas@3	Ncms-n, Np
+Qatar@3	Ncms-n, Np
+Qorei@3	Ncfsoy, Ncms-n, Np, Npfsoy
+Quantilele@3	Ncfpry
+Quartila@3	Ncfsry
+Quartilele@3	Ncfpry
+Quasimodo@3	Np
+Quijote@3	Np
+Quinet@3	Np
+R.M.R.@3	Yn
+R.P.D.@3	Yn
+R312@3	Np
+RASS@3	Np, Yn
+RATP@3	Ncfp-n, Np, Yn
+RCM@3	Ncms-n, Np, Yn
+REGTA@3	Np
+REP@3	Np, Yn
+RF@3	Yn
+RFCE@3	Ncfsrn, Np, Yn
+RMN@3	Ncms-n, Np, Yn
+RON@3	Ncms-n, Np, Yn
+RPAS@3	Ncfpry, Np, Yn
+RTV@3	Np, Vmip1s, Yn
+Radiana@3	Ncfsry, Np
+Radoslav@3	Ncms-n, Np
+Rahmei@3	Ncmpry, Np, Npfsoy
+Rahn@3	Np
+Raiffeisen@3	Np
+Rainer@3	Ncms-n, Np
+Ralet@3	Ncms-n, Np
+Ramallah@3	Np
+Rampling@3	Np
+Ramunch@3	Np
+Ranasinghe@3	Np, Npfson, Npms-n, Rgp
+Rareș@3	Np, Vmip1s
+Rashid@3	Ncms-n, Np
+Rasilez@3	Np, Vmip1s
+Raus@3	Np
+Ray@3	Ncms-n, Np
+Read@3	Np
+Reading@3	Ncms-n, Np
+Reagan@3	Np
+Realltatea@3	Np
+Records@3	Mc-p-l, Np
+Red@3	Ncms-n, Np, Vmip1s
+Redcar@3	Np
+Redpath@3	Np
+Registration@3	Np
+Reinhardt@3	Ncms-n, Np
+Renault@3	Np
+Resume@3	Nc, Ncfp-n, Ncfson
+Rev@3	Np, Vmip1s, Y
+Revel@3	Np
+Ricardo@3	Np
+Rice@3	Ncfp-n, Np, Rgp
+Richard@3	Ncmpoy, Np
+Richards@3	Np
+Richardson@3	Np
+Riche@3	Afpfsrn, Ncfsrn, Np
+Richie@3	Ncfsrn, Np
+Rigo@3	Np, Rgp
+Riley@3	Np
+Rilke@3	Ncfsrn, Np
+Rimbaud@3	Np
+Ringway@3	Np
+Rinul-de-Jos@3	Np
+Risholm@3	Ncms-n, Np, Rgp
+Ristache@3	Np
+Ritchie@3	Ncfsrn, Np
+Ritz@3	Np, Rgp
+Road@3	Np
+Robbe-Grillet@3	Np
+Robinson@3	Np
+Rocasolano@3	Np
+Rodean@3	Np
+Rodgers@3	Np
+Rodicăi@3	Np, Npfsoy, Vmis1s
+Rodnei@3	Np, Npfsoy
+Rolandas@3	Np
+Rompetrol@3	Np
+România-U@3	Ncfsry, Np, Vmp--sm---y
+Româno-Germane@3	Np
+Românǎ@3	Np
+Ron@3	Np
+Ronald@3	Np
+Ronan@3	Np
+Rontgen@3	Np
+Roos@3	Np
+Rosalba@3	Np
+Roseberry@3	Afpms-n, Np
+Rosenthal@3	Ncms-n, Ncmsry, Np
+Rosetti@3	Np
+Rosiglitazonă@3	Afpfsrn, Ncfsrn
+Rosyth@3	Np
+Rot@3	Ncms-n, Np
+Roumaine@3	Np, Vmip3s
+Rowlandsons@3	Np
+Roy@3	Ncms-n, Np
+Rufus@3	Np
+Rupert@3	Np
+Ruset@3	Afpms-n, Ncms-n, Np
+Russo@3	Np
+Ruth@3	Ncms-n, Np
+Ryan@3	Np
+Rydberg@3	Np
+Ryongchong@3	Np
+Răducan@3	Afpms-n, Np
+Răsai@3	Np, Vmm-2s
+SADF@3	Afpfsry, Np, Vmip3s
+SAE@3	Afpfp-n, Np, Yn
+SANCO@3	Afpfsrn, Ncfp-n, Np
+SCA@3	Np, Yn
+SCN@3	Ncms-n, Np, Yn
+SFA@3	Np, Yn
+SG@3	Np, Yn
+SHEIMAN@3	Afpfp-n, Np, Yn
+SIVAKOV@3	Afpmsoy, Np
+SM@3	Yn
+SMD@3	Np, Yn
+SMTP@3	Afpfsrn, Np, Yn
+SNM@3	Ncms-n, Np, Yn
+SOLAS@3	Np
+SP@3	Np, Yn
+SPD@3	Np, Yn
+SPK@3	Np, Yn
+SRA@3	Ncfsrn, Np, Yn
+SRRP@3	Np, Yn
+SS0@3	Yn
+SS1@3	Np, Yn
+SS2@3	Np, Yn
+SSL@3	Ncms-n, Np, Yn
+STCW@3	Np, Yn
+SUV@3	Np, Yn
+Saakașvili@3	Np, Rgp
+Saba@3	Ncfsry, Ncmsry, Np
+Sacher-Masoch@3	Np
+Sadako@3	Np
+Sadat@3	Ncms-n, Np
+Saddam@3	Np
+Saferian@3	Np
+Sainte-Beuve@3	Afpfson, Ncms-n, Np
+Sainte@3	Mc-p-l, Ncfp-n, Ncfsrn, Np
+Saints@3	Ncmsrn, Np
+Sakhalin@3	Afpfsrn, Np
+Salammbô@3	Np
+Salmo@3	Np
+Saltarello@3	Np
+Saltcoats@3	Ncfsry, Np
+Salvatore@3	Ncfp-n, Np
+Salvelinus@3	Afpms-n, Np, Rgp
+Salvi@3	Np
+Samways@3	Np
+Sandhurst@3	Np
+Sandwich@3	Np
+Sanielevici@3	Np
+Sankt@3	Np
+Santampa@3	Np
+Sarah@3	Np
+Sarajevo@3	Np
+Sarkozi@3	Ncfp-n, Np
+Sartor@3	Ncfp-n, Ncms-n, Np
+Sasaki@3	Np, Rgp
+Satu-Mare@3	Np
+Satârgi-@3	Ncmsry, Np, Vmil1s
+Sava@3	Np, Rgp
+Savu@3	Np
+Sașa@3	Ncfsry, Ncmsry, Np
+Sburătorul@3	Afpmsry, Ncmsry
+Scarborough@3	Np, Rgpy
+Schengen@3	Np
+Schlesinger@3	Np
+School@3	Ncms-n, Np
+Schroeder@3	Ncms-n, Np
+Schwartz@3	Np
+Schwartzfeld@3	Np
+Schwimmer@3	Np
+Scottish@3	Ncms-n, Np
+Scoția@3	Ncfsry, Np
+Scrimgeour@3	Np, Vmsp3
+Sculeni@3	Afpmp-n, Ncmp-n, Np
+Sedgefield@3	Np
+See@3	Np
+Sehnsucht@3	Np
+Seles@3	Np
+Selgros@3	Np
+Semenic@3	Np, Rgp
+Seneca@3	Ncfsry, Np, Rgp
+Senegal@3	Afpms-n, Np
+Senna@3	Np
+Senty@3	Afp, Np
+Septimus@3	Np
+Sergiu@3	Np
+Severinului@3	Afpmsoy, Ncmsoy, Np
+Sf@3	Yn
+Sfinxu@3	Np
+Sfântu@3	Np
+Shaath@3	Np
+Sharm@3	Np
+Sharon@3	Ncms-n, Np
+Sharpe@3	Vmip3s
+Sheaman@3	Np
+Sheikh@3	Np
+Shelley@3	Np
+Sheringham@3	Np
+Sherpa@3	Ncfp-n, Np
+Sighișoarei@3	Ncfsoy, Np, Npfsoy
+Sihanouk@3	Np
+Silcotub@3	Afpms-n, Ncms-n, Np
+Silgeda@3	Ncfsry, Np
+Silistra@3	Np
+Simeon@3	Np
+Simina@3	Ncfsry, Np
+Simionescu@3	Np
+Simon@3	Np
+Simulescu@3	Np
+Sinon@3	Np
+Sion@3	Ncms-n, Np
+Siria@3	Ncfsry, Np
+Siriei@3	Ncfsoy, Np, Npfsoy
+Sitaxentan@3	Ncms-n, Np
+Skinnergate@3	Afpfp-n, Afpfson
+Slobodan@3	Np
+Slătineanu@3	Np
+Smallbrook@3	Np
+Smirnov@3	Np
+Smith's@3	Np, Yn
+SmithKline@3	Np, Vmil1, Vmm-2s
+Smărăndache@3	Np
+Smărăndăchioaia@3	Ncfsry, Np
+Socaciu@3	Np
+Societies@3	Np
+Socola@3	Np, Rgp
+Sohail@3	Np
+SoloStar@3	Afpms-n, Np
+Solomon@3	Ncfsrn, Np
+Somalia@3	Np
+Somerset@3	Np
+Sommerfeld@3	Np
+Sonia@3	Ncfsry, Np
+Sophie@3	Np
+Sorescu@3	Np
+Soricu@3	Np
+Sorina@3	Ncfsry, Np
+South@3	Ncms-n, Np
+Southall@3	Np
+Southend@3	Np
+Speaking@3	Np
+Spears@3	Np
+Spectra@3	Ncfsry, Np
+Spennymoor@3	Ncms-n
+Sperber@3	Ncms-n, Np
+Spiridon@3	Np
+Square@3	Ncfp-n, Ncfsrn, Np
+St.Louis@3	Np
+Stalevo@3	Np
+Stanislav@3	Np, Vmii3s
+Staphylococcus@3	Np
+Stavri@3	Afpmp-n, Ncmp-n
+Stavropoleos@3	Np
+SteadyPD@3	Np, Vmip3s
+Steel@3	Ncms-n, Np
+Stefan-Boltzmann@3	Ncms-n, Np
+Steffi@3	Np
+Stenotrophomonasmaltophilia@3	Ncfsry, Np
+Stephen@3	Np
+Sterland@3	Np
+Stevenson@3	Ncms-n, Np
+Sticker@3	Np
+Stifford@3	Np
+Stirling@3	Ncms-n, Np
+Stoicănescu@3	Np
+Stolojan@3	Np
+Stolypin@3	Afpms-n, Afpmsvy, Ncms-n, Np, Rgp
+Straus@3	Np
+Strauss@3	Ncmsryy, Np, Vmil1
+Stripe@3	Ncfp-n, Np
+Stroustrup@3	Ncms-n, Np
+Sturdza@3	Ncfsry, Np
+Stäckel@3	Ncmsry, Np
+Stéphane@3	Afpf--n, Ncfsrn, Np
+Stănescu@3	Np
+Stănică@3	Ncfsrn, Np
+Subcarpații@3	Ncfp-n, Npmpry
+Subprogramul@3	Ncmsry, Np
+Sudan@3	Np
+Sudanului@3	Ncmsoy, Np
+Suffolk@3	Np
+Suha@3	Ncfsry, Np
+Sulfonilureele@3	Afpfpry, Ncfpry, Np
+Sully@3	Np, Rgp
+Sunday@3	Np
+Sung@3	Np
+Surduc@3	Ncms-n, Np, Rgp
+Swan@3	Np
+Swansea@3	Np
+Swerford@3	Ncms-n, Np
+Sybaris@3	Np
+Sybir@3	Np
+Sylva@3	Np
+Szabolcska@3	Np
+Szabó@3	Np
+Sânnicolau@3	Np
+Sütő@3	Np
+Săpânța@3	Np
+TAXOTERE@3	Mc-p-l, Ncfsrn, Ncfsry
+TCR@3	Ncms-n, Np, Yn
+TEMODAL@3	Afpmsoy, Np, Vmis3s
+TESLASCAN@3	Ncms-n, Np
+THEMIS@3	Np
+TMZ@3	Ncfp-n, Np, Yn
+TNF-alfa@3	Ncfsry, Np
+TNF@3	Ncms-n, Np
+TOEFL@3	Ncmsry, Np, Yn
+TORISEL@3	Afpmsry, Np, Vmm-2s, Yn
+TOVIAZ@3	Ncfpry, Ncfson, Np
+TP@3	Np, Yn
+TPII@3	Ncmpry, Np, Yn
+TR@3	Np, Yn
+TRAVATAN@3	Ncms-n, Np
+TRB@3	Ncms-n, Np, Yn
+TRISENOX@3	Np, Vmg
+TSS@3	Np, Yn
+TSW@3	Ncms-n, Np, Yn
+TTP@3	Np, Yn
+TV-am@3	Ncfp-n, Np, Vmip1s----y
+TVS@3	Np, Yn
+TYSABRI@3	Ncfp-n, Np
+Tabitha@3	Np
+TachoSil@3	Np
+Tadalafil@3	Np
+Tadjikistan@3	Np
+Tagebuch@3	Ncms-n, Np
+Taipei@3	Ncfsoy, Np, Npfsoy
+Taiwanului@3	Np, Npmsoy
+Talbot@3	Np
+Talidomida@3	Np
+Tamiflu@3	Ncms-n, Np
+Tamil@3	Np
+Tampere@3	Afpfson, Np, Npfsrn
+Tandemact@3	Ncms-n, Np
+Tankersley@3	Np
+Tarceva@3	Ncfsry, Np
+Targretin@3	Ncms-n, Np
+Tasică@3	Np
+Tasigna@3	Ncfp-n, Np, Rgp
+Tasmar@3	Np
+Tasso@3	Np
+Taxation@3	Np
+Taxotere@3	Afpfp-n, Afpfson, Ncfp-n, Np
+Taylor@3	Ncms-n, Ncmsvn, Np
+Teculescu@3	Np
+Tees@3	Np
+Tehno@3	Np
+Tekturna@3	Ncfsry, Np
+Telegraph@3	Np, Rgp
+Telpark@3	Mc-p-l, Np
+Telzir@3	Np
+Temodal@3	Np
+Temsirolimus@3	Np
+Tenofovir@3	Np
+Teobald@3	Np
+Teodoreanu@3	Np, Vmp--sm---y
+Teofil@3	Afpms-n, Np
+Teramo@3	Np
+Teremia@3	Np, Rgp
+Terry@3	Np
+Tevagrastim@3	Np
+Thailanda@3	Np
+Thaissa@3	Ncfsry, Np
+Thames@3	Np
+Thanh@3	Np
+Thatcher@3	Ncms-n, Np
+The@3	Np
+Theda@3	Ncfsry, Np
+Thelin@3	Np
+Theodosia@3	Np
+Theraplix@3	Ncms-n, Np
+Theresia@3	Np
+Thomas@3	Np
+Thompson@3	Np
+Thoreau@3	Np, Vmii3p
+Thyrogen@3	Np
+Tiazolidindionele@3	Afpfpry, Ncfpry
+Tigecyclina@3	Ncfsry, Np
+Tigers@3	Np
+Tilburg@3	Np
+Tim@3	Np, Yn
+Timmy@3	Np
+Timotei@3	Np
+Timothy@3	Np
+Tiraspol@3	Ncms-n, Np
+Tismana@3	Np
+Tita@3	Ncfsry, Np
+Tito@3	Np, Rgp
+Tobit@3	Np
+Todd@3	Np
+Tofield@3	Np
+Tolcapona@3	Ncfsry, Np
+Tomaziu@3	Np
+Tomis@3	Np
+Tomiță@3	Afpfsrn, Ncfsrn, Np
+Tommy@3	Np
+Topp@3	Ncfp-n, Ncmsvn, Np
+Topârceanu@3	Np
+Toronto@3	Np
+Torquato@3	Np
+Tottenham@3	Np
+Tracleer@3	Np
+Trajkovski@3	Np
+Tranquillo@3	Np
+Trastuzumab@3	Np
+Tratsch@3	Np
+Travis@3	Np
+Tree@3	Np, Npfsrn, Vmip3s
+Trevaclyn@3	Np
+Trevor@3	Ncfpoy, Np
+Trichinella@3	Ncfsry, Np
+Tritsch@3	Np
+Troadei@3	Np, Npfsoy
+Trudexa@3	Ncfsry, Np
+Trunchii@3	Ncfp-n, Ncfson, Np
+Truvada@3	Np
+Tudoran@3	Np
+Tudorel@3	Np
+Turnover@3	Np
+Twinrix@3	Ncms-n, Np
+Twr@3	Ncms-n, Np, Yn
+Tygacil@3	Np
+Tyneside@3	Np, Vmip3s
+Tyverb@3	Afpms-n, Ncms-n, Np
+TÂMPLAR-TAPIȚER@3	Ncfs-n, Np, Vmip1s
+Târgu-Jiu@3	Np
+Târgușor-Copou@3	Np
+Târnave@3	Np
+Tăbăcaru@3	Ncms-n, Np
+Tănăsescu@3	Np
+U.@3	Yn
+UEFA@3	Ncfsry, Np, Yn
+UGT@3	Afpfsrn, Np, Vmip1s, Yn
+UIF@3	Ncms-n, Np
+UNITER@3	Np
+UNIX@3	Np
+UPDRS@3	Np, Yn
+USG@3	Np, Yn
+UVM@3	Afpfsry, Np, Yn
+Ug@3	Ncm--n, Yn
+Umberto@3	Np
+Unforgiven@3	Afpms-n, Np
+Ungheanu@3	Np
+Ungheni@3	Np
+Ungureanu@3	Np
+Unirei@3	Ncfsoy, Np
+Unistil@3	Ncms-n, Np
+Ununpentium@3	Ncms-n, Np
+Ununtrium@3	Ncfp-n, Ncms-n, Np
+Upton@3	Np
+Uricariu@3	Np
+Ursuleanu@3	Np
+Uzbekistanului@3	Ncmsoy, Np, Npmsoy
+V1@3	Np
+V2@3	Ncm--n, Np
+V4@3	Ncm--n, Np
+V86@3	Np, Yn
+VASOVIST@3	Ncms-n, Np, Vmp--sf
+VAT@3	Np
+VDK@3	Ncms-n, Np, Yn
+VFEND@3	Ncfsrn, Np, Yn
+VHA@3	Ncm--n, Np, Yn
+VHB@3	Ncms-n, Np, Yn
+VICTOR@3	Ncfp-n, Ncfsrn, Np, Vmg
+VII-VIII@3	Mo-s-r, Ncmpry, Ncms-n
+VIRACEPT@3	Mc-p-l, Np, Vmp--sm
+VISTIDE@3	Ncfp-n, Ncfson, Np
+VL@3	Mo-s-r, Np, Yn
+VLADIMIR@3	Ncfp-n, Ncfson, Np
+VLPs@3	Ncfp-n, Np
+VM@3	Np, Yn
+Vajpayee@3	Ncfp-n, Np
+Valahiei@3	Ncfsoy, Np, Npfsoy
+Valcani@3	Np
+Valentino@3	Np
+Valetta@3	Np
+Valsamaky-Farfara@3	Np
+Valsamaky@3	Ncfsvy, Np
+Valter@3	Ncms-n, Np
+Valéry@3	Np
+Varlaam@3	Np
+Vasco@3	Np
+Vasiliu@3	Np
+Velcean@3	Np
+Vellescu@3	Np
+Velmetia@3	Np
+Velosulin@3	Afpms-n, Np
+Venables@3	Np
+Venezuela@3	Ncfsry, Np
+Venta-Neb@3	Np
+Ventavis@3	Np
+Verapamil@3	Ncms-n, Np
+Verhofstadt@3	Np
+Versurile-comentariu@3	Ncmpry, Np
+Veturia@3	Ncfsry, Np
+Viagra@3	Ncfsry, Np
+Vidaza@3	Ncmsry, Np
+Vidrighin@3	Np
+Vienă@3	Ncfsrn, Np
+Viktor@3	Afp, Afpfsvy, Ncms-n, Np
+Vilnius@3	Np
+Vimpat@3	Np, Rgp, Vmp--sm
+Vincențiu@3	Np
+Vinea@3	Mofs-l, Ncfsry, Np
+Vințu@3	Np
+ViraferonPeg@3	Np
+Viread@3	Np
+Vișoianu@3	Ncms-n, Np
+Vladimirescu@3	Np, Vmsp3
+Vladimirovici@3	Np
+Vladimïrovici@3	Np
+Vlahuță@3	Afpfsrn, Ncfsrn, Np
+Vlaicu@3	Np
+Vogt@3	Afpms-n, Ncfp-n, Np
+Voinea@3	Np
+Voiteg@3	Np, Vmip1s
+Voivodinei@3	Np, Npfsoy
+Vojvodina@3	Np
+Volanski@3	Np
+Volenski@3	Np
+Voriconazolul@3	Ncmsry, Np
+Vornicescu@3	Np
+Voyage@3	Afpfp-n, Afpfson, Vmip3s
+Vraciu@3	Np
+Vrâncenu@3	Np
+Vác@3	Afpms-n, Ncms-n, Np
+Vâlcii@3	Ncmpry, Ncmsoy, Np, Npfson
+Vârșeț@3	Ncms-n, Np
+W.@3	Ncms-n, Yn
+WHITE@3	Ncfp-n, Ncmsvy, Np, Yn
+WTN@3	Np, Vmip1s, Yn
+Wainright@3	Mc-p-l, Np
+Wales@3	Np
+Wallaby@3	Np
+Walt@3	Ncms-n, Np
+Warburg@3	Ncms-n, Np
+Waschirov@3	Np
+Washburn@3	Np
+Wasicsek@3	Np
+Watson@3	Np
+Weiss@3	Np
+Wellington@3	Np
+Wells@3	Np
+Welsh@3	Np
+West@3	Np
+Westcountry@3	Np
+Westfourth@3	Np
+Westminster@3	Ncms-n, Np
+Weymouth@3	Np
+While@3	Ncfp-n, Np
+Whiteley@3	Np
+Wien@3	Ncms-n, Np
+Wildlife@3	Ncfp-n, Np
+Willem@3	Np, Vmil1
+William@3	Np, Vmii1
+Williams@3	Np
+Wilson@3	Np
+Wiltshire@3	Ncfp-n, Np
+Wimbledon@3	Np
+Windsor@3	Ncms-n, Np
+Windward@3	Np
+Winsdor@3	Np
+Winthrop@3	Np
+Wirral@3	Np
+Wishart@3	Np
+Wolkonski@3	Np
+Wolves@3	Np
+Wood@3	Np
+Woolton@3	Ncms-n, Np
+Worcestershire@3	Ncfp-n, Ncfsrn, Np
+World@3	Np
+Worringer@3	Np
+Wortley@3	Ncms-n, Np
+Write@3	Ncfp-n, Ncfson, Np
+Writing@3	Np
+Wudang@3	Np
+Wölfflin@3	Np
+XENICAL@3	Afpmsry, Ncfp-n, Np
+XI-XII@3	Mo-s-r, Ncms-n
+XVIII-XIX@3	Mo-s-r, Ncms-n, Yn
+XX-lea@3	Mo-s-r, Ncms-n, Rgp, Vmii3s----y
+XXVIII@3	Mo-s-r, Vmp--sm
+Xeloda@3	Np, Npfsrn
+Xigris@3	Ncms-n, Np, Vmp--sm
+Xinghua@3	Ncms-n, Np, Vmii3s
+Xolair@3	Np
+Xyrem@3	Np
+YENTREVE@3	Afpfp-n, Ncfsrn, Np
+YURIJ@3	Np
+Yasser@3	Np
+Yellow@3	Np
+Yongbyon@3	Ncms-n, Np
+Yucatan@3	Np
+Z.M.@3	Yn
+ZF@3	Yn
+Zalău@3	Np
+Zamfirescu@3	Np
+Zeelande@3	Afpf--n, Ncf--n, Np
+Zeelandă@3	Np, Npfsrn
+Zeilic@3	Np, Rgp
+Zelimkhan@3	Np
+Zenga@3	Ncfsry, Np
+Zhang@3	Np
+Zlatna@3	Ncfsry, Np
+Zoei@3	Np, Npfsoy
+Zola@3	Ncfsry, Np
+Zoran@3	Ncms-n, Np
+Zugrăvescu@3	Np, Vmsp3
+Zürich@3	Np
+_@3	Ncmsry, Yn
+a.@3	Y, Yn
+a.r.@3	Yn, Yr
+abacavir@3	Ncfp-n, Ncm--n, Ncms-n
+abamectina@3	Ncfsry
+abelian@3	Afpms-n, Ncms-n
+abondonat@3	Afpms-n, Ncms-n
+abortus@3	Ncfp-n, Ncms-n
+abstractor@3	Ncms-n
+acenocoumarol@3	Ncms-n, Ncmsry, Np
+acinetobacter@3	Ncms-n
+acizii-alcooli@3	Ncfsoy, Ncmpry
+acord-cadru@3	Ncms-n
+acordul-cadru@3	Ncms-n, Ncmsry
+acorduri-cadru@3	Ncfsrn, Ncmp-n, Ncms-n, Np
+acquis@3	Nc, Ncm--n, Ncms-n
+actorul-păpușă@3	Ncfsrn, Ncms-n
+actul-poezie@3	Ncmsry
+acuarelat@3	Afpms-n
+ad@3	Ncms-n, Vmip1s, Vmip3p
+adalimumab@3	Afpms-n, Ncms-n, Np
+adenozin@3	Ncms-n
+adriatice@3	Afpfp-n, Afpfson
+aeruginosa@3	Afpfsry
+agomelatina@3	Ncfsry
+akb@3	Ncfp-n, Ncmsvn, Np
+al-Maktoum@3	Rgp
+al-Qaida@3	Ncfsry, Np, Rgp
+al-Sadr@3	Ncms-n, Np
+al-Sunna@3	Np
+alanic@3	Afpms-n, Rgp
+alb-roz@3	Afpms-n, Np
+alcalino-pământoși@3	Afp-p-n, Afpmp-n, Afpms-n
+alfa-2b@3	Ncfsrn, Ncfsry, Ncms-n, Yn
+alfa-3@3	Ncfsry, Ncms-n, Yn
+alfuzosin@3	Ncm--n, Ncms-n, Ncmsvn
+aliskiren@3	Afpms-n, Ncfp-n, Ncms-n
+aliskirenul@3	Afpmsry, Ncmsry
+aliterante@3	Afpfp-n, Afpfson, Ncfp-n
+alopurinol@3	Afpms-n, Ncms-n
+alpha@3	Afpfsrn, Ncm--n, Rgp
+amiezei@3	Ncfsoy, Vmnp
+amikacina@3	Ncfsry
+aminoglicozide@3	Ncfp-n, Ncfson
+aminotransferazelor@3	Ncfpoy
+amonica@3	Ncfsry
+amoxicilina@3	Ncfsry
+amprenavir@3	Ncms-n
+amprenavirul@3	Afpmsry, Ncmsry
+amprenavirului@3	Ncmsoy
+anafilactoid@3	Afpms-n, Np
+analizatorii@3	Ncfp-n, Ncfson, Ncmpry
+and@3	Np, Rgp, Vmip1s
+angheliană@3	Afpfsrn, Ncfsrn
+angiotensina@3	Ncfsry
+angiotensinogenului@3	Ncmsoy
+anie@3	Ncfsrn
+ansamblare@3	Ncfsrn
+anti-HBs@3	Yn
+anti-VHA@3	Afpfp-n, Ncms-n, Yn
+anti-eritropoetină@3	Ncfsrn
+anti-insulină@3	Afpfsrn, Afpfsry
+anticomițial@3	Afpms-n
+antidurere@3	Ncfp-n, Ncfson, Ncfsrn
+antieroului@3	Ncmsoy
+antifranceze@3	Afpfp-n, Ncfp-n, Ncfson, Vmsp3
+antiglaucomatos@3	Afpms-n
+antihipertensiv@3	Afpms-n, Ncms-n
+antihipertensive@3	Ncfp-n, Ncfson
+antihipertensivelor@3	Ncfpoy
+antilovinesciană@3	Afpfsrn
+antineoplazice@3	Afpfp-n, Afpfson
+antiparkinson@3	Afpms-n
+antipneu@3	Ncms-n
+antiport@3	Ncms-n
+antipseudopestoasă@3	Afpfsrn
+antispastisticelor@3	Afpfpoy, Ncfpoy
+antitumorală@3	Afpfsrn
+antișoarece@3	Afpms-n, Ncfp-n
+aplicator@3	Afpms-n, Ncms-n
+aplicatorul@3	Afpmsry, Ncmsry
+aprope@3	Afpfp-n, Afpfson, Ncfp-n
+aquis@3	Nc, Ncfp-n, Ncms-n
+arcuate@3	Afpfp-n, Afpfson, Vmp--pf
+aripei@3	Afpfsoy, Ncfsoy
+aripele@3	Afpfp-n, Afpfson, Ncfpry
+aripiprazolul@3	Ncmsry
+asfictică@3	Afpfsrn
+astă-dată@3	Ncfsrn, Yn
+atenolol@3	Ncms-n
+atrioventriculare@3	Afpfp-n, Afpfson, Ncfsrn
+aureliană@3	Afpfsrn
+aureus@3	Afpms-n, Ncfp-n, Np
+auto-@3	Afp, Ncms-n
+autocompătimeam@3	Vmii1
+autodirijare@3	Ncfsrn
+autoetalându@3	Vmg-------y
+autogenerează@3	Vmip3, Vmm-2s
+autologe@3	Afpfp-n, Ncfp-n, Ncfson
+azi-noapte@3	Afp, Ncf--n, Ncfson
+b.@3	Yn
+baby@3	Nc, Ncm--n, Ncms-n
+bacteriaceae@3	Np
+bahtiniană@3	Afpfsrn
+bain-marie@3	Ncfsrn, Ncms-n
+balțul@3	Ncmsry
+bankuri@3	Ncfp-n
+batsman@3	Ncms-n
+baumannii@3	Ncmpry, Ncmsoy, Np
+bazarelor@3	Ncfpoy
+bașa@3	Ncfsry, Np, Vmii3s
+belle@3	Ncf--n, Ncfp-n, Ncfson
+benserazidei@3	Ncfsoy
+benserazidă-25@3	Ncfsrn, Ncfsry, Np
+benserazidă@3	Ncfsrn
+benzodiazepinice@3	Afpfp-n, Afpfson
+beton-armat@3	Ncms-n
+bexaroten@3	Afpms-n, Ncfp-n, Ncms-n
+bike@3	Ncfp-n, Ncfson, Ncms-n
+bimodală@3	Afpfsrn, Ncfsrn
+bin@3	Ncfp-n, Ncm--n, Ncmsvn
+biongulate@3	Afpfp-n, Afpfson
+bioptice@3	Afpfp-n, Afpfson, Ncfson, Ncfsrn
+bivalirudinei@3	Ncfsoy
+blank@3	Ncms-n, Np
+blastice@3	Afpfp-n, Afpfson
+blastică@3	Afpfsrn, Ncfsrn
+bobschi@3	Ncmp-n, Ncms-n
+boerească@3	Afpfsrn, Afpfsvy
+bolintineni@3	Afpmp-n, Ncmp-n
+bosentan@3	Afpms-n, Ncms-n, Rgp
+bosentanului@3	Ncmsoy
+bradolina@3	Ncfsry
+bradolină@3	Ncfsrn
+brechtiană@3	Afpfsrn
+bronhoalveolar@3	Afpms-n
+brosajul@3	Ncmsry
+browser@3	Ncms-n
+buissonièrre@3	Ncfp-n, Ncms-n
+buonoserv@yahoo.com@3	Nc, Ncfsry, Ncms-n
+c.@3	Vmil1s, Yn, Yr
+canonierii@3	Ncfp-n, Ncmpry
+capecitabină@3	Afpfsrn, Ncfsrn
+carbapene@3	Ncf--n, Ncfp-n
+carbapenemase@3	Nc, Ncfp-n
+carbapeneme@3	Ncfp-n, Ncfson, Ncfsrn
+carbapenemă@3	Ncfsrn
+carboxilat@3	Afpms-n, Ncms-n
+cardio-vasculare@3	Afpfp-n, Afpfson, Ncfp-n, Ncfson
+carebapeneme@3	Ncfp-n, Ncfson, Ncfsrn
+carinii@3	Ncfp-n, Ncfsoy, Ncmpry
+carpato-ponto@3	Afp, Ncfsrn, Ncms-n
+cca@3	Ncfsry, Yn, Yr
+ceace@3	Ncfp-n, Ncfson, Np
+ceeace@3	Ncfp-n, Ncms-n, Np
+cefalexina@3	Ncfsry
+cefaloniumul@3	Ncmsry
+celalălt@3	Afpms-n, Rgp
+celecoxib@3	Afpms-n, Ncms-n
+celelate@3	Afpfp-n, Afpfson, Ncf--n
+centesimale@3	Afpfp-n, Afpfpry, Afpfson
+cestui@3	Ncfsoy, Vmis3s, Vmnp
+char@3	Afpms-n, Nc, Ncms-n
+chlorhexidină@3	Ncfsrn
+cinzec@3	Ncfp-n, Ncms-n, Vmip1s
+cipsurile@3	Ncfpry
+circiumă@3	Ncfsrn
+citocromială@3	Afpfsrn
+citosolice@3	Afpfp-n, Afpfson, Ncfp-n
+citotoxicitatea@3	Ncfsry
+clasicile@3	Afpfp-n, Afpfpry, Afpfson, Ncfpry
+clearance@3	Nc, Ncfp-n, Ncfson
+clinicoradiologice@3	Afpfp-n, Afpfson
+clorprofam@3	Ncms-n, Np, Vmii1
+clorpromazinei@3	Afpfsoy, Ncfsoy
+cm3@3	Ncms-n, Yn
+colab@3	Ncms-n
+colicerimea@3	Ncfsry
+colistimethate@3	Ncf--n, Ncfp-n
+colonii-UFC@3	Ncfson, Yn
+comenteaz@3	Ncms-n
+comparatorii@3	Afp-p-n, Afpfson, Afpmpry, Ncmpry
+compasive@3	Afpfp-n, Afpfson, Ncfp-n
+condensațiune@3	Ncfsrn
+construcțiunei@3	Ncfsoy
+contemplativ-constatativă@3	Afpfsrn
+contraefect@3	Ncfp-n, Ncms-n, Rgp
+contraprestația@3	Ncfsry
+contribuesc@3	Vmip1s, Vmip3p
+convențiile-cadru@3	Ncms-n
+copchilul@3	Ncmsry
+cordică@3	Ncfsrn, Vmm-2s
+coreasigurare@3	Ncfsrn
+cortico-visceral@3	Afpms-n
+costruită@3	Afpfsrn, Vmp--sf
+cotoaică@3	Ncfsrn
+cotă-@3	Ncmsry
+creștinizarea@3	Ncfsry
+cricket@3	Ncfp-n, Ncms-n
+crioprotectanților@3	Ncfpoy
+criptate@3	Afpfp-n, Afpfson, Ncfp-n
+cu-nțelepciune-ncearcă@3	Np, Npfsry, Vmip3p
+cuișoară@3	Ncfsrn
+cumarinici@3	Afpmp-n
+cumulațiunii@3	Ncfsoy
+cupeze@3	Ncfp-n, Ncfson, Vmsp3
+cvasidominantă@3	Afpfsrn, Ncfsrn
+cãmin@3	Ncms-n, Vmip1s, Vmip3p
+căpitane@3	Ncf--n, Ncfp-n, Ncfson
+cătră@3	Ncfsrn, Vmis3s
+d'Alembert@3	Afpms-n, Ncms-n, Np
+d0@3	Np, Rgp, Vmm-2s
+daco-geților@3	Afpmpoy, Ncfpoy, Ncmpoy
+daco-romanilor@3	Afpmpoy, Ncmpoy
+dangereux@3	Ncm--n, Ncms-n, Ncmsvn
+daptomicinei@3	Ncfsoy
+datum@3	Ncfp-n, Ncms-n, Ncmsvn
+deasemenea@3	Afp, Ncfsry, Rgp
+debug@3	Nc, Ncms-n, Vmip1s
+decizie-cadru@3	Ncfsrn, Ncms-n
+del@3	Afpms-n, Ncms-n, Yn
+dela@3	Ncfsry, Ncms-n, Yn
+demidulci@3	Afpfp-n, Vmip2s
+derecunoaștere@3	Ncfsrn
+derecunoașterii@3	Ncfsoy
+descaler@3	Ncms-n
+descebălui@3	Ncmsoy, Vmis3s, Vmnp
+designarivă@3	Afpfsrn
+desipraminei@3	Ncfsoy
+desloratadinei@3	Ncfsoy
+desmierdare@3	Ncfsrn
+dextromoramida@3	Ncfsry
+dezescaladare@3	Ncfsrn
+deșteapte@3	Afpfp-n, Ncfp-n, Vmsp1p
+diastereoizomeri@3	Ncmp-n
+didanozină@3	Ncfsrn
+difosfat@3	Ncms-n
+digoxină@3	Ncfsrn
+diletantisme@3	Ncfp-n
+diminețele@3	Ncfpry
+dindos@3	Afpms-n, Ncms-n, Rgp
+dirijoratului@3	Ncmsoy
+disoproxil@3	Afpms-n, Ncms-n
+docetaxel@3	Ncms-n
+docetaxelului@3	Ncmsoy
+dohtorul@3	Ncmsry
+dominița@3	Ncfsry
+domniei-sale@3	Ncfp-n, Ncfson, Ncfsoy
+domnu@3	Ncms-n, Ncmsryy, Vmg-------y
+dong@3	Ncms-n
+dopadecarboxilază@3	Ncfsrn
+dopaminergice@3	Afpfp-n, Afpfson, Ncfp-n
+dopei@3	Ncfsoy
+doramectinul@3	Ncmsry
+doripenem@3	Ncms-n, Rgp
+doxorubicina@3	Ncfsrn, Ncfsry
+doxorubicină@3	Ncfsrn
+drotrecoginului@3	Ncmsoy
+dublu-orb@3	Ncms-n
+duhos@3	Afpms-n, Ncms-n, Rgp, Vmip1s
+dulce-amăruie@3	Afpfsrn
+dumneatale@3	Afpfp-n, Afpfpry, Ncfp-n
+e.@3	Ncms-n, Y, Ya, Yn
+ecotoxicității@3	Ncfsoy
+edite@3	Ncf--n, Ncfp-n, Ncfson
+electro-contractil@3	Afpms-n, Ncms-n
+elernentară@3	Afpfsrn, Ncfsrn, Vmis3p
+eloedrică@3	Afpfsrn
+emisferectomii@3	Ncfp-n, Ncfson
+emisivitatea@3	Ncfsry
+emoționalității@3	Ncfsoy
+emtricitabina@3	Ncfsry
+emtricitabină@3	Ncfsrn
+encefalotropă@3	Afpfsrn
+endonimul@3	Afpmsry, Ncmsry
+endotelinei@3	Afpfsoy, Ncfsoy
+endotraheal@3	Afpms-n, Ncms-n
+enterobacter@3	Ncms-n
+epidermal@3	Afpms-n
+epididimare@3	Ncfsrn
+epididimită@3	Ncfsrn
+episoade-cheie@3	Ncfp-n, Ncfson
+epoetina@3	Ncfsry
+epoetinei@3	Ncfsoy
+epoetinele@3	Ncfpry
+epoetină@3	Ncfsrn
+epoprostenol@3	Ncms-n
+eritropoetic@3	Afpms-n, Ncms-n
+eritropoetina@3	Ncfsry
+eritropoetinele@3	Ncfpry
+eritropoetină@3	Ncfsrn
+erlotinib@3	Ncm--n, Ncms-n
+erlotinibului@3	Ncmsoy
+es@3	Nc, Ncfp-n, Vmip1s
+est-germani@3	Ncm--n, Ncmp-n
+esteric@3	Afpms-n, Ncms-n
+et@3	Ncms-n
+euroagenți@3	Afpmp-n, Ncmp-n
+eurosceptici@3	Afpmp-n, Ncfp-n, Ncfson
+evergreens@3	Ncms-n
+evreimii@3	Ncfp-n, Ncfsoy, Ncmp-n
+ex-@3	Afp, Nc, Vmip1s----y
+ex-premier@3	Ncms-n
+ex@3	Ncfp-n, Np, Vmip1s
+excitandam@3	Vmii1
+existus@3	Ncfp-n, Ncms-n, Vmip1s, Vmp--sm
+experiența-somn@3	Ncfsrn, Ncfsry, Ncms-n
+extrahepatică@3	Afpfsrn
+extrapancreatice@3	Afpfp-n, Afpfson
+facto@3	Afpfsvy, Ncfsvy, Ncms-n
+fascist-totalitară@3	Afpfsrn
+feciorei@3	Ncfsoy, Ncmp-n
+felii-felii@3	Ncfp-n
+fenotipuri@3	Ncfp-n
+feto-placentară@3	Afpfsrn
+fibrionolizate@3	Afpfp-n, Afpfson, Vmp--pf
+ficsonomia@3	Ncfsry
+filgrastim@3	Ncms-n
+filgrastimului@3	Ncmsoy
+flip-off@3	Afpms-n, Ncms-n, Np, Rgp
+float@3	Afpms-n, Ncms-n
+flumecina@3	Ncfsry, Ncmsry
+fluoroquinolone@3	Ncfp-n, Ncfson
+fluoxetina@3	Ncfsry
+fluticazonă@3	Ncfsrn
+focu@3	Ncms-n, Ncmsryy, Np
+fomente@3	Ncfp-n, Ncfson
+footbal-rugby@3	Ncms-n, Rgp
+forward@3	Nc, Ncfp-n, Ncms-n
+fosamprenavir@3	Ncms-n
+fosamprenavirul@3	Ncmsry
+fosamprenavirului@3	Ncmsoy
+fosfodiesterazei@3	Ncfsoy
+fosfodiesterază@3	Ncfsrn
+fosfolipazei@3	Ncfsoy
+fremătează@3	Vmip3, Vmip3p, Vmm-2s
+frățioare@3	Ncf--n, Ncfp-n, Ncfson
+fumarat@3	Afpms-n, Ncms-n
+fumaratul@3	Ncmsry
+furoat@3	Afpms-n, Ncms-n
+făr-@3	Afp, Vmip1s----y, Vmnp
+gasește@3	Rgp, Vmip3s, Vmm-2s
+gemfibrozilului@3	Afpmsoy, Ncmsoy
+general-umane@3	Afpfp-n, Ncfp-n, Ncfson
+genitourinar@3	Ncms-n
+genotoxic@3	Afpms-n
+genotoxice@3	Afpfp-n, Afpfson
+genotoxicitate@3	Ncfsrn
+gestagen@3	Afpms-n, Ncms-n
+gidian@3	Afpms-n, Ncms-n
+glibenclamidă@3	Ncfsrn
+glicoproteină@3	Ncfsrn
+glicozidice@3	Afpfp-n, Ncfp-n, Vmsp3
+glicozidică@3	Afpfsrn, Vmis3s
+glicozil-fosfatidilinositolului@3	Afpmsoy, Ncmsoy
+glicozilată@3	Afpfsrn
+glimepirida@3	Ncfsry
+glimepiridei@3	Ncfsoy
+glimepiridă@3	Ncfsrn
+glucagon@3	Afpms-n, Ncms-n
+glucozat@3	Afpms-n, Vmp--sm
+glucuronid@3	Afpms-n, Ncm--n, Ncms-n
+glucuronidarea@3	Ncfsry
+glucuronoconjugarea@3	Ncfsry
+glycylcycline@3	Ncfp-n, Ncfson
+gogorâtă@3	Afpfsrn, Ncfsrn, Vmp--sf
+goldies@3	Afpms-n, Nc
+gospodariul@3	Ncmsry
+granulocitare@3	Afpfp-n, Afpfson
+gross-up@3	Ncms-n
+guanozin@3	Ncms-n
+haloperidolul@3	Ncmsry
+hard-discuri@3	Ncfp-n, Ncmp-n, Ncms-n
+has-Satan@3	Afpms-n, Ncms-n
+helenicul@3	Afpmsry
+heminectomii@3	Ncfp-n, Ncfson
+hepatocelular@3	Afpms-n
+hepatocelulară@3	Afpfsrn
+hepatotoxicitate@3	Ncfsrn
+hidroclorotiazidă@3	Ncfsrn
+hidroxi@3	Ncmp-n, Ncms-n, Vmis3s
+hinduso-musulmane@3	Afp, Ncfp-n, Ncmpry
+hipercoagulare@3	Ncfsrn
+hiperpresiune@3	Ncfsrn
+hiperstimulării@3	Ncfsoy
+hipoxia@3	Ncfsry
+hipoxiei@3	Ncfsoy
+hockey@3	Ncm--n, Ncms-n, Np
+hoina@3	Ncfsry
+horn-led@3	Afp, Ncms-n
+hv0@3	Ncm--n, Ncmsvn, Vmip3s
+hv@3	Nc, Ncfp-n, Rgp
+hyper@3	Ncms-n
+hypermarket@3	Ncms-n
+ianuarie-octombrie@3	Ncf--n, Ncms-n
+iazygii@3	Ncmpry
+idealizatoare@3	Afpf--n, Ncf--n, Ncfp-n
+ierbicide@3	Afpfp-n, Ncf--n, Ncfp-n, Ncfson
+igienico-sanitare@3	Afpfp-n, Afpfson, Ncfp-n
+ijász@3	Ncms-n, Rgp, Vmip1s
+iloprost@3	Ncms-n, Rgp
+imipenem-cilastatin@3	Afpms-n, Ncms-n
+imunocompromiși@3	Afpmp-n, Ncmp-n
+imunodeprimate@3	Afpfp-n, Afpfson
+imunosupresați@3	Afpmp-n, Vmip2p
+imunotoxice@3	Afpfp-n, Afpfson, Ncfp-n
+inchieturile@3	Ncfpry
+inconcesivă@3	Afpfsrn
+indinavirului@3	Ncmsoy
+inelastice@3	Afpfp-n, Afpfson
+infarcturilor@3	Ncfpoy
+inhalatorie@3	Afpfsrn
+inscriptoare@3	Afpfsrn, Ncf--n, Ncfp-n
+insulin-protează@3	Ncfsrn
+int@3	Nc, Ncms-n
+intenațional@3	Afpms-n
+interuptibil@3	Afpms-n
+intra-individuale@3	Afpfp-n, Afpfpry, Afpfson
+intraspitalicești@3	Afp-p-n, Afpfson, Vmip2s
+intrebându@3	Vmg-------y
+inward@3	Afpms-n, Ncfp-n, Ncms-n
+ipeca@3	Ncfsry
+iraqieni@3	Afpmp-n, Ncmp-n
+isvorenilor@3	Afpmpoy, Ncmpoy
+iugoslavo-albaneze@3	Afpfp-n, Afpfson
+iv@3	Afpms-n, Mo-s-r, Ncms-n
+izoenzimele@3	Ncfpry
+izoforme@3	Afpfp-n, Afpfson
+izomeraza@3	Ncfsry
+izosorbid-5-mononitrat@3	Afpms-n, Ncms-n, Yn
+izotonă@3	Afpfsrn
+izotopică@3	Afpfsrn
+izvoară@3	Ncfsrn
+jassilor@3	Ncfpoy, Ncmpoy
+joi,@3	Ncf--n, Ncfsrn, Ncms-n
+jugu@3	Ncms-n, Vmis3s
+jump@3	Nc, Ncms-n
+jurat-procurator@3	Afpms-n, Ncms-n
+kPa@3	Yn
+kafkian@3	Afpms-n, Ncms-n
+karaoke@3	Ncfp-n, Ncfson, Ncms-n
+keratoconjunctivită@3	Ncfsrn
+kilowatt-ore@3	Ncfsrn, Ncms-n, Yn
+klebsiella@3	Ncfsrn, Ncfsry
+km2@3	Ncfsrn, Ncms-n, Rgp
+kmerilor@3	Afp-poy, Ncfpoy, Ncmpoy
+l'école@3	Ncf--n, Ncfp-n, Np
+lacosamid@3	Afpms-n, Ncfp-n, Ncms-n
+lambda@3	Ncfsry, Vmii3s
+lamivudina@3	Ncfsry
+lamivudină@3	Ncfsrn
+lapatinib@3	Ncms-n
+lapunei@3	Ncfsoy, Ncms-n
+largactil@3	Afpms-n, Nc---n, Ncms-n
+laropiprantului@3	Ncmsoy
+lasciv-orientală@3	Afpfsrn
+legǎturi@3	Ncfp-n, Ncfson
+leucopoeza@3	Ncfsry
+levodopa@3	Ncfsry
+levodopei@3	Afpfsoy, Ncfsoy
+lex@3	Ncfp-n, Ncms-n
+lexemuiui@3	Ncfp-n
+lipoatrofie@3	Ncfsrn
+lipohipertrofie@3	Ncfsrn
+liric-duioasă@3	Afpfsrn
+loco-regional@3	Afpms-n
+lovastatină@3	Afpfsrn, Ncfsrn
+luceferei@3	Ncfsoy, Ncmp-n
+lycopersicum@3	Ncfp-n, Ncm--n, Rgp
+lăzăriste@3	Afpfp-n, Afpfson, Ncfp-n
+lăzăriștii@3	Ncfsoy
+mTOR@3	Np, Yn
+macedonskian@3	Afpms-n, Ncms-n
+macedonskianul@3	Afpmsry, Ncmsry
+magneto-diafluxului@3	Ncmsoy
+mail@3	Ncms-n
+main@3	Nc, Ncms-n, Vmip1s
+mam'mare@3	Ncfp-n, Ncfsrn, Ncms-n
+mamaliană@3	Afpfsrn, Ncfsrn
+managing@3	Ncms-n
+mangafodipir@3	Afpms-n, Ncms-n
+maniaco-depresivă@3	Afpfsrn
+manyatta@3	Afpfsry, Ncfsry, Np
+maparea@3	Ncfsry
+markerii@3	Ncfp-n, Ncmpry
+marte@3	Ncfp-n, Ncfsrn, Rgp
+masché@3	Afp-p-n, Afpms-n, Ncms-n
+mașină-capcană@3	Ncfsrn
+me@3	Ncfp-n, Ncm--n, Ncmsvn
+mebendazolul@3	Ncmsry
+megawatt-ore@3	Ncfp-n, Ncfson
+melengestrol@3	Ncms-n, Ncmsvy
+mellitensis@3	Afpms-n, Ncfp-n, Ncms-n
+meloxicamul@3	Ncmsry
+membranar@3	Afpms-n, Ncms-n
+membranare@3	Afpfp-n, Afpfson, Ncfp-n
+membranară@3	Afpfsrn, Ncfsrn
+meriedice@3	Afpfp-n, Afpfson, Ncfsrn
+meropenemului@3	Ncmsoy
+metamizolul@3	Ncmsry
+metanarațiune@3	Ncfsrn
+meticilino@3	Ncfp-n, Ncfsvy
+mezu-@3	Afpmsry, Ncfsry, Rgp
+microelectrozilor@3	Ncmpoy
+microembolilor@3	Ncmpoy
+micronucleilor@3	Ncfp-n, Ncmpoy
+microtitrare@3	Ncfp-n, Ncfsrn
+mieloblastică@3	Afpfsrn
+mieloide@3	Afpfp-n, Afpfson
+mini-ligă@3	Ncfsrn
+minibar@3	Ncms-n
+miorelaxant@3	Afpms-n, Ncms-n
+mitico-fantastice@3	Afpfp-n, Afpfson
+mitocăncile@3	Ncfpry
+mixuri@3	Ncfp-n, Ncfson
+monocentric@3	Afpms-n
+monofosfat@3	Ncms-n
+monofosfatului@3	Ncmsoy
+monometoxipolietilenglicol@3	Afpms-n, Ncms-n
+monoterapia@3	Ncfsry
+monoterapie@3	Ncfsrn
+morbus@3	Ncfp-n, Ncm--n, Ncms-n
+motoferăstrău@3	Ncms-n
+mountain@3	Ncms-n
+ms@3	Nc, Ncms-n, Np, Yn
+mukula@3	Ncfsry
+multașteptatul@3	Afpmsry
+multidrog@3	Afp, Ncms-n
+mulțimei@3	Ncfsoy
+municipium@3	Ncfp-n, Ncmsvn
+musculo-cavitar@3	Ncms-n
+mutagenicitate@3	Ncfsrn
+mutagenitate@3	Ncfsrn
+mutitasking@3	Ncfp-n, Ncms-n
+mândruca@3	Ncfsry
+măestrit@3	Afpms-n
+napoi@3	Ncm--n, Ncms-n, Rgp
+natalizumab@3	Ncms-n
+nateglinida@3	Ncfsry
+natron-ațido-carbonic@3	Ncms-n, Np
+național-țărăniști@3	Afpmp-n, Ncmp-n
+ncet@3	Afpms-n, Ncms-n
+nealunecoasă@3	Afpfsrn
+nebulizator@3	Ncms-n
+nebulizată@3	Afpfsrn
+neconfidențiale@3	Afpfp-n, Afpfpry, Afpfson
+neconformitate@3	Ncfsrn
+neconformitatea@3	Ncfsry
+neconformității@3	Ncfsoy
+necrosis@3	Ncfp-n, Ncmsvn, Np
+nedifuzibili@3	Afpmp-n
+nefarmacologice@3	Afpfp-n, Afpfson
+nefinanciar@3	Afpms-n, Rgp
+negruțiană@3	Afpfsrn, Ncfsrn
+neinteruptibil@3	Afpms-n
+nelatine@3	Afpfp-n, Afpfson, Ncfson
+nelfinavir@3	Ncms-n
+nelfinavirului@3	Ncmsoy
+nemetabolizate@3	Afpfp-n, Afpfson
+nemirosibilul@3	Afpmsry, Ncmsry
+nenturnata@3	Afpfsry
+nerelevator@3	Afpms-n, Ncms-n
+nereînnoire@3	Ncfsrn
+netencuiți@3	Afpmp-n
+neuraminidaze@3	Ncfp-n
+neuraminidazei@3	Ncfsoy
+neuraminidazele@3	Ncfpry
+neurochirurgicale@3	Afpfp-n, Afpfpry, Afpfson
+neurodegenerativă@3	Afpfsrn
+neurodisleptice@3	Afpfp-n, Afpfson
+neurotransmițători@3	Ncmp-n
+neurotransmițătorii@3	Ncmpry
+neurotransmițătorilor@3	Afpmpoy, Ncmpoy
+neuz@3	Ncms-n
+nevidă@3	Afpfsrn, Ncfsrn
+nicotinuric@3	Afpms-n
+niebelung@3	Afpms-n, Ncms-n
+nilotinib@3	Afpms-n, Ncms-n
+nilotinibul@3	Afpmsry, Ncmsry
+non-@3	Afp, Afpmp-n, Ncmsryy, Vmm-2s----y, Yn
+non-insulinodependent@3	Afpms-n
+non-intervențional@3	Afpms-n
+non-intervenționale@3	Afpfp-n, Afpfson, Ncfp-n
+non-mieloide@3	Afpfp-n, Afpfson
+non-motorie@3	Afpfsrn, Ncfsrn
+non-motorii@3	Afp-p-n, Afpfson, Ncmpry
+nonartei@3	Afpfsoy, Ncfsoy
+normotensivi@3	Afpmp-n, Ncmp-n
+notărășițe@3	Ncfp-n, Ncfson
+nozocomiale@3	Afpfp-n, Afpfpry, Afpfson
+nozocomială@3	Afpfsrn
+nr@3	Afpfpoy, Afpms-n, Nc, Ncms-n, Vmip1s
+nucleotid@3	Ncfp-n, Ncms-n
+nucleozidic@3	Afpms-n
+nucleozidici@3	Afpmp-n
+nuit@3	Afpms-n, Ncms-n, Vmp--sm
+nvatamântul@3	Ncmsry
+octombriștii@3	Afpmpry, Ncmpry
+ocupabilă@3	Afpfsrn
+od@3	Ncms-n
+off-@3	Ncms-n
+offshore@3	Afpfp-n, Afpfson, Ncms-n
+oldies@3	Nc, Ncfp-n, Ncm--n, Ncms-n
+operandul@3	Afpmsry, Ncmsry
+operandului@3	Ncmsoy
+orodispersabil@3	Afpms-n
+orodispersabile@3	Afpfp-n, Afpfson
+orodispersibile@3	Afpfp-n, Afpfson
+oseltamivir@3	Ncfp-n, Ncm--n, Ncms-n
+oseltamivirul@3	Ncmsry
+oseltamivirului@3	Ncfsrn, Ncmsoy
+outward@3	Ncms-n
+oxidoreductaza@3	Ncfsry
+oximoronice@3	Afpfp-n, Afpfson
+panga@3	Ncfsrn, Ncfsry
+panteic@3	Afpms-n, Ncms-n, Rgp
+papers@3	Afpms-n, Ncfp-n, Ncms-n
+parafiscale@3	Afpfp-n, Ncfp-n, Ncfpry
+paralimpice@3	Afpfp-n, Afpfson, Ncfson
+parametrizată@3	Afpfsrn, Vmp--sf
+paroxetina@3	Ncfsry
+paroxetină@3	Ncfsrn
+participatorii@3	Afpmpry, Ncmpry
+pen@3	Ncms-n, Rgp
+pentazocina@3	Ncfsry
+pepino@3	Ncfsvy
+percutanate@3	Afpfp-n, Afpfson, Ncfp-n
+performativ@3	Afpms-n
+perfuzare@3	Ncfsrn
+perfuzarea@3	Ncfsry
+perfuzării@3	Ncfsoy
+peripielic@3	Afpms-n
+petagog@3	Afpms-n, Ncms-n
+petidina@3	Ncfsry
+pillatian@3	Afpms-n, Ncms-n
+pilosa@3	Afpfsry, Ncfsry, Vmii3s
+pioglitazona@3	Ncfsry
+pioglitazonei@3	Ncfsoy
+pioglitazonă@3	Ncfsrn
+pionereze@3	Ncfp-n, Ncfson
+plasminogenului@3	Afpmsoy, Ncmsoy
+platinocianura@3	Ncfsry
+plc@3	Ncms-n, Yn
+plonge@3	Ncf--n, Ncfp-n, Ncms-n
+plurifactorial@3	Afpms-n
+plurifactoriale@3	Afpfp-n, Afpfpry, Afpfson
+plătescă@3	Afpfsrn, Ncfsrn
+pm@3	Ncm--n, Yn, Yr
+pneumoniae@3	Ncfp-n, Ncfson
+poet-călugăr@3	Ncms-n, Vmip1s, Vmip3p
+poezia-adevăr@3	Ncfp-n, Ncfsry, Ncms-n
+poezia-divertisment@3	Ncms-n
+poezia-ficțiune@3	Ncfsrn
+poezia-trudă@3	Ncfsrn, Ncfsry
+poirel@3	Ncms-n
+policlordibenzodioxine@3	Ncfp-n, Ncfson, Ncfsrn
+policlordibenzofurani@3	Ncmp-n
+polietilen@3	Ncfp-n, Ncms-n
+poliproteinei@3	Ncfsoy
+poluatorul@3	Afpmsry, Ncmsry
+pool@3	Ncms-n
+pools@3	Nc, Ncms-n, Np
+porumbul-boabe@3	Mc-p-l, Ncmsry
+poruncei@3	Ncfsoy
+post-implantarea@3	Ncfsry
+post-marketing@3	Ncms-n
+post-operatorie@3	Afpfsrn
+praziquantelului@3	Afpmsoy, Ncmsoy
+pre-@3	Afp, Afpms-n
+pre-facerea@3	Ncfp-n, Ncfsry, Rgp
+pre-umplut@3	Afpms-n, Ncms-n, Rgp
+pre@3	Ncf--n, Ncms-n, Ncmsvy
+preambalaj@3	Ncms-n
+preambalajele@3	Ncfpry
+predefinite@3	Afpfp-n, Afpfson, Ncfp-n
+prefătit@3	Afpms-n, Vmp--sm
+prehilbertian@3	Afpms-n, Ncms-n
+prehilbertiene@3	Afpfp-n, Afpfson, Ncfp-n
+prepuberi@3	Afpmp-n
+preste@3	Ncf--n, Ncfp-n, Rgp, Vmsp3
+preumplut@3	Afpms-n, Ncms-n
+preumplute@3	Afpfp-n, Afpfson, Ncfp-n
+preumplută@3	Afpfsrn, Vmip3s, Vmis3s
+prevalanța@3	Ncfsry
+prevență@3	Ncfsrn
+priueghietoarea@3	Ncfsry
+pro-Axa@3	Nc, Ncfsrn, Ncms-n
+pro-nazist@3	Afpms-n, Ncms-n
+producătorii-exportatori@3	Ncmp-n, Ncmpry
+profesor-asociat@3	Ncms-n
+programele-cadru@3	Mc-p-l, Ncfp-n, Ncms-n
+proliferatori@3	Afpmp-n, Ncmp-n
+promedicament@3	Ncfp-n, Ncm--n, Ncms-n, Ncmsvn, Rgp
+propetamfosul@3	Ncmsry
+prostaglandinelor@3	Ncfpoy
+protein-disulfit@3	Ncms-n
+proteine-ligand@3	Ncms-n
+proteinkinaze@3	Ncfp-n, Ncfson
+protomedicul@3	Ncmsry
+protoromânilor@3	Ncmpoy
+proustian@3	Afpms-n, Ncms-n
+pseudo-filosof@3	Ncfp-n, Ncm--n, Ncms-n
+pseudopestei@3	Afpfsoy, Ncfson, Ncfsoy
+psiho-somatice@3	Afpfp-n, Afpfson
+psihodisleptice@3	Afp-p-n, Afpfp-n, Afpfson
+publicârii@3	Ncfsoy
+pân'@3	Ncfsry, Ncmsryy, Vmp--sm
+pân-atunci@3	Rgp
+păstreaza@3	Ncfsry, Vmii3s, Vmnp
+pășunist-etnografic@3	Afpms-n
+quantila@3	Ncfsry
+quantilei@3	Ncfsoy
+quartile@3	Ncfp-n, Ncfpry, Ncfson
+quinolone@3	Ncfp-n, Ncfson
+rabdomioliză@3	Ncfsrn
+radioreperare@3	Ncfp-n, Ncfsrn, Ncmp-n
+rafoxanida@3	Ncfsry
+rafting@3	Ncfp-n, Ncms-n
+ramipril@3	Ncms-n
+rapoturile@3	Ncfpry
+razboinică@3	Afpfsrn
+raționant@3	Afpms-n, Ncms-n
+recombinantă@3	Afpfsrn, Ncfsrn
+recunoște@3	Afpfson, Vmip3s, Vmsp3
+redactor-responsabil@3	Afpms-n, Ncms-n
+reinstituirea@3	Ncfsry
+repolarizant@3	Afpms-n
+representative@3	Afpfp-n, Ncfp-n, Ncfson
+responsivi@3	Afpmp-n, Ncmp-n
+restarta@3	Ncfsry, Vmii3s, Vmnp
+return@3	Afpms-n, Ncfp-n, Ncms-n
+review@3	Ncfp-n, Ncms-n, Vmip1s
+rhubarb@3	Afpms-n, Ncms-n, Rgp
+rimbaldiană@3	Afpfsrn
+ritonavir@3	Ncmpoy, Ncms-n
+rizomaniei@3	Ncfsoy
+rock'n'roll@3	Ncfp-n, Ncms-n, Ncmsry
+roman-pamflet@3	Ncfp-n, Ncms-n, Np
+romanus@3	Afpms-n, Ncfp-n, Ncms-n
+român-latin@3	Afpms-n
+româno-germane@3	Afpfp-n, Afpfson
+rosiglitazona@3	Ncfsry
+rosiglitazonei@3	Afpfsoy, Ncfsoy
+rosiglitazonă@3	Ncfsrn
+răspandire@3	Ncfp-n, Ncfsrn
+războiu@3	Ncms-n, Ncmsrn
+răzășește@3	Vmip3s, Vmm-2s
+răzășilor@3	Ncfpoy
+sanofi-aventis@3	Ncfp-n, Ncm--n, Ncms-n, Ncmsvn, Np
+sanscritologie@3	Ncfsrn
+sanskrită@3	Ncfsrn
+scenerie@3	Ncfsrn
+schi-lift@3	Ncms-n, Rgp
+scistosomiazis@3	Ncms-n, Np
+scrapie@3	Ncfsrn
+scriitor-cronicar@3	Ncms-n
+scriitori-politicieni@3	Afpmp-n, Ncmp-n
+searbăde@3	Afpfp-n, Afpfson, Ncf--n
+selectori@3	Afpmp-n, Ncfp-n, Ncmp-n
+semi-prezidențială@3	Afpfsrn
+sepsis@3	Ncfp-n, Ncm--n, Ncmsvn
+sepsisul@3	Ncmsry
+serotipul@3	Afpmsry, Ncmsry
+sevelamer@3	Ncms-n
+sfărâmița@3	Ncfsry, Vmnp
+sgomot@3	Afpms-n, Ncfp-n, Ncms-n
+short@3	Ncfp-n, Ncms-n
+simpatiu@3	Ncms-n, Ncmsrn
+simpatiul@3	Ncmsry
+simvastatină@3	Afpfsrn, Ncfsrn
+siriacă@3	Afpfsrn, Ncfsrn
+sirolimus@3	Ncms-n
+sisten@3	Ncfp-n, Ncms-n, Ncmsvn
+sitting@3	Ncfp-n, Ncm--n, Ncms-n
+situsurile@3	Ncfpry
+snowboard@3	Nc, Ncfp-n, Ncms-n
+societate-mamă@3	Ncfsrn
+socio-economici@3	Afpfsoy, Afpmp-n
+socio-profesionale@3	Afpfp-n, Afpfson, Afpfsrn
+socio-psihologică@3	Afpfsrn, Mc-p-l
+sociocomunicantă@3	Afpfsrn
+socotelele@3	Ncfpry
+sodium@3	Ncms-n
+solanacearum@3	Ncfp-n, Ncm--n, Ncmsvn
+soro@3	Ncfsvy
+soțietate@3	Ncfsrn
+specs@3	Afpms-n, Ncms-n, Vmp--sm
+spectinomicina@3	Ncfsry
+speriu@3	Afpms-n, Ncms-n, Vmip1s
+squash@3	Ncms-n
+stadializarea@3	Ncfsry
+stejărică@3	Ncfsrn
+stendhalieni@3	Afpmp-n, Ncmp-n
+steradiani@3	Ncmp-n
+străinomania@3	Ncfsry, Np
+stări-limită@3	Ncfp-n, Ncfson, Ncfsrn, Rgp
+sub-grupuri@3	Ncfp-n
+subcontractat@3	Afpms-n, Vmp--sm
+submolecular@3	Afpms-n
+subpoziție@3	Ncfsrn
+subtanță@3	Ncfsrn
+subtip@3	Ncms-n
+subtipul@3	Ncms-n, Ncmsry
+subtipurile@3	Ncfpry
+succinică@3	Afpfsrn, Ncfsrn
+sud-africanii@3	Ncmpry
+sulfonamide@3	Afpfp-n, Ncfp-n, Ncfson
+sulfoniluree@3	Ncf--n, Ncfsrn
+sulfonilureelor@3	Ncfpoy
+sumbu@3	Afpms-n
+super-@3	Afp, Vmip3s, Vmnp
+super-concert@3	Ncms-n
+superglue@3	Ncfp-n, Np
+superperformanță@3	Ncfsrn
+supra-@3	Afp, Ncms-n, Vmp--sm
+supramarionetă@3	Afpfsrn, Ncfsrn
+switch@3	Afpms-n, Nc, Ncms-n
+sâ@3	Ncfsrn, Ncms-n, Np
+săculetul@3	Ncmsry
+t-PA@3	Nc, Ncfsry, Np, Yn
+tadalafil@3	Ncms-n
+tadalafilul@3	Ncmsry
+tadalafilului@3	Ncmsoy
+talidomida@3	Ncfsry
+talidomidei@3	Ncfsoy
+tamsulosin@3	Ncm--n, Ncms-n
+task@3	Ncms-n
+taxani@3	Ncmp-n
+taxonului@3	Ncmsoy
+tehnico-edilitare@3	Afpfp-n, Afpfson
+temperat-continentală@3	Afpfsrn, Afpms-n
+temsirolimus@3	Ncfp-n, Ncms-n
+tenofovir@3	Ncms-n
+tereftalat@3	Afpms-n, Ncms-n
+teriaceae@3	Ncfp-n, Ncfson, Np
+termoelectronii@3	Ncmpry
+termosudată@3	Afpfsrn, Ncfsrn
+terț-butil@3	Ncms-n
+tetranor-iloprost@3	Ncms-n
+theta@3	Ncfsrn, Ncfsry
+tiamulina@3	Ncfsry
+tigecyclina@3	Ncfsry
+tigecyclinei@3	Ncfsoy
+tigecyclină@3	Ncfsrn
+timidină@3	Ncfsrn
+tiomersal@3	Afpms-n, Ncms-n
+toare@3	Ncf--n, Ncfsrn, Vmsp3
+tobramicina@3	Ncfsry
+tofii@3	Ncfp-n, Ncfson, Ncmpry
+tolcapona@3	Ncfsry
+tolcaponei@3	Ncfsoy
+tolcaponă@3	Ncfsrn
+tomnatic-inițiatică@3	Afpfsrn
+totdeodată@3	Ncf--n, Ncfsrn, Rgp
+transaminazelor@3	Ncfpoy
+transcriptază@3	Ncfsrn
+transfinite@3	Afpfp-n, Afpfson, Ncfp-n
+transhidrogenază@3	Ncfsrn
+transient@3	Afpms-n, Rgp, Vmnp
+transmembranar@3	Afpms-n, Ncms-n
+tranzitor@3	Afpms-n, Ncms-n
+trastuzumab@3	Ncms-n, Np
+trebue@3	Ncfp-n, Vmip3s, Vmsp3
+trenbolon@3	Ncms-n
+triaxial@3	Afpms-n
+triftărul@3	Ncmsry
+trixter@3	Afpms-n, Nc, Ncms-n
+trombo-rezistente@3	Afpfp-n, Afpfson
+trombocitar@3	Afpms-n
+trombocitare@3	Afpfp-n, Afpfson
+tromboembolice@3	Afpfp-n, Afpfson
+turburatu@3	Vmp--sm---y
+tânguește@3	Vmip3s, Vmm-2s
+târgueli@3	Ncfp-n, Ncfson, Ncmp-n
+ubicuitina@3	Ncfsry
+unghiulate@3	Afpfp-n, Afpfson, Vmp--pf
+use@3	Afpfp-n, Afpfson, Ncfp-n, Ncfson
+v0@3	Ncfsrn, Ncm--n, Np
+valsartan@3	Ncms-n
+venerem@3	Ncms-n, Vmil1
+versus@3	Ncm--n, Ncms-n, Rgp
+vibrânda@3	Afpfsry
+vice-versa@3	Ncms-n, Rgp
+vicenconsulat@3	Afpms-n, Ncms-n
+vitae@3	Ncfsrn
+vlăguesc@3	Vmip1s, Vmip3p
+void@3	Nc, Ncm--n, Ncms-n, Ncmsvn
+voltaj-dependent@3	Afpms-n, Ncms-n, Np
+von@3	Ncms-n
+voriconazolului@3	Ncmsoy
+wearing-off@3	Afpms-n, Nc, Np
+wearingoff@3	Afpms-n
+whist@3	Ncms-n
+www.3edo.com@3	Nc, Ncms-n
+www.primariatm.ro@3	Nc
+www.voluntim.go.ro@3	Nc, Ncmp-n, Rgp
+x1@3	Ncfsrn, Ncm--n, Vmm-2s
+x2@3	Ncfsrn, Ncm--n, Vmm-2s
+xilocaină@3	Ncfsrn
+xn@3	Ncfsrn, Ncm--n, Ncmsvn
+y10@3	Mc-p-d
+y15@3	Mc-p-d
+y5@3	Mc-p-d, Ncms-n, Vmip1s
+yash@3	Ncms-n
+yn@3	Ncm--n, Ncmp-n, Ncms-n
+zaleplon@3	Ncfp-n, Ncms-n
+zeranol@3	Ncms-n
+zevzecule@3	Afpmsvy, Ncmsvy
+zicochimice@3	Afpfp-n, Afpfson, Ncfp-n
+zidovudina@3	Ncfsry
+zidovudină@3	Ncfsrn
+zolpidem@3	Ncms-n, Rgp
+zonate@3	Afpfson, Ncf--n, Vmp--pf
+zoonotică@3	Afpfsrn
+zopiclonă@3	Afpfsrn, Ncfsrn
+µl@3	Ncms-n, Yn
+¹@3	Mc-p-d, Ncm--n, Ncms-n
+Émile@3	Ncfpry, Np
+Î.C.S.J.@3	Yn
+Î.P.S.@3	Y, Yn, Yp-sr, Yr
+înafara@3	Ncfsrn, Ncfsry
+încongiurată@3	Afpfsrn
+încriptarea@3	Ncfsry
+încubației@3	Ncfsoy
+îngr.@3	Vmm-2s----y, Yn, Yr
+într-un@3	Rgp, Vmis3s, Vmm-2s
+întâie@3	Mofsrln, Vmis3s, Vmsp3
+ý10@3	M, Vmip2s
+ý15@3	M
+ý5@3	M, Ncm--n, Rgp
+Ł1m@3	Mc-p-d, Ncms-n, Np
+Ł215m@3	Mc-p-d, Ncfsrn
+Ł@3	Mc-p-d, Mc-s-d, Ncm--n
+şi@3	Ncfp-n, Ncfson, Ncm--n
+Škoda@3	Ncfsry, Vmii3s
+Ș.@3	Yn
+ȘEIMAN@3	Ncfpry, Np, Yn
+Șaakașvili@3	Np
+Șorogari@3	Ncmp-n, Np
+Ștefanelli@3	Ncfp-n, Ncmp-n, Np
+Șuluțiu@3	Np
+Șuteu@3	Ncms-n, Np
+ș.@3	Ncmsvy, Vmil1s, Y
+șalupe-canoniere@3	Ncfsrn
+șoldului-manechin@3	Ncms-n, Ncmsoy
+Țicău@3	Np
+Țiganiadei@3	Ncfsoy, Ncmpry, Npfsoy
+țepeș@3	Afpms-n, Ncms-n, Rgp
+țiriac@3	Ncms-n
+țăra@3	Ncfsry, Vmii3s, Vmnp
+țărei@3	Ncfsoy, Ncmp-n
+țărănimei@3	Ncfsoy
+Α.Ε.@3	Yn
+Αττικό@3	Np
+Μετρό@3	Np
+α-ketoglutaratului@3	Ncmsoy
+υ@3	Ncm--n, Vmip1s, Vmip1s----y
+—15@3	Mc-p-d
+—50@3	Mc-p-d, Vmip3

@@ -21,7 +21,7 @@ _predict_str_const = ": predicted MSD {0}/{1:.5f} preferred over lexicon MSD {2}
 _zero_word = '_ZERO_'
 
 # Disable GPU
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 # Enable 'as needed' GPU memory allocation
 # physical_devices = tf.config.list_physical_devices('GPU')
 # tf.config.experimental.set_memory_growth(physical_devices[0], True)
@@ -316,7 +316,7 @@ class RoPOSTagger(object):
     # RNN state size
     _conf_rnn_size_1 = 512
     _conf_rnn_size_2 = 512
-    _conf_epochs = 10
+    _conf_epochs = 20
 
     def __init__(self, splitter: RoSentenceSplitter):
         """Takes a trained instance of the RoSentenceSplitter object."""
@@ -654,7 +654,7 @@ class RoPOSTagger(object):
 
     def _train_lm_model(self, train: tuple, dev: tuple, gold_sentences: list):
         # Compile model
-        opt = tf.keras.optimizers.Adam(learning_rate=0.001)
+        opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
         self._lm_model.compile(
             loss={
                 'msd_enc': 'binary_crossentropy',
@@ -687,7 +687,7 @@ class RoPOSTagger(object):
         # Fit model
         acc_callback = AccCallback(
             self, gold_sentences, RoPOSTagger._conf_epochs)
-        self._lm_model.fit(x=[x_lex_train, x_emb_train, x_ctx_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=32,
+        self._lm_model.fit(x=[x_lex_train, x_emb_train, x_ctx_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=16,
                         shuffle=True, validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev], y_dev), callbacks=[acc_callback])
 
     def _build_crf_model(self, output_vector_size, lstm_states_size) -> tf.keras.Model:
