@@ -453,6 +453,7 @@ class RoPOSTagger(object):
 
         # 8. Creating the CRF model
         self._crf_model = self._build_crf_model(output_dim, lstm_state_dim)
+        self._crf_model.summary()
 
         # 9. Train the CRF model
         self._train_crf_model(
@@ -501,6 +502,10 @@ class RoPOSTagger(object):
         """Chooses between the predicted MSD and the lexicon MSD for the given word.
         Goes through the options where the predicted MSD is better.
         Returns the lexicon MSD if no option is valid."""
+
+        if lex_msd == '?':
+            return (pred_msd, pmp)
+        # end if
 
         # 1. If predicted is 'Np' and word is sentence-cased, leave Np.
         if pred_msd.startswith('Np') and Lex.sentence_case_pattern.match(word) and \
@@ -586,8 +591,14 @@ class RoPOSTagger(object):
             assert y_pred_cls.shape[0] == viterbi_msd_indexes.shape[0]
             assert y_pred_cls.shape[1] == viterbi_msd_indexes.shape[1]
             
-            tagset_size = y_pred_cls.shape[2]
-            y_pred_cls = tf.one_hot(viterbi_msd_indexes, depth=tagset_size, axis=-1, dtype=tf.float32)
+            y_pred_cls = np.zeros(y_pred_cls.shape, dtype=np.float32)
+
+            for i in range(y_pred_cls.shape[0]):
+                for j in range(y_pred_cls.shape[1]):
+                    msi = viterbi_msd_indexes[i, j]
+                    y_pred_cls[i, j, msi] = 1.0
+                # end j
+            # end i
         # end if
 
         for i in range(len(sent_samples)):
@@ -637,8 +648,8 @@ class RoPOSTagger(object):
 
         opt = tf.keras.optimizers.Adam(learning_rate=0.001)
         self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
-        acc_callback = AccCallback(self, gold_sentences, RoPOSTagger._conf_epochs, crf_model=True)
-        self._crf_model.fit(x=[x_lstm_states_train, z_mask_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=32,
+        acc_callback = AccCallback(self, gold_sentences, 2 * RoPOSTagger._conf_epochs, crf_model=True)
+        self._crf_model.fit(x=[x_lstm_states_train, z_mask_train], y=y_train, epochs=2 * RoPOSTagger._conf_epochs, batch_size=32,
                             shuffle=True, validation_data=([x_lstm_states_dev, z_mask_dev], y_dev), callbacks=[acc_callback])
 
     def _train_lm_model(self, train: tuple, dev: tuple, gold_sentences: list):
