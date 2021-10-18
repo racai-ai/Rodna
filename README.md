@@ -5,32 +5,32 @@
 
 
 ## Sentence splitter
+A RNN neural network that does sentence splitting.
+
 10 epochs
 
-train set: loss: 2.5142e-04 - categorical_accuracy: 0.9999
+loss: 3.0761e-04 - categorical_accuracy: 0.9999
 
-on_epoch_end: SENTEND dev precision at epoch 10 is P = 0.9959
+on_epoch_end: SENTEND dev precision at epoch 10 is P = 0.9929
 
-on_epoch_end: SENTEND dev recall at epoch 10 is R = 0.9938
+on_epoch_end: SENTEND dev recall at epoch 10 is R = 0.9973
 
-on_epoch_end: SENTEND dev f-measure at epoch 10 is F1 = 0.9949
+on_epoch_end: SENTEND dev f-measure at epoch 10 is F1 = 0.9951
 
-_train_keras_model: SENTEND test Precision is P = 0.9963
+_train_keras_model: SENTEND test Precision is P = 0.992
 
-_train_keras_model: SENTEND test Recall is R = 0.9936
+_train_keras_model: SENTEND test Recall is R = 0.9958
 
-_train_keras_model: SENTEND test F-measure is F1 = 0.995
-
+_train_keras_model: SENTEND test F-measure is F1 = 0.9939
 
 ## Romanian morphology
 A RNN neural network than learns the mapping from a word form to its possible morpho-syntactic labels.
 
 50 epochs
 
-train set: loss: 2.0254e-04 - true_positives: 506802.7682 - precision: 0.9799 - recall: 0.9739
+loss: 1.9136e-04 - true_positives: 1014386.0000 - precision: 0.9807 - recall: 0.9756
 
-dev set: val_loss: 7.7582e-04 - val_true_positives: 107274.0000 - val_precision: 0.9389 - val_recall: 0.9318
-
+val_loss: 7.7358e-04 - val_true_positives: 107891.0000 - val_precision: 0.9421 - val_recall: 0.9334
 
 ## POS Tagger
 To be continued...
