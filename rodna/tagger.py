@@ -4,8 +4,9 @@ import sys
 import numpy as np
 import tensorflow as tf
 import tensorflow_addons as tfa
-from tensorflow_addons.text import crf_log_likelihood, crf_decode
+from tensorflow_addons.text import crf, crf_log_likelihood, crf_decode
 from inspect import stack
+from utils.CharUni import CharUni
 
 from utils.MSD import MSD
 from utils.datafile import read_all_ext_files_from_dir
@@ -15,7 +16,9 @@ from .features import RoFeatures
 from .morphology import RoInflect
 from utils.Lex import Lex
 from utils.errors import print_error
-from config import PREDICTED_AMB_CLASSES_FILE, EMBEDDING_VOCABULARY_FILE
+from config import PREDICTED_AMB_CLASSES_FILE, \
+    EMBEDDING_VOCABULARY_FILE, ROLM_MODEL_FOLDER, \
+    TAGGER_UNICODE_PROPERTY_FILE
 
 _predict_str_const = ": predicted MSD {0}/{1:.5f} preferred over lexicon MSD {2}/{3:.5f} for word '{4}'"
 _zero_word = '_ZERO_'
@@ -25,7 +28,6 @@ _zero_word = '_ZERO_'
 # Enable 'as needed' GPU memory allocation
 # physical_devices = tf.config.list_physical_devices('GPU')
 # tf.config.experimental.set_memory_growth(physical_devices[0], True)
-
 
 class AccCallback(tf.keras.callbacks.Callback):
     """Accuracy callback for model.fit."""
@@ -142,7 +144,7 @@ class RoWordEmbeddings(tf.keras.initializers.Initializer):
                     line = line.rstrip()
 
                     if first_line:
-                        self._wembdim = int(parts[1])
+                        self._wembdim = int(line)
                         first_line = False
                         continue
                     # end if
@@ -225,6 +227,7 @@ class CRFModel(tf.keras.Model):
 
     def __init__(self, tagset_size, lstm_states, masked_input):
         # Build functional model
+        # dense = tf.keras.layers.Dense(512, activation='tanh')(lstm_states)
         crf = tfa.layers.CRF(
             units=tagset_size,
             chain_initializer="orthogonal",
@@ -232,7 +235,8 @@ class CRFModel(tf.keras.Model):
             boundary_initializer="zeros",
             use_kernel=True)
 
-        (decode_sequence, potentials, sequence_length, kernel) = crf(inputs=lstm_states, mask=masked_input)
+        (decode_sequence, potentials, sequence_length, kernel) = crf(
+            inputs=lstm_states, mask=masked_input)
 
         # Set name for outputs
         decode_sequence = tf.keras.layers.Lambda(
@@ -322,7 +326,7 @@ class RoPOSTagger(object):
         """Takes a trained instance of the RoSentenceSplitter object."""
         self._splitter = splitter
         self._tokenizer = splitter.get_tokenizer()
-        self._uniprops = splitter.get_unicode_props()
+        self._uniprops = CharUni()
         self._lexicon = splitter.get_lexicon()
         self._msd = self._lexicon.get_msd_object()
         self._rofeatures = RoFeatures(self._lexicon)
@@ -334,7 +338,20 @@ class RoPOSTagger(object):
             PREDICTED_AMB_CLASSES_FILE)
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
 
-    def train(self, data_sentences: list = [], train_sentences: list = [], dev_sentences: list = [], test_sentences: list = []):
+    def _save_lm_model(self):
+        self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
+        self._lm_model.save(ROLM_MODEL_FOLDER, overwrite=True)
+
+    def load_lm_model(self):
+        self._uniprops.load_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
+        self._wordembeddings.load_ids()
+        self._lm_model = tf.keras.models.load_model(ROLM_MODEL_FOLDER)
+
+    def train_lm_model(self,
+        data_sentences: list = [],
+        train_sentences: list = [],
+        dev_sentences: list = [],
+        test_sentences: list = []):
         # Normalize the whole data vocabulary and load external word embeddings
         self._normalize_vocabulary()
         self._wordembeddings.load_word_embeddings(self._datavocabulary)
@@ -381,7 +398,7 @@ class RoPOSTagger(object):
             print(stack()[0][3] + ": building ENC/CLS {0} tensors".format(ml_type),
                   file=sys.stderr, flush=True)
 
-            (x_lex, x_emb, x_ctx, y_enc, y_cls, y_crf, z_msk) = self._build_model_io_tensors(examples)
+            (x_lex, x_emb, x_ctx, y_enc, y_cls) = self._build_model_io_tensors(examples)
 
             print(stack()[0][3] + ": x_lex.shape is {0!s}".format(
                 x_lex.shape), file=sys.stderr, flush=True)
@@ -393,18 +410,14 @@ class RoPOSTagger(object):
                 y_enc.shape), file=sys.stderr, flush=True)
             print(stack()[0][3] + ": CLS y.shape is {0!s}".format(
                 y_cls.shape), file=sys.stderr, flush=True)
-            print(stack()[0][3] + ": CRF y.shape is {0!s}".format(
-                y_crf.shape), file=sys.stderr, flush=True)
-            print(stack()[0][3] + ": MASK z.shape is {0!s}".format(
-                z_msk.shape), file=sys.stderr, flush=True)
 
-            return (x_lex, x_emb, x_ctx, y_enc, y_cls, y_crf, z_msk)
+            return (x_lex, x_emb, x_ctx, y_enc, y_cls)
         # end def
 
-        (x_lex_train, x_emb_train, x_ctx_train, y_train_enc, y_train_cls,
-            y_train_crf, z_train_mask) = _generate_tensors('train', train_examples)
-        (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc, y_dev_cls,
-            y_dev_crf, z_dev_mask) = _generate_tensors('dev', dev_examples)
+        (x_lex_train, x_emb_train, x_ctx_train, y_train_enc,
+         y_train_cls) = _generate_tensors('train', train_examples)
+        (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc,
+         y_dev_cls) = _generate_tensors('dev', dev_examples)
 
         # 4.1 Save RoInflect cache file for faster startup next time
         self._romorphology.save_cache()
@@ -430,24 +443,95 @@ class RoPOSTagger(object):
         self._train_lm_model(train=(x_lex_train, x_emb_train, x_ctx_train, y_train_enc, y_train_cls), dev=(
             x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc, y_dev_cls), gold_sentences=dev_sentences)
 
-        # 8. Creating the CRF model
+        # 8. Saving the model
+        self._save_lm_model()
+
+    def train_crf_model(self,
+                       data_sentences: list = [],
+                       train_sentences: list = [],
+                       dev_sentences: list = [],
+                       test_sentences: list = []):
+        """Assumes that the self._lm_model is trained and loaded!"""
+        # Either data_sentences is not None or
+        # train_sentences, dev_sentences and test_sentences are not none
+        if data_sentences and \
+                not train_sentences and not dev_sentences and not test_sentences:
+            # 1. Get the full word sequence from the train folder
+            print(stack()[0][3] + ": got {0!s} sentences.".format(
+                len(data_sentences)), file=sys.stderr, flush=True)
+
+            # 2. Cut the full word sequence into maxSeqLength smaller sequences
+            # and assign those randomly to train/dev/test sets
+            print(stack()[0][3] + ": building train/dev/test samples",
+                  file=sys.stderr, flush=True)
+
+            (_, train_examples, dev_sentences, dev_examples, test_sentences,
+             test_examples) = self._build_train_samples(data_sentences)
+        elif not data_sentences and \
+                train_sentences and dev_sentences and test_sentences:
+            (train_examples, dev_examples, test_examples) = self._build_train_samples_already_split(
+                train_sentences, dev_sentences, test_sentences)
+        # end if
+
+        print(stack()[0][3] + ": got train set with {0!s} samples".format(
+            len(train_examples)), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": got dev set with {0!s} samples".format(
+            len(dev_examples)), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": got dev set with {0!s} sentences".format(
+            len(dev_sentences)), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": got test set with {0!s} samples".format(
+            len(test_examples)), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": got test set with {0!s} sentences".format(
+            len(test_sentences)), file=sys.stderr, flush=True)
+
+        # 3. Get train/dev/test numpy tensors
+        def _generate_tensors(ml_type: str, examples: list) -> tuple:
+            print(stack()[0][3] + ": building ENC/CLS {0} tensors".format(ml_type),
+                  file=sys.stderr, flush=True)
+
+            (x_lex, x_emb, x_ctx, y_crf, z_msk) = self._build_model_io_tensors(
+                examples, crf_model=True)
+
+            print(stack()[0][3] + ": x_lex.shape is {0!s}".format(
+                x_lex.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": x_emb.shape is {0!s}".format(
+                x_emb.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": x_ctx.shape is {0!s}".format(
+                x_ctx.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": CRF y.shape is {0!s}".format(
+                y_crf.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": MASK z.shape is {0!s}".format(
+                z_msk.shape), file=sys.stderr, flush=True)
+
+            return (x_lex, x_emb, x_ctx, y_crf, z_msk)
+        # end def
+
+        (x_lex_train, x_emb_train, x_ctx_train, y_train_crf,
+         z_train_mask) = _generate_tensors('train', train_examples)
+        (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_crf,
+         z_dev_mask) = _generate_tensors('dev', dev_examples)
+
+        # 4. Creating the CRF model
         lstm_state_dim = self._lm_model.get_layer(
             name='lm_states').output_shape[2]
+        output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
         conf_crf_batch_size = 32
-        conf_crf_epochs = 2 * RoPOSTagger._conf_epochs
+        conf_crf_epochs = RoPOSTagger._conf_epochs
 
         self._crf_model = self._build_crf_model(output_dim, lstm_state_dim)
         self._crf_model.summary()
 
-        opt = tf.keras.optimizers.Adam(learning_rate=0.001)
+        #opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
+        opt = tf.keras.optimizers.RMSprop(learning_rate=0.001)
         self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
         acc_callback = AccCallback(
             self, dev_sentences, conf_crf_epochs, crf_model=True)
 
         # 8.1 For the double of RoPOSTagger._conf_epochs
         for k in range(conf_crf_epochs):
-            print(stack()[0][3] + ": CRF layer, training epoch {0!s}".format(k + 1), file=sys.stderr, flush=True)
-            
+            print(stack()[
+                  0][3] + ": CRF layer, training epoch {0!s}".format(k + 1), file=sys.stderr, flush=True)
+
             # 8.2 Iterate through the training data to train the CRF model
             for i in range(0, x_lex_train.shape[0], conf_crf_batch_size):
                 j = i + conf_crf_batch_size
@@ -598,9 +682,16 @@ class RoPOSTagger(object):
 
         # 1. Build the fixed-length samples from the input sentence
         sent_samples = self._build_samples([sentence])
+
         # 2. Get the input tensors
-        (x_lex_run, x_emb_run, x_ctx_run, _, _, _, z_mask) = self._build_model_io_tensors(
-            sent_samples, runtime=True)
+        if not crf_model:
+            (x_lex_run, x_emb_run, x_ctx_run, _, _) = self._build_model_io_tensors(
+                sent_samples, runtime=True)
+        else:
+            (x_lex_run, x_emb_run, x_ctx_run, _, z_mask) = self._build_model_io_tensors(
+                sent_samples, runtime=True, crf_model=True)
+        # end if
+
         # 3. Use the model to get predicted MSDs
         (y_pred_enc, y_pred_cls, lm_states) = self._lm_model.predict(
             x=[x_lex_run, x_emb_run, x_ctx_run])
@@ -749,7 +840,7 @@ class RoPOSTagger(object):
 
         return tf.keras.Model(inputs=[x_lex, x_emb, x_ctx], outputs=[o_msd_enc, o_msd_cls, l_bd_gru2_ctx_conc])
 
-    def _build_model_io_tensors(self, data_samples, runtime=False):
+    def _build_model_io_tensors(self, data_samples, runtime=False, crf_model=False):
         # No of examples
         m = len(data_samples)
         # This should be equal to self._maxseqlen
@@ -764,14 +855,18 @@ class RoPOSTagger(object):
         # Externally computed contextual features
         xctx_tensor = np.empty(
             (m, tx, len(RoFeatures.romanian_pos_tagging_features)), dtype=np.float32)
-        # Ys for the Keras MSD encoding part
-        y_tensor_enc = np.empty(
-            (m, tx, self._msd.get_input_vector_size()), dtype=np.float32)
-        # Ys for the Keras MSD classification part
-        y_tensor_cls = np.empty(
-            (m, tx, self._msd.get_output_vector_size()), dtype=np.float32)
-        y_tensor_crf = np.empty((m, tx), dtype=np.int32)
-        z_tensor_mask = np.empty((m, tx), dtype=bool)
+
+        if crf_model:
+            y_tensor_crf = np.empty((m, tx), dtype=np.int32)
+            z_tensor_mask = np.empty((m, tx), dtype=bool)
+        else:
+            # Ys for the Keras MSD encoding part
+            y_tensor_enc = np.empty(
+                (m, tx, self._msd.get_input_vector_size()), dtype=np.float32)
+            # Ys for the Keras MSD classification part
+            y_tensor_cls = np.empty(
+                (m, tx, self._msd.get_output_vector_size()), dtype=np.float32)
+        # end if
 
         # sample size is Tx, the number of time steps
         for i in range(len(data_samples)):
@@ -828,14 +923,21 @@ class RoPOSTagger(object):
                 xlex_tensor[i, j, :] = x_lex
                 xemb_tensor[i, j] = x_wid
                 xctx_tensor[i, j, :] = x_ctx
-                y_tensor_enc[i, j, :] = y_in
-                y_tensor_cls[i, j, :] = y_out
-                y_tensor_crf[i, j] = y_out_idx
-                z_tensor_mask[i, j] = z_mask
+
+                if crf_model:
+                    y_tensor_crf[i, j] = y_out_idx
+                    z_tensor_mask[i, j] = z_mask
+                else:
+                    y_tensor_enc[i, j, :] = y_in
+                    y_tensor_cls[i, j, :] = y_out
+                # end if
             # end j
         # end i
 
-        return (xlex_tensor, xemb_tensor, xctx_tensor, y_tensor_enc, y_tensor_cls, y_tensor_crf, z_tensor_mask)
+        if crf_model:
+            return (xlex_tensor, xemb_tensor, xctx_tensor, y_tensor_crf, z_tensor_mask)
+        else:    
+            return (xlex_tensor, xemb_tensor, xctx_tensor, y_tensor_enc, y_tensor_cls)
 
     def _build_samples(self, sentences: list) -> list:
         all_samples = []
@@ -1143,6 +1245,14 @@ class RoPOSTagger(object):
 
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2 or (sys.argv[1] != '-lm' and sys.argv[1] != '-crf'):
+        print("Usage: python3 -m rodna.tagger [-lm|-crf]", file=sys.stderr)
+        print(" -lm is for training the language model RNN;", file=sys.stderr)
+        print(" -crf is for training the final CRF layer, on top of the language model.", file=sys.stderr)
+        print("ALWAYS train the language model first!", file=sys.stderr)
+        exit(1)
+    # end if
+
     # Use this module to train the sentence splitter.
     tk = RoTokenizer()
     ss = RoSentenceSplitter(tk)
@@ -1182,5 +1292,11 @@ if __name__ == '__main__':
         testing_file), file=sys.stderr, flush=True)
     testing = tg.read_tagged_file(testing_file)
 
-    tg.train(train_sentences=training,
-             dev_sentences=development, test_sentences=testing)
+    if sys.argv[1] == '-lm':
+        tg.train_lm_model(train_sentences=training,
+                dev_sentences=development, test_sentences=testing)
+    elif sys.argv[1] == '-crf':
+        tg.load_lm_model()
+        tg.train_crf_model(train_sentences=training,
+                dev_sentences=development, test_sentences=testing)
+    # end if

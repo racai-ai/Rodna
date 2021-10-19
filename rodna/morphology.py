@@ -33,7 +33,7 @@ class RoInflect(object):
         self._cache = {}
         self.load_cache()
 
-    def _add_word_to_dataset(self, word: str, msds: list) -> None:
+    def _add_word_to_dataset(self, word: str, msds: list):
         if word not in self._dataset:
             self._dataset[word] = []
         # end if
@@ -80,7 +80,7 @@ class RoInflect(object):
 
         return (x, y)
 
-    def train(self) -> None:
+    def train(self):
         # Read training data
         self._read_training_data()
 
@@ -149,7 +149,7 @@ class RoInflect(object):
         self._model.save(ROINFLECT_MODEL_FOLDER, overwrite=True)
         self._save_char_map()
 
-    def _save_char_map(self) -> None:
+    def _save_char_map(self):
         print(stack()[0][3] + ": saving file {0}".format(ROINFLECT_CHARID_FILE),
               file=sys.stderr, flush=True)
 
@@ -165,7 +165,10 @@ class RoInflect(object):
             # end for
         # end with
 
-    def _load_char_map(self) -> None:
+    def _load_char_map(self):
+        print(stack()[0][3] + ": loading file {0}".format(ROINFLECT_CHARID_FILE),
+              file=sys.stderr, flush=True)
+
         first_line = True
 
         with open(ROINFLECT_CHARID_FILE, mode="r", encoding="utf-8") as f:
@@ -184,8 +187,6 @@ class RoInflect(object):
 
     def load(self):
         self._model = tf.keras.models.load_model(ROINFLECT_MODEL_FOLDER)
-        print(stack()[0][3] + ": loading file {0}".format(ROINFLECT_CHARID_FILE),
-              file=sys.stderr, flush=True)
         self._load_char_map()
 
     def save_cache(self) -> None:
@@ -195,7 +196,7 @@ class RoInflect(object):
             # end all words
         # end with
 
-    def load_cache(self) -> None:
+    def load_cache(self):
         if os.path.exists(ROINFLECT_CACHE_FILE):
             with open(ROINFLECT_CACHE_FILE, mode='r', encoding='utf-8') as f:
                 for line in f:
@@ -250,7 +251,7 @@ class RoInflect(object):
 
         return word_amb_class
 
-    def _read_training_data(self) -> None:
+    def _read_training_data(self):
         print(stack()[0][3] + ": reading training file {0!s}".format(
             TBL_WORDFORM_FILE), file=sys.stderr, flush=True)
 

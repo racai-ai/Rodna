@@ -3,11 +3,10 @@ import os
 from inspect import stack
 import numpy as np
 import tensorflow as tf
-from pathlib import Path
 from utils.CharUni import CharUni
 from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
-from config import SENT_SPLITTER_MODEL_FOLDER, UNICODE_PROPERTY_FILE
+from config import SENT_SPLITTER_MODEL_FOLDER, SPLITTER_UNICODE_PROPERTY_FILE
 
 
 class PRFCallback(tf.keras.callbacks.Callback):
@@ -93,9 +92,6 @@ class RoSentenceSplitter(object):
 
     def get_tokenizer(self):
         return self._tokenizer
-
-    def get_unicode_props(self):
-        return self._uniprops
 
     def get_lexicon(self):
         return self._lexicon
@@ -205,18 +201,11 @@ class RoSentenceSplitter(object):
 
     def load(self):
         self._model = tf.keras.models.load_model(SENT_SPLITTER_MODEL_FOLDER)
-
-        if Path(UNICODE_PROPERTY_FILE).is_file():
-            print(stack()[0][3] + ": loading file {0}".format(
-                UNICODE_PROPERTY_FILE), file=sys.stderr, flush=True)
-            self._uniprops.load_unicode_props(UNICODE_PROPERTY_FILE)
-        else:
-            raise RuntimeError("File {0} was not found. You must train the sentence splitter before using it.".format(
-                UNICODE_PROPERTY_FILE))
+        self._uniprops.load_unicode_props(SPLITTER_UNICODE_PROPERTY_FILE)
 
     def _save_keras_model(self):
         self._model.save(SENT_SPLITTER_MODEL_FOLDER, overwrite=True)
-        self._uniprops.save_unicode_props(UNICODE_PROPERTY_FILE)
+        self._uniprops.save_unicode_props()
 
     def sentence_split(self, input_text: str) -> list:
         """Will run the sentence splitter model on the input_text and return

@@ -27,10 +27,9 @@ _train_keras_model: SENTEND test F-measure is F1 = 0.9939
 A RNN neural network than learns the mapping from a word form to its possible morpho-syntactic labels.
 
 50 epochs
+loss: 3.0783e-04 - true_positives: 998185.0000 - precision: 0.9695 - recall: 0.9598
 
-loss: 1.9136e-04 - true_positives: 1014386.0000 - precision: 0.9807 - recall: 0.9756
-
-val_loss: 7.7358e-04 - val_true_positives: 107891.0000 - val_precision: 0.9421 - val_recall: 0.9334
+val_loss: 7.3781e-04 - val_true_positives: 106579.0000 - val_precision: 0.9401 - val_recall: 0.9238
 
 ## POS Tagger
 To be continued...

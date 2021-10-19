@@ -1,4 +1,5 @@
-import re
+import sys
+from inspect import stack
 import unicodedata as uc
 import numpy as np
 
@@ -24,7 +25,10 @@ class CharUni(object):
             # end for
         # end for
 
-    def save_unicode_props(self, file: str) -> None:
+    def save_unicode_props(self, file: str):
+        print(stack()[0][3] + ": saving file {0}".format(
+            file), file=sys.stderr, flush=True)
+
         with open(file, "w", encoding="utf-8") as f:
             # Write the next Unicode property ID
             print("{0}".format(self._seenunicodeid), file=f, flush=True)
@@ -36,7 +40,10 @@ class CharUni(object):
             # end for
         # end with
 
-    def load_unicode_props(self, file):
+    def load_unicode_props(self, file: str):
+        print(stack()[0][3] + ": loading file {0}".format(
+            file), file=sys.stderr, flush=True)
+
         first_line = True
 
         with open(file, mode="r", encoding="utf-8") as f:
