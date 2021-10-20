@@ -783,17 +783,17 @@ class RoPOSTagger(object):
         l_lex_emb_conc = tf.keras.layers.Concatenate()([x_lex, l_emb])
         l_bd_gru_1 = tf.keras.layers.Bidirectional(
             tf.keras.layers.GRU(RoPOSTagger._conf_rnn_size_1, return_sequences=True))(l_lex_emb_conc)
+        l_drop_1 = tf.keras.layers.Dropout(0.33)(l_bd_gru_1)
         o_msd_enc = tf.keras.layers.Dense(
-            msd_encoding_vector_size, activation='sigmoid', name='msd_enc')(l_bd_gru_1)
+            msd_encoding_vector_size, activation='sigmoid', name='msd_enc')(l_drop_1)
         # End MSD encoding
-
-        l_drop = tf.keras.layers.Dropout(0.25)(o_msd_enc)
 
         # Language model
         l_bd_gru_2 = tf.keras.layers.Bidirectional(tf.keras.layers.GRU(
-            RoPOSTagger._conf_rnn_size_2, return_sequences=True))(l_drop)
+            RoPOSTagger._conf_rnn_size_2, return_sequences=True))(o_msd_enc)
+        l_drop_2 = tf.keras.layers.Dropout(0.33)(l_bd_gru_2)            
         l_bd_gru2_ctx_conc = tf.keras.layers.Concatenate(
-            name='lm_states')([l_bd_gru_2, x_ctx])
+            name='lm_states')([l_drop_2, x_ctx])
         l_dense_1 = tf.keras.layers.Dense(output_vector_size)(l_bd_gru2_ctx_conc)
         o_msd_cls = tf.keras.layers.Activation(
             'softmax', name='msd_cls')(l_dense_1)
