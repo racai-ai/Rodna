@@ -1,10 +1,10 @@
 import sys
 import os
 import sys
+from random import shuffle
 import numpy as np
 import tensorflow as tf
 import tensorflow_addons as tfa
-from tensorflow_addons.text import crf, crf_log_likelihood, crf_decode
 from inspect import stack
 from utils.CharUni import CharUni
 
@@ -337,6 +337,10 @@ class RoPOSTagger(object):
         self._predambclasses = self._read_pred_amb_classes(
             PREDICTED_AMB_CLASSES_FILE)
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
+        # When returning batches of training data,
+        # go from _batch_from to _batch_to
+        self._batch_from = -1
+        self._batch_to = -1
 
     def _save_lm_model(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
@@ -506,23 +510,21 @@ class RoPOSTagger(object):
             return (x_lex, x_emb, x_ctx, y_crf, z_msk)
         # end def
 
-        (x_lex_train, x_emb_train, x_ctx_train, y_train_crf,
-         z_train_mask) = _generate_tensors('train', train_examples)
         (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_crf,
          z_dev_mask) = _generate_tensors('dev', dev_examples)
 
         # 4. Creating the CRF model
-        lstm_state_dim = self._lm_model.get_layer(
+        input_dim = self._lm_model.get_layer(
             name='lm_states').output_shape[2]
         output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
         conf_crf_batch_size = 32
+        conf_crf_chunk_size = 100 * conf_crf_batch_size
         conf_crf_epochs = RoPOSTagger._conf_epochs
 
-        self._crf_model = self._build_crf_model(output_dim, lstm_state_dim)
+        self._crf_model = self._build_crf_model(output_dim, input_dim)
         self._crf_model.summary()
 
-        #opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
-        opt = tf.keras.optimizers.RMSprop(learning_rate=0.001)
+        opt = tf.keras.optimizers.Adam(learning_rate=0.001)
         self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
         acc_callback = AccCallback(
             self, dev_sentences, conf_crf_epochs, crf_model=True)
@@ -530,34 +532,30 @@ class RoPOSTagger(object):
         # 8.1 For the double of RoPOSTagger._conf_epochs
         for k in range(conf_crf_epochs):
             print(stack()[
-                  0][3] + ": CRF layer, training epoch {0!s}".format(k + 1), file=sys.stderr, flush=True)
+                  0][3] + ": CRF layer, training epoch {0!s}/{1!s}".format(k + 1, conf_crf_epochs), file=sys.stderr, flush=True)
+
+            shuffle(train_examples)
+            train_tensors = self._build_model_io_tensors_iterative(
+                train_examples, batch_size=conf_crf_chunk_size, from_the_top=True, crf_model=True)
 
             # 8.2 Iterate through the training data to train the CRF model
-            for i in range(0, x_lex_train.shape[0], conf_crf_batch_size):
-                j = i + conf_crf_batch_size
-
-                if j >= x_lex_train.shape[0]:
-                    j = x_lex_train.shape[0]
-                # end if
-
-                batch_x_lex_train = x_lex_train[i:j, :, :]
-                batch_x_emb_train = x_emb_train[i:j, :]
-                batch_x_ctx_train = x_ctx_train[i:j, :, :]
-                batch_y_train_crf = y_train_crf[i:j, :]
-                batch_z_train_mask = z_train_mask[i:j, :]
+            while train_tensors:
+                batch_x_lex_train = train_tensors[0]
+                batch_x_emb_train = train_tensors[1]
+                batch_x_ctx_train = train_tensors[2]
+                batch_y_train_crf = train_tensors[3]
+                batch_z_train_mask = train_tensors[4]
 
                 # 8.3 Predicts the LSTM states with the LM model
                 (_, _, batch_x_lstm_states_train) = self._lm_model.predict(
                     x=[batch_x_lex_train, batch_x_emb_train, batch_x_ctx_train], verbose=0)
 
                 self._crf_model.fit(
-                    x=[batch_x_lstm_states_train, batch_z_train_mask], y=batch_y_train_crf, verbose=0)
+                    x=[batch_x_lstm_states_train, batch_z_train_mask],
+                    y=batch_y_train_crf, batch_size=conf_crf_batch_size, verbose=1)
 
-                # 8.4 Evaluate on train set, every 10 batches
-                if i % 10 == 0:
-                    self._crf_model.evaluate(
-                        x=[batch_x_lstm_states_train, batch_z_train_mask], y=batch_y_train_crf, batch_size=conf_crf_batch_size, verbose=1)
-                # end if
+                train_tensors = self._build_model_io_tensors_iterative(
+                    train_examples, batch_size=conf_crf_chunk_size, crf_model=True)
             # end all training samples (epoch)
 
             # 8.4 Evaluate on dev set
@@ -567,43 +565,6 @@ class RoPOSTagger(object):
                 x=[x_lstm_states_dev, z_dev_mask], y=y_dev_crf, batch_size=conf_crf_batch_size, verbose=1)
             acc_callback.on_epoch_end(k, {})
         # end all epochs
-
-    def _normalize_vocabulary(self):
-        new_vocabulary = set()
-
-        for word in self._datavocabulary:
-            if Lex.sentence_case_pattern.match(word):
-                if not word.lower() in self._datavocabulary:
-                    new_vocabulary.add(word)
-                else:
-                    print(stack()[
-                          0][3] + ": removed word '{0}' from vocabulary".format(word), file=sys.stderr, flush=True)
-                #end if
-            # end if
-            else:
-                new_vocabulary.add(word)
-            # end if
-        # end for
-
-        self._datavocabulary = new_vocabulary
-
-    def _read_pred_amb_classes(self, file: str) -> list:
-        aclasses = []
-
-        with open(file, mode='r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                parts = line.split()
-
-                if line.startswith('#'):
-                    continue
-                # skip comments
-
-                aclasses.append((parts))
-            # end for
-        # end with
-
-        return aclasses
 
     def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float) -> tuple:
         """Chooses between the predicted MSD and the lexicon MSD for the given word.
@@ -789,13 +750,13 @@ class RoPOSTagger(object):
         self._lm_model.fit(x=[x_lex_train, x_emb_train, x_ctx_train], y=y_train, epochs=RoPOSTagger._conf_epochs, batch_size=16,
                         shuffle=True, validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev], y_dev), callbacks=[acc_callback])
 
-    def _build_crf_model(self, output_vector_size, lstm_states_size) -> tf.keras.Model:
-        x_lstm = tf.keras.layers.Input(shape=(
-            self._maxseqlen, lstm_states_size), dtype='float32', name="lstm-states-input")
+    def _build_crf_model(self, output_vector_size, input_size) -> tf.keras.Model:
+        x_lm = tf.keras.layers.Input(shape=(
+            self._maxseqlen, input_size), dtype='float32', name="lm-input")
         z_mask = tf.keras.layers.Input(shape=(self._maxseqlen,),
                                 dtype='bool', name="masked-input")
 
-        return CRFModel(output_vector_size, x_lstm, masked_input=z_mask)
+        return CRFModel(output_vector_size, x_lm, masked_input=z_mask)
     
     def _build_lm_model(self,
                            lex_input_vector_size: int,
@@ -840,7 +801,36 @@ class RoPOSTagger(object):
 
         return tf.keras.Model(inputs=[x_lex, x_emb, x_ctx], outputs=[o_msd_enc, o_msd_cls, l_bd_gru2_ctx_conc])
 
-    def _build_model_io_tensors(self, data_samples, runtime=False, crf_model=False):
+    def _build_model_io_tensors_iterative(self,
+        input_samples: list,
+        batch_size: int = 32,
+        from_the_top: bool = False, runtime: bool = False, crf_model: bool = False) -> tuple:
+        """There isn't enough memory to keep the whole training set in memory.
+        So, we are iterating and returning batches."""
+
+        if from_the_top:
+            self._batch_from = 0
+            self._batch_to = batch_size
+
+            if len(input_samples) < batch_size:
+                self._batch_to = len(input_samples)
+        elif self._batch_from == len(input_samples):
+            # End of line
+            return ()
+        # end if
+
+        current_samples = input_samples[self._batch_from:self._batch_to]
+
+        self._batch_from = self._batch_to
+        self._batch_to += batch_size
+
+        if len(input_samples) < self._batch_to:
+            self._batch_to = len(input_samples)
+        # end if
+
+        return self._build_model_io_tensors(current_samples, runtime, crf_model)
+
+    def _build_model_io_tensors(self, data_samples, runtime: bool = False, crf_model: bool = False) -> tuple:
         # No of examples
         m = len(data_samples)
         # This should be equal to self._maxseqlen
@@ -1121,7 +1111,7 @@ class RoPOSTagger(object):
         train_sentences.extend(sentences)
         return (train_sentences, train_samples, dev_sentences, dev_samples, test_sentences, test_samples)
 
-    def _build_unicode_props(self, data_samples: list) -> None:
+    def _build_unicode_props(self, data_samples: list):
         for sample in data_samples:
             for parts in sample:
                 word = parts[0]
@@ -1242,6 +1232,43 @@ class RoPOSTagger(object):
         # end with
 
         return sentences
+
+    def _read_pred_amb_classes(self, file: str) -> list:
+        aclasses = []
+
+        with open(file, mode='r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                parts = line.split()
+
+                if line.startswith('#'):
+                    continue
+                # skip comments
+
+                aclasses.append((parts))
+            # end for
+        # end with
+
+        return aclasses
+
+    def _normalize_vocabulary(self):
+        new_vocabulary = set()
+
+        for word in self._datavocabulary:
+            if Lex.sentence_case_pattern.match(word):
+                if not word.lower() in self._datavocabulary:
+                    new_vocabulary.add(word)
+                else:
+                    print(stack()[
+                          0][3] + ": removed word '{0}' from vocabulary".format(word), file=sys.stderr, flush=True)
+                #end if
+            # end if
+            else:
+                new_vocabulary.add(word)
+            # end if
+        # end for
+
+        self._datavocabulary = new_vocabulary
 
 
 if __name__ == '__main__':
