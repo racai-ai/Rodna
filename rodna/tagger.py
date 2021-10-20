@@ -535,7 +535,7 @@ class RoPOSTagger(object):
         input_dim = self._lm_model.get_layer(
             name='lm_states').output_shape[2]
         output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
-        conf_crf_batch_size = 16
+        conf_crf_batch_size = 32
         conf_crf_chunk_size = 100 * conf_crf_batch_size
         conf_crf_epochs = RoPOSTagger._conf_epochs
         conf_crf_device = RoPOSTagger._crf_device()
@@ -544,7 +544,7 @@ class RoPOSTagger(object):
             self._crf_model = self._build_crf_model(output_dim, input_dim)
             self._crf_model.summary()
 
-            opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
+            opt = tf.keras.optimizers.Adam(learning_rate=0.001)
             self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
             acc_callback = AccCallback(
                 self, dev_sentences, conf_crf_epochs, crf_model=True)
@@ -852,9 +852,9 @@ class RoPOSTagger(object):
             self._batch_to = len(input_samples)
         # end if
 
-        return self._build_model_io_tensors(current_samples, runtime, crf_model)
+        return self._build_model_io_tensors(current_samples, show_progress=False, runtime=runtime, crf_model=crf_model)
 
-    def _build_model_io_tensors(self, data_samples, runtime: bool = False, crf_model: bool = False) -> tuple:
+    def _build_model_io_tensors(self, data_samples, show_progress: bool = True, runtime: bool = False, crf_model: bool = False) -> tuple:
         # No of examples
         m = len(data_samples)
         # This should be equal to self._maxseqlen
@@ -887,7 +887,7 @@ class RoPOSTagger(object):
             sample = data_samples[i]
             # We should have that assert len(sample) == tx
 
-            if i > 0 and i % 1000 == 0:
+            if show_progress and i > 0 and i % 1000 == 0:
                 print(stack()[0][3] + ": processed {0!s}/{1!s} samples".format(
                     i, len(data_samples)), file=sys.stderr, flush=True)
             # end if
