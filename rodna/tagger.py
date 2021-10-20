@@ -528,64 +528,90 @@ class RoPOSTagger(object):
             return (x_lex, x_emb, x_ctx, y_crf, z_msk)
         # end def
 
+        (x_lex_train, x_emb_train, x_ctx_train, y_train_crf,
+         z_train_mask) = _generate_tensors('dev', train_examples)
         (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_crf,
          z_dev_mask) = _generate_tensors('dev', dev_examples)
 
         # 4. Creating the CRF model
+        # 4.1 Try all data, at once.
         input_dim = self._lm_model.get_layer(
             name='lm_states').output_shape[2]
         output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
-        conf_crf_batch_size = 32
-        conf_crf_chunk_size = 100 * conf_crf_batch_size
-        conf_crf_epochs = RoPOSTagger._conf_epochs
         conf_crf_device = RoPOSTagger._crf_device()
+        conf_crf_epochs = RoPOSTagger._conf_epochs
 
         with tf.device(conf_crf_device):
             self._crf_model = self._build_crf_model(output_dim, input_dim)
             self._crf_model.summary()
 
-            opt = tf.keras.optimizers.Adam(learning_rate=0.001)
+            opt = tf.keras.optimizers.Adam(learning_rate=0.05)
             self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
             acc_callback = AccCallback(
                 self, dev_sentences, conf_crf_epochs, crf_model=True)
-
-            # 8.1 For the double of RoPOSTagger._conf_epochs
-            for k in range(conf_crf_epochs):
-                print(stack()[
-                    0][3] + ": CRF layer, training epoch {0!s}/{1!s}".format(k + 1, conf_crf_epochs), file=sys.stderr, flush=True)
-
-                shuffle(train_examples)
-                train_tensors = self._build_model_io_tensors_iterative(
-                    train_examples, batch_size=conf_crf_chunk_size, from_the_top=True, crf_model=True)
-
-                # 8.2 Iterate through the training data to train the CRF model
-                while train_tensors:
-                    batch_x_lex_train = train_tensors[0]
-                    batch_x_emb_train = train_tensors[1]
-                    batch_x_ctx_train = train_tensors[2]
-                    batch_y_train_crf = train_tensors[3]
-                    batch_z_train_mask = train_tensors[4]
-
-                    # 8.3 Predicts the LSTM states with the LM model
-                    (_, _, batch_x_lstm_states_train) = self._lm_model.predict(
-                        x=[batch_x_lex_train, batch_x_emb_train, batch_x_ctx_train], verbose=0)
-
-                    self._crf_model.fit(
-                        x=[batch_x_lstm_states_train, batch_z_train_mask],
-                        y=batch_y_train_crf, batch_size=conf_crf_batch_size, verbose=1)
-
-                    train_tensors = self._build_model_io_tensors_iterative(
-                        train_examples, batch_size=conf_crf_chunk_size, crf_model=True)
-                # end all training samples (epoch)
-
-                # 8.4 Evaluate on dev set
-                (_, _, x_lstm_states_dev) = self._lm_model.predict(
-                    x=[x_lex_dev, x_emb_dev, x_ctx_dev], batch_size=conf_crf_batch_size, verbose=0)
-                self._crf_model.evaluate(
-                    x=[x_lstm_states_dev, z_dev_mask], y=y_dev_crf, batch_size=conf_crf_batch_size, verbose=1)
-                acc_callback.on_epoch_end(k, {})
-            # end all epochs
+            (_, _, batch_x_train) = self._lm_model.predict(
+                x=[x_lex_train, x_emb_train, x_ctx_train], verbose=1)
+            (_, _, batch_x_dev) = self._lm_model.predict(
+                x=[x_lex_dev, x_emb_dev, x_ctx_dev], verbose=1)
+            self._crf_model.fit(
+                x=[batch_x_train, z_train_mask],
+                y=y_train_crf,
+                batch_size=32, verbose=1, shuffle=True,
+                validation_data=([batch_x_dev, z_dev_mask], y_dev_crf), callbacks=[acc_callback])
         # end with device
+
+        # 4.2  Try with data chunks
+        #conf_crf_batch_size = 32
+        #conf_crf_chunk_size = 100 * conf_crf_batch_size
+        #conf_crf_epochs = RoPOSTagger._conf_epochs
+        
+
+#        with tf.device(conf_crf_device):
+#            self._crf_model = self._build_crf_model(output_dim, input_dim)
+#            self._crf_model.summary()
+#
+#            opt = tf.keras.optimizers.Adam(learning_rate=0.001)
+#            self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
+#            acc_callback = AccCallback(
+#                self, dev_sentences, conf_crf_epochs, crf_model=True)
+#
+#            # 8.1 For the double of RoPOSTagger._conf_epochs
+#            for k in range(conf_crf_epochs):
+#                print(stack()[
+#                    0][3] + ": CRF layer, training epoch {0!s}/{1!s}".format(k + 1, conf_crf_epochs), file=sys.stderr, flush=True)
+#
+#                shuffle(train_examples)
+#                train_tensors = self._build_model_io_tensors_iterative(
+#                    train_examples, batch_size=conf_crf_chunk_size, from_the_top=True, crf_model=True)
+#
+#                # 8.2 Iterate through the training data to train the CRF model
+#                while train_tensors:
+#                    batch_x_lex_train = train_tensors[0]
+#                    batch_x_emb_train = train_tensors[1]
+#                    batch_x_ctx_train = train_tensors[2]
+#                    batch_y_train_crf = train_tensors[3]
+#                    batch_z_train_mask = train_tensors[4]
+#
+#                    # 8.3 Predicts the LSTM states with the LM model
+#                    (_, _, batch_x_lstm_states_train) = self._lm_model.predict(
+#                        x=[batch_x_lex_train, batch_x_emb_train, batch_x_ctx_train], verbose=0)
+#
+#                    self._crf_model.fit(
+#                        x=[batch_x_lstm_states_train, batch_z_train_mask],
+#                        y=batch_y_train_crf, batch_size=conf_crf_batch_size, verbose=1)
+#
+#                    train_tensors = self._build_model_io_tensors_iterative(
+#                        train_examples, batch_size=conf_crf_chunk_size, crf_model=True)
+#                # end all training samples (epoch)
+#
+#                # 8.4 Evaluate on dev set
+#                (_, _, x_lstm_states_dev) = self._lm_model.predict(
+#                    x=[x_lex_dev, x_emb_dev, x_ctx_dev], batch_size=conf_crf_batch_size, verbose=0)
+#                self._crf_model.evaluate(
+#                    x=[x_lstm_states_dev, z_dev_mask], y=y_dev_crf, batch_size=conf_crf_batch_size, verbose=1)
+#                acc_callback.on_epoch_end(k, {})
+#            # end all epochs
+#        # end with device
 
     def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float) -> tuple:
         """Chooses between the predicted MSD and the lexicon MSD for the given word.
