@@ -342,6 +342,24 @@ class RoPOSTagger(object):
         self._batch_from = -1
         self._batch_to = -1
 
+    @staticmethod
+    def _crf_device() -> str:
+        """I always get OOM errors when training the CRF layer, after
+        loading the LM neural network. So, choose some other device
+        for training the CRF layer, assuming LM takes GPU:0."""
+
+        physical_devices = tf.config.list_physical_devices('GPU')
+        device = "/device:CPU:0"
+
+        if len(physical_devices) > 1:
+            device = "/device:GPU:1"
+        # end if
+
+        print(stack()[0][3] + ": CRF layer training will run on '{0}'".format(device),
+                file=sys.stderr, flush=True)
+
+        return device
+
     def _save_lm_model(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
         self._lm_model.save(ROLM_MODEL_FOLDER, overwrite=True)
@@ -517,54 +535,57 @@ class RoPOSTagger(object):
         input_dim = self._lm_model.get_layer(
             name='lm_states').output_shape[2]
         output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
-        conf_crf_batch_size = 32
+        conf_crf_batch_size = 16
         conf_crf_chunk_size = 100 * conf_crf_batch_size
         conf_crf_epochs = RoPOSTagger._conf_epochs
+        conf_crf_device = RoPOSTagger._crf_device()
 
-        self._crf_model = self._build_crf_model(output_dim, input_dim)
-        self._crf_model.summary()
+        with tf.device(conf_crf_device):
+            self._crf_model = self._build_crf_model(output_dim, input_dim)
+            self._crf_model.summary()
 
-        opt = tf.keras.optimizers.Adam(learning_rate=0.001)
-        self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
-        acc_callback = AccCallback(
-            self, dev_sentences, conf_crf_epochs, crf_model=True)
+            opt = tf.keras.optimizers.Adam(learning_rate=0.0001)
+            self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
+            acc_callback = AccCallback(
+                self, dev_sentences, conf_crf_epochs, crf_model=True)
 
-        # 8.1 For the double of RoPOSTagger._conf_epochs
-        for k in range(conf_crf_epochs):
-            print(stack()[
-                  0][3] + ": CRF layer, training epoch {0!s}/{1!s}".format(k + 1, conf_crf_epochs), file=sys.stderr, flush=True)
+            # 8.1 For the double of RoPOSTagger._conf_epochs
+            for k in range(conf_crf_epochs):
+                print(stack()[
+                    0][3] + ": CRF layer, training epoch {0!s}/{1!s}".format(k + 1, conf_crf_epochs), file=sys.stderr, flush=True)
 
-            shuffle(train_examples)
-            train_tensors = self._build_model_io_tensors_iterative(
-                train_examples, batch_size=conf_crf_chunk_size, from_the_top=True, crf_model=True)
-
-            # 8.2 Iterate through the training data to train the CRF model
-            while train_tensors:
-                batch_x_lex_train = train_tensors[0]
-                batch_x_emb_train = train_tensors[1]
-                batch_x_ctx_train = train_tensors[2]
-                batch_y_train_crf = train_tensors[3]
-                batch_z_train_mask = train_tensors[4]
-
-                # 8.3 Predicts the LSTM states with the LM model
-                (_, _, batch_x_lstm_states_train) = self._lm_model.predict(
-                    x=[batch_x_lex_train, batch_x_emb_train, batch_x_ctx_train], verbose=0)
-
-                self._crf_model.fit(
-                    x=[batch_x_lstm_states_train, batch_z_train_mask],
-                    y=batch_y_train_crf, batch_size=conf_crf_batch_size, verbose=1)
-
+                shuffle(train_examples)
                 train_tensors = self._build_model_io_tensors_iterative(
-                    train_examples, batch_size=conf_crf_chunk_size, crf_model=True)
-            # end all training samples (epoch)
+                    train_examples, batch_size=conf_crf_chunk_size, from_the_top=True, crf_model=True)
 
-            # 8.4 Evaluate on dev set
-            (_, _, x_lstm_states_dev) = self._lm_model.predict(
-                x=[x_lex_dev, x_emb_dev, x_ctx_dev], batch_size=conf_crf_batch_size, verbose=0)
-            self._crf_model.evaluate(
-                x=[x_lstm_states_dev, z_dev_mask], y=y_dev_crf, batch_size=conf_crf_batch_size, verbose=1)
-            acc_callback.on_epoch_end(k, {})
-        # end all epochs
+                # 8.2 Iterate through the training data to train the CRF model
+                while train_tensors:
+                    batch_x_lex_train = train_tensors[0]
+                    batch_x_emb_train = train_tensors[1]
+                    batch_x_ctx_train = train_tensors[2]
+                    batch_y_train_crf = train_tensors[3]
+                    batch_z_train_mask = train_tensors[4]
+
+                    # 8.3 Predicts the LSTM states with the LM model
+                    (_, _, batch_x_lstm_states_train) = self._lm_model.predict(
+                        x=[batch_x_lex_train, batch_x_emb_train, batch_x_ctx_train], verbose=0)
+
+                    self._crf_model.fit(
+                        x=[batch_x_lstm_states_train, batch_z_train_mask],
+                        y=batch_y_train_crf, batch_size=conf_crf_batch_size, verbose=1)
+
+                    train_tensors = self._build_model_io_tensors_iterative(
+                        train_examples, batch_size=conf_crf_chunk_size, crf_model=True)
+                # end all training samples (epoch)
+
+                # 8.4 Evaluate on dev set
+                (_, _, x_lstm_states_dev) = self._lm_model.predict(
+                    x=[x_lex_dev, x_emb_dev, x_ctx_dev], batch_size=conf_crf_batch_size, verbose=0)
+                self._crf_model.evaluate(
+                    x=[x_lstm_states_dev, z_dev_mask], y=y_dev_crf, batch_size=conf_crf_batch_size, verbose=1)
+                acc_callback.on_epoch_end(k, {})
+            # end all epochs
+        # end with device
 
     def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float) -> tuple:
         """Chooses between the predicted MSD and the lexicon MSD for the given word.
@@ -764,15 +785,16 @@ class RoPOSTagger(object):
                            word_embeddings_voc_size: int,
                            word_embeddings_proj_size: int,
                            msd_encoding_vector_size: int,
-                           output_vector_size: int
+                           output_vector_size: int,
+                           drop_prob: float = 0.33
                            ) -> tf.keras.Model:
         # Inputs
         x_lex = tf.keras.layers.Input(shape=(self._maxseqlen,
-                                             lex_input_vector_size), dtype='float32', name="word-lexical-input")
+                                             lex_input_vector_size), dtype='float32', name="word_lexical_input")
         x_ctx = tf.keras.layers.Input(shape=(self._maxseqlen,
-                                             ctx_input_vector_size), dtype='float32', name="word-context-input")
+                                             ctx_input_vector_size), dtype='float32', name="word_context_input")
         x_emb = tf.keras.layers.Input(
-            shape=(self._maxseqlen,), dtype='int32', name="word-embedding-input")
+            shape=(self._maxseqlen,), dtype='int32', name="word_embedding_input")
         # End inputs
 
         # MSD encoding
@@ -783,17 +805,19 @@ class RoPOSTagger(object):
         l_lex_emb_conc = tf.keras.layers.Concatenate()([x_lex, l_emb])
         l_bd_gru_1 = tf.keras.layers.Bidirectional(
             tf.keras.layers.GRU(RoPOSTagger._conf_rnn_size_1, return_sequences=True))(l_lex_emb_conc)
-        l_drop_1 = tf.keras.layers.Dropout(0.33)(l_bd_gru_1)
+        l_drop_1 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_1)
         o_msd_enc = tf.keras.layers.Dense(
             msd_encoding_vector_size, activation='sigmoid', name='msd_enc')(l_drop_1)
         # End MSD encoding
 
+        l_drop_2 = tf.keras.layers.Dropout(drop_prob)(o_msd_enc)
+
         # Language model
         l_bd_gru_2 = tf.keras.layers.Bidirectional(tf.keras.layers.GRU(
-            RoPOSTagger._conf_rnn_size_2, return_sequences=True))(o_msd_enc)
-        l_drop_2 = tf.keras.layers.Dropout(0.33)(l_bd_gru_2)            
+            RoPOSTagger._conf_rnn_size_2, return_sequences=True))(l_drop_2)
+        l_drop_3 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_2)
         l_bd_gru2_ctx_conc = tf.keras.layers.Concatenate(
-            name='lm_states')([l_drop_2, x_ctx])
+            name='lm_states')([l_drop_3, x_ctx])
         l_dense_1 = tf.keras.layers.Dense(output_vector_size)(l_bd_gru2_ctx_conc)
         o_msd_cls = tf.keras.layers.Activation(
             'softmax', name='msd_cls')(l_dense_1)
