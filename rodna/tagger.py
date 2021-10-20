@@ -538,17 +538,15 @@ class RoPOSTagger(object):
         input_dim = self._lm_model.get_layer(
             name='lm_states').output_shape[2]
         output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
-        conf_crf_device = RoPOSTagger._crf_device()
-        conf_crf_epochs = RoPOSTagger._conf_epochs
 
-        with tf.device(conf_crf_device):
+        with tf.device(RoPOSTagger._crf_device()):
             self._crf_model = self._build_crf_model(output_dim, input_dim)
             self._crf_model.summary()
 
             opt = tf.keras.optimizers.Adam(learning_rate=0.05)
             self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
             acc_callback = AccCallback(
-                self, dev_sentences, conf_crf_epochs, crf_model=True)
+                self, dev_sentences, RoPOSTagger._conf_epochs, crf_model=True)
             (_, _, batch_x_train) = self._lm_model.predict(
                 x=[x_lex_train, x_emb_train, x_ctx_train], verbose=1)
             (_, _, batch_x_dev) = self._lm_model.predict(
@@ -556,6 +554,7 @@ class RoPOSTagger(object):
             self._crf_model.fit(
                 x=[batch_x_train, z_train_mask],
                 y=y_train_crf,
+                epochs=RoPOSTagger._conf_epochs,
                 batch_size=32, verbose=1, shuffle=True,
                 validation_data=([batch_x_dev, z_dev_mask], y_dev_crf), callbacks=[acc_callback])
         # end with device
