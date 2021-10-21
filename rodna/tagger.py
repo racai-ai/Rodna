@@ -225,18 +225,17 @@ class RoWordEmbeddings(tf.keras.initializers.Initializer):
 
 class CRFModel(tf.keras.Model):
 
-    def __init__(self, tagset_size, lstm_states, masked_input):
+    def __init__(self, tagset_size, dense_linear, masked_input):
         # Build functional model
-        # dense = tf.keras.layers.Dense(512, activation='tanh')(lstm_states)
         crf = tfa.layers.CRF(
             units=tagset_size,
-            chain_initializer="orthogonal",
+            chain_initializer=tf.keras.initializers.Orthogonal(),
             use_boundary=True,
-            boundary_initializer="zeros",
+            boundary_initializer=tf.keras.initializers.Zeros(),
             use_kernel=True)
 
         (decode_sequence, potentials, sequence_length, kernel) = crf(
-            inputs=lstm_states, mask=masked_input)
+            inputs=dense_linear, mask=masked_input)
 
         # Set name for outputs
         decode_sequence = tf.keras.layers.Lambda(
@@ -248,7 +247,7 @@ class CRFModel(tf.keras.Model):
         kernel = tf.keras.layers.Lambda(lambda x: x, name='kernel')(kernel)
 
         super().__init__(
-            inputs=[lstm_states, masked_input],
+            inputs=[dense_linear, masked_input],
             outputs=[decode_sequence, potentials, sequence_length, kernel])
 
         self.crf = crf
@@ -312,7 +311,7 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 50
+    _conf_maxseqlen = 30
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -529,21 +528,21 @@ class RoPOSTagger(object):
         # end def
 
         (x_lex_train, x_emb_train, x_ctx_train, y_train_crf,
-         z_train_mask) = _generate_tensors('dev', train_examples)
+         z_train_mask) = _generate_tensors('train', train_examples)
         (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_crf,
          z_dev_mask) = _generate_tensors('dev', dev_examples)
 
         # 4. Creating the CRF model
         # 4.1 Try all data, at once.
         input_dim = self._lm_model.get_layer(
-            name='lm_states').output_shape[2]
+            name='dense_linear').output_shape[2]
         output_dim = self._lm_model.get_layer(name='msd_cls').output_shape[2]
 
         with tf.device(RoPOSTagger._crf_device()):
             self._crf_model = self._build_crf_model(output_dim, input_dim)
             self._crf_model.summary()
 
-            opt = tf.keras.optimizers.Adam(learning_rate=0.05)
+            opt = tf.keras.optimizers.Adam(learning_rate=0.1)
             self._crf_model.compile(optimizer=opt, metrics=['accuracy'])
             acc_callback = AccCallback(
                 self, dev_sentences, RoPOSTagger._conf_epochs, crf_model=True)
@@ -700,14 +699,14 @@ class RoPOSTagger(object):
         # end if
 
         # 3. Use the model to get predicted MSDs
-        (y_pred_enc, y_pred_cls, lm_states) = self._lm_model.predict(
+        (y_pred_enc, y_pred_cls, dense_linear) = self._lm_model.predict(
             x=[x_lex_run, x_emb_run, x_ctx_run])
 
         if crf_model:
             # viterbi_msd_indexes are the indexes of the best MSDs
             # along the sequence, found by the CRF layer.
             (viterbi_msd_indexes, _, _, _) = self._crf_model.predict(
-                x=[lm_states, z_mask])
+                x=[dense_linear, z_mask])
 
             assert y_pred_cls.shape[0] == viterbi_msd_indexes.shape[0]
             assert y_pred_cls.shape[1] == viterbi_msd_indexes.shape[1]
@@ -798,9 +797,9 @@ class RoPOSTagger(object):
 
     def _build_crf_model(self, output_vector_size, input_size) -> tf.keras.Model:
         x_lm = tf.keras.layers.Input(shape=(
-            self._maxseqlen, input_size), dtype='float32', name="lm-input")
+            self._maxseqlen, input_size), dtype='float32', name="dense_input")
         z_mask = tf.keras.layers.Input(shape=(self._maxseqlen,),
-                                dtype='bool', name="masked-input")
+                                dtype='bool', name="masked_input")
 
         return CRFModel(output_vector_size, x_lm, masked_input=z_mask)
     
@@ -843,12 +842,12 @@ class RoPOSTagger(object):
         l_drop_3 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_2)
         l_bd_gru2_ctx_conc = tf.keras.layers.Concatenate(
             name='lm_states')([l_drop_3, x_ctx])
-        l_dense_1 = tf.keras.layers.Dense(output_vector_size)(l_bd_gru2_ctx_conc)
+        l_dense_1 = tf.keras.layers.Dense(output_vector_size, name="dense_linear")(l_bd_gru2_ctx_conc)
         o_msd_cls = tf.keras.layers.Activation(
             'softmax', name='msd_cls')(l_dense_1)
         # End language model
 
-        return tf.keras.Model(inputs=[x_lex, x_emb, x_ctx], outputs=[o_msd_enc, o_msd_cls, l_bd_gru2_ctx_conc])
+        return tf.keras.Model(inputs=[x_lex, x_emb, x_ctx], outputs=[o_msd_enc, o_msd_cls, l_dense_1])
 
     def _build_model_io_tensors_iterative(self,
         input_samples: list,
