@@ -317,7 +317,7 @@ class CRFModel(tf.keras.Model):
         vit_metric.update_state(y_crf, decode_sequence)
 
         return {
-            self._loss_tracker_train.name: self._loss_tracker.result(),
+            self._loss_tracker_train.name: self._loss_tracker_train.result(),
             cos_metric.name: cos_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
@@ -357,7 +357,7 @@ class CRFModel(tf.keras.Model):
         vit_metric.update_state(y_crf, decode_sequence)
 
         return {
-            self._loss_tracker_test.name: self._loss_tracker.result(),
+            self._loss_tracker_test.name: self._loss_tracker_test.result(),
             cos_metric.name: cos_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
