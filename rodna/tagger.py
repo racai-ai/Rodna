@@ -399,6 +399,24 @@ class RoPOSTagger(object):
             PREDICTED_AMB_CLASSES_FILE)
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
 
+    @staticmethod
+    def _select_tf_device() -> str:
+        """I always get OOM errors when training the CRF layer, after
+        loading the LM neural network. So, choose some other device
+        for training the CRF layer, assuming LM takes GPU:0."""
+
+        physical_devices = tf.config.list_physical_devices('GPU')
+        device = "/device:CPU:0"
+
+        if len(physical_devices) > 1:
+            device = "/device:GPU:1"
+        # end if
+
+        print(stack()[0][3] + ": CRF layer training will run on '{0}'".format(device),
+                file=sys.stderr, flush=True)
+
+        return device
+
     def _save(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
         self._model.save(ROLM_MODEL_FOLDER, overwrite=True)
@@ -494,29 +512,31 @@ class RoPOSTagger(object):
         encoding_dim = y_train_enc.shape[2]
         output_dim = y_train_cls.shape[2]
 
-        # 5. Creating the language model
-        self._model = self._build_lm_model(
-            lex_input_dim,
-            ctx_input_dim,
-            self._wordembeddings.get_vocabulary_size(),
-            self._wordembeddings.get_vector_length(),
-            encoding_dim, output_dim
-        )
+        with tf.device(RoPOSTagger._select_tf_device()):
+            # 5. Creating the language model
+            self._model = self._build_lm_model(
+                lex_input_dim,
+                ctx_input_dim,
+                self._wordembeddings.get_vocabulary_size(),
+                self._wordembeddings.get_vector_length(),
+                encoding_dim, output_dim
+            )
 
-        # 6. Print model summary
-        self._model.summary()
+            # 6. Print model summary
+            self._model.summary()
 
-        # 7. Train the LM model
-        self._train_keras_model(
-            train=(x_lex_train, x_emb_train, x_ctx_train, y_train_enc,
-                y_train_cls, y_train_crf, z_train_mask),
-            dev=(x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc,
-                y_dev_cls, y_dev_crf, z_dev_mask),
-            gold_sentences=dev_sentences
-        )
+            # 7. Train the LM model
+            self._train_keras_model(
+                train=(x_lex_train, x_emb_train, x_ctx_train, y_train_enc,
+                    y_train_cls, y_train_crf, z_train_mask),
+                dev=(x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc,
+                    y_dev_cls, y_dev_crf, z_dev_mask),
+                gold_sentences=dev_sentences
+            )
 
-        # 8. Saving the model
-        self._save()
+            # 8. Saving the model
+            self._save()
+        # end with device
 
     def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float) -> tuple:
         """Chooses between the predicted MSD and the lexicon MSD for the given word.
