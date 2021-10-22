@@ -412,7 +412,7 @@ class RoPOSTagger(object):
             device = "/device:GPU:1"
         # end if
 
-        print(stack()[0][3] + ": CRF layer training will run on '{0}'".format(device),
+        print(stack()[0][3] + ": RoPOSTagger training will run on '{0}'".format(device),
                 file=sys.stderr, flush=True)
 
         return device
@@ -681,7 +681,8 @@ class RoPOSTagger(object):
         opt = tf.keras.optimizers.Adam(learning_rate=0.001)
         self._model.compile(
             optimizer=opt,
-            run_eagerly=True
+            # Set this to true for Python debugging
+            run_eagerly=None
         )
 
         x_lex_train = train[0]
