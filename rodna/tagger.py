@@ -257,7 +257,7 @@ class CRFModel(tf.keras.Model):
         }
 
         self._custom_metrics_train = {
-            'msd_enc': tf.keras.metrics.CosineSimilarity(name='cosine'),
+            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='bin_acc'),
             'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='onehot_cat'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
@@ -270,7 +270,7 @@ class CRFModel(tf.keras.Model):
         }
 
         self._custom_metrics_test = {
-            'msd_enc': tf.keras.metrics.CosineSimilarity(name='cosine'),
+            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='bin_acc'),
             'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='onehot_cat'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
@@ -290,7 +290,7 @@ class CRFModel(tf.keras.Model):
 
         bin_cross_entropy = self._custom_losses_train['msd_enc']
         cat_cross_entropy = self._custom_losses_train['msd_cls']
-        cos_metric = self._custom_metrics_train['msd_enc']
+        bin_metric = self._custom_metrics_train['msd_enc']
         oneh_metric = self._custom_metrics_train['msd_cls']
         vit_metric = self._custom_metrics_train['decode_sequence']
 
@@ -312,13 +312,13 @@ class CRFModel(tf.keras.Model):
 
         # Update metrics (includes the metric that tracks the loss)
         self._loss_tracker_train.update_state(loss)
-        cos_metric.update_state(y_enc, msd_enc)
+        bin_metric.update_state(y_enc, msd_enc)
         oneh_metric.update_state(y_cls, msd_cls)
         vit_metric.update_state(y_crf, decode_sequence)
 
         return {
             self._loss_tracker_train.name: self._loss_tracker_train.result(),
-            cos_metric.name: cos_metric.result(),
+            bin_metric.name: bin_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
         }
@@ -336,7 +336,7 @@ class CRFModel(tf.keras.Model):
 
         bin_cross_entropy = self._custom_losses_test['msd_enc']
         cat_cross_entropy = self._custom_losses_test['msd_cls']
-        cos_metric = self._custom_metrics_test['msd_enc']
+        bin_metric = self._custom_metrics_test['msd_enc']
         oneh_metric = self._custom_metrics_test['msd_cls']
         vit_metric = self._custom_metrics_test['decode_sequence']
 
@@ -352,13 +352,13 @@ class CRFModel(tf.keras.Model):
 
         # Update metrics (includes the metric that tracks the loss)
         self._loss_tracker_test.update_state(loss)
-        cos_metric.update_state(y_enc, msd_enc)
+        bin_metric.update_state(y_enc, msd_enc)
         oneh_metric.update_state(y_cls, msd_cls)
         vit_metric.update_state(y_crf, decode_sequence)
 
         return {
             self._loss_tracker_test.name: self._loss_tracker_test.result(),
-            cos_metric.name: cos_metric.result(),
+            bin_metric.name: bin_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
         }
@@ -711,7 +711,7 @@ class RoPOSTagger(object):
         self._model.fit(
             x=[x_lex_train, x_emb_train, x_ctx_train, x_mask_train],
             y=y_train,
-            epochs=RoPOSTagger._conf_epochs, batch_size=32, shuffle=True,
+            epochs=RoPOSTagger._conf_epochs, batch_size=16, shuffle=True,
             validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev, x_mask_dev], y_dev),
             callbacks=[acc_callback]
         )
@@ -723,7 +723,7 @@ class RoPOSTagger(object):
                            word_embeddings_proj_size: int,
                            msd_encoding_vector_size: int,
                            output_vector_size: int,
-                           drop_prob: float = 0.33
+                           drop_prob: float = 0.25
                            ) -> tf.keras.Model:
         # Inputs
         x_lex = tf.keras.layers.Input(shape=(self._maxseqlen,
