@@ -380,7 +380,7 @@ class RoPOSTagger(object):
     _conf_test_percent = 0.0
     # RNN state size
     _conf_rnn_size_1 = 256
-    _conf_rnn_size_2 = 256
+    _conf_rnn_size_2 = 128
     _conf_epochs = 20
 
     def __init__(self, splitter: RoSentenceSplitter):
@@ -517,12 +517,13 @@ class RoPOSTagger(object):
 
         with tf.device(RoPOSTagger._select_tf_device()):
             # 5. Creating the language model
-            self._model = self._build_lm_model(
+            self._model = self._build_keras_model(
                 lex_input_dim,
                 ctx_input_dim,
                 self._wordembeddings.get_vocabulary_size(),
                 self._wordembeddings.get_vector_length(),
-                encoding_dim, output_dim
+                encoding_dim, output_dim,
+                drop_prob=0.1
             )
 
             # 6. Print model summary
@@ -661,16 +662,15 @@ class RoPOSTagger(object):
                     y2 = y_pred_vit[i, j, :]
                     (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'GRU')
                     (msd_vit, msd_vit_p) = self._most_prob_msd(word, y2, 'RNN')
+                    ij_msd_best = tagged_sentence[i + j][1]
 
-                    if msd_rnn != gold_msd:
+                    if msd_rnn != gold_msd and msd_rnn in ij_msd_best:
                         self._debug_rnn_errors += 1
                     # end if
 
-                    if msd_vit != gold_msd:
+                    if msd_vit != gold_msd and msd_vit in ij_msd_best:
                         self._debug_crf_errors += 1
                     # end if
-
-                    ij_msd_best = tagged_sentence[i + j][1]
 
                     for msd, msd_p in [(msd_rnn, msd_rnn_p), (msd_vit, msd_vit_p)]:
                         if msd in ij_msd_best:
@@ -775,14 +775,14 @@ class RoPOSTagger(object):
         print(stack()[0][3] + ": ENSEMBLE errors {0!s}".format(self._debug_both_errors), file=sys.stderr, flush=True)
         print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
     
-    def _build_lm_model(self,
+    def _build_keras_model(self,
                            lex_input_vector_size: int,
                            ctx_input_vector_size: int,
                            word_embeddings_voc_size: int,
                            word_embeddings_proj_size: int,
                            msd_encoding_vector_size: int,
                            output_vector_size: int,
-                           drop_prob: float = 0.25
+                           drop_prob: float = 0.33
                            ) -> tf.keras.Model:
         # Inputs
         x_lex = tf.keras.layers.Input(shape=(self._maxseqlen,
