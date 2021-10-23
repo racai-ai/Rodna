@@ -15,5 +15,4 @@ SPLITTER_UNICODE_PROPERTY_FILE = os.path.join('data', 'models', 'splitter_unic_p
 TAGGER_UNICODE_PROPERTY_FILE = os.path.join('data', 'models', 'tagger_unic_props.txt')
 PREDICTED_AMB_CLASSES_FILE = os.path.join(
     'data', 'resources', 'predicted-ambiguity-classes.txt')
-ROLM_MODEL_FOLDER = os.path.join('data', 'models', 'tagger', 'langmod')
-ROCRF_MODEL_FOLDER = os.path.join('data', 'models', 'tagger', 'crflayer')
+TAGGER_MODEL_FOLDER = os.path.join('data', 'models', 'tagger')

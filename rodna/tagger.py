@@ -16,10 +16,10 @@ from .morphology import RoInflect
 from utils.Lex import Lex
 from utils.errors import print_error
 from config import PREDICTED_AMB_CLASSES_FILE, \
-    EMBEDDING_VOCABULARY_FILE, ROLM_MODEL_FOLDER, \
+    EMBEDDING_VOCABULARY_FILE, TAGGER_MODEL_FOLDER, \
     TAGGER_UNICODE_PROPERTY_FILE
 
-_predict_str_const = ": predicted MSD {0}/{1:.5f} preferred over lexicon MSD {2}/{3:.5f} for word '{4}'"
+_predict_str_const = ": caller {0} for word '{1}' -> predicted [{2}/{3:.3f}] wins over lexicon [{4}/{5:.3f}]"
 _zero_word = '_ZERO_'
 _unk_word = '_UNK_'
 
@@ -373,14 +373,14 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 50
+    _conf_maxseqlen = 30
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
     _conf_test_percent = 0.0
     # RNN state size
-    _conf_rnn_size_1 = 128
-    _conf_rnn_size_2 = 128
+    _conf_rnn_size_1 = 256
+    _conf_rnn_size_2 = 256
     _conf_epochs = 20
 
     def __init__(self, splitter: RoSentenceSplitter):
@@ -398,6 +398,9 @@ class RoPOSTagger(object):
         self._predambclasses = self._read_pred_amb_classes(
             PREDICTED_AMB_CLASSES_FILE)
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
+        self._debug_rnn_errors = 0
+        self._debug_crf_errors = 0
+        self._debug_both_errors = 0
 
     @staticmethod
     def _select_tf_device() -> str:
@@ -419,12 +422,12 @@ class RoPOSTagger(object):
 
     def _save(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
-        self._model.save(ROLM_MODEL_FOLDER, overwrite=True)
+        self._model.save(TAGGER_MODEL_FOLDER, overwrite=True)
 
     def load(self):
         self._uniprops.load_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
         self._wordembeddings.load_ids()
-        self._model = tf.keras.models.load_model(ROLM_MODEL_FOLDER)
+        self._model = tf.keras.models.load_model(TAGGER_MODEL_FOLDER)
 
     def train(self,
         data_sentences: list = [],
@@ -538,12 +541,14 @@ class RoPOSTagger(object):
             self._save()
         # end with device
 
-    def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float) -> tuple:
+    def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float, caller: str) -> tuple:
         """Chooses between the predicted MSD and the lexicon MSD for the given word.
         Goes through the options where the predicted MSD is better.
         Returns the lexicon MSD if no option is valid."""
 
         if lex_msd == '?':
+            print(stack()[0][3] + _predict_str_const.format(caller, word, pred_msd,
+                                                            pmp, lex_msd, lmp), file=sys.stderr, flush=True)
             return (pred_msd, pmp)
         # end if
 
@@ -551,12 +556,12 @@ class RoPOSTagger(object):
         if pred_msd.startswith('Np') and Lex.sentence_case_pattern.match(word) and \
                 not Lex.upper_case_pattern.match(word):
             if lex_msd.startswith('Np') and len(lex_msd) > len(pred_msd):
-                print_error("default lexicon MSD {0} preferred over predicted MSD {1} for word '{2}'".format(
-                    lex_msd, pred_msd, word), stack()[0][3])
+                print_error("caller {0} for word '{1}' -> lexicon [{2}] wins over predicted [{3}]".format(caller, word,
+                    lex_msd, pred_msd), stack()[0][3])
                 return (lex_msd, lmp)
             else:
-                print(stack()[0][3] + _predict_str_const.format(pred_msd,
-                                                                pmp, lex_msd, lmp, word), file=sys.stderr, flush=True)
+                print(stack()[0][3] + _predict_str_const.format(caller, word, pred_msd,
+                                                                pmp, lex_msd, lmp), file=sys.stderr, flush=True)
                 return (pred_msd, pmp)
             # end if
         # end if
@@ -565,18 +570,18 @@ class RoPOSTagger(object):
         for (m1, m2) in self._predambclasses:
             if (pred_msd.startswith(m1) and lex_msd.startswith(m2)) or \
                     (pred_msd.startswith(m2) and lex_msd.startswith(m1)):
-                print(stack()[0][3] + _predict_str_const.format(pred_msd,
-                                                                pmp, lex_msd, lmp, word), file=sys.stderr, flush=True)
+                print(stack()[0][3] + _predict_str_const.format(caller, word, pred_msd,
+                                                                pmp, lex_msd, lmp), file=sys.stderr, flush=True)
                 return (pred_msd, pmp)
             # end if
         # end for
 
         # Default
-        print_error("default lexicon MSD {0} preferred over predicted MSD {1} for word '{2}'".format(
-            lex_msd, pred_msd, word), stack()[0][3])
+        print_error("caller {0} for word '{1}' -> lexicon [{2}] wins over predicted [{3}]".format(caller, word,
+            lex_msd, pred_msd), stack()[0][3])
         return (lex_msd, lmp)
 
-    def _most_prob_msd(self, word: str, y_pred: np.ndarray) -> tuple:
+    def _most_prob_msd(self, word: str, y_pred: np.ndarray, caller: str) -> tuple:
         y_best_idx = np.argmax(y_pred)
         best_pred_msd = self._msd.idx_to_msd(y_best_idx)
         best_pred_msd_p = y_pred[y_best_idx]
@@ -605,14 +610,12 @@ class RoPOSTagger(object):
             # end for
 
             return self._prefer_msd(word, best_pred_msd,
-                                    best_pred_msd_p, best_lex_msd, best_lex_msd_p)
+                                    best_pred_msd_p, best_lex_msd, best_lex_msd_p, caller)
         # end if
 
         return (best_pred_msd, best_pred_msd_p)
 
     def _run_sentence(self, sentence):
-        tagged_sentence = []
-
         # 1. Build the fixed-length samples from the input sentence
         sent_samples = self._build_samples([sentence])
 
@@ -622,56 +625,106 @@ class RoPOSTagger(object):
         # end if
 
         # 3. Use the model to get predicted MSDs
-        #decode_sequence, potentials, sequence_length, kernel
-        (y_pred_enc, y_pred_cls, viterbi_msd_indexes, pot, seq_len, krn) = self._model.predict(
+        # y_pred_cls is the POS tagger sequence with RNNs, one-hot
+        # viterbi_sequence is the POS tagger sequence with CRFs, MSD index
+        (y_pred_enc, y_pred_cls, viterbi_sequence, pot, seq_len, krn) = self._model.predict(
             x=[x_lex_run, x_emb_run, x_ctx_run, z_mask])
 
-        assert y_pred_cls.shape[0] == viterbi_msd_indexes.shape[0]
-        assert y_pred_cls.shape[1] == viterbi_msd_indexes.shape[1]
+        assert y_pred_cls.shape[0] == viterbi_sequence.shape[0]
+        assert y_pred_cls.shape[1] == viterbi_sequence.shape[1]
             
-        # y_pred_cls is from the LM model.
-        # Overwrite it with the CRF model predictions.
-        y_pred_cls = np.zeros(y_pred_cls.shape, dtype=np.float32)
+        y_pred_vit = np.zeros(y_pred_cls.shape, dtype=np.float32)
 
         for i in range(y_pred_cls.shape[0]):
             for j in range(y_pred_cls.shape[1]):
-                msi = viterbi_msd_indexes[i, j]
-                y_pred_cls[i, j, msi] = 1.0
+                msi = viterbi_sequence[i, j]
+                y_pred_vit[i, j, msi] = 1.0
             # end j
         # end i
 
+        tagged_sentence = []
+
         for i in range(len(sent_samples)):
             sample = sent_samples[i]
+            sentence_done = False
 
             for j in range(len(sample)):
                 if (i + j < len(sentence)):
+                    word = sentence[i + j][0]
+                    gold_msd = sentence[i + j][1]
+
                     if len(tagged_sentence) <= i + j:
-                        tagged_sentence.append((sentence[i + j][0], []))
+                        tagged_sentence.append((word, {}))
                     # end if
 
-                    word = tagged_sentence[i + j][0]
-                    y_pred = y_pred_cls[i, j, :]
-                    (msd, msd_p) = self._most_prob_msd(word, y_pred)
+                    y1 = y_pred_cls[i, j, :]
+                    y2 = y_pred_vit[i, j, :]
+                    (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'GRU')
+                    (msd_vit, msd_vit_p) = self._most_prob_msd(word, y2, 'RNN')
+
+                    if msd_rnn != gold_msd:
+                        self._debug_rnn_errors += 1
+                    # end if
+
+                    if msd_vit != gold_msd:
+                        self._debug_crf_errors += 1
+                    # end if
+
                     ij_msd_best = tagged_sentence[i + j][1]
 
-                    if ij_msd_best:
-                        if msd_p > ij_msd_best[1]:
-                            ij_msd_best[0] = msd
-                            ij_msd_best[1] = msd_p
+                    for msd, msd_p in [(msd_rnn, msd_rnn_p), (msd_vit, msd_vit_p)]:
+                        if msd in ij_msd_best:
+                            ij_msd_best[msd] += msd_p
+                        else:
+                            ij_msd_best[msd] = msd_p
                         # end if
-                    else:
-                        ij_msd_best.append(msd)
-                        ij_msd_best.append(msd_p)
-                    # end if
+                    # end for
+                else:
+                    sentence_done = True
+                    break
                 # end if
             # end for j
+
+            if sentence_done:
+                break
+            # end if
         # end for i
+
+        # Normalize the MSD probs
+        for _, choice in tagged_sentence:
+            psum = 0.
+
+            for m in choice:
+                psum += choice[m]
+            # end for
+
+            for m in choice:
+                choice[m] /= psum
+            # end for
+        # end for
+
+        assert len(tagged_sentence) == len(sentence)
 
         tagged_sentence2 = []
 
-        for parts in tagged_sentence:
-            choice = parts[1]
-            tagged_sentence2.append((parts[0], choice[0], choice[1]))
+        for i in range(len(tagged_sentence)):
+            word, choice = tagged_sentence[i]
+            gold_msd = sentence[i][1]
+            best_msd = '?'
+            best_msd_p = 0.
+
+            for m in choice:
+                if choice[m] > best_msd_p:
+                    best_msd_p = choice[m]
+                    best_msd = m
+                # end if
+            # end for
+
+            tagged_sentence2.append((word, best_msd, best_msd_p))
+
+            if best_msd != gold_msd:
+                self._debug_both_errors += 1
+            # end if
         # end for
 
         return tagged_sentence2
@@ -715,6 +768,12 @@ class RoPOSTagger(object):
             validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev, x_mask_dev], y_dev),
             callbacks=[acc_callback]
         )
+
+        print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": RNN errors {0!s}".format(self._debug_rnn_errors), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": CRF errors {0!s}".format(self._debug_crf_errors), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": ENSEMBLE errors {0!s}".format(self._debug_both_errors), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
     
     def _build_lm_model(self,
                            lex_input_vector_size: int,
