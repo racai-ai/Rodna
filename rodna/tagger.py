@@ -257,8 +257,8 @@ class CRFModel(tf.keras.Model):
         }
 
         self._custom_metrics_train = {
-            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='bin_acc'),
-            'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='onehot_cat'),
+            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='encoding_acc'),
+            'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='rnn_acc'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
 
@@ -270,8 +270,8 @@ class CRFModel(tf.keras.Model):
         }
 
         self._custom_metrics_test = {
-            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='bin_acc'),
-            'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='onehot_cat'),
+            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='encoding_acc'),
+            'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='rnn_acc'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
 
@@ -399,7 +399,6 @@ class RoPOSTagger(object):
             PREDICTED_AMB_CLASSES_FILE)
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
         self._debug_rnn_errors = 0
-        self._debug_crf_errors = 0
         self._debug_both_errors = 0
 
     @staticmethod
@@ -513,7 +512,8 @@ class RoPOSTagger(object):
         lex_input_dim = x_lex_train.shape[2]
         ctx_input_dim = x_ctx_train.shape[2]
         encoding_dim = y_train_enc.shape[2]
-        output_dim = y_train_cls.shape[2]
+        output_msd_dim = self._msd.get_output_vector_size()
+        output_ctg_dim = self._msd.get_ctag_output_vector_size()
 
         with tf.device(RoPOSTagger._select_tf_device()):
             # 5. Creating the language model
@@ -522,8 +522,8 @@ class RoPOSTagger(object):
                 ctx_input_dim,
                 self._wordembeddings.get_vocabulary_size(),
                 self._wordembeddings.get_vector_length(),
-                encoding_dim, output_dim,
-                drop_prob=0.1
+                encoding_dim, output_msd_dim, output_ctg_dim,
+                drop_prob=0.25
             )
 
             # 6. Print model summary
@@ -582,10 +582,15 @@ class RoPOSTagger(object):
             lex_msd, pred_msd), stack()[0][3])
         return (lex_msd, lmp)
 
+    def _get_predicted_msd(self, y_pred: np.ndarray) -> tuple:
+        best_idx = np.argmax(y_pred)
+        msd = self._msd.idx_to_msd(best_idx)
+        msd_p = y_pred[best_idx]
+
+        return (msd, msd_p)
+
     def _most_prob_msd(self, word: str, y_pred: np.ndarray, caller: str) -> tuple:
-        y_best_idx = np.argmax(y_pred)
-        best_pred_msd = self._msd.idx_to_msd(y_best_idx)
-        best_pred_msd_p = y_pred[y_best_idx]
+        (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
 
         if self._lexicon.is_lex_word(word):
             word_msds = self._lexicon.get_word_ambiguity_class(word)
@@ -616,6 +621,38 @@ class RoPOSTagger(object):
 
         return (best_pred_msd, best_pred_msd_p)
 
+    def _tiered_tagging(self, word: str, ctag: str) -> list:
+        """This implements Tufiș and Dragomirescu's (2004) tiered tagging concept that
+        deterministically retrieves the more complex POS label, given the `word`, compressed label `ctag` and a lexicon.
+        See here: https://aclanthology.org/L04-1158/
+        Returns the corresponding MSD of `word`.
+        """
+        
+        if word in MSD.punct_msd_inventory:
+            return [MSD.punct_msd_inventory[word]]
+        elif MSD.punct_patt.match(word):
+            return ['Z']
+        # end PUNCT ctag
+
+        # Mapped class of MSDs
+        mclass = self._msd.ctag_to_possible_msds(ctag)
+
+        if self._lexicon.is_lex_word(word):
+            # Case 1.1: word is in lexicon (handles exact match and lower case match).
+            aclass = self._lexicon.get_word_ambiguity_class(word)
+        else:
+            # Case 1.2: word is not in lexicon. Try and determine its ambiguity class.
+            aclass = self._romorphology.ambiguity_class(word)
+
+            if not aclass:
+                # Default to the lexicon-based one.
+                aclass = self._lexicon.get_unknown_ambiguity_class(word)
+            # end if
+        # end ambiguity class computation
+        
+        # Reduced class of MSDs
+        return list(set(aclass).intersection(set(mclass)))
+
     def _run_sentence(self, sentence):
         # 1. Build the fixed-length samples from the input sentence
         sent_samples = self._build_samples([sentence])
@@ -627,21 +664,14 @@ class RoPOSTagger(object):
 
         # 3. Use the model to get predicted MSDs
         # y_pred_cls is the POS tagger sequence with RNNs, one-hot
-        # viterbi_sequence is the POS tagger sequence with CRFs, MSD index
+        # viterbi_sequence is the POS tagger sequence with CRFs, CTAG index
         (y_pred_enc, y_pred_cls, viterbi_sequence, pot, seq_len, krn) = self._model.predict(
             x=[x_lex_run, x_emb_run, x_ctx_run, z_mask])
 
         assert y_pred_cls.shape[0] == viterbi_sequence.shape[0]
+        assert y_pred_cls.shape[0] == len(sent_samples)
         assert y_pred_cls.shape[1] == viterbi_sequence.shape[1]
-            
-        y_pred_vit = np.zeros(y_pred_cls.shape, dtype=np.float32)
-
-        for i in range(y_pred_cls.shape[0]):
-            for j in range(y_pred_cls.shape[1]):
-                msi = viterbi_sequence[i, j]
-                y_pred_vit[i, j, msi] = 1.0
-            # end j
-        # end i
+        assert y_pred_cls.shape[1] == len(sent_samples[0])
 
         tagged_sentence = []
 
@@ -659,20 +689,28 @@ class RoPOSTagger(object):
                     # end if
 
                     y1 = y_pred_cls[i, j, :]
-                    y2 = y_pred_vit[i, j, :]
-                    (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'GRU')
-                    (msd_vit, msd_vit_p) = self._most_prob_msd(word, y2, 'RNN')
+                    # Index of the most probable CTAG
+                    y2 = viterbi_sequence[i, j]
+                    ctag = self._msd.idx_to_ctag(y2)
+                    ctag_msds = self._tiered_tagging(word, ctag)
+                    (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'RNN')
+                    current_msd_options = []
+
+                    current_msd_options.append((msd_rnn, msd_rnn_p))
+
+                    for m in ctag_msds:
+                        mi = self._msd.msd_to_idx(m)
+                        mp = y1[mi]
+                        current_msd_options.append((m, mp))
+                    # end for
+
                     ij_msd_best = tagged_sentence[i + j][1]
 
                     if msd_rnn != gold_msd and msd_rnn in ij_msd_best:
                         self._debug_rnn_errors += 1
                     # end if
 
-                    if msd_vit != gold_msd and msd_vit in ij_msd_best:
-                        self._debug_crf_errors += 1
-                    # end if
-
-                    for msd, msd_p in [(msd_rnn, msd_rnn_p), (msd_vit, msd_vit_p)]:
+                    for msd, msd_p in current_msd_options:
                         if msd in ij_msd_best:
                             ij_msd_best[msd] += msd_p
                         else:
@@ -771,8 +809,7 @@ class RoPOSTagger(object):
 
         print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
         print(stack()[0][3] + ": RNN errors {0!s}".format(self._debug_rnn_errors), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": CRF errors {0!s}".format(self._debug_crf_errors), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": ENSEMBLE errors {0!s}".format(self._debug_both_errors), file=sys.stderr, flush=True)
+        print(stack()[0][3] + ": TTAG errors {0!s}".format(self._debug_both_errors), file=sys.stderr, flush=True)
         print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
     
     def _build_keras_model(self,
@@ -781,7 +818,8 @@ class RoPOSTagger(object):
                            word_embeddings_voc_size: int,
                            word_embeddings_proj_size: int,
                            msd_encoding_vector_size: int,
-                           output_vector_size: int,
+                           output_msd_size: int,
+                           output_ctg_size: int,
                            drop_prob: float = 0.33
                            ) -> tf.keras.Model:
         # Inputs
@@ -815,16 +853,17 @@ class RoPOSTagger(object):
         l_drop_3 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_2)
         l_bd_gru2_ctx_conc = tf.keras.layers.Concatenate(
             name='lm_states')([l_drop_3, x_ctx])
-        l_dense_1 = tf.keras.layers.Dense(output_vector_size, name="dense_linear")(l_bd_gru2_ctx_conc)
+        l_dense_1 = tf.keras.layers.Dense(
+            output_msd_size, name="dense_linear")(l_bd_gru2_ctx_conc)
         o_msd_cls = tf.keras.layers.Activation(
             'softmax', name='msd_cls')(l_dense_1)
         # End language model
 
         return CRFModel(
-            output_vector_size,
+            output_ctg_size,
             [x_lex, x_emb, x_ctx, z_mask],
             [o_msd_enc, o_msd_cls],
-            l_dense_1
+            l_bd_gru2_ctx_conc
         )
 
     def _build_model_io_tensors(self, data_samples, runtime: bool = False) -> tuple:
@@ -869,6 +908,13 @@ class RoPOSTagger(object):
                 parts = sample[j]
                 word = parts[0]
                 msd = parts[1]
+                ctag = self._msd.msd_to_ctag(msd)
+
+                if not self._msd.is_valid_ctag(ctag):
+                    print(stack()[0][3] + ": unknown CTAG [{0}] for MSD [{1}]".format(
+                        ctag, msd), file=sys.stderr, flush=True)
+                # end if
+
                 feats = parts[2]
                 tlabel = self._tokenizer.tag_word(word)
                 z_mask = True
@@ -876,11 +922,11 @@ class RoPOSTagger(object):
                 if not runtime:
                     y_in = self._msd.msd_input_vector(msd)
                     y_out = self._msd.msd_reference_vector(msd)
-                    y_out_idx = self._msd.msd_to_idx(msd)
+                    y_out_idx = self._msd.ctag_to_idx(ctag)
                 else:
                     y_in = self._msd.get_x_input_vector()
                     y_out = self._msd.get_x_reference_vector()
-                    y_out_idx = self._msd.msd_to_idx('X')
+                    y_out_idx = self._msd.ctag_to_idx('X')
                 # end if
 
                 label_features = self._tokenizer.get_label_features(tlabel)
