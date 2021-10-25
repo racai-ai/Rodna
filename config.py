@@ -13,6 +13,4 @@ ROINFLECT_CHARID_FILE = os.path.join('data', 'models', 'char_ids.txt')
 ROINFLECT_CACHE_FILE = os.path.join('data', 'models', 'unknown_aclasses.txt')
 SPLITTER_UNICODE_PROPERTY_FILE = os.path.join('data', 'models', 'splitter_unic_props.txt')
 TAGGER_UNICODE_PROPERTY_FILE = os.path.join('data', 'models', 'tagger_unic_props.txt')
-PREDICTED_AMB_CLASSES_FILE = os.path.join(
-    'data', 'resources', 'predicted-ambiguity-classes.txt')
 TAGGER_MODEL_FOLDER = os.path.join('data', 'models', 'tagger')
