@@ -396,8 +396,8 @@ class RoPOSTagger(object):
         self._msd = self._lexicon.get_msd_object()
         self._rofeatures = RoFeatures(self._lexicon)
         self._romorphology = RoInflect(self._lexicon)
-        self._wordembeddings = RoWordEmbeddings(self._lexicon)
         self._romorphology.load()
+        self._wordembeddings = RoWordEmbeddings(self._lexicon)
         self._datavocabulary = set()
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
         self._debug_rnn_errors = 0
