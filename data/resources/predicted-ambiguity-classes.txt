@@ -1,7 +1,0 @@
-# MSD prefixes.
-# If the predicted MSD/lexicon MSD match any of
-# these pairs, go with the predicted MSD.
-Afp Nc
-Rgp Afp
-Vmp Nc
-Yn Np

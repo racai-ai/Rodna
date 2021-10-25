@@ -15,11 +15,9 @@ from .features import RoFeatures
 from .morphology import RoInflect
 from utils.Lex import Lex
 from utils.errors import print_error
-from config import PREDICTED_AMB_CLASSES_FILE, \
-    EMBEDDING_VOCABULARY_FILE, TAGGER_MODEL_FOLDER, \
+from config import EMBEDDING_VOCABULARY_FILE, TAGGER_MODEL_FOLDER, \
     TAGGER_UNICODE_PROPERTY_FILE
 
-_predict_str_const = ": caller {0} for word '{1}' -> predicted [{2}/{3:.3f}] wins over lexicon [{4}/{5:.3f}]"
 _zero_word = '_ZERO_'
 _unk_word = '_UNK_'
 
@@ -398,11 +396,9 @@ class RoPOSTagger(object):
         self._msd = self._lexicon.get_msd_object()
         self._rofeatures = RoFeatures(self._lexicon)
         self._romorphology = RoInflect(self._lexicon)
-        self._wordembeddings = RoWordEmbeddings(self._lexicon)
         self._romorphology.load()
+        self._wordembeddings = RoWordEmbeddings(self._lexicon)
         self._datavocabulary = set()
-        self._predambclasses = self._read_pred_amb_classes(
-            PREDICTED_AMB_CLASSES_FILE)
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
         self._debug_rnn_errors = 0
         self._debug_both_errors = 0
@@ -548,46 +544,6 @@ class RoPOSTagger(object):
             self._save()
         # end with device
 
-    def _prefer_msd(self, word: str, pred_msd: str, pmp: float, lex_msd: str, lmp: float, caller: str) -> tuple:
-        """Chooses between the predicted MSD and the lexicon MSD for the given word.
-        Goes through the options where the predicted MSD is better.
-        Returns the lexicon MSD if no option is valid."""
-
-        if lex_msd == '?':
-            print(stack()[0][3] + _predict_str_const.format(caller, word, pred_msd,
-                                                            pmp, lex_msd, lmp), file=sys.stderr, flush=True)
-            return (pred_msd, pmp)
-        # end if
-
-        # 1. If predicted is 'Np' and word is sentence-cased, leave Np.
-        if pred_msd.startswith('Np') and Lex.sentence_case_pattern.match(word) and \
-                not Lex.upper_case_pattern.match(word):
-            if lex_msd.startswith('Np') and len(lex_msd) > len(pred_msd):
-                print_error("caller {0} for word '{1}' -> lexicon [{2}] wins over predicted [{3}]".format(caller, word,
-                    lex_msd, pred_msd), stack()[0][3])
-                return (lex_msd, lmp)
-            else:
-                print(stack()[0][3] + _predict_str_const.format(caller, word, pred_msd,
-                                                                pmp, lex_msd, lmp), file=sys.stderr, flush=True)
-                return (pred_msd, pmp)
-            # end if
-        # end if
-
-        # 2. Consult the predicted ambiguity classes that could extend the lexicon.
-        for (m1, m2) in self._predambclasses:
-            if (pred_msd.startswith(m1) and lex_msd.startswith(m2)) or \
-                    (pred_msd.startswith(m2) and lex_msd.startswith(m1)):
-                print(stack()[0][3] + _predict_str_const.format(caller, word, pred_msd,
-                                                                pmp, lex_msd, lmp), file=sys.stderr, flush=True)
-                return (pred_msd, pmp)
-            # end if
-        # end for
-
-        # Default
-        print_error("caller {0} for word '{1}' -> lexicon [{2}] wins over predicted [{3}]".format(caller, word,
-            lex_msd, pred_msd), stack()[0][3])
-        return (lex_msd, lmp)
-
     def _get_predicted_msd(self, y_pred: np.ndarray) -> tuple:
         best_idx = np.argmax(y_pred)
         msd = self._msd.idx_to_msd(best_idx)
@@ -595,36 +551,51 @@ class RoPOSTagger(object):
 
         return (msd, msd_p)
 
-    def _most_prob_msd(self, word: str, y_pred: np.ndarray, caller: str) -> tuple:
+    def _most_prob_msd(self, word: str, y_pred: np.ndarray) -> tuple:
         (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
+
+        if self._lexicon.is_lex_word(word) and not Lex.content_word_pos_pattern.match(best_pred_msd):
+            word_msds = self._lexicon.get_word_ambiguity_class(word)
+
+            if best_pred_msd not in word_msds:
+                # Predicted MSD is of a functional word and
+                # wasn't in its ambiguity class. Do not allow for this.
+                # Lexicon is complete w.r.t. functional words.
+                # So, choose the most probable MSD from its lexicon ambiguity class.
+
+                best_lex_msd = '?'
+                best_lex_msd_p = 0.
+
+                for msd in word_msds:
+                    msd_idx = self._msd.msd_to_idx(msd)
+                    msd_p = y_pred[msd_idx]
+
+                    if msd_p > best_lex_msd_p:
+                        best_lex_msd_p = msd_p
+                        best_lex_msd = msd
+                    # end if
+                # end for
+
+                if best_lex_msd != '?':
+                    print(stack()[0][3] + \
+                        ": lexicon MSD [{0}/{1:.2f}] for word [{2}] with predicted MSD [{3}/{4:.2f}]".
+                        format(best_lex_msd, best_lex_msd_p, word, best_pred_msd, best_pred_msd_p), file=sys.stderr, flush=True)
+                    return (best_lex_msd, best_lex_msd_p)
+                # end if
+            # end if pred MSD is not in word's ambiguity class
+        # end if
 
         if self._lexicon.is_lex_word(word):
             word_msds = self._lexicon.get_word_ambiguity_class(word)
 
-            if best_pred_msd in word_msds:
-                # 1. Predicted MSD is in the ambiguity class for word.
-                # Ideal.
-                return (best_pred_msd, best_pred_msd_p)
+            if best_pred_msd not in word_msds:
+                print(stack()[0][3] + \
+                    ": new MSD [{0}/{1:.2f}] for word [{2}]".
+                    format(best_pred_msd, best_pred_msd_p, word), file=sys.stderr, flush=True)
             # end if
-
-            best_lex_msd = '?'
-            best_lex_msd_p = 0.
-
-            # 2. Oops, the neural net just learned a different MSD for word.
-            for msd in word_msds:
-                msd_idx = self._msd.msd_to_idx(msd)
-                msd_p = y_pred[msd_idx]
-
-                if msd_p > best_lex_msd_p:
-                    best_lex_msd_p = msd_p
-                    best_lex_msd = msd
-                # end if
-            # end for
-
-            return self._prefer_msd(word, best_pred_msd,
-                                    best_pred_msd_p, best_lex_msd, best_lex_msd_p, caller)
         # end if
 
+        # Just leave most of the predictions at the hand of the model.
         return (best_pred_msd, best_pred_msd_p)
 
     def _tiered_tagging(self, word: str, ctag: str) -> list:
@@ -711,7 +682,7 @@ class RoPOSTagger(object):
                     # end if
 
                     y1 = y_pred_cls[i, j, :]
-                    (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'RNN')
+                    (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1)
                     current_msd_options = [(msd_rnn, msd_rnn_p)]
 
                     if tiered_tagging:
