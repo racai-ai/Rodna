@@ -104591,7 +104591,7 @@ vigilenți	vigilent	Afpmp-n
 (	(	Z1p
 M.	M.	Yn
 Schwartzfeld	Schwartzfeld	Np
-ș.a.	și_alții	Yp,Yn
+ș.a.	și_alții	Yp-p
 )	)	Z2p
 .	.	Zp
 
@@ -104920,7 +104920,7 @@ lui	lui	Tf-so
 Dumnezeu	Dumnezeu	Np
 .	.	Zp
 
-Pătrunse	pătrunde	Vmp--fp
+Pătrunse	pătrunde	Vmp--pf
 de	de	Spsa
 un	un	Timsr
 discret	discret	Afpms-n
@@ -105127,7 +105127,7 @@ FOLFOX-4	FOLFOX-4	Np
 293	293	Mc-s-d
 Avastin	Avastin	Np
 +	+	Z
-_	_	UNDERSC
+_	_	Z
 FOLFOX-4	FOLFOX-4	Np
 și	și	Crssp
 244	244	Mc-s-d
@@ -153914,7 +153914,7 @@ seama	seamă	Ncfsry
 
 Cuțarida	Cuțarida	Np
 ,	,	Zc
-verde	verde	Afp-srn
+verde	verde	Afpfsrn
 ,	,	Zc
 plină	plin	Afpfsrn
 de	de	Spsa
@@ -190171,7 +190171,7 @@ Dacă	dacă	Csssp
 toți	tot	Di3mpr
 biții	bit	Ncmpry
 sunt	fi	Vaip3p
-zero	zero	Mc-s-l
+zero	zero	Mc-p-l
 ,	,	Zc
 ZF	zero_flag	Yn
 =	=	Z

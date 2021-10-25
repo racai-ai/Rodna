@@ -32,11 +32,12 @@ _unk_word = '_UNK_'
 class AccCallback(tf.keras.callbacks.Callback):
     """Accuracy callback for model.fit."""
 
-    def __init__(self, ropt, gold, epochs):
+    def __init__(self, ropt, gold, epochs, with_tt: bool):
         super().__init__()
         self._ropt = ropt
-        self._goldSentences = gold
+        self._goldsentences = gold
         self._epochs = epochs
+        self._withtt = with_tt
 
     def _sent_to_str(self, sentence):
         str_toks = [x[0] + "/" + x[1] + "/" + ",".join(x[2]) for x in sentence]
@@ -52,8 +53,8 @@ class AccCallback(tf.keras.callbacks.Callback):
                      "-debug.txt", mode='w', encoding='utf-8')
         # end if
 
-        for sentence in self._goldSentences:
-            pt_sentence = self._ropt._run_sentence(sentence)
+        for sentence in self._goldsentences:
+            pt_sentence = self._ropt._run_sentence(sentence, self._withtt)
 
             if len(sentence) != len(pt_sentence):
                 print(stack()[0][3] + ": sentences differ in size!",
@@ -373,15 +374,16 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 30
+    _conf_maxseqlen = 50
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
     _conf_test_percent = 0.0
     # RNN state size
-    _conf_rnn_size_1 = 256
+    _conf_rnn_size_1 = 128
     _conf_rnn_size_2 = 128
-    _conf_epochs = 20
+    _conf_epochs = 10
+    _conf_with_tiered_tagging = False
 
     def __init__(self, splitter: RoSentenceSplitter):
         """Takes a trained instance of the RoSentenceSplitter object."""
@@ -659,7 +661,7 @@ class RoPOSTagger(object):
         # Reduced class of MSDs
         return list(set(aclass).intersection(set(mclass)))
 
-    def _run_sentence(self, sentence):
+    def _run_sentence(self, sentence, tietag: bool = True):
         # 1. Build the fixed-length samples from the input sentence
         sent_samples = self._build_samples([sentence])
 
@@ -695,20 +697,21 @@ class RoPOSTagger(object):
                     # end if
 
                     y1 = y_pred_cls[i, j, :]
-                    # Index of the most probable CTAG
-                    y2 = viterbi_sequence[i, j]
-                    ctag = self._msd.idx_to_ctag(y2)
-                    ctag_msds = self._tiered_tagging(word, ctag)
                     (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'RNN')
-                    current_msd_options = []
+                    current_msd_options = [(msd_rnn, msd_rnn_p)]
 
-                    current_msd_options.append((msd_rnn, msd_rnn_p))
+                    if tietag:
+                        # Index of the most probable CTAG
+                        y2 = viterbi_sequence[i, j]
+                        ctag = self._msd.idx_to_ctag(y2)
+                        ctag_msds = self._tiered_tagging(word, ctag)
 
-                    for m in ctag_msds:
-                        mi = self._msd.msd_to_idx(m)
-                        mp = y1[mi]
-                        current_msd_options.append((m, mp))
-                    # end for
+                        for m in ctag_msds:
+                            mi = self._msd.msd_to_idx(m)
+                            mp = y1[mi]
+                            current_msd_options.append((m, mp))
+                        # end for
+                    # end if with tiered tagging
 
                     ij_msd_best = tagged_sentence[i + j][1]
 
@@ -766,7 +769,7 @@ class RoPOSTagger(object):
 
             tagged_sentence2.append((word, best_msd, best_msd_p))
 
-            if best_msd != gold_msd:
+            if tietag and best_msd != gold_msd:
                 self._debug_both_errors += 1
             # end if
         # end for
@@ -804,7 +807,7 @@ class RoPOSTagger(object):
 
         # Fit model
         acc_callback = AccCallback(
-            self, gold_sentences, RoPOSTagger._conf_epochs)
+            self, gold_sentences, RoPOSTagger._conf_epochs, RoPOSTagger._conf_with_tiered_tagging)
         self._model.fit(
             x=[x_lex_train, x_emb_train, x_ctx_train, x_mask_train],
             y=y_train,
@@ -847,6 +850,8 @@ class RoPOSTagger(object):
         l_bd_gru_1 = tf.keras.layers.Bidirectional(
             tf.keras.layers.GRU(RoPOSTagger._conf_rnn_size_1, return_sequences=True))(l_lex_emb_conc)
         l_drop_1 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_1)
+        l_bd_gru1_ctx_conc = tf.keras.layers.Concatenate(
+            name='enc_states')([l_drop_1, x_ctx])
         o_msd_enc = tf.keras.layers.Dense(
             msd_encoding_vector_size, activation='sigmoid', name='msd_enc')(l_drop_1)
         # End MSD encoding
@@ -869,7 +874,7 @@ class RoPOSTagger(object):
             output_ctg_size,
             [x_lex, x_emb, x_ctx, z_mask],
             [o_msd_enc, o_msd_cls],
-            l_bd_gru2_ctx_conc
+            l_bd_gru1_ctx_conc
         )
 
     def _build_model_io_tensors(self, data_samples, runtime: bool = False) -> tuple:
