@@ -205,7 +205,7 @@ class RoSentenceSplitter(object):
 
     def _save_keras_model(self):
         self._model.save(SENT_SPLITTER_MODEL_FOLDER, overwrite=True)
-        self._uniprops.save_unicode_props()
+        self._uniprops.save_unicode_props(SPLITTER_UNICODE_PROPERTY_FILE)
 
     def sentence_split(self, input_text: str) -> list:
         """Will run the sentence splitter model on the input_text and return
