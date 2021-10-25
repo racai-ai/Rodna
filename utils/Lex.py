@@ -25,8 +25,8 @@ class Lex(object):
     mixed_case_pattern = re.compile(
         "^[a-zA-ZșțăîâȘȚĂÎÂ]*[a-zșțăîâ-][A-ZȘȚĂÎÂ][a-zA-ZșțăîâȘȚĂÎÂ-]*$")
     upper_case_pattern = re.compile("^[A-ZȘȚĂÎÂ_-]+$")
-    _number_pattern = re.compile("^[0-9]+$")
-    _bullet_number_pattern = re.compile("^[0-9].*[0-9]?[./]")
+    number_pattern = re.compile("^[0-9]+$")
+    bullet_number_pattern = re.compile("^[0-9].*[0-9]?[./]")
     _case_patterns = [
         # Lower
         re.compile("^[a-zșțăîâ_-]+$"),

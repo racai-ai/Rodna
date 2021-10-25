@@ -632,7 +632,13 @@ class RoPOSTagger(object):
             return [MSD.punct_msd_inventory[word]]
         elif MSD.punct_patt.match(word):
             return ['Z']
-        # end PUNCT ctag
+        # end punctuation
+
+        if Lex.number_pattern.match(word):
+            return ['Mc-s-d']
+        elif Lex.bullet_number_pattern.match(word):
+            return ['Mc-s-b']
+        # end numbers
 
         # Mapped class of MSDs
         mclass = self._msd.ctag_to_possible_msds(ctag)
@@ -1197,10 +1203,10 @@ class RoPOSTagger(object):
             elif MSD.punct_patt.match(word) != None:
                 msd_v = self._msd.msd_input_vector("Z")
                 features2 += msd_v
-            elif Lex._number_pattern.match(word):
+            elif Lex.number_pattern.match(word):
                 msd_v = self._msd.msd_input_vector("Mc-s-d")
                 features2 += msd_v
-            elif Lex._bullet_number_pattern.match(word):
+            elif Lex.bullet_number_pattern.match(word):
                 msd_v = self._msd.msd_input_vector("Mc-s-b")
                 features2 += msd_v
             else:
