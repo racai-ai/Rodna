@@ -32,12 +32,13 @@ _unk_word = '_UNK_'
 class AccCallback(tf.keras.callbacks.Callback):
     """Accuracy callback for model.fit."""
 
-    def __init__(self, ropt, gold, epochs, with_tt: bool):
+    def __init__(self, ropt, gold, epochs, with_tt: bool, run_strat: str):
         super().__init__()
         self._ropt = ropt
         self._goldsentences = gold
         self._epochs = epochs
         self._withtt = with_tt
+        self._runstrat = run_strat
 
     def _sent_to_str(self, sentence):
         str_toks = [x[0] + "/" + x[1] + "/" + ",".join(x[2]) for x in sentence]
@@ -54,7 +55,7 @@ class AccCallback(tf.keras.callbacks.Callback):
         # end if
 
         for sentence in self._goldsentences:
-            pt_sentence = self._ropt._run_sentence(sentence, self._withtt)
+            pt_sentence = self._ropt._run_sentence(sentence, self._withtt, self._runstrat)
 
             if len(sentence) != len(pt_sentence):
                 print(stack()[0][3] + ": sentences differ in size!",
@@ -382,8 +383,11 @@ class RoPOSTagger(object):
     # RNN state size
     _conf_rnn_size_1 = 128
     _conf_rnn_size_2 = 128
-    _conf_epochs = 10
-    _conf_with_tiered_tagging = False
+    _conf_epochs = 5
+    _conf_with_tiered_tagging = True
+    # Can be 'add' or 'max'.
+    # See RoPOSTagger._run_sentence()
+    _conf_run_strategy = 'max'
 
     def __init__(self, splitter: RoSentenceSplitter):
         """Takes a trained instance of the RoSentenceSplitter object."""
@@ -661,7 +665,13 @@ class RoPOSTagger(object):
         # Reduced class of MSDs
         return list(set(aclass).intersection(set(mclass)))
 
-    def _run_sentence(self, sentence, tietag: bool = True):
+    def _run_sentence(self, sentence, tiered_tagging: bool = True, strategy: str = 'max'):
+        """Strategy can be `'add'` or `'max'`. When `'add'`ing contributions from the LM and CRF layers,
+        a dict of predicted MSDs is kept at each position in the sentence and we add the probabilities
+        coming from each rolling window, at position `i`. The best MSD wins at position `i`.
+
+        We can also keep the winning, predicted MSD (by its `'max'` probability) at each position `i` in the sentence,
+        with each rolling window. """
         # 1. Build the fixed-length samples from the input sentence
         sent_samples = self._build_samples([sentence])
 
@@ -693,22 +703,29 @@ class RoPOSTagger(object):
                     gold_msd = sentence[i + j][1]
 
                     if len(tagged_sentence) <= i + j:
-                        tagged_sentence.append((word, {}))
+                        if strategy == 'add':
+                            tagged_sentence.append((word, {}))
+                        elif strategy == 'max':
+                            tagged_sentence.append((word, []))
+                        # end if
                     # end if
 
                     y1 = y_pred_cls[i, j, :]
                     (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1, 'RNN')
                     current_msd_options = [(msd_rnn, msd_rnn_p)]
 
-                    if tietag:
+                    if tiered_tagging:
                         # Index of the most probable CTAG
                         y2 = viterbi_sequence[i, j]
                         ctag = self._msd.idx_to_ctag(y2)
                         ctag_msds = self._tiered_tagging(word, ctag)
 
                         for m in ctag_msds:
-                            mi = self._msd.msd_to_idx(m)
-                            mp = y1[mi]
+                            if m == msd_rnn:
+                                continue
+                            # end if
+
+                            mp = 1. / len(ctag_msds)
                             current_msd_options.append((m, mp))
                         # end for
                     # end if with tiered tagging
@@ -719,13 +736,27 @@ class RoPOSTagger(object):
                         self._debug_rnn_errors += 1
                     # end if
 
-                    for msd, msd_p in current_msd_options:
-                        if msd in ij_msd_best:
-                            ij_msd_best[msd] += msd_p
-                        else:
-                            ij_msd_best[msd] = msd_p
-                        # end if
-                    # end for
+                    if strategy == 'add':
+                        for msd, msd_p in current_msd_options:
+                            if msd in ij_msd_best:
+                                ij_msd_best[msd] += msd_p
+                            else:
+                                ij_msd_best[msd] = msd_p
+                            # end if
+                        # end for
+                    elif strategy == 'max':
+                        for msd, msd_p in current_msd_options:
+                            if ij_msd_best:
+                                if msd_p > ij_msd_best[1]:
+                                    ij_msd_best[0] = msd
+                                    ij_msd_best[1] = msd_p
+                                # end if
+                            else:
+                                ij_msd_best[0] = msd
+                                ij_msd_best[1] = msd_p
+                            # end if
+                        # end for
+                    # end if strategy
                 else:
                     sentence_done = True
                     break
@@ -737,18 +768,20 @@ class RoPOSTagger(object):
             # end if
         # end for i
 
-        # Normalize the MSD probs
-        for _, choice in tagged_sentence:
-            psum = 0.
+        if strategy == 'add':
+            # Normalize the MSD probs
+            for _, choice in tagged_sentence:
+                psum = 0.
 
-            for m in choice:
-                psum += choice[m]
-            # end for
+                for m in choice:
+                    psum += choice[m]
+                # end for
 
-            for m in choice:
-                choice[m] /= psum
+                for m in choice:
+                    choice[m] /= psum
+                # end for
             # end for
-        # end for
+        # end if
 
         assert len(tagged_sentence) == len(sentence)
 
@@ -760,16 +793,21 @@ class RoPOSTagger(object):
             best_msd = '?'
             best_msd_p = 0.
 
-            for m in choice:
-                if choice[m] > best_msd_p:
-                    best_msd_p = choice[m]
-                    best_msd = m
-                # end if
-            # end for
+            if strategy == 'add':
+                for m in choice:
+                    if choice[m] > best_msd_p:
+                        best_msd_p = choice[m]
+                        best_msd = m
+                    # end if
+                # end for
+            elif strategy == 'max':
+                best_msd = choice[0]
+                best_msd_p = choice[1]
+            # end if
 
             tagged_sentence2.append((word, best_msd, best_msd_p))
 
-            if tietag and best_msd != gold_msd:
+            if tiered_tagging and best_msd != gold_msd:
                 self._debug_both_errors += 1
             # end if
         # end for
