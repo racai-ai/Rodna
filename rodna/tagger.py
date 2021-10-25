@@ -845,7 +845,8 @@ class RoPOSTagger(object):
 
         # Fit model
         acc_callback = AccCallback(
-            self, gold_sentences, RoPOSTagger._conf_epochs, RoPOSTagger._conf_with_tiered_tagging)
+            self, gold_sentences, RoPOSTagger._conf_epochs,
+            RoPOSTagger._conf_with_tiered_tagging, RoPOSTagger._conf_run_strategy)
         self._model.fit(
             x=[x_lex_train, x_emb_train, x_ctx_train, x_mask_train],
             y=y_train,
