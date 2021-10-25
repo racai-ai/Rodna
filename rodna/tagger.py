@@ -752,8 +752,8 @@ class RoPOSTagger(object):
                                     ij_msd_best[1] = msd_p
                                 # end if
                             else:
-                                ij_msd_best[0] = msd
-                                ij_msd_best[1] = msd_p
+                                ij_msd_best.append(msd)
+                                ij_msd_best.append(msd_p)
                             # end if
                         # end for
                     # end if strategy
