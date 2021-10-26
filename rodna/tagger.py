@@ -405,9 +405,8 @@ class RoPOSTagger(object):
 
     @staticmethod
     def _select_tf_device() -> str:
-        """I always get OOM errors when training the CRF layer, after
-        loading the LM neural network. So, choose some other device
-        for training the CRF layer, assuming LM takes GPU:0."""
+        """I always get OOM errors when training the CRF layer.
+        So, choose some other device for training it."""
 
         physical_devices = tf.config.list_physical_devices('GPU')
         device = "/device:CPU:0"
@@ -552,51 +551,51 @@ class RoPOSTagger(object):
         return (msd, msd_p)
 
     def _most_prob_msd(self, word: str, y_pred: np.ndarray) -> tuple:
+        # 1. Get the predicted MSD
         (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
 
-        if self._lexicon.is_lex_word(word) and not Lex.content_word_pos_pattern.match(best_pred_msd):
-            word_msds = self._lexicon.get_word_ambiguity_class(word)
-
-            if best_pred_msd not in word_msds:
-                # Predicted MSD is of a functional word and
-                # wasn't in its ambiguity class. Do not allow for this.
-                # Lexicon is complete w.r.t. functional words.
-                # So, choose the most probable MSD from its lexicon ambiguity class.
-
-                best_lex_msd = '?'
-                best_lex_msd_p = 0.
-
-                for msd in word_msds:
-                    msd_idx = self._msd.msd_to_idx(msd)
-                    msd_p = y_pred[msd_idx]
-
-                    if msd_p > best_lex_msd_p:
-                        best_lex_msd_p = msd_p
-                        best_lex_msd = msd
-                    # end if
-                # end for
-
-                if best_lex_msd != '?':
-                    print(stack()[0][3] + \
-                        ": lexicon MSD [{0}/{1:.2f}] for word [{2}] with predicted MSD [{3}/{4:.2f}]".
-                        format(best_lex_msd, best_lex_msd_p, word, best_pred_msd, best_pred_msd_p), file=sys.stderr, flush=True)
-                    return (best_lex_msd, best_lex_msd_p)
-                # end if
-            # end if pred MSD is not in word's ambiguity class
-        # end if
+        # 2. Get the extended word ambiguity class, as the predicted MSD may
+        # be outside this set.
+        word_msds = set()
 
         if self._lexicon.is_lex_word(word):
-            word_msds = self._lexicon.get_word_ambiguity_class(word)
-
-            if best_pred_msd not in word_msds:
-                print(stack()[0][3] + \
-                    ": new MSD [{0}/{1:.2f}] for word [{2}]".
-                    format(best_pred_msd, best_pred_msd_p, word), file=sys.stderr, flush=True)
-            # end if
+            word_msds.update(self._lexicon.get_word_ambiguity_class(word))
         # end if
 
-        # Just leave most of the predictions at the hand of the model.
-        return (best_pred_msd, best_pred_msd_p)
+        aclass = self._romorphology.ambiguity_class(word)
+
+        if not aclass:
+            aclass = self._lexicon.get_unknown_ambiguity_class(word)
+        # end if
+
+        word_msds.update(aclass)
+
+        if best_pred_msd in word_msds:
+            # 3. Assigned MSD is in the extended ambiguity class.
+            return (best_pred_msd, best_pred_msd_p)
+        # end if
+        
+        # 4. Assigned MSD is not in the extended ambiguity class.
+        # Choose the highest probability MSD from the extended ambiguity class.
+        best_acls_msd_p = 0.
+        best_acls_msd = ''
+
+        for msd in word_msds:
+            idx = self._msd.msd_to_idx(msd)
+            msd_p = y_pred[idx]
+
+            if msd_p > best_acls_msd_p:
+                best_acls_msd_p = msd_p
+                best_acls_msd = msd
+            # end if
+        # end for extended ambiguity class
+
+        print(stack()[0][3] + \
+            ": word '{0}' -> got suboptimal MSD [{1}/{2:.2f}] vs. optimal [{3}/{4:.2f}]".
+            format(word, best_acls_msd, best_acls_msd_p, best_pred_msd, best_pred_msd_p),
+            file=sys.stderr, flush=True)
+
+        return (best_acls_msd, best_acls_msd_p)
 
     def _tiered_tagging(self, word: str, ctag: str) -> list:
         """This implements Tufiș and Dragomirescu's (2004) tiered tagging concept that
