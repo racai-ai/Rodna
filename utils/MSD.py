@@ -249,6 +249,8 @@ class MSD(object):
         self._msdinverseinv[self._msdoutputsize] = MSD.unknown_punct_msd
         self._msdoutputsize += 1
 
+        self._msdtoctag[MSD.unknown_punct_msd] = MSD.punct_ctag
+
         # 2. Add punctuation MSDs as well
         for punct in MSD.punct_msd_inventory:
             msd = MSD.punct_msd_inventory[punct]
