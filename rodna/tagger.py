@@ -379,9 +379,9 @@ class RoPOSTagger(object):
     # No test, for now, look at values on dev
     _conf_test_percent = 0.0
     # RNN state size
-    _conf_rnn_size_1 = 128
-    _conf_rnn_size_2 = 128
-    _conf_epochs = 5
+    _conf_rnn_size_1 = 256
+    _conf_rnn_size_2 = 256
+    _conf_epochs = 10
     _conf_with_tiered_tagging = True
     # Can be 'add' or 'max'.
     # See RoPOSTagger._run_sentence()
