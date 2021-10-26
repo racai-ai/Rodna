@@ -554,7 +554,7 @@ class RoPOSTagger(object):
         # 1. Get the model predicted MSD
         (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
 
-        if best_pred_msd.startswith(MSD.unknown_msd) or \
+        if best_pred_msd.startswith(MSD.unknown_label) or \
             best_pred_msd.startswith(MSD.unknown_punct_msd):
             # Do not touch punctuation and X
             return (best_pred_msd, best_pred_msd_p)
