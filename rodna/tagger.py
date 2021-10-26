@@ -111,6 +111,8 @@ class AccCallback(tf.keras.callbacks.Callback):
 
             print(stack()[0][3] + ": dev accuracy at epoch {0!s} is Acc = {1:.5f}".format(
                 epoch + 1, acc), file=sys.stderr, flush=True)
+
+            self._ropt._romorphology.save_cache()
         # end if, expensive computation
 
 
