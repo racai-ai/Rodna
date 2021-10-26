@@ -9,35 +9,7 @@ class MSD(object):
     punct_ctag = 'PUNCT'
     # Both MSD and CTAG have this
     unknown_label = 'X'
-    _punct_msd_list = [
-        # Any other punctuation
-        "Z",
-        # Comma
-        "Zc",
-        # Period
-        "Zp",
-        # Colon
-        "Zl",
-        # Semicolon
-        "Zs",
-        # Dash
-        "Zd",
-        # Question mark
-        "Zq",
-        # Exclamation mark
-        "Zx",
-        # Ellipsis
-        "Zh",
-        # Pair tags
-        # Z1 = open punctuation
-        # Z2 = close punctuation
-        # Parenthesis
-        "Z1p",
-        "Z2p",
-        # Single/double quotes
-        "Z1q",
-        "Z2q"
-    ]
+    unknown_punct_msd = 'Z'
     punct_msd_inventory = {
         ".": "Zp",
         ",": "Zc",
@@ -48,12 +20,17 @@ class MSD(object):
         "!": "Zx",
         "...": "Zh",
         "…": "Zh",
+        "/": "Zo",
+        # Pair tags
+        # Z1 = open punctuation
+        # Z2 = close punctuation
         "(": "Z1p",
         "[": "Z1p",
         "{": "Z1p",
         ")": "Z2p",
         "]": "Z2p",
         "}": "Z2p",
+        # Single/double quotes
         "\"": "Z1q",
         "``": "Z1q",
         "''": "Z2q",
@@ -78,7 +55,7 @@ class MSD(object):
         ("NumType", ("c", "o", "f", "m", "l")),
         ("PartType", ("z", "n", "s", "a", "f")),
         ("AbbrevType", ("n", "v", "a", "r", "p")),
-        ("PuncType", ("c", "p", "l", "s", "d", "q", "x", "h", "1", "2")),
+        ("PuncType", ("c", "p", "l", "s", "d", "q", "x", "h", "o", "1", "2")),
         ("PuncPairType", ("p", "q")),
         # General attributes, applicable to all POSes
         ("Gender", ("m", "f", "n")),
@@ -266,8 +243,16 @@ class MSD(object):
         self._ctaginverseinv[self._ctagoutputsize] = MSD.punct_ctag
         self._ctagoutputsize += 1
 
+        # 1.2 Add Z MSD
+        self._msdinverseinv.append("")
+        self._msdinventory[MSD.unknown_punct_msd] = self._msdoutputsize
+        self._msdinverseinv[self._msdoutputsize] = MSD.unknown_punct_msd
+        self._msdoutputsize += 1
+
         # 2. Add punctuation MSDs as well
-        for msd in MSD._punct_msd_list:
+        for punct in MSD.punct_msd_inventory:
+            msd = MSD.punct_msd_inventory[punct]
+
             if msd not in self._msdtoctag:
                 self._msdtoctag[msd] = MSD.punct_ctag
             # end if

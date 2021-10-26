@@ -551,8 +551,14 @@ class RoPOSTagger(object):
         return (msd, msd_p)
 
     def _most_prob_msd(self, word: str, y_pred: np.ndarray) -> tuple:
-        # 1. Get the predicted MSD
+        # 1. Get the model predicted MSD
         (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
+
+        if best_pred_msd.startswith(MSD.unknown_msd) or \
+            best_pred_msd.startswith(MSD.unknown_punct_msd):
+            # Do not touch punctuation and X
+            return (best_pred_msd, best_pred_msd_p)
+        # end if
 
         # 2. Get the extended word ambiguity class, as the predicted MSD may
         # be outside this set.
@@ -571,11 +577,11 @@ class RoPOSTagger(object):
         word_msds.update(aclass)
 
         if best_pred_msd in word_msds:
-            # 3. Assigned MSD is in the extended ambiguity class.
+            # 3. Model predicted MSD is in the extended ambiguity class. Hurray!
             return (best_pred_msd, best_pred_msd_p)
         # end if
         
-        # 4. Assigned MSD is not in the extended ambiguity class.
+        # 4. Model predicted MSD MSD is not in the extended ambiguity class.
         # Choose the highest probability MSD from the extended ambiguity class.
         best_acls_msd_p = 0.
         best_acls_msd = ''
