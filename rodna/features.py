@@ -74,7 +74,6 @@ class RoFeatures(object):
 
     def _set_adverb(self, sentence: list):
         """Patterns:
-        - ADVERB de Vmp--sm
         - VERB ADVERB
         - A FI + ADVERB + ADJECTIV"""
 
@@ -84,10 +83,6 @@ class RoFeatures(object):
             if i < len(sentence) - 2:
                 next_word = sentence[i + 1][0]
                 next_next_word = sentence[i + 2][0]
-
-                if next_word.lower() == 'de' and self._lexicon.can_be_msd(next_next_word, "Vmp--sm"):
-                    sentence[i][2].append("SHOULD_BE_ADVERB")
-                # end if
 
                 if self._lexicon.is_to_be_word(word) and self._lexicon.can_be_msd(next_word, "Rgp") and \
                     self._lexicon.can_be_msd(next_next_word, "Afp"):
