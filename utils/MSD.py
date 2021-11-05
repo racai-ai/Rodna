@@ -7,9 +7,12 @@ class MSD(object):
     It will return a real-valued, fixed-length vector for a MSD."""
 
     punct_ctag = 'PUNCT'
+    content_word_ctag_pattern = re.compile("^(A[SPN]?|M|N[NPS]|V[123NP]|Y)")
     # Both MSD and CTAG have this
     unknown_label = 'X'
     unknown_punct_msd = 'Z'
+    number_msd = 'Mc-s-d'
+    bullet_number_msd = 'Mc-s-b'
     punct_msd_inventory = {
         ".": "Zp",
         ",": "Zc",

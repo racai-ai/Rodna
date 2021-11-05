@@ -25,8 +25,8 @@ class Lex(object):
     mixed_case_pattern = re.compile(
         "^[a-zA-ZșțăîâȘȚĂÎÂ]*[a-zșțăîâ-][A-ZȘȚĂÎÂ][a-zA-ZșțăîâȘȚĂÎÂ-]*$")
     upper_case_pattern = re.compile("^[A-ZȘȚĂÎÂ_-]+$")
-    number_pattern = re.compile("^[0-9]+$")
-    bullet_number_pattern = re.compile("^[0-9].*[0-9]?[./]")
+    number_pattern = re.compile("^([0-9]+|[0-9]+[.,][0-9]+)$")
+    bullet_number_pattern = re.compile("^(.*[0-9][./-].+|.*[./-][0-9].*)$")
     _case_patterns = [
         # Lower
         re.compile("^[a-zșțăîâ_-]+$"),
@@ -407,7 +407,7 @@ class Lex(object):
         return word in self._abbrfirstword or word.lower() in self._abbrfirstword
 
     def accept_phrasal_token(self, word: str, label: str) -> bool:
-        phrOK = False
+        phr_ok = False
         pattern = None
 
         if label == "MWE":
@@ -419,14 +419,14 @@ class Lex(object):
         if word in self._lexicon:
             for msd in self._lexicon[word]:
                 if pattern.match(msd):
-                    phrOK = True
+                    phr_ok = True
                     break
                 # end if
             # end for msd
         # end if
 
-        if phrOK:
-            return phrOK
+        if phr_ok:
+            return phr_ok
         # end if
 
         word = word.lower()
@@ -434,13 +434,13 @@ class Lex(object):
         if word in self._lexicon:
             for msd in self._lexicon[word]:
                 if pattern.match(msd):
-                    phrOK = True
+                    phr_ok = True
                     break
                 # end if
             # end for msd
         # end if
 
-        return phrOK
+        return phr_ok
 
     def get_word_ambiguity_class(self, word: str, exact_match: bool = False) -> list:
         all_msds = set()
@@ -460,7 +460,7 @@ class Lex(object):
         return list(all_msds)
 
     def get_unknown_ambiguity_class(self, word: str) -> list:
-        """Deprecated in favour of RoInflect neural network."""
+        """Used as a backup of RoInflect neural network."""
 
         prefix_msds = self._get_possible_msds_from_prefix(word)
         suffix_msds = self._get_possible_msds_from_suffix(word)

@@ -16778,7 +16778,7 @@ din	din	Spsa
 parlamentarii	parlamentar	Ncmpry
 PSD	Partidul_Social_Democrat	Yn
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 PRM	Partidul_România_Mare	Yn
 .	.	Zp
@@ -20361,7 +20361,7 @@ de	de	Spsa
 100	100	Mc-s-d
 000	000	Mc-s-d
 lei	leu	Ncmp-n
-/	/	Z
+/	/	Zo
 lună	lună	Ncfsrn
 .	.	Zp
 
@@ -21033,7 +21033,7 @@ organice	organic	Afpfson
 spaniole	spaniol	Afpfson
 nr.	număr	Yn
 4	4	Mc-s-d
-/	/	Z
+/	/	Zo
 11	11	Mc-s-d
 ianuarie	ianuarie	Ncm--n
 2000	2000	Mc-s-d
@@ -22480,7 +22480,7 @@ cu	cu	Spsa
 Legea	lege	Ncfsry
 nr.	număr	Yn
 290	290	Mc-s-d
-/	/	Z
+/	/	Zo
 2004	2004	Mc-s-d
 ,	,	Zc
 termenul	termen	Ncmsry
@@ -24693,7 +24693,7 @@ de	de	Spsa
 Legea	lege	Ncfsry
 nr.	număr	Yn
 274	274	Mc-s-d
-/	/	Z
+/	/	Zo
 2004	2004	Mc-s-d
 .	.	Zp
 
@@ -24931,7 +24931,7 @@ Prin	prin	Spsa
 Legea	lege	Ncfsry
 nr.	număr	Yn
 596	596	Mc-s-d
-/	/	Z
+/	/	Zo
 2004	2004	Mc-s-d
 au	avea	Va--3p
 fost	fi	Vap--sm
@@ -24943,7 +24943,7 @@ ale	al	Tsfp
 Legii	lege	Ncfsoy
 nr.	număr	Yn
 44	44	Mc-s-d
-/	/	Z
+/	/	Zo
 1994	1994	Mc-s-d
 privind	privind	Spsa
 veteranii	veteran	Ncmpry
@@ -28608,7 +28608,7 @@ anul	an	Ncmsry
 reprezentând	reprezenta	Vmg
 18093,40	18093,40	Mc-s-d
 lei	leu	Ncmp-n
-/	/	Z
+/	/	Zo
 oră	oră	Ncfsrn
 .	.	Zp
 
@@ -29067,7 +29067,7 @@ Ordonanța	ordonanță	Ncfsry
 de	de	Spsa
 Guvern	guvern	Ncms-n
 55	55	Mc-s-d
-/	/	Z
+/	/	Zo
 2004	2004	Mc-s-d
 )	)	Z2p
 ,	,	Zc
@@ -29471,7 +29471,7 @@ părțile	parte	Ncfpry
 comune	comun	Afpfp-n
 ale	al	Tsfp
 blocurilor	bloc	Ncfpoy
-/	/	Z
+/	/	Zo
 clădirilor	clădire	Ncfpoy
 constituie	constitui	Vmip3
 contravenție	contravenție	Ncfsrn
@@ -30671,7 +30671,7 @@ mult	mult	Rgp
 2	2	Mc-s-d
 500	500	Mc-s-d
 euro	euro	Ncm--n
-/	/	Z
+/	/	Zo
 mandat	mandat	Ncms-n
 .	.	Zp
 
@@ -30958,7 +30958,7 @@ ore	oră	Ncfp-n
 30	30	Mc-s-d
 de	de	Spsa
 minute	minut	Ncfp-n
-/	/	Z
+/	/	Zo
 zi	zi	Ncfsrn
 ,	,	Zc
 însumând	însuma	Vmg
@@ -33871,7 +33871,7 @@ de	de	Spsa
 Legea	lege	Ncfsry
 nr.	număr	Yn
 350	350	Mc-s-d
-/	/	Z
+/	/	Zo
 2005	2005	Mc-s-d
 privind	privind	Spsa
 regimul	regim	Ncmsry
@@ -33948,7 +33948,7 @@ de	de	Spsa
 Legea	lege	Ncfsry
 nr.	număr	Yn
 182	182	Mc-s-d
-/	/	Z
+/	/	Zo
 2002	2002	Mc-s-d
 privind	privind	Spsa
 protecția	protecție	Ncfsry
@@ -36114,7 +36114,7 @@ sau	sau	Ccssp
 echivalent	echivalent	Afpms-n
 în	în	Spsa
 lei	leu	Ncmp-n
-/	/	Z
+/	/	Zo
 USD	United_States_Dollar	Yn
 la	la	Spsa
 100	100	Mc-s-d
@@ -36465,9 +36465,9 @@ este	fi	Vaip3s
 de	de	Spsa
 4	4	Mc-s-d
 euro	euro	Ncm--n
-/	/	Z
+/	/	Zo
 mp	metru_pătrat	Y
-/	/	Z
+/	/	Zo
 an	an	Ncms-n
 (	(	Z1p
 exclusiv	exclusiv	Rgp
@@ -36747,9 +36747,9 @@ devine	deveni	Vmip3s
 
 Decizia	decizie	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 881	881	Mc-s-d
-/	/	Z
+/	/	Zo
 CE3	CE3	Yn
 a	al	Tsfs
 Comisiei	comisie	Ncfsoy
@@ -37065,15 +37065,15 @@ trimiterile	trimitere	Ncfpry
 la	la	Spsa
 Directivele	directivă	Ncfpry
 81	81	Mc-s-d
-/	/	Z
+/	/	Zo
 851	851	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 sau	sau	Ccssp
 81	81	Mc-s-d
-/	/	Z
+/	/	Zo
 852	852	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 se	sine	Px3--a--------w
 interpretează	interpreta	Vmip3
@@ -37082,9 +37082,9 @@ trimiteri	trimitere	Ncfp-n
 la	la	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
@@ -37095,9 +37095,9 @@ Anexa	anexă	Ncfsry
 la	la	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 22	22	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 devine	deveni	Vmip3s
 anexa	anexă	Ncfsry
@@ -37218,9 +37218,9 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Decizia	decizie	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 812	812	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 a	al	Tsfs
 Comisiei	comisie	Ncfsoy
@@ -37348,9 +37348,9 @@ Tratat	tratat	Ncms-n
 Directiva	directivă	Ncfsry
 Consiliului	consiliu	Ncmsoy
 93	93	Mc-s-d
-/	/	Z
+/	/	Zo
 104	104	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 din	din	Spsa
 23	23	Mc-s-d
@@ -37513,9 +37513,9 @@ Dispozițiile	dispoziție	Ncfpry
 Directivei	directivă	Ncfsoy
 Consiliului	consiliu	Ncmsoy
 89	89	Mc-s-d
-/	/	Z
+/	/	Zo
 391	391	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 din	din	Spsa
 12	12	Mc-s-d
@@ -37556,7 +37556,7 @@ dispozițiilor	dispoziție	Ncfpoy
 mai	mai	Rp
 stricte	strict	Afpfp-n
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 specifice	specific	Afpfp-n
 conținute	conține	Vmp--pf
@@ -37675,7 +37675,7 @@ zile	zi	Ncfp-n
 ,	,	Zc
 ore	oră	Ncfp-n
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 fracțiuni	fracțiune	Ncfp-n
 ale	al	Tsfp
@@ -38009,7 +38009,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 745	745	Mc-s-d
-/	/	Z
+/	/	Zo
 2004	2004	Mc-s-d
 al	al	Tsms
 Comisiei	comisie	Ncfsoy
@@ -38093,9 +38093,9 @@ temeiul	temei	Ncmsry
 Directivei	directivă	Ncfsoy
 Consiliului	consiliu	Ncmsoy
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 63	63	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 din	din	Spsa
 21	21	Mc-s-d
@@ -38482,9 +38482,9 @@ art.	articol	Yn
 din	din	Spsa
 Directiva	directivă	Ncfsry
 89	89	Mc-s-d
-/	/	Z
+/	/	Zo
 391	391	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 ,	,	Zc
 fără	fără	Spsa
@@ -38606,18 +38606,18 @@ definiți	defini	Vmp--pm
 în	în	Spsa
 Directiva	directivă	Ncfsry
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 63	63	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
 Dispozițiile	dispoziție	Ncfpry
 Directivei	directivă	Ncfsoy
 89	89	Mc-s-d
-/	/	Z
+/	/	Zo
 391	391	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 se	sine	Px3--a--------w
 aplică	aplica	Vmip3
@@ -38963,7 +38963,7 @@ prevăzute	prevedea	Vmp--pf
 de	de	Spsa
 legislațiile	legislație	Ncfpry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 practicile	practică	Ncfpry
 naționale	național	Afpfp-n
@@ -39060,7 +39060,7 @@ definit	defini	Vmp--sm
 de	de	Spsa
 legislațiile	legislație	Ncfpry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 practicile	practică	Ncfpry
 naționale	național	Afpfp-n
@@ -39089,9 +39089,9 @@ noapte	noapte	Ncfsrn
 
 Decizia	decizie	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 881	881	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 ar	avea	Va--3
 trebui	trebui	Vmnp
@@ -39174,7 +39174,7 @@ prevăzute	prevedea	Vmp--pf
 de	de	Spsa
 legislațiile	legislație	Ncfpry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 de	de	Spsa
 practicile	practică	Ncfpry
@@ -39573,7 +39573,7 @@ nu	nu	Qz
 este	fi	Vaip3s
 măsurată	măsura	Vmp--sf
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 predeterminată	predeterminat	Afpfsrn
 sau	sau	Ccssp
@@ -39813,7 +39813,7 @@ de	de	Spsa
 repaus	repaus	Ncms-n
 zilnic	zilnic	Afpms-n
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 săptămânal	săptămânal	Afpms-n
 între	între	Spsa
@@ -40446,7 +40446,7 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 legislațiile	legislație	Ncfpry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 practicile	practică	Ncfpry
 naționale	național	Afpfp-n
@@ -40554,7 +40554,7 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 legislațiile	legislație	Ncfpry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 practicile	practică	Ncfpry
 naționale	național	Afpfp-n
@@ -41363,7 +41363,7 @@ legate	lega	Vmp--pf
 de	de	Spsa
 securitatea	securitate	Ncfsry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 sănătatea	sănătate	Ncfsry
 lucrătorilor	lucrător	Ncmpoy
@@ -41548,7 +41548,7 @@ prevăzute	prevedea	Vmp--pf
 de	de	Spsa
 legislațiile	legislație	Ncfpry
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 practicile	practică	Ncfpry
 naționale	național	Afpfp-n
@@ -41912,9 +41912,9 @@ sector	sector	Ncms-n
 
 Directiva	directivă	Ncfsry
 93	93	Mc-s-d
-/	/	Z
+/	/	Zo
 104	104	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 (	(	Z1p
 modificată	modifica	Vmp--sf
@@ -41981,9 +41981,9 @@ art.	articol	Yn
 din	din	Spsa
 Directiva	directivă	Ncfsry
 2000	2000	Mc-s-d
-/	/	Z
+/	/	Zo
 34	34	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 și	și	Crssp
 avizul	aviz	Ncmsry
@@ -42021,9 +42021,9 @@ foarte	foarte	Rp
 
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 25	25	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 definește	defini	Vmip3s
 proceduri	procedură	Ncfp-n
@@ -42231,9 +42231,9 @@ existente	existent	Afpfp-n
 ale	al	Tsfp
 Directivei	directivă	Ncfsoy
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 25	25	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 ar	avea	Va--3
 trebui	trebui	Vmnp
@@ -42302,9 +42302,9 @@ terțe	terț	Afpfp-n
 
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 25	25	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 trebuie	trebui	Vmip3
 actualizată	actualiza	Vmp--sf
@@ -42342,9 +42342,9 @@ adaptare	adaptare	Ncfsrn
 a	al	Tsfs
 Directivei	directivă	Ncfsoy
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 25	25	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 la	la	Spsa
 modificările	modificare	Ncfpry
@@ -42362,7 +42362,7 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Regula	regulă	Ncfsry
 I	I	Mo-s-r
-/	/	Z
+/	/	Zo
 2	2	Mc-s-d
 .	.	Zp
 
@@ -42906,9 +42906,9 @@ substanțe	substanță	Ncfp-n
 în	în	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
@@ -42937,9 +42937,9 @@ figurează	figura	Vmip3
 în	în	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 ,	,	Zc
 pentru	pentru	Spsa
@@ -42974,9 +42974,9 @@ reglementate	reglementa	Vmp--pf
 de	de	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
@@ -42995,9 +42995,9 @@ pasaje	pasaj	Ncfp-n
 din	din	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 să	să	Qs
 fie	fi	Vasp3
@@ -43447,9 +43447,9 @@ II	doi	Mo-s-r
 la	la	Spsa
 Directiva	directivă	Ncfsry
 80	80	Mc-s-d
-/	/	Z
+/	/	Zo
 876	876	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 .	.	Zp
 
@@ -43717,9 +43717,9 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 136	136	Mc-s-d
-/	/	Z
+/	/	Zo
 66	66	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE4	CEE4	Yn
 ,	,	Zc
 (	(	Z1p
@@ -43727,7 +43727,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1308	1308	Mc-s-d
-/	/	Z
+/	/	Zo
 705	705	Mc-s-d
 și	și	Crssp
 (	(	Z1p
@@ -43735,7 +43735,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2275	2275	Mc-s-d
-/	/	Z
+/	/	Zo
 966	966	Mc-s-d
 ;	;	Zs
 
@@ -43759,9 +43759,9 @@ cu	cu	Spsa
 Decizia	decizie	Ncfsry
 Consiliului	consiliu	Ncmsoy
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 468	468	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 din	din	Spsa
 28	28	Mc-s-d
@@ -43887,9 +43887,9 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Decizia	decizie	Ncfsry
 2004	2004	Mc-s-d
-/	/	Z
+/	/	Zo
 666	666	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 a	al	Tsfs
 Comisiei	comisie	Ncfsoy
@@ -43928,9 +43928,9 @@ abrogare	abrogare	Ncfsrn
 a	al	Tsfs
 Deciziei	decizie	Ncfsoy
 2002	2002	Mc-s-d
-/	/	Z
+/	/	Zo
 975	975	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 a	al	Tsfs
 Comisiei	comisie	Ncfsoy
@@ -43961,9 +43961,9 @@ derulată	derula	Vmp--sf
 conform	conform	Spsd
 Deciziei	decizie	Ncfsoy
 2002	2002	Mc-s-d
-/	/	Z
+/	/	Zo
 975	975	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 a	al	Tsfs
 Comisiei	comisie	Ncfsoy
@@ -44652,7 +44652,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2092	2092	Mc-s-d
-/	/	Z
+/	/	Zo
 918	918	Mc-s-d
 ,	,	Zc
 (	(	Z1p
@@ -44660,7 +44660,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2081	2081	Mc-s-d
-/	/	Z
+/	/	Zo
 929	929	Mc-s-d
 și	și	Crssp
 (	(	Z1p
@@ -44668,7 +44668,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2082	2082	Mc-s-d
-/	/	Z
+/	/	Zo
 9210	9210	Mc-s-d
 .	.	Zp
 
@@ -45110,7 +45110,7 @@ de	de	Spsa
 statele	stat	Ncfpry
 membre	membru	Ncfp-n
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 de	de	Spsa
 organizațiile	organizație	Ncfpry
@@ -45234,7 +45234,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1258	1258	Mc-s-d
-/	/	Z
+/	/	Zo
 1999	1999	Mc-s-d
 din	din	Spsa
 17	17	Mc-s-d
@@ -45292,9 +45292,9 @@ din	din	Spsa
 Regulamentul	regulament	Ncmsry
 nr.	număr	Yn
 136	136	Mc-s-d
-/	/	Z
+/	/	Zo
 66	66	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 și	și	Crssp
 de	de	Spsa
@@ -45337,9 +45337,9 @@ art.	articol	Yn
 din	din	Spsa
 Decizia	decizie	Ncfsry
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 468	468	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
@@ -45355,9 +45355,9 @@ alin.	alineat	Yn
 din	din	Spsa
 Decizia	decizie	Ncfsry
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 468	468	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 este	fi	Vaip3s
 de	de	Spsa
@@ -45451,9 +45451,9 @@ din	din	Spsa
 Regulamentul	regulament	Ncmsry
 nr.	număr	Yn
 136	136	Mc-s-d
-/	/	Z
+/	/	Zo
 66	66	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 se	sine	Px3--a--------w
 elimină	elimina	Vmip3
@@ -45483,7 +45483,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1308	1308	Mc-s-d
-/	/	Z
+/	/	Zo
 70	70	Mc-s-d
 se	sine	Px3--a--------w
 elimină	elimina	Vmip3
@@ -45512,7 +45512,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2275	2275	Mc-s-d
-/	/	Z
+/	/	Zo
 96	96	Mc-s-d
 se	sine	Px3--a--------w
 elimină	elimina	Vmip3
@@ -45526,7 +45526,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2275	2275	Mc-s-d
-/	/	Z
+/	/	Zo
 96	96	Mc-s-d
 din	din	Spsa
 22	22	Mc-s-d
@@ -45789,7 +45789,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2377	2377	Mc-s-d
-/	/	Z
+/	/	Zo
 90	90	Mc-s-d
 ;	;	Zs
 
@@ -45815,9 +45815,9 @@ prevăzute	prevedea	Vmp--pf
 în	în	Spsa
 Decizia	decizie	Ncfsry
 2004	2004	Mc-s-d
-/	/	Z
+/	/	Zo
 666	666	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 ,	,	Zc
 pare	părea	Vmip3s
@@ -45880,7 +45880,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2377	2377	Mc-s-d
-/	/	Z
+/	/	Zo
 90	90	Mc-s-d
 ;	;	Zs
 Anexele	anexă	Ncfpry
@@ -45896,7 +45896,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2377	2377	Mc-s-d
-/	/	Z
+/	/	Zo
 90	90	Mc-s-d
 se	sine	Px3--a--------w
 modifică	modifica	Vmip3
@@ -45918,7 +45918,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2377	2377	Mc-s-d
-/	/	Z
+/	/	Zo
 90	90	Mc-s-d
 ,	,	Zc
 se	sine	Px3--a--------w
@@ -45966,9 +45966,9 @@ Prin	prin	Spsa
 Decizia	decizie	Ncfsry
 Comisiei	comisie	Ncfsoy
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 574	574	Mc-s-d
-/	/	Z
+/	/	Zo
 CE2	CE2	Yn
 ,	,	Zc
 produsul	produs	Ncmsry
@@ -46065,9 +46065,9 @@ consecință	consecință	Ncfsrn
 a	al	Tsfs
 Deciziei	decizie	Ncfsoy
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 574	574	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
@@ -46091,9 +46091,9 @@ modificat	modifica	Vmp--sm
 de	de	Spsa
 Decizia	decizie	Ncfsry
 2002	2002	Mc-s-d
-/	/	Z
+/	/	Zo
 269	269	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 (	(	Z1p
 JO	JO	Yn
@@ -46115,9 +46115,9 @@ paragraf	paragraf	Ncms-n
 din	din	Spsa
 Decizia	decizie	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 574	574	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 se	sine	Px3--a--------w
 înlocuiește	înlocui	Vmip3s
@@ -46222,9 +46222,9 @@ alineatul	alineat	Ncmsry
 din	din	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 22	22	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 prevede	prevedea	Vmip3s
 interzicerea	interzicere	Ncfsry
@@ -46434,9 +46434,9 @@ interzisă	interzice	Vmp--sf
 prin	prin	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 22	22	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 .	.	Zp
 
@@ -46994,7 +46994,7 @@ către	către	Spsa
 comitetul	comitet	Ncmsry
 mixt	mixt	Afpms-n
 FAO	FAO	Np
-/	/	Z
+/	/	Zo
 OMS	OMS	Np
 de	de	Spsa
 experți	expert	Ncmp-n
@@ -47821,9 +47821,9 @@ cu	cu	Spsa
 Directiva	directivă	Ncfsry
 Comisiei	comisie	Ncfsoy
 91	91	Mc-s-d
-/	/	Z
+/	/	Zo
 155	155	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE20	CEE20	Np
 .	.	Zp
 
@@ -48215,9 +48215,9 @@ art.	articol	Yn
 din	din	Spsa
 Directiva	directivă	Ncfsry
 67	67	Mc-s-d
-/	/	Z
+/	/	Zo
 548	548	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 .	.	Zp
 
@@ -48238,9 +48238,9 @@ art.	articol	Yn
 din	din	Spsa
 Decizia	decizie	Ncfsry
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 468	468	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 ,	,	Zc
 având	avea	Vmg
@@ -48714,7 +48714,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 3932	3932	Mc-s-d
-/	/	Z
+/	/	Zo
 92	92	Mc-s-d
 ,	,	Zc
 modificat	modifica	Vmp--sm
@@ -48745,7 +48745,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 3932	3932	Mc-s-d
-/	/	Z
+/	/	Zo
 92	92	Mc-s-d
 nu	nu	Qz
 acordă	acorda	Vmip3
@@ -48799,7 +48799,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1534	1534	Mc-s-d
-/	/	Z
+/	/	Zo
 91	91	Mc-s-d
 în	în	Spsa
 domeniile	domeniu	Ncfpry
@@ -48842,7 +48842,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 3932	3932	Mc-s-d
-/	/	Z
+/	/	Zo
 92	92	Mc-s-d
 .	.	Zp
 
@@ -49050,7 +49050,7 @@ CEE	Comunitatea_Economică_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1534	1534	Mc-s-d
-/	/	Z
+/	/	Zo
 91	91	Mc-s-d
 prevede	prevedea	Vmip3s
 ca	ca	Rc
@@ -53154,7 +53154,7 @@ EN	en	Ncms-n
 și	și	Crssp
 EN	en	Ncms-n
 ISO	International_Organization_for_Standardization	Yn
-/	/	Z
+/	/	Zo
 IEC	International_Electronical_Commission	Yn
 17025	17025	Mc-s-d
 .	.	Zp
@@ -53532,7 +53532,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1148	1148	Mc-s-d
-/	/	Z
+/	/	Zo
 2001	2001	Mc-s-d
 prezintă	prezenta	Vmip3
 riscuri	risc	Ncfp-n
@@ -53720,7 +53720,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1148	1148	Mc-s-d
-/	/	Z
+/	/	Zo
 2001	2001	Mc-s-d
 trebuie	trebui	Vmip3
 actualizate	actualizat	Afpfp-n
@@ -53767,7 +53767,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1148	1148	Mc-s-d
-/	/	Z
+/	/	Zo
 2001	2001	Mc-s-d
 să	să	Qs
 se	sine	Px3--a--------w
@@ -54025,7 +54025,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 1148	1148	Mc-s-d
-/	/	Z
+/	/	Zo
 2001	2001	Mc-s-d
 )	)	Z2p
 '	'	Z1q
@@ -54808,7 +54808,7 @@ marcajului	marcaj	Ncmsoy
 sunt	fi	Vaip3p
 corecte	corect	Afpfp-n
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 dacă	dacă	Csssp
 trebuie	trebui	Vmip3
@@ -54838,9 +54838,9 @@ preambalate	preambala	Vmp--pf
 sensul	sens	Ncmsry
 Directivei	directivă	Ncfsoy
 2000	2000	Mc-s-d
-/	/	Z
+/	/	Zo
 13	13	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 a	al	Tsfs
 Parlamentului	parlament	Ncmsoy
@@ -55032,7 +55032,7 @@ starea	stare	Ncfsry
 de	de	Spsa
 dezvoltare	dezvoltare	Ncfsrn
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 de	de	Spsa
 maturitate	maturitate	Ncfsrn
@@ -55230,7 +55230,7 @@ starea	stare	Ncfsry
 de	de	Spsa
 dezvoltare	dezvoltare	Ncfsrn
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 de	de	Spsa
 maturitate	maturitate	Ncfsrn
@@ -55451,7 +55451,7 @@ CE	Comunitatea_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 2135	2135	Mc-s-d
-/	/	Z
+/	/	Zo
 95	95	Mc-s-d
 al	al	Tsms
 Comisiei	comisie	Ncfsoy
@@ -55723,9 +55723,9 @@ membre	membră	Ncfp-n
 prin	prin	Spsa
 Decizia	decizie	Ncfsry
 1999	1999	Mc-s-d
-/	/	Z
+/	/	Zo
 499	499	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comunitatea_Europeană	Yn
 ,	,	Zc
 CECO	CECO	Np
@@ -56378,7 +56378,7 @@ De	de	Spsa
 la	la	Spsa
 numărul	număr	Ncmsry
 2–3	2–3	Mc-p-d
-/	/	Z
+/	/	Zo
 1973	1973	Mc-s-d
 ,	,	Zc
 Liviu	Liviu	Np
@@ -56991,7 +56991,7 @@ prins	prinde	Vmp--sm
 să	să	Qs
 -mi	eu	Pp1-sd--y-----w
 placă	plăcea	Vmsp3
-/	/	Z
+/	/	Zo
 acest	acest	Dd3msr---e
 eu	eu	Pp1-sn--------s
 însumi	însumi	Dh1ms
@@ -57016,7 +57016,7 @@ sosite	sosi	Vmp--pf
 de	de	Spsa
 la	la	Spsa
 muncă	muncă	Ncfsrn
-/	/	Z
+/	/	Zo
 cu	cu	Spsa
 iarba	iarbă	Ncfsry
 -n	în	Spsay
@@ -57030,7 +57030,7 @@ meu	meu	Ds1ms-s
 înzestrat	înzestra	Vmp--sm
 cu	cu	Spsa
 luxuri	lux	Ncfp-n
-/	/	Z
+/	/	Zo
 selenar	selenar	Rgp
 de	de	Spsa
 clar	clar	Afpms-n
@@ -57039,19 +57039,19 @@ chenar	chenar	Ncms-n
 mișcării	mișcare	Ncfsoy
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Luminez	lumina	Vmip1s
 grădini	grădină	Ncfp-n
 și	și	Crssp
 agit	agita	Vmip1s
 în	în	Spsa
 fluxuri	flux	Ncfp-n
-/	/	Z
+/	/	Zo
 apele	apă	Ncfpry
 mării	mare	Ncfsoy
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Și-	și	Crssp
 am	avea	Vaip1s
 să	să	Qs
@@ -57062,7 +57062,7 @@ ascult	asculta	Vmip1s
 nespus	nespus	Rgs
 de-	de	Spsay
 ncet	ncet	Ncms-n
-/	/	Z
+/	/	Zo
 când	când	Rw
 timpul	timp	Ncmsry
 vine	veni	Vmip3s
@@ -58115,7 +58115,7 @@ lui	lui	Ds3---s
 pentru	pentru	Spsa
 graiuri	grai	Ncfp-n
 ,	,	Zc
-/	/	Z
+/	/	Zo
 Cu	cu	Spsa
 scamă	scamă	Ncfsrn
 s-	sine	Px3--a--y-----w
@@ -58140,7 +58140,7 @@ naturi	natură	Ncfson
 umane	uman	Afpfson
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Ascultă	asculta	Vmm-2s
 ,	,	Zc
 harul	har	Ncmsry
@@ -58148,7 +58148,7 @@ a	avea	Va--3s
 trecut	trece	Vmp--sm
 prin	prin	Spsa
 ei	el	Pp3mpr--------s
-/	/	Z
+/	/	Zo
 Virginal	virginal	Afpms-n
 ,	,	Zc
 candid	candid	Afpms-n
@@ -58752,14 +58752,14 @@ stinge	stinge	Vmip3s
 tonurile	ton	Ncfpry
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Te	tu	Pp2-sa--------w
 uită	uita	Vmm-2s
 cum	cum	Rw
 ninge	ninge	Vmip3s
 Decembre	Decembre	Np
 …	…	Zh
-/	/	Z
+/	/	Zo
 Nu	nu	Qz
 râde	râde	Vmm-2s
 …	…	Zh
@@ -59073,7 +59073,7 @@ italiene	italian	Afpfp-n
 În	în	Spsa
 numărul	număr	Ncmsry
 14	14	Mc-s-d
-/	/	Z
+/	/	Zo
 1912	1912	Mc-s-d
 este	fi	Vaip3s
 anunțată	anunța	Vmp--sf
@@ -60313,7 +60313,7 @@ ani	an	Ncmp-n
 într-	întru	Spsay
 un	un	Timsr
 spital	spital	Ncms-n
-/	/	Z
+/	/	Zo
 al	al	Tsms
 țăranilor	țăran	Ncmpoy
 fără	fără	Spsa
@@ -60619,13 +60619,13 @@ accentelor	accent	Ncfpoy
 interpretative	interpretativ	Afpfp-n
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Lumea	lume	Ncfsry
 e	fi	Vaip3s
 totuși	totuși	Rgp
 frumoasă	frumos	Afpfsrn
 ,	,	Zc
-/	/	Z
+/	/	Zo
 pururi	pururi	Rgp
 aș	avea	Va--1s
 sta	sta	Vmnp
@@ -60638,10 +60638,10 @@ contemplu	contempla	Vmip1s
 Lumină	lumină	Ncfsrn
 de	de	Spsa
 acvariu	acvariu	Ncms-n
-/	/	Z
+/	/	Zo
 Draperia	draperie	Ncfsry
 decolorată	decolorat	Afpfsrn
-/	/	Z
+/	/	Zo
 Accentuează	accentua	Vmm-2s
 oboseala	oboseală	Ncfsry
 amurgului	amurg	Ncmsoy
@@ -60662,14 +60662,14 @@ neamului	neam	Ncmsoy
 românesc	românesc	Afpms-n
 .	.	Zp
 
-/	/	Z
-/	/	Z
+/	/	Zo
+/	/	Zo
 Afară	afară	Rgp
 vântul	vânt	Ncmsry
 citește	citi	Vmip3s
 afișe	afiș	Ncfp-n
 ,	,	Zc
-/	/	Z
+/	/	Zo
 Ploaia	ploaie	Ncfsry
 măruntă	mărunt	Afpfsrn
 le	el	Pp3fpa--------w
@@ -62273,20 +62273,20 @@ piatră	piatră	Ncfsrn
 se	sine	Px3--a--------w
 zdruncină	zdruncina	Vmip3
 ziua	zi	Ncfsry
-/	/	Z
+/	/	Zo
 și	și	Crssp
 totuși	totuși	Rgp
 mai	mai	Rp
 suge	suge	Vmip3s
 lumină	lumină	Ncfsrn
 șopârla	șopârlă	Ncfsry
-/	/	Z
+/	/	Zo
 murmură	murmura	Vmm-2s
 frunza	frunză	Ncfsry
 de	de	Spsa
 viță	viță	Ncfsrn
 absența	absență	Ncfsry
-/	/	Z
+/	/	Zo
 boabelor	boabă	Ncfpoy
 ei	lui	Ds3---s
 de	de	Spsa
@@ -62709,7 +62709,7 @@ Soarele	soare	Ncmsry
 Luna	lună	Ncfsry
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 sub	sub	Spsa
 cea	cel	Tdfsr
 din	din	Spsa
@@ -62718,14 +62718,14 @@ rază	rază	Ncfsrn
 de	de	Spsa
 soare	soare	Ncms-n
 ,	,	Zc
-/	/	Z
+/	/	Zo
 un	un	Timsr
 glas	glas	Ncms-n
 tăios	tăios	Afpms-n
 ca	ca	Rc
 o	un	Tifsr
 sabie	sabie	Ncfsrn
-/	/	Z
+/	/	Zo
 îi	vrea	Va--2s
 striga	striga	Vmnp
 să	să	Qs
@@ -63328,7 +63328,7 @@ imperiile	imperiu	Ncfpry
 
 Numărul	număr	Ncmsry
 5	5	Mc-s-d
-/	/	Z
+/	/	Zo
 1913	1913	Mc-s-d
 găzduiește	găzdui	Vmip3s
 necrologul	necrolog	Ncmsry
@@ -63338,7 +63338,7 @@ Vlaicu	Vlaicu	Np
 iar	iar	Rc
 numărul	număr	Ncmsry
 26–27	26–27	Mc-p-d
-/	/	Z
+/	/	Zo
 1915	1915	Mc-s-d
 comemorează	comemora	Vmip3
 25	25	Mc-s-d
@@ -63555,7 +63555,7 @@ delimitează	delimita	Vmip3
 opiniile	opinie	Ncfpry
 (	(	Z1p
 68	68	Mc-s-d
-/	/	Z
+/	/	Zo
 1934	1934	Mc-s-d
 )	)	Z2p
 de	de	Spsa
@@ -63675,7 +63675,7 @@ după	după	Spsa
 .	.	Zp
 
 Întârzii	întârzia	Vmip2s
-/	/	Z
+/	/	Zo
 prin	prin	Spsa
 preajma	preajmă	Ncfsry
 arborilor	arbor	Ncmpoy
@@ -63683,12 +63683,12 @@ mari	mare	Afp-p-n
 ,	,	Zc
 îmi	eu	Pp1-sd--------w
 place	plăcea	Vmip3s
-/	/	Z
+/	/	Zo
 să	să	Qs
 privesc	privi	Vmip3p
 trecătorii	trecător	Ncmpry
 singuratici	singuratic	Afpmp-n
-/	/	Z
+/	/	Zo
 însă	însă	Ccssp
 nu	nu	Qz
 schimb	schimba	Vmip1s
@@ -63808,7 +63808,7 @@ până	până	Csssp
 la	la	Spsa
 numărul	număr	Ncmsry
 4	4	Mc-s-d
-/	/	Z
+/	/	Zo
 1911	1911	Mc-s-d
 ,	,	Zc
 când	când	Rw
@@ -66117,7 +66117,7 @@ meu	meu	Ds1ms-s
 așteaptă	aștepta	Vmip3
 pe	pe	Spsa
 câmpie	câmpie	Ncfsrn
-/	/	Z
+/	/	Zo
 să	să	Qs
 vină	veni	Vmsp3
 o	un	Tifsr
@@ -66126,7 +66126,7 @@ din	din	Spsa
 acel	acel	Dd3msr---e
 viitor	viitor	Ncms-n
 dureros	dureros	Afpms-n
-/	/	Z
+/	/	Zo
 care	care	Pw3--r
 înainte	înainte	Rgp
 de	de	Spsa
@@ -69561,27 +69561,27 @@ a	al	Tsfs
 suspinelor	suspin	Ncfpoy
 .	.	Zp
 
-/	/	Z
-/	/	Z
+/	/	Zo
+/	/	Zo
 Plâns	plâns	Ncms-n
 de	de	Spsa
 ape	apă	Ncfp-n
 se	sine	Px3--a--------w
 repetă	repeta	Vmip3
-/	/	Z
+/	/	Zo
 Încă	încă	Rgp
 totu	tot	Pi3msr--y
 -i	fi	Vaip3s----y
 adormit	adormi	Vmp--sm
 –	–	Z
-/	/	Z
+/	/	Zo
 Ca	ca	Rc
 în	în	Spsa
 vise	vis	Ncfp-n
 s-	sine	Px3--a--y-----w
 a	avea	Va--3s
 pornit	porni	Vmp--sm
-/	/	Z
+/	/	Zo
 Roata	roată	Ncfsry
 morii	moară	Ncfsoy
 –	–	Z
@@ -71270,13 +71270,13 @@ n-	nu	Qz-y
 au	avea	Va--3p
 îmbrăcat	îmbrăca	Vmp--sm
 dealul	deal	Ncmsry
-/	/	Z
+/	/	Zo
 din	din	Spsa
 miile	mie	Mcfprly
 de	de	Spsa
 neamuri	neam	Ncfp-n
 ,	,	Zc
-/	/	Z
+/	/	Zo
 și	și	Crssp
 toate	tot	Pi3fpr
 s-	sine	Px3--a--y-----w
@@ -71310,7 +71310,7 @@ de	de	Spsa
 onoare	onoare	Ncfsrn
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Cu	cu	Spsa
 cât	cât	Rw
 sunt	fi	Vaip3p
@@ -71320,14 +71320,14 @@ cu-	cu-	Spsa
 atât	atât	Rgp
 ți-	tu	Pp2-sd--y-----w
 aud	auzi	Vmip3p
-/	/	Z
+/	/	Zo
 Mai	mai	Rp
 limpezi	limpede	Afp-p-n
 poruncile	poruncă	Ncfpry
 și-	și	Crssp
 alerg	alerga	Vmip1s
 smintit	smintit	Afpms-n
-/	/	Z
+/	/	Zo
 Să	să	Qs
 le	el	Pp3-pd--------w
 împlinesc	împlini	Vmip3p
@@ -72713,19 +72713,19 @@ era	fi	Vmii3s
 cerul	cer	Ncmsry
 verde	verde	Afpms-n
 strălucitor	strălucitor	Afpms-n
-/	/	Z
+/	/	Zo
 și	și	Crssp
 unde	unde	Rw
 călcam	călca	Vmii1
 se	sine	Px3--a--------w
 aprindeau	aprinde	Vmii3p
-/	/	Z
+/	/	Zo
 sori	soare	Ncmp-n
 minusculi	minuscul	Afpmp-n
 ,	,	Zc
 unde	unde	Rw
 dormeam	dormi	Vmii1
-/	/	Z
+/	/	Zo
 se	sine	Px3--a--------w
 deschideau	deschide	Vmii3p
 izvoare	izvor	Ncfp-n
@@ -73201,8 +73201,8 @@ D.	D.	Yn
 Anghel	Anghel	Np
 .	.	Zp
 
-/	/	Z
-/	/	Z
+/	/	Zo
+/	/	Zo
 Cioplindu	ciopli	Vmg-------y
 -și	sine	Px3--d--y-----w
 -o	el	Pp3fsa--y-----w
@@ -73210,13 +73210,13 @@ cu	cu	Spsa
 mâinile	mână	Ncfpry
 subțiri	subțire	Afp-p-n
 ,	,	Zc
-/	/	Z
+/	/	Zo
 neîntrecutul	neîntrecut	Afpmsry
 meșter	meșter	Ncms-n
 din	din	Spsa
 Cremona	cremonă	Ncfsry
 ,	,	Zc
-/	/	Z
+/	/	Zo
 încă	încă	Rgp
 -nainte	înainte	Rgpy
 de-	de	Spsay
@@ -73224,7 +73224,7 @@ a	a	Qn
 o	el	Pp3fsa--------w
 isprăvi	isprăvi	Vmnp
 ,	,	Zc
-/	/	Z
+/	/	Zo
 i-	el	Pp3-sd--y-----w
 a	avea	Va--3s
 ascultat	asculta	Vmp--sm
@@ -86552,7 +86552,7 @@ a	al	Tsfs
 raportului	raport	Ncmsoy
 risc	risc	Ncms-n
 potențial	potențial	Afpms-n
-/	/	Z
+/	/	Zo
 beneficiu	beneficiu	Ncms-n
 terapeutic	terapeutic	Afpms-n
 .	.	Zp
@@ -86599,7 +86599,7 @@ cuprinsă	cuprinde	Vmp--sf
 și	și	Crssp
 300	300	Mc-s-d
 UI	Unitate_Internațională	Yn
-/	/	Z
+/	/	Zo
 kg	kilogram	Yn
 ,	,	Zc
 administrată	administra	Vmp--sf
@@ -90120,7 +90120,7 @@ utilizarea	utilizare	Ncfsry
 siringii	siringă	Ncfsoy
 livrate	livra	Vmp--pf
 cu	cu	Spsa
-/	/	Z
+/	/	Zo
 care	care	Pw3--r
 însoțește	însoți	Vmip3s
 medicamentul	medicament	Ncmsry
@@ -90969,7 +90969,7 @@ tolcaponă	tolcaponă	Ncfsrn
 și	și	Crssp
 benserazidă-25	benserazidă-25	Np
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 levodopa	levodopă	Ncfsry
 s-	sine	Px3--a--y-----w
 au	avea	Va--3p
@@ -90982,7 +90982,7 @@ observate	observat	Afpfp-n
 numai	numai	Rgp
 pentru	pentru	Spsa
 levodopa	levodopă	Ncfsry
-/	/	Z
+/	/	Zo
 benserazidă	benserazidă	Ncfsrn
 .	.	Zp
 
@@ -91059,7 +91059,7 @@ eliminare	eliminare	Ncfsrn
 terminal	terminal	Afpms-n
 (	(	Z1p
 t	t	Ncms-n
-/	/	Z
+/	/	Zo
 2	2	Mc-s-d
 )	)	Z2p
 a	al	Tsfs
@@ -91248,7 +91248,7 @@ Substanța	substanță	Ncfsry
 activă	activ	Afpfsrn
 din	din	Spsa
 Taxotere	Taxotere	Np
-/	/	Z
+/	/	Zo
 Docetaxel	Docetaxel	Np
 Winthrop	Winthrop	Np
 ,	,	Zc
@@ -91287,7 +91287,7 @@ este	fi	Vaip3s
 de	de	Spsa
 75	75	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 m	metru	Yn
 în	în	Spsa
 monoterapie	monoterapie	Ncfsrn
@@ -91360,13 +91360,13 @@ prin	prin	Spsa
 hipotensiune	hipotensiune	Ncfsrn
 arterială	arterial	Afpfsrn
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 bronhospasm	bronhospasm	Ncms-n
 sau	sau	Ccssp
 erupții	erupție	Ncfp-n
 cutanate	cutanat	Afpfp-n
-/	/	Z
+/	/	Zo
 eritem	eritem	Ncms-n
 generalizate	generalizat	Afpfp-n
 (	(	Z1p
@@ -92324,7 +92324,7 @@ clinice	clinic	Afpfp-n
 separate	separa	Vmp--pf
 pentru	pentru	Spsa
 FPV	FPV	Np
-/	/	Z
+/	/	Zo
 RTV	RTV	Np
 care	care	Pw3--r
 pot	putea	Vmip3p
@@ -92562,7 +92562,7 @@ hormonală	hormonal	Afpfsrn
 Utilizarea	utilizare	Ncfsry
 combinației	combinație	Ncfsoy
 Telzir	Telzir	Np
-/	/	Z
+/	/	Zo
 ritonavir	ritonavir	Ncms-n
 cu	cu	Spsa
 contraceptive	contraceptiv	Ncfp-n
@@ -94112,7 +94112,7 @@ numai	numai	Rgp
 dacă	dacă	Csssp
 raportul	raport	Ncmsry
 risc	risc	Ncms-n
-/	/	Z
+/	/	Zo
 beneficiu	beneficiu	Ncms-n
 este	fi	Vaip3s
 favorabil	favorabil	Afpms-n
@@ -94347,7 +94347,7 @@ intravenoase	intravenos	Afpfson
 (	(	Z1p
 aproximativ	aproximativ	Rgp
 1	1	Mc-s-d
-/	/	Z
+/	/	Zo
 20	20	Mc-s-d
 din	din	Spsa
 valoare	valoare	Ncfsrn
@@ -95219,7 +95219,7 @@ boală	boală	Ncfsrn
 cardiacă	cardiac	Afpfsrn
 ischemică	ischemic	Afpfsrn
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 boală	boală	Ncfsrn
 arterială	arterial	Afpfsrn
@@ -95420,7 +95420,7 @@ aplicată	aplica	Vmp--sf
 la	la	Spsa
 suprafața	suprafață	Ncfsry
 hemoragică	hemoragic	Afpfsrn
-/	/	Z
+/	/	Zo
 plagă	plagă	Ncfsrn
 și	și	Crssp
 ținută	ține	Vmp--sf
@@ -99621,7 +99621,7 @@ de	de	Spsa
 sodiu	sodiu	Ncms-n
 9	9	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 ml	mililitru	Yn
 (	(	Z1p
 0	0	Mc-s-d
@@ -101027,7 +101027,7 @@ cu	cu	Spsa
 Vimpat	Vimpat	Np
 ,	,	Zc
 el	el	Pp3msr--------s
-/	/	Z
+/	/	Zo
 ea	el	Pp3fsr--------s
 vă	tu	Pp2-pa--------w
 va	vrea	Va--3s
@@ -101220,7 +101220,7 @@ de	de	Spsa
 mol	mol	Ncms-n
 de	de	Spsa
 polimer	polimer	Ncms-n
-/	/	Z
+/	/	Zo
 mol	mol	Ncms-n
 de	de	Spsa
 proteină	proteină	Ncfsrn
@@ -104512,7 +104512,7 @@ de	de	Spsa
 amplă	amplu	Afpfsrn
 (	(	Z1p
 11	11	Mc-s-d
-/	/	Z
+/	/	Zo
 1914	1914	Mc-s-d
 )	)	Z2p
 .	.	Zp
@@ -105127,7 +105127,7 @@ FOLFOX-4	FOLFOX-4	Np
 293	293	Mc-s-d
 Avastin	Avastin	Np
 +	+	Z
-_	_	Z
+_	_	UNDERSC
 FOLFOX-4	FOLFOX-4	Np
 și	și	Crssp
 244	244	Mc-s-d
@@ -105380,7 +105380,7 @@ incolor	incolor	Afpms-n
 VIRACEPT	VIRACEPT	Np
 50	50	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 g	gram	Yn
 pulbere	pulbere	Ncfsrn
 orală	oral	Afpfsrn
@@ -105869,7 +105869,7 @@ severitate	severitate	Ncfsrn
 de	de	Spsa
 gradul	grad	Ncmsry
 1	1	Mc-s-d
-/	/	Z
+/	/	Zo
 2	2	Mc-s-d
 și	și	Crssp
 s-	sine	Px3--a--y-----w
@@ -106094,7 +106094,7 @@ OPCON	OPCON	Np
 )	)	Z2p
 șefului	șef	Ncmsoy
 misiunii	misiune	Ncfsoy
-/	/	Z
+/	/	Zo
 comisar	comisar	Ncms-n
 de	de	Spsa
 poliție	poliție	Ncfsrn
@@ -106280,7 +106280,7 @@ anexează	anexa	Vmip3
 :	:	Zl
 Documentul	document	Ncmsry
 SANCO	SANCO	Np
-/	/	Z
+/	/	Zo
 10366/2004	10366/2004	Mc-p-d
 Rev	Rev	Y
 .	.	Zp
@@ -106316,7 +106316,7 @@ licențe	licență	Ncfp-n
 pentru	pentru	Spsa
 25	25	Mc-s-d
 TRB	TRB	Np
-/	/	Z
+/	/	Zo
 lună	lună	Ncfsrn
 ,	,	Zc
 în	în	Spsa
@@ -133607,7 +133607,7 @@ fluxul	flux	Ncmsry
 de	de	Spsa
 lichid	lichid	Ncms-n
 poate	putea	Vmip3s
-/	/	Z
+/	/	Zo
 nu	nu	Qz
 poate	putea	Vmip3s
 fi	fi	Vanp
@@ -133881,7 +133881,7 @@ compilată	compila	Vmp--sf
 la	la	Spsa
 nivelul	nivel	Ncmsry
 gospodăriei	gospodărie	Ncfsoy
-/	/	Z
+/	/	Zo
 persoanei	persoană	Ncfsoy
 .	.	Zp
 
@@ -136959,7 +136959,7 @@ echivalent	echivalent	Afpms-n
 )	)	Z2p
 Șeful	șef	Ncmsry
 misiunii	misiune	Ncfsoy
-/	/	Z
+/	/	Zo
 comisar	comisar	Ncms-n
 de	de	Spsa
 poliție	poliție	Ncfsrn
@@ -138947,7 +138947,7 @@ un	un	Timsr
 factor	factor	Ncms-n
 de	de	Spsa
 oxidare	oxidare	Ncfsrn
-/	/	Z
+/	/	Zo
 conversie	conversie	Ncfsrn
 suplimentar	suplimentar	Afpms-n
 .	.	Zp
@@ -141640,7 +141640,7 @@ precursori	precursor	Ncmp-n
 ai	al	Tsmp
 ozonului	ozon	Ncmsoy
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 au	avea	Va--3p
 dus	duce	Vmp--sm
@@ -142030,7 +142030,7 @@ președinția	președinție	Ncfsry
 asistată	asista	Vmp--sf
 de	de	Spsa
 SG	SG	Np
-/	/	Z
+/	/	Zo
 IR	IR	Yn
 ,	,	Zc
 a	avea	Va--3s
@@ -143187,7 +143187,7 @@ informații	informație	Ncfp-n
 date	dată	Ncfp-n
 ,	,	Zc
 prelucrate	prelucrat	Afpfp-n
-/	/	Z
+/	/	Zo
 analizate	analizat	Afpfp-n
 sau	sau	Ccssp
 nu	nu	Qz
@@ -144722,7 +144722,7 @@ vederea	vedere	Ncfsry
 unei	un	Tifso
 corecții	corecție	Ncfson
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 conversii	conversie	Ncfp-n
 .	.	Zp
@@ -145366,7 +145366,7 @@ readuce	readuce	Vmnp
 resursele	resursă	Ncfpry
 naturale	natural	Afpfp-n
 și	și	Crssp
-/	/	Z
+/	/	Zo
 sau	sau	Ccssp
 serviciile	serviciu	Ncfpry
 prejudiciate	prejudicia	Vmp--pf
@@ -148655,7 +148655,7 @@ entitate	entitate	Ncfsrn
 publică	public	Afpfsrn
 realizează	realiza	Vmip3
 emisiuni	emisiune	Ncfp-n
-/	/	Z
+/	/	Zo
 titluri	titlu	Ncfp-n
 de	de	Spsa
 creanță	creanță	Ncfsrn
@@ -149613,7 +149613,7 @@ compilată	compila	Vmp--sf
 la	la	Spsa
 nivelul	nivel	Ncmsry
 gospodăriei	gospodărie	Ncfsoy
-/	/	Z
+/	/	Zo
 persoanei	persoană	Ncfsoy
 .	.	Zp
 
@@ -152074,7 +152074,7 @@ d	d	Ncms-n
 ,	,	Zc
 910	910	Mc-s-d
 g	gram	Yn
-/	/	Z
+/	/	Zo
 ml	mililitru	Yn
 )	)	Z2p
 până	până	Csssp
@@ -153128,7 +153128,7 @@ anexă	anexă	Ncfsrn
 .	.	Zp
 
 Dată	dată	Ncfsrn
-/	/	Z
+/	/	Zo
 oră	oră	Ncfsrn
 la	la	Spsa
 care	care	Pw3--r
@@ -153171,7 +153171,7 @@ decizie	decizie	Ncfsrn
 d	d	Ncms-n
 )	)	Z2p
 Evacuare	evacuare	Ncfsrn
-/	/	Z
+/	/	Zo
 confiscare	confiscare	Ncfsrn
 :	:	Zl
 obligația	obligație	Ncfsry
@@ -171502,7 +171502,7 @@ sub	sub	Spsa
 pragul	prag	Ncmsry
 de	de	Spsa
 104UFC	104UFC	Yn
-/	/	Z
+/	/	Zo
 ml	mililitru	Yn
 semnifică	semnifica	Vmip3
 colonizare	colonizare	Ncfsrn
@@ -172085,7 +172085,7 @@ IN	IN	Yn
 (	(	Z1p
 4,5	4,5	Mc-s-d
 cazuri	caz	Ncfp-n
-/	/	Z
+/	/	Zo
 100	100	Mc-s-d
 internări	internare	Ncfp-n
 )	)	Z2p
@@ -172260,7 +172260,7 @@ linie	linie	Ncfsrn
 Infecțiile	infecție	Ncfpry
 fluxului	flux	Ncmsoy
 sanguin	sanguin	Afpms-n
-/	/	Z
+/	/	Zo
 bacteriemiile	bacteriemie	Ncfpry
 Similar	similar	Afpms-n
 cu	cu	Spsa
@@ -172511,7 +172511,7 @@ joase	jos	Afpfp-n
 (	(	Z1p
 0,63	0,63	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 ml	mililitru	Yn
 )	)	Z2p
 ,	,	Zc
@@ -172531,7 +172531,7 @@ este	fi	Vaip3s
 ≥	≥	Z
 1	1	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 ml	mililitru	Yn
 sunt	fi	Vaip3p
 limitate	limita	Vmp--pf
@@ -172656,7 +172656,7 @@ crescute	crescut	Afpfp-n
 (	(	Z1p
 8-16	8-16	Mc-p-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 ml	mililitru	Yn
 )	)	Z2p
 .	.	Zp
@@ -173011,7 +173011,7 @@ conform	conform	Spsd
 criteriilor	criteriu	Ncfpoy
 de	de	Spsa
 includere	includere	Ncfsrn
-/	/	Z
+/	/	Zo
 excludere	excludere	Ncfsrn
 .	.	Zp
 
@@ -173423,7 +173423,7 @@ prin	prin	Spsa
 tratamentul	tratament	Ncmsry
 cu	cu	Spsa
 levodopa	levodopă	Ncfsry
-/	/	Z
+/	/	Zo
 inhibitorii	inhibitor	Ncmpry
 de	de	Spsa
 dopadecarboxilază	dopadecarboxilază	Ncfsrn
@@ -174401,7 +174401,7 @@ jurul	jur	Ncmsry
 a	a	Spsa
 –	–	Z
 70	70	Mc-s-d
-/	/	Z
+/	/	Zo
 –	–	Z
 80	80	Mc-s-d
 mV	milivolt	Yn
@@ -180617,7 +180617,7 @@ prin	prin	Spsa
 decizia	decizie	Ncfsry
 nr.	număr	Yn
 2009	2009	Mc-s-d
-/	/	Z
+/	/	Zo
 9	9	Mc-s-d
 din	din	Spsa
 3	3	Mc-s-d
@@ -180799,7 +180799,7 @@ județe	județ	Ncfp-n
 ,	,	Zc
 România	România	Np
 este	fi	Vaip3s
-împărțită	împărți	Vmp--sf
+împărțită	împărțit	Afpfsrn
 și	și	Crssp
 în	în	Spsa
 opt	opt	Mc-p-l
@@ -180844,7 +180844,7 @@ României	România	Npfsoy
 în	în	Spsa
 județe	județ	Ncfp-n
 este	fi	Vaip3s
-atestată	atesta	Vmp--sf
+atestată	atestat	Afpfsrn
 documentar	documentar	Rgp
 la	la	Spsa
 8	8	Mc-s-d
@@ -181107,7 +181107,7 @@ din	din	Spsa
 populația	populație	Ncfsry
 tării	tărie	Ncfp-n
 este	fi	Vaip3s
-angajată	angaja	Vmp--sf
+angajată	angajat	Afpfsrn
 în	în	Spsa
 agricultură	agricultură	Ncfsrn
 și	și	Crssp
@@ -181985,7 +181985,7 @@ minime	minim	Afpfson
 păstrate	păstrat	Afpfson
 .	.	Zp
 
-cele	cel	Tdfpr
+cele	cel	Pd3fpr
 așezate	așeza	Vmp--pf
 în	în	Spsa
 apus	apus	Ncms-n
@@ -182302,7 +182302,7 @@ NATO	North_Atlantic_Treaty_Organization	Yn
 
 La	la	Spsa
 12	12	Mc-s-d
-/	/	Z
+/	/	Zo
 24	24	Mc-s-d
 noiembrie	noiembrie	Ncm--n
 1859	1859	Mc-s-d
@@ -183046,7 +183046,7 @@ de	de	Spsa
 Jocul	joc	Ncmsry
 de	de	Spsa
 rugby	rugby	Ncms-n
-avea	avea	Vmii3s
+avea	avea	Vaii3s
 să	să	Qs
 apară	apărea	Vmsp3
 în	în	Spsa
@@ -183581,7 +183581,7 @@ orașului	oraș	Ncmsoy
 Jászvásár	Jászvásár	Np
 )	)	Z2p
 înseamnă	însemna	Vmip3
-mot	mot	X
+mot	mot	Rgp
 -a	-a	X
 -	-	Zd
 mot	mot	X
@@ -183978,7 +183978,7 @@ Iașilor	Iași	Npmpoy
 aceste	acest	Dd3fpr---e
 localități	localitate	Ncfp-n
 fiind	fi	Vag
-incluse	include	Vmp--pf
+incluse	inclus	Afpfp-n
 în	în	Spsa
 zona	zonă	Ncfsry
 metropolitană	metropolitan	Afpfsrn
@@ -185194,7 +185194,7 @@ Vechi	vechi	Afpms-n
 CUG	CUG	Np
 I	unu	Mo-s-r
 este	fi	Vaip3s
-abandonat	abandona	Vmp--sm
+abandonat	abandonat	Afpms-n
 și	și	Crssp
 nefuncțional	nefuncțional	Afpms-n
 ,	,	Zc
@@ -185259,7 +185259,7 @@ autobuze	autobuz	Ncfp-n
 RATP	RATP	Np
 Iași	Iași	Np
 este	fi	Vaip3s
-format	forma	Vmp--sm
+format	format	Afpms-n
 din	din	Spsa
 50	50	Mc-s-d
 autobuze	autobuz	Ncfp-n
@@ -188329,11 +188329,11 @@ comentariu	comentariu	Ncms-n
 ,	,	Zc
 delimitat	delimita	Vmp--sm
 prin	prin	Spsa
-/	/	Z
+/	/	Zo
 *	*	Z
 și	și	Crssp
 *	*	Z
-/	/	Z
+/	/	Zo
 care	care	Pw3--r
 ,	,	Zc
 prin	prin	Spsa
@@ -189628,7 +189628,7 @@ a	al	Tsfs
 unui	un	Timso
 port	port	Ncms-n
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 și	și	Crssp
 se	sine	Px3--a--------w
@@ -189649,7 +189649,7 @@ comandă	comandă	Ncfsrn
 corespunzător	corespunzător	Afpms-n
 pentru	pentru	Spsa
 citire	citire	Ncfsrn
-/	/	Z
+/	/	Zo
 scriere	scriere	Ncfsrn
 date	dată	Ncfp-n
 .	.	Zp
@@ -189661,7 +189661,7 @@ memoria	memorie	Ncfsry
 sau	sau	Ccssp
 portul	port	Ncmsry
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 )	)	Z2p
 realizează	realiza	Vmip3
@@ -189685,7 +189685,7 @@ ciclul	ciclu	Ncmsry
 La	la	Spsa
 procesorul	procesor	Ncmsry
 386	386	Mc-s-d
-/	/	Z
+/	/	Zo
 486	486	Mc-s-d
 acest	acest	Dd3msr---e
 registru	registru	Ncms-n
@@ -189997,11 +189997,11 @@ distincte	distinct	Afpfp-n
 memoria	memorie	Ncfsry
 și	și	Crssp
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 (	(	Z1p
 intrări	intrare	Ncfp-n
-/	/	Z
+/	/	Zo
 ieșiri	ieșire	Ncfp-n
 )	)	Z2p
 .	.	Zp
@@ -190010,7 +190010,7 @@ Locațiile	locație	Ncfpry
 din	din	Spsa
 spațiul	spațiu	Ncmsry
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 sunt	fi	Vaip3p
 denumite	denumi	Vmp--pf
@@ -190020,7 +190020,7 @@ sau	sau	Ccssp
 porturi	port	Ncfp-n
 de	de	Spsa
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 .	.	Zp
 
@@ -190078,14 +190078,14 @@ adresat	adresat	Afpms-n
 fizică	fizic	Afpfsrn
 sau	sau	Ccssp
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 )	)	Z2p
 .	.	Zp
 
 Instrucțiunile	instrucțiune	Ncfpry
 I	input	Yn
-/	/	Z
+/	/	Zo
 O	output	Yn
 IN	IN	X
 și	și	Crssp
@@ -190318,7 +190318,7 @@ respectiv	respectiv	Rgp
 4G	4G	Mc-s-b
 la	la	Spsa
 386	386	Mc-s-d
-/	/	Z
+/	/	Zo
 486	486	Mc-s-d
 )	)	Z2p
 ,	,	Zc
@@ -190340,7 +190340,7 @@ valoare	valoare	Ncfsrn
 și	și	Crssp
 transfer	transfer	Ncms-n
 la	la	Spsa
-/	/	Z
+/	/	Zo
 de	de	Spsa
 la	la	Spsa
 acumulator	acumulator	Ncms-n
@@ -192807,7 +192807,7 @@ puțin	puțin	Rgp
 1	1	Mc-s-d
 -	-	Zd
 1	1	Mc-s-d
-/	/	Z
+/	/	Zo
 (	(	Z1p
 k	k	Ncms-n
 *	*	Z
@@ -192970,7 +192970,7 @@ V	V	Ncms-n
 100	100	Mc-s-d
 *	*	Z
 s	s	Ncms-n
-/	/	Z
+/	/	Zo
 m	m	Ncms-n
 ;	;	Zs
 

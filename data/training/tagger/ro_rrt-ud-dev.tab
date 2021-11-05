@@ -3377,7 +3377,7 @@ ce	ce	Pw3--r
 au	avea	Vmip3p
 în	în	Spsa
 plasament	plasament	Ncms-n
-/	/	Z
+/	/	Zo
 încredințare	încredințare	Ncfsrn
 729	729	Mc-s-d
 de	de	Spsa
@@ -3425,9 +3425,9 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Decizia	decizie	Ncfsry
 2002	2002	Mc-s-d
-/	/	Z
+/	/	Zo
 975	975	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 a	al	Tsfs
 Comisiei	comisie	Ncfsoy
@@ -3770,9 +3770,9 @@ prevăzute	prevedea	Vmp--pf
 în	în	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 22	22	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 pentru	pentru	Spsa
 estradiol	estradiol	Ncms-n
@@ -3820,7 +3820,7 @@ CE	Comisia_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 178	178	Mc-s-d
-/	/	Z
+/	/	Zo
 2002	2002	Mc-s-d
 al	al	Tsms
 Parlamentului	parlament	Ncmsoy
@@ -3978,9 +3978,9 @@ prevăzute	prevedea	Vmp--pf
 în	în	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 22	22	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 în	în	Spsa
 vederea	vedere	Ncfsry
@@ -4118,9 +4118,9 @@ terțe	terț	Afpfp-n
 conform	conform	Spsd
 Deciziei	decizie	Ncfsoy
 2004	2004	Mc-s-d
-/	/	Z
+/	/	Zo
 666	666	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 ,	,	Zc
 ar	avea	Va--3
@@ -4257,9 +4257,9 @@ propuse	propus	Vmp--pf
 la	la	Spsa
 Directiva	directivă	Ncfsry
 96	96	Mc-s-d
-/	/	Z
+/	/	Zo
 22	22	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 sunt	fi	Vaip3p
 necesare	necesar	Afpfp-n
@@ -4305,7 +4305,7 @@ CE	Comisia_Europeană	Yn
 )	)	Z2p
 nr.	număr	Yn
 178	178	Mc-s-d
-/	/	Z
+/	/	Zo
 2002	2002	Mc-s-d
 și	și	Crssp
 a	al	Tsfs
@@ -5202,14 +5202,14 @@ scara	scară	Ncfsry
 către	către	Spsa
 cartiere	cartier	Ncfp-n
 vechi	vechi	Afp-p-n
-/	/	Z
+/	/	Zo
 pe	pe	Spsa
 unul	unul	Pi3msr
 din	din	Spsa
 cele	cel	Tdfpr
 opt	opt	Mc-p-l
 dealuri	deal	Ncfp-n
-/	/	Z
+/	/	Zo
 ale	al	Tsfp
 orașului	oraș	Ncmsoy
 .	.	Zp
@@ -6127,7 +6127,7 @@ lui	lui	Ds3---s
 întinse	întins	Afpfp-n
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Suferea	suferi	Vmii3s
 de	de	Spsa
 frigul	frig	Ncmsry
@@ -6135,13 +6135,13 @@ cel	cel	Tdmsr
 mai	mai	Rp
 cumplit	cumplit	Afpms-n
 ,	,	Zc
-/	/	Z
+/	/	Zo
 boală	boală	Ncfsrn
 socială	social	Afpfsrn
 –	–	Z
 refuz	refuz	Ncms-n
 organic	organic	Afpms-n
-/	/	Z
+/	/	Zo
 de	de	Spsa
 adaptare	adaptare	Ncfsrn
 la	la	Spsa
@@ -6754,7 +6754,7 @@ Astfel	astfel	Rgp
 în	în	Spsa
 numărul	număr	Ncmsry
 35	35	Mc-s-d
-/	/	Z
+/	/	Zo
 1934	1934	Mc-s-d
 ,	,	Zc
 este	fi	Vaip3s
@@ -8450,7 +8450,7 @@ inițială	inițial	Afpfsrn
 de	de	Spsa
 450	450	Mc-s-d
 UI	Unitate_Internațională	Yn
-/	/	Z
+/	/	Zo
 kg	kilogram	Yn
 subcutanat	subcutanat	Rgp
 ,	,	Zc
@@ -12337,7 +12337,7 @@ ecvestre	ecvestru	Afpfp-n
 ale	al	Tsfp
 Jocurilor	joc	Ncfpoy
 Olimpice	olimpic	Afpfp-n
-/	/	Z
+/	/	Zo
 paralimpice	paralimpic	Afpfp-n
 (	(	Z1p
 se	sine	Px3--a--------w
@@ -15895,7 +15895,7 @@ variat	varia	Vmp--sm
 între	între	Spsa
 50	50	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 zi	zi	Ncfsrn
 (	(	Z1p
 valoarea	valoare	Ncfsry
@@ -15904,7 +15904,7 @@ minimă	minim	Afpfsrn
 și	și	Crssp
 1.200	1.200	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 zi	zi	Ncfsrn
 (	(	Z1p
 valoarea	valoare	Ncfsry
@@ -15920,7 +15920,7 @@ de	de	Spsa
 ±	±	Z
 5,443	5,443	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 zi	zi	Ncfsrn
 și	și	Crssp
 având	avea	Vmg
@@ -15931,7 +15931,7 @@ valoarea	valoare	Ncfsry
 de	de	Spsa
 400	400	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 zi	zi	Ncfsrn
 .	.	Zp
 
@@ -16399,7 +16399,7 @@ Ramunch	Ramunch	Np
 din	din	Spsa
 țara	țară	Ncfsry
 Valahilor	valah	Ncmpoy
-/	/	Z
+/	/	Zo
 cu	cu	Spsa
 șapte	șapte	Mc-p-l
 sute	sută	Mcfp-ln
@@ -16409,7 +16409,7 @@ aleargă	alerga	Vmip3
 în	în	Spsa
 întâmpinarea	întâmpinare	Ncfsry
 ei	lui	Ds3---s
-/	/	Z
+/	/	Zo
 ca	ca	Rc
 păsările	pasăre	Ncfpry
 sălbatice	sălbatic	Afpfp-n
@@ -16452,7 +16452,7 @@ termenului	termen	Ncmsoy
 de	de	Spsa
 „	„	Z1q
 rumân	rumân	Ncms-n
-/	/	Z
+/	/	Zo
 român	român	Ncms-n
 ”	”	Z2q
 cunoscute	cunoaște	Vmp--pf
@@ -16523,7 +16523,7 @@ endonimul	endonimul	Ncfpry
 de	de	Spsa
 „	„	Z1q
 rumân	rumân	Ncms-n
-/	/	Z
+/	/	Zo
 român	român	Ncms-n
 ”	”	Z2q
 furnizează	furniza	Vmip3

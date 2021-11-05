@@ -8,6 +8,9 @@ from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from config import SENT_SPLITTER_MODEL_FOLDER, SPLITTER_UNICODE_PROPERTY_FILE
 
+# Disable GPU
+# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+
 
 class PRFCallback(tf.keras.callbacks.Callback):
     """Precision/Recall/F-measure callback for model.fit() to compute other measures."""

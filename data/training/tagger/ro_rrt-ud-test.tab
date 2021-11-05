@@ -3332,9 +3332,9 @@ directive	directivă	Ncfp-n
 cu	cu	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 a	al	Tsfs
 Parlamentului	parlament	Ncmsoy
@@ -3716,9 +3716,9 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 a	al	Tsfs
 Parlamentului	parlament	Ncmsoy
@@ -3852,9 +3852,9 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 .	.	Zp
 
@@ -3904,9 +3904,9 @@ prevăzut	prevedea	Vmp--sm
 în	în	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 ,	,	Zc
 cel	cel	Tdmsr
@@ -3996,9 +3996,9 @@ prevăzute	prevedea	Vmp--pf
 în	în	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 .	.	Zp
 
@@ -4137,9 +4137,9 @@ articolului	articol	Ncmsoy
 din	din	Spsa
 Directiva	directivă	Ncfsry
 2001	2001	Mc-s-d
-/	/	Z
+/	/	Zo
 82	82	Mc-s-d
-/	/	Z
+/	/	Zo
 CE	Comisia_Europeană	Yn
 ,	,	Zc
 în	în	Spsa
@@ -4906,9 +4906,9 @@ conformitate	conformitate	Ncfsrn
 cu	cu	Spsa
 Directiva	directivă	Ncfsry
 89	89	Mc-s-d
-/	/	Z
+/	/	Zo
 396	396	Mc-s-d
-/	/	Z
+/	/	Zo
 CEE	Comunitatea_Economică_Europeană	Yn
 a	al	Tsfs
 Consiliului	consiliu	Ncmsoy
@@ -4966,7 +4966,7 @@ documente	document	Ncfp-n
 la	la	Spsa
 20	20	Mc-s-d
 iulie	iulie	Ncm--n
-/	/	Z
+/	/	Zo
 1	1	Mc-s-d
 august	august	Ncm--n
 1867	1867	Mc-s-d
@@ -5270,10 +5270,10 @@ dintre	dintre	Spsa
 supuși	supus	Ncmp-n
 .	.	Zp
 
-/	/	Z
+/	/	Zo
 Peste	peste	Spsa
 ape	apă	Ncfp-n
-/	/	Z
+/	/	Zo
 Un	un	Timsr
 flux	flux	Ncms-n
 de	de	Spsa
@@ -8029,7 +8029,7 @@ include	include	Vmip3s
 procedee	procedeu	Ncfp-n
 care	care	Pw3--r
 inactivează	inactiva	Vmip3
-/	/	Z
+/	/	Zo
 distrug	distruge	Vmip3p
 virusurile	virus	Ncfpry
 din	din	Spsa
@@ -8048,14 +8048,14 @@ depășesc	depăși	Vmip3p
 constant	constant	Rgp
 12	12	Mc-s-d
 g	gram	Yn
-/	/	Z
+/	/	Zo
 dl	decilitru	Yn
 (	(	Z1p
 7	7	Mc-s-d
 ,	,	Zc
 5	5	Mc-s-d
 mmol	milimol	Yn
-/	/	Z
+/	/	Zo
 l	litru	Yn
 )	)	Z2p
 .	.	Zp
@@ -8306,7 +8306,7 @@ a	avea	Va--3s
 administrat	administra	Vmp--sm
 300	300	Mc-s-d
 mg	miligram	Yn
-/	/	Z
+/	/	Zo
 m	metru	Yn
 ,	,	Zc
 aproximativ	aproximativ	Rgp
@@ -9282,7 +9282,7 @@ echipament	echipament	Ncms-n
 Legea	lege	Ncfsry
 nr.	număr	Yn
 114	114	Mc-s-d
-/	/	Z
+/	/	Zo
 1996	1996	Mc-s-d
 prevede	prevedea	Vmip3s
 la	la	Spsa

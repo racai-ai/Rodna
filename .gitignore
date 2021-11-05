@@ -9,3 +9,5 @@ data/resources/corola.200.5.vec.gz
 epoch-*-debug.txt
 test.py
 tagging-results.txt
+debug.txt
+epoch-5-debug2.txt

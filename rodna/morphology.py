@@ -14,7 +14,9 @@ from config import TBL_WORDFORM_FILE, \
 
 class RoInflect(object):
     """This class implements a RNN to recognize the mapping
-    from the word form to the possible MSDs of it."""
+    from the content (!) word form to the possible MSDs of it.
+    That is, it learns ambiguity classes for nouns, verbs,
+    adjectives and adverbs."""
 
     _conf_keep_msd_prob_threshold = 0.01
     _conf_dev_size = 0.1
@@ -133,7 +135,7 @@ class RoInflect(object):
 
     def _build_keras_model(self):
         x = tf.keras.layers.Input(
-            shape=(self._M,), dtype='int32', name="char-id-input")
+            shape=(self._M,), dtype='int32', name="char_id_input")
         e = tf.keras.layers.Embedding(
             self._charid, RoInflect._conf_char_embed_size, input_length=self._M)(x)
         l = tf.keras.layers.LSTM(
@@ -141,7 +143,7 @@ class RoInflect(object):
         d = tf.keras.layers.Dense(
             RoInflect._conf_dense_size, activation='tanh')(l)
         y = tf.keras.layers.Dense(self._msd.get_output_vector_size(
-        ), activation='sigmoid', name="possible-msds")(d)
+        ), activation='sigmoid', name="possible_msds")(d)
 
         return tf.keras.Model(inputs=x, outputs=y)
 

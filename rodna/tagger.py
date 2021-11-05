@@ -1,8 +1,10 @@
 import sys
 import os
 import sys
+from math import isclose
 import numpy as np
 import tensorflow as tf
+from tensorflow.python.ops.math_ops import _ReductionDims
 import tensorflow_addons as tfa
 from inspect import stack
 from utils.CharUni import CharUni
@@ -14,7 +16,6 @@ from .tokenizer import RoTokenizer
 from .features import RoFeatures
 from .morphology import RoInflect
 from utils.Lex import Lex
-from utils.errors import print_error
 from config import EMBEDDING_VOCABULARY_FILE, TAGGER_MODEL_FOLDER, \
     TAGGER_UNICODE_PROPERTY_FILE
 
@@ -50,10 +51,12 @@ class AccCallback(tf.keras.callbacks.Callback):
         if epoch + 1 == self._epochs:
             f = open("epoch-" + str(epoch + 1) +
                      "-debug.txt", mode='w', encoding='utf-8')
+            ff = open("epoch-" + str(epoch + 1) +
+                      "-debug2.txt", mode='w', encoding='utf-8')
         # end if
 
         for sentence in self._goldsentences:
-            pt_sentence = self._ropt._run_sentence(sentence, self._withtt, self._runstrat)
+            pt_sentence = self._ropt._run_sentence(sentence, self._withtt, self._runstrat, ff)
 
             if len(sentence) != len(pt_sentence):
                 print(stack()[0][3] + ": sentences differ in size!",
@@ -99,6 +102,7 @@ class AccCallback(tf.keras.callbacks.Callback):
 
         if f is not None:
             f.close()
+            ff.close()
         # end if
 
         return (total_words, error_words)
@@ -222,11 +226,11 @@ class RoWordEmbeddings(tf.keras.initializers.Initializer):
 
 class CRFModel(tf.keras.Model):
 
-    def __init__(self, tagset_size, lm_inputs: list, lm_outputs: list, layer_input):
+    def __init__(self, tagset_size, prev_inputs: list, prev_outputs: list, layer_input):
         """Takes all of the inputs from the LM model and its outputs, and builds a CRF model
         with `inputs=lm_inputs` and `outputs=lm_outputs + CRF outputs`"""
 
-        masked_input = lm_inputs[-1]
+        masked_input = prev_inputs[-1]
 
         # Build functional model
         crf = tfa.layers.CRF(
@@ -250,25 +254,17 @@ class CRFModel(tf.keras.Model):
         kernel = tf.keras.layers.Lambda(lambda x: x, name='kernel')(kernel)
 
         super().__init__(
-            inputs=lm_inputs,
-            outputs=lm_outputs + [decode_sequence, potentials, sequence_length, kernel])
-
-        self._custom_losses_train = {
-            'msd_enc': tf.keras.losses.BinaryCrossentropy(from_logits=False, name='bin_CE'),
-            'msd_cls': tf.keras.losses.CategoricalCrossentropy(from_logits = False, name='cat_CE')
-        }
+            inputs=prev_inputs,
+            outputs=prev_outputs + [decode_sequence, potentials, sequence_length, kernel])
 
         self._custom_metrics_train = {
             'msd_enc': tf.keras.metrics.BinaryAccuracy(name='encoding_acc'),
             'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='rnn_acc'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
-
-        self._loss_tracker_train = tf.keras.metrics.Mean(name="loss")
-
-        self._custom_losses_test = {
-            'msd_enc': tf.keras.losses.BinaryCrossentropy(from_logits=False, name='bin_CE'),
-            'msd_cls': tf.keras.losses.CategoricalCrossentropy(from_logits = False, name='cat_CE')
+        self._loss_tracker_train = {
+            'crf_loss': tf.keras.metrics.Mean(name="crf_loss"),
+            'dec_loss': tf.keras.metrics.Mean(name="dec_loss")
         }
 
         self._custom_metrics_test = {
@@ -276,8 +272,10 @@ class CRFModel(tf.keras.Model):
             'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='rnn_acc'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
-
-        self._loss_tracker_test = tf.keras.metrics.Mean(name="loss")
+        self._loss_tracker_test = {
+            'crf_loss': tf.keras.metrics.Mean(name="crf_loss"),
+            'dec_loss': tf.keras.metrics.Mean(name="dec_loss")
+        }
 
     def train_step(self, data):
         x_lex = data[0][0]
@@ -290,13 +288,15 @@ class CRFModel(tf.keras.Model):
         y_cls = data[1]['msd_cls']
         y_crf = data[1]['decode_sequence']
 
-        bin_cross_entropy = self._custom_losses_train['msd_enc']
-        cat_cross_entropy = self._custom_losses_train['msd_cls']
+        bin_cross_entropy = tf.keras.losses.BinaryCrossentropy(
+            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='bin_CE')
+        cat_cross_entropy = tf.keras.losses.CategoricalCrossentropy(
+            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='cat_CE')
         bin_metric = self._custom_metrics_train['msd_enc']
         oneh_metric = self._custom_metrics_train['msd_cls']
         vit_metric = self._custom_metrics_train['decode_sequence']
 
-        with tf.GradientTape() as tape:
+        with tf.GradientTape(persistent=True) as tape:
             msd_enc, msd_cls, decode_sequence, potentials, sequence_length, kernel = \
                 self(inputs=[x_lex, x_emb, x_ctx, z], mask=z, training=True)
             crf_loss = - \
@@ -305,21 +305,45 @@ class CRFModel(tf.keras.Model):
             crf_loss = tf.reduce_mean(crf_loss)
             bce_loss = bin_cross_entropy(y_enc, msd_enc)
             cce_loss = cat_cross_entropy(y_cls, msd_cls)
-            loss = crf_loss + bce_loss + cce_loss + sum(self.losses)
+            loss_dec = bce_loss + cce_loss + sum(self.losses)
+            loss_crf = bce_loss + crf_loss + sum(self.losses)
         # end with
 
-        gradients = tape.gradient(loss, self.trainable_variables)
-        self.optimizer.apply_gradients(
-            zip(gradients, self.trainable_variables))
+        dec_variables = []
+        crf_variables = []
+
+        # Establish groups of variables for differentiation
+        for v in self.trainable_variables:
+            if v.name.startswith('embedding') or \
+                v.name.startswith('bidirectional') or \
+                v.name.startswith('msd_enc'):
+                dec_variables.append(v)
+                crf_variables.append(v)
+            elif v.name.startswith('bidirectional_1') or \
+                v.name.startswith('dense_linear'):
+                dec_variables.append(v)
+            elif v.name.startswith('chain_kernel') or \
+                v.name.startswith('left_boundary') or \
+                v.name.startswith('right_boundary') or \
+                v.name.startswith('crf_layer'):
+                crf_variables.append(v)
+            # end if
+        # end for
+
+        self.optimizer.minimize(loss_dec, dec_variables, tape=tape)
+        self.optimizer.minimize(loss_crf, crf_variables, tape=tape)
+        del tape
 
         # Update metrics (includes the metric that tracks the loss)
-        self._loss_tracker_train.update_state(loss)
+        self._loss_tracker_train['dec_loss'].update_state(loss_dec)
+        self._loss_tracker_train['crf_loss'].update_state(loss_crf)
         bin_metric.update_state(y_enc, msd_enc)
         oneh_metric.update_state(y_cls, msd_cls)
         vit_metric.update_state(y_crf, decode_sequence)
 
         return {
-            self._loss_tracker_train.name: self._loss_tracker_train.result(),
+            self._loss_tracker_train['dec_loss'].name: self._loss_tracker_train['dec_loss'].result(),
+            self._loss_tracker_train['crf_loss'].name: self._loss_tracker_train['crf_loss'].result(),
             bin_metric.name: bin_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
@@ -336,8 +360,10 @@ class CRFModel(tf.keras.Model):
         y_cls = data[1]['msd_cls']
         y_crf = data[1]['decode_sequence']
 
-        bin_cross_entropy = self._custom_losses_test['msd_enc']
-        cat_cross_entropy = self._custom_losses_test['msd_cls']
+        bin_cross_entropy = tf.keras.losses.BinaryCrossentropy(
+            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='bin_CE')
+        cat_cross_entropy = tf.keras.losses.CategoricalCrossentropy(
+            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='cat_CE')
         bin_metric = self._custom_metrics_test['msd_enc']
         oneh_metric = self._custom_metrics_test['msd_cls']
         vit_metric = self._custom_metrics_test['decode_sequence']
@@ -350,16 +376,20 @@ class CRFModel(tf.keras.Model):
         crf_loss = tf.reduce_mean(crf_loss)
         bce_loss=bin_cross_entropy(y_enc, msd_enc)
         cce_loss=cat_cross_entropy(y_cls, msd_cls)
-        loss = crf_loss + bce_loss + cce_loss + sum(self.losses)
+        loss_dec = bce_loss + cce_loss + sum(self.losses)
+        loss_crf = bce_loss + crf_loss + sum(self.losses)
+
 
         # Update metrics (includes the metric that tracks the loss)
-        self._loss_tracker_test.update_state(loss)
+        self._loss_tracker_test['dec_loss'].update_state(loss_dec)
+        self._loss_tracker_test['crf_loss'].update_state(loss_crf)
         bin_metric.update_state(y_enc, msd_enc)
         oneh_metric.update_state(y_cls, msd_cls)
         vit_metric.update_state(y_crf, decode_sequence)
 
         return {
-            self._loss_tracker_test.name: self._loss_tracker_test.result(),
+            self._loss_tracker_test['dec_loss'].name: self._loss_tracker_test['dec_loss'].result(),
+            self._loss_tracker_test['crf_loss'].name: self._loss_tracker_test['crf_loss'].result(),
             bin_metric.name: bin_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
@@ -375,19 +405,21 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 50
+    _conf_maxseqlen = 30
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
     _conf_test_percent = 0.0
     # RNN state size
-    _conf_rnn_size_1 = 256
-    _conf_rnn_size_2 = 256
+    _conf_rnn_size_1 = 128
+    _conf_rnn_size_2 = 128
     _conf_epochs = 10
     _conf_with_tiered_tagging = True
-    # Can be 'add' or 'max'.
-    # See RoPOSTagger._run_sentence()
-    _conf_run_strategy = 'max'
+    # Can be one of the following (see RoPOSTagger._run_sentence()):
+    # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
+    # - 'max': only keep the MSD with the highest probability at position i, from each rolling window
+    # - 'cnt': add 1 to each different MSD that was assigned at position i, in each rolling window (majority voting)
+    _conf_run_strategy = 'add'
 
     def __init__(self, splitter: RoSentenceSplitter):
         """Takes a trained instance of the RoSentenceSplitter object."""
@@ -402,8 +434,6 @@ class RoPOSTagger(object):
         self._wordembeddings = RoWordEmbeddings(self._lexicon)
         self._datavocabulary = set()
         self._maxseqlen = RoPOSTagger._conf_maxseqlen
-        self._debug_rnn_errors = 0
-        self._debug_both_errors = 0
 
     @staticmethod
     def _select_tf_device() -> str:
@@ -412,6 +442,12 @@ class RoPOSTagger(object):
 
         physical_devices = tf.config.list_physical_devices('GPU')
         device = "/device:CPU:0"
+
+        if RoPOSTagger._conf_maxseqlen <= 30 and \
+            RoPOSTagger._conf_rnn_size_1 <= 128 and \
+            RoPOSTagger._conf_rnn_size_2 <= 128:
+            device = "/device:GPU:0"
+        # end if
 
         if len(physical_devices) > 1:
             device = "/device:GPU:1"
@@ -552,7 +588,36 @@ class RoPOSTagger(object):
 
         return (msd, msd_p)
 
+    def _fixed_tag_assignments(self, word: str) -> str:
+        """This method will assigned a fixed MSD depending on the shape of word.
+        For instance, do not let the neural network get punctuation or numbers
+        tagged wrongly."""
+
+        if word in MSD.punct_msd_inventory:
+            return MSD.punct_msd_inventory[word]
+        elif MSD.punct_patt.match(word):
+            return MSD.unknown_punct_msd
+        # end punctuation
+
+        if Lex.number_pattern.match(word):
+            return MSD.number_msd
+        elif Lex.bullet_number_pattern.match(word):
+            return MSD.bullet_number_msd
+        # end numbers
+
+        # TODO: add a foreign name -> Np mapping here.
+        # Learn to detect foreign names.
+
+        return ''
+
     def _most_prob_msd(self, word: str, y_pred: np.ndarray) -> tuple:
+        # 0. Get fixed tag assignment, if any
+        fixed_msd = self._fixed_tag_assignments(word)
+
+        if fixed_msd:
+            return (fixed_msd, 1.)
+        # end if
+
         # 1. Get the model predicted MSD
         (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
 
@@ -612,38 +677,39 @@ class RoPOSTagger(object):
         Returns the corresponding MSD of `word`.
         """
         
-        if word in MSD.punct_msd_inventory:
-            return [MSD.punct_msd_inventory[word]]
-        elif MSD.punct_patt.match(word):
-            return ['Z']
-        # end punctuation
+        fixed_msd = self._fixed_tag_assignments(word)
 
-        if Lex.number_pattern.match(word):
-            return ['Mc-s-d']
-        elif Lex.bullet_number_pattern.match(word):
-            return ['Mc-s-b']
-        # end numbers
+        if fixed_msd:
+            return [fixed_msd]
+        # end if
 
         # Mapped class of MSDs
         mclass = self._msd.ctag_to_possible_msds(ctag)
+        lex_aclass = []
 
         if self._lexicon.is_lex_word(word):
             # Case 1.1: word is in lexicon (handles exact match and lower case match).
-            aclass = self._lexicon.get_word_ambiguity_class(word)
-        else:
-            # Case 1.2: word is not in lexicon. Try and determine its ambiguity class.
-            aclass = self._romorphology.ambiguity_class(word)
+            lex_aclass = self._lexicon.get_word_ambiguity_class(word)
+        # end if
 
-            if not aclass:
+        infl_aclass = []
+
+        if MSD.content_word_ctag_pattern.match(ctag):
+            # Case 1.2: word is not in lexicon. Try and determine its ambiguity class.
+            infl_aclass = self._romorphology.ambiguity_class(word)
+
+            if not infl_aclass:
                 # Default to the lexicon-based one.
-                aclass = self._lexicon.get_unknown_ambiguity_class(word)
+                infl_aclass = self._lexicon.get_unknown_ambiguity_class(word)
             # end if
-        # end ambiguity class computation
+        # end if
+
+        both_aclass = set(lex_aclass).union(set(infl_aclass))
         
         # Reduced class of MSDs
-        return list(set(aclass).intersection(set(mclass)))
+        return list(both_aclass.intersection(set(mclass)))
 
-    def _run_sentence(self, sentence, tiered_tagging: bool = True, strategy: str = 'max'):
+    def _run_sentence(self, sentence, tiered_tagging: bool = True, strategy: str = 'max', debug_fh = None):
         """Strategy can be `'add'` or `'max'`. When `'add'`ing contributions from the LM and CRF layers,
         a dict of predicted MSDs is kept at each position in the sentence and we add the probabilities
         coming from each rolling window, at position `i`. The best MSD wins at position `i`.
@@ -670,6 +736,57 @@ class RoPOSTagger(object):
         assert y_pred_cls.shape[1] == len(sent_samples[0])
 
         tagged_sentence = []
+        debug_info = []
+
+        def _add_debug_info(info: dict, msd: str, msd_p: float):
+            if msd not in info:
+                info[msd] = {
+                    'cnt': 1, 'pm': msd_p, 'max': msd_p}
+            else:
+                info[msd]['cnt'] += 1
+                info[msd]['pm'] += msd_p
+
+                if msd_p > info[msd]['max']:
+                    info[msd]['max'] = msd_p
+                # end if
+            # end if
+        # end def
+
+        def _find_debug_highlights(info):
+            max_cnt = 0
+            max_cnt_msd = []
+            max_pmass = 0.
+            max_pmass_msd = []
+            max_maxp = 0.
+            max_maxp_msd = []
+
+            for msd in info:
+                minfo = info[msd]
+
+                if minfo['cnt'] > max_cnt:
+                    max_cnt = minfo['cnt']
+                    max_cnt_msd = [msd]
+                elif minfo['cnt'] == max_cnt:
+                    max_cnt_msd.append(msd)
+                # end if
+
+                if minfo['pm'] > max_pmass:
+                    max_pmass = minfo['pm']
+                    max_pmass_msd = [msd]
+                elif isclose(minfo['pm'], max_pmass):
+                    max_pmass_msd.append(msd)
+                # end if
+
+                if minfo['max'] > max_maxp:
+                    max_maxp = minfo['max']
+                    max_maxp_msd = [msd]
+                elif isclose(minfo['max'], max_maxp):
+                    max_maxp_msd.append(msd)
+                # end if
+            # end all MSDs
+
+            return (max_cnt_msd, max_pmass_msd, max_maxp_msd)
+        # end def
 
         for i in range(len(sent_samples)):
             sample = sent_samples[i]
@@ -678,41 +795,41 @@ class RoPOSTagger(object):
             for j in range(len(sample)):
                 if (i + j < len(sentence)):
                     word = sentence[i + j][0]
-                    gold_msd = sentence[i + j][1]
 
                     if len(tagged_sentence) <= i + j:
-                        if strategy == 'add':
+                        if strategy == 'add' or strategy == 'cnt':
                             tagged_sentence.append((word, {}))
                         elif strategy == 'max':
                             tagged_sentence.append((word, []))
                         # end if
+                        debug_info.append({'CRF': {}, 'RNN': {}})
                     # end if
 
+                    j_debug_info = debug_info[i + j]
                     y1 = y_pred_cls[i, j, :]
                     (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1)
                     current_msd_options = [(msd_rnn, msd_rnn_p)]
 
+                    _add_debug_info(j_debug_info['RNN'], msd_rnn, msd_rnn_p)
+                    
                     if tiered_tagging:
                         # Index of the most probable CTAG
                         y2 = viterbi_sequence[i, j]
                         ctag = self._msd.idx_to_ctag(y2)
                         ctag_msds = self._tiered_tagging(word, ctag)
 
-                        for m in ctag_msds:
-                            if m == msd_rnn:
-                                continue
-                            # end if
-
-                            mp = 1. / len(ctag_msds)
-                            current_msd_options.append((m, mp))
-                        # end for
+                        if not ctag_msds:
+                            _add_debug_info(j_debug_info['CRF'], ctag, 1.)
+                        else:
+                            for m in ctag_msds:
+                                mp = 1. / len(ctag_msds)
+                                _add_debug_info(j_debug_info['CRF'], m, mp)
+                                current_msd_options.append((m, mp))
+                            # end for
+                        # end if
                     # end if with tiered tagging
 
                     ij_msd_best = tagged_sentence[i + j][1]
-
-                    if msd_rnn != gold_msd and msd_rnn in ij_msd_best:
-                        self._debug_rnn_errors += 1
-                    # end if
 
                     if strategy == 'add':
                         for msd, msd_p in current_msd_options:
@@ -720,6 +837,14 @@ class RoPOSTagger(object):
                                 ij_msd_best[msd] += msd_p
                             else:
                                 ij_msd_best[msd] = msd_p
+                            # end if
+                        # end for
+                    elif strategy == 'cnt':
+                        for msd, msd_p in current_msd_options:
+                            if msd in ij_msd_best:
+                                ij_msd_best[msd] += 1
+                            else:
+                                ij_msd_best[msd] = 1
                             # end if
                         # end for
                     elif strategy == 'max':
@@ -746,48 +871,126 @@ class RoPOSTagger(object):
             # end if
         # end for i
 
-        if strategy == 'add':
-            # Normalize the MSD probs
-            for _, choice in tagged_sentence:
-                psum = 0.
-
-                for m in choice:
-                    psum += choice[m]
-                # end for
-
-                for m in choice:
-                    choice[m] /= psum
-                # end for
-            # end for
-        # end if
-
         assert len(tagged_sentence) == len(sentence)
+
+        if debug_fh:
+            counts  = {
+                'rnn_cnt_correct': 0,
+                'rnn_pmass_correct': 0,
+                'rnn_maxp_correct': 0,
+                'crf_cnt_correct': 0,
+                'crf_pmass_correct': 0,
+                'crf_maxp_correct': 0
+            }
+
+            print(">>>>>",
+                  file=debug_fh, flush=True)
+
+            for i in range(len(debug_info)):
+                word = sentence[i][0]
+                gold_msd = sentence[i][1]
+                rnn_info = debug_info[i]['RNN']
+                (rnn_msd_cnt, rnn_msd_pmass, rnn_msd_maxp) = _find_debug_highlights(rnn_info)
+                crf_info = debug_info[i]['CRF']
+                (crf_msd_cnt, crf_msd_pmass, crf_msd_maxp) = _find_debug_highlights(crf_info)
+                rnn_correct = 0
+                crf_correct = 0
+
+                if gold_msd in rnn_msd_cnt:
+                    counts['rnn_cnt_correct'] += 1
+                    rnn_correct += 1
+                # end if
+
+                if gold_msd in rnn_msd_pmass:
+                    counts['rnn_pmass_correct'] += 1
+                    rnn_correct += 1
+                # end if
+
+                if gold_msd in rnn_msd_maxp:
+                    counts['rnn_maxp_correct'] += 1
+                    rnn_correct += 1
+                # end if
+
+                if gold_msd in crf_msd_cnt:
+                    counts['crf_cnt_correct'] += 1
+                    crf_correct += 1
+                # end if
+
+                if gold_msd in crf_msd_pmass:
+                    counts['crf_pmass_correct'] += 1
+                    crf_correct += 1
+                # end if
+
+                if gold_msd in crf_msd_maxp:
+                    counts['crf_maxp_correct'] += 1
+                    crf_correct += 1
+                # end if
+
+                print("{0}\t{1}".format(word, gold_msd), file=debug_fh, flush=True, end='\t')
+
+                if rnn_correct == 3:
+                    print("RNN=", file=debug_fh, flush=True, end='\t')
+                elif rnn_correct > 0:
+                    print("RNN~ c={0};pm={1};mx={2}".format(
+                        ','.join(rnn_msd_cnt), ','.join(rnn_msd_pmass), ','.join(rnn_msd_maxp)), file=debug_fh, flush=True, end='\t')
+                else:
+                    print("RNN! c={0};pm={1};mx={2}".format(
+                        ','.join(rnn_msd_cnt), ','.join(rnn_msd_pmass), ','.join(rnn_msd_maxp)), file=debug_fh, flush=True, end='\t')
+                # end if
+
+                if crf_correct == 3:
+                    print("CRF=", file=debug_fh, flush=True)
+                elif crf_correct > 0:
+                    print("CRF~ c={0};pm={1};mx={2}".format(
+                        ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                else:
+                    print("CRF! c={0};pm={1};mx={2}".format(
+                        ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                # end if
+            # end for i
+
+            best_performance = 0
+            best_methods = []
+
+            for pm in counts:
+                if counts[pm] > best_performance:
+                    best_performance = counts[pm]
+                    best_methods = [pm]
+                elif counts[pm] == best_performance:
+                    best_methods.append(pm)
+                # end if
+            # end for
+
+            acc = float(best_performance) / len(debug_info)
+
+            print("Best performances (Acc = {0:.5f}): {1}".format(acc,
+                ', '.join(best_methods)), file=debug_fh, flush=True)
+            print("<<<<<",
+                  file=debug_fh, flush=True)
+        # end if debug
 
         tagged_sentence2 = []
 
         for i in range(len(tagged_sentence)):
             word, choice = tagged_sentence[i]
-            gold_msd = sentence[i][1]
             best_msd = '?'
-            best_msd_p = 0.
+            # Not a probability but an additive score
+            # The larger, the better
+            best_msd_score = 0.
 
-            if strategy == 'add':
+            if strategy == 'add' or strategy == 'cnt':
                 for m in choice:
-                    if choice[m] > best_msd_p:
-                        best_msd_p = choice[m]
+                    if choice[m] > best_msd_score:
+                        best_msd_score = choice[m]
                         best_msd = m
                     # end if
                 # end for
             elif strategy == 'max':
                 best_msd = choice[0]
-                best_msd_p = choice[1]
+                best_msd_score = choice[1]
             # end if
 
-            tagged_sentence2.append((word, best_msd, best_msd_p))
-
-            if tiered_tagging and best_msd != gold_msd:
-                self._debug_both_errors += 1
-            # end if
+            tagged_sentence2.append((word, best_msd, best_msd_score))
         # end for
 
         return tagged_sentence2
@@ -832,11 +1035,6 @@ class RoPOSTagger(object):
             validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev, x_mask_dev], y_dev),
             callbacks=[acc_callback]
         )
-
-        print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": RNN errors {0!s}".format(self._debug_rnn_errors), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": TTAG errors {0!s}".format(self._debug_both_errors), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": ===============================", file=sys.stderr, flush=True)
     
     def _build_keras_model(self,
                            lex_input_vector_size: int,
@@ -867,13 +1065,13 @@ class RoPOSTagger(object):
         l_bd_gru_1 = tf.keras.layers.Bidirectional(
             tf.keras.layers.GRU(RoPOSTagger._conf_rnn_size_1, return_sequences=True))(l_lex_emb_conc)
         l_drop_1 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_1)
-        l_bd_gru1_ctx_conc = tf.keras.layers.Concatenate(
-            name='enc_states')([l_drop_1, x_ctx])
         o_msd_enc = tf.keras.layers.Dense(
             msd_encoding_vector_size, activation='sigmoid', name='msd_enc')(l_drop_1)
         # End MSD encoding
 
         l_drop_2 = tf.keras.layers.Dropout(drop_prob)(o_msd_enc)
+        l_msd_enc_ctx_conc = tf.keras.layers.Concatenate(
+            name='enc_states')([l_drop_2, x_ctx])
 
         # Language model
         l_bd_gru_2 = tf.keras.layers.Bidirectional(tf.keras.layers.GRU(
@@ -891,7 +1089,7 @@ class RoPOSTagger(object):
             output_ctg_size,
             [x_lex, x_emb, x_ctx, z_mask],
             [o_msd_enc, o_msd_cls],
-            l_bd_gru1_ctx_conc
+            l_msd_enc_ctx_conc
         )
 
     def _build_model_io_tensors(self, data_samples, runtime: bool = False) -> tuple:
