@@ -47,6 +47,7 @@ class AccCallback(tf.keras.callbacks.Callback):
         total_words = 0
         error_words = 0
         f = None
+        ff = None
 
         if epoch + 1 == self._epochs:
             f = open("epoch-" + str(epoch + 1) +
