@@ -237,7 +237,7 @@ class CRFModel(tf.keras.Model):
         crf = tfa.layers.CRF(
             units=tagset_size,
             chain_initializer=tf.keras.initializers.Orthogonal(),
-            use_boundary=True,
+            use_boundary=False,
             boundary_initializer=tf.keras.initializers.Zeros(),
             use_kernel=True,
             name='crf_layer')
@@ -264,8 +264,9 @@ class CRFModel(tf.keras.Model):
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
         self._loss_tracker_train = {
-            'crf_loss': tf.keras.metrics.Mean(name="crf_loss"),
-            'dec_loss': tf.keras.metrics.Mean(name="dec_loss")
+            'crf_loss': tf.keras.metrics.Mean(name='crf_loss'),
+            'dec_loss': tf.keras.metrics.Mean(name='dec_loss'),
+            'loss': tf.keras.metrics.Mean(name='loss'),
         }
 
         self._custom_metrics_test = {
@@ -274,8 +275,9 @@ class CRFModel(tf.keras.Model):
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
         self._loss_tracker_test = {
-            'crf_loss': tf.keras.metrics.Mean(name="crf_loss"),
-            'dec_loss': tf.keras.metrics.Mean(name="dec_loss")
+            'crf_loss': tf.keras.metrics.Mean(name='crf_loss'),
+            'dec_loss': tf.keras.metrics.Mean(name='dec_loss'),
+            'loss': tf.keras.metrics.Mean(name='loss'),
         }
 
     def train_step(self, data):
@@ -297,7 +299,7 @@ class CRFModel(tf.keras.Model):
         oneh_metric = self._custom_metrics_train['msd_cls']
         vit_metric = self._custom_metrics_train['decode_sequence']
 
-        with tf.GradientTape(persistent=True) as tape:
+        with tf.GradientTape() as tape:
             msd_enc, msd_cls, decode_sequence, potentials, sequence_length, kernel = \
                 self(inputs=[x_lex, x_emb, x_ctx, z], mask=z, training=True)
             crf_loss = - \
@@ -308,36 +310,15 @@ class CRFModel(tf.keras.Model):
             cce_loss = cat_cross_entropy(y_cls, msd_cls)
             loss_dec = bce_loss + cce_loss + sum(self.losses)
             loss_crf = bce_loss + crf_loss + sum(self.losses)
+            loss_all = bce_loss + cce_loss + crf_loss + sum(self.losses)
         # end with
 
-        dec_variables = []
-        crf_variables = []
-
-        # Establish groups of variables for differentiation
-        for v in self.trainable_variables:
-            if v.name.startswith('embedding') or \
-                v.name.startswith('bidirectional') or \
-                v.name.startswith('msd_enc'):
-                dec_variables.append(v)
-                crf_variables.append(v)
-            elif v.name.startswith('bidirectional_1') or \
-                v.name.startswith('dense_linear'):
-                dec_variables.append(v)
-            elif v.name.startswith('chain_kernel') or \
-                v.name.startswith('left_boundary') or \
-                v.name.startswith('right_boundary') or \
-                v.name.startswith('crf_layer'):
-                crf_variables.append(v)
-            # end if
-        # end for
-
-        self.optimizer.minimize(loss_dec, dec_variables, tape=tape)
-        self.optimizer.minimize(loss_crf, crf_variables, tape=tape)
-        del tape
+        self.optimizer.minimize(loss_all, self.trainable_variables, tape=tape)
 
         # Update metrics (includes the metric that tracks the loss)
         self._loss_tracker_train['dec_loss'].update_state(loss_dec)
         self._loss_tracker_train['crf_loss'].update_state(loss_crf)
+        self._loss_tracker_train['loss'].update_state(loss_all)
         bin_metric.update_state(y_enc, msd_enc)
         oneh_metric.update_state(y_cls, msd_cls)
         vit_metric.update_state(y_crf, decode_sequence)
@@ -345,6 +326,7 @@ class CRFModel(tf.keras.Model):
         return {
             self._loss_tracker_train['dec_loss'].name: self._loss_tracker_train['dec_loss'].result(),
             self._loss_tracker_train['crf_loss'].name: self._loss_tracker_train['crf_loss'].result(),
+            self._loss_tracker_train['loss'].name: self._loss_tracker_train['loss'].result(),
             bin_metric.name: bin_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
@@ -379,11 +361,12 @@ class CRFModel(tf.keras.Model):
         cce_loss=cat_cross_entropy(y_cls, msd_cls)
         loss_dec = bce_loss + cce_loss + sum(self.losses)
         loss_crf = bce_loss + crf_loss + sum(self.losses)
-
+        loss_all = bce_loss + cce_loss + crf_loss + sum(self.losses)
 
         # Update metrics (includes the metric that tracks the loss)
         self._loss_tracker_test['dec_loss'].update_state(loss_dec)
         self._loss_tracker_test['crf_loss'].update_state(loss_crf)
+        self._loss_tracker_test['loss'].update_state(loss_all)
         bin_metric.update_state(y_enc, msd_enc)
         oneh_metric.update_state(y_cls, msd_cls)
         vit_metric.update_state(y_crf, decode_sequence)
@@ -391,6 +374,7 @@ class CRFModel(tf.keras.Model):
         return {
             self._loss_tracker_test['dec_loss'].name: self._loss_tracker_test['dec_loss'].result(),
             self._loss_tracker_test['crf_loss'].name: self._loss_tracker_test['crf_loss'].result(),
+            self._loss_tracker_test['loss'].name: self._loss_tracker_test['loss'].result(),
             bin_metric.name: bin_metric.result(),
             oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
@@ -406,7 +390,7 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 30
+    _conf_maxseqlen = 150
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -415,7 +399,7 @@ class RoPOSTagger(object):
     _conf_rnn_size_1 = 128
     _conf_rnn_size_2 = 128
     _conf_epochs = 10
-    _conf_with_tiered_tagging = True
+    _conf_with_tiered_tagging = False
     # Can be one of the following (see RoPOSTagger._run_sentence()):
     # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
     # - 'max': only keep the MSD with the highest probability at position i, from each rolling window
@@ -582,12 +566,32 @@ class RoPOSTagger(object):
             self._save()
         # end with device
 
-    def _get_predicted_msd(self, y_pred: np.ndarray) -> tuple:
+    def _get_predicted_msd(self, y_pred: np.ndarray, epsilon: float = 2e-5) -> list:
+        """Did not take into account that we could have multiple MSDs with maximum
+        probabilities, so account for that."""
+        result = []
+        
         best_idx = np.argmax(y_pred)
-        msd = self._msd.idx_to_msd(best_idx)
         msd_p = y_pred[best_idx]
+        msd = self._msd.idx_to_msd(best_idx)
+        result.append((msd, msd_p))
+        
+        a = y_pred
+        b = np.array([msd_p] * y_pred.shape[0], dtype=np.float32)
+        d = abs(a - b)
+        best_idxes = np.argwhere(d < epsilon)
+        best_idxes = np.reshape(best_idxes, (best_idxes.shape[0],))
 
-        return (msd, msd_p)
+        for bi in best_idxes:
+            p = y_pred[bi]
+            m = self._msd.idx_to_msd(bi)
+
+            if m != msd:
+                result.append((m, p))
+            # end if
+        # end for
+
+        return result
 
     def _fixed_tag_assignments(self, word: str) -> str:
         """This method will assigned a fixed MSD depending on the shape of word.
@@ -619,33 +623,55 @@ class RoPOSTagger(object):
             return (fixed_msd, 1.)
         # end if
 
-        # 1. Get the model predicted MSD
-        (best_pred_msd, best_pred_msd_p) = self._get_predicted_msd(y_pred)
-
-        if best_pred_msd.startswith(MSD.unknown_label) or \
-            best_pred_msd.startswith(MSD.unknown_punct_msd):
-            # Do not touch punctuation and X
-            return (best_pred_msd, best_pred_msd_p)
-        # end if
+        # 1. Get the model predicted MSDs
+        msd_predictions = self._get_predicted_msd(y_pred)
+        best_pred_msds = [m for m, _ in msd_predictions]
 
         # 2. Get the extended word ambiguity class, as the predicted MSD may
         # be outside this set.
-        word_msds = set()
+        known_word_msds = set()
 
         if self._lexicon.is_lex_word(word):
-            word_msds.update(self._lexicon.get_word_ambiguity_class(word))
+            known_word_msds.update(
+                self._lexicon.get_word_ambiguity_class(word))
         # end if
 
-        aclass = self._romorphology.ambiguity_class(word)
+        # 3. Get extended ambiguity classes only for content words
+        can_be_content = False
 
-        if not aclass:
-            aclass = self._lexicon.get_unknown_ambiguity_class(word)
+        for msd in best_pred_msds + list(known_word_msds):
+            if self._lexicon.content_word_pos_pattern.match(msd):
+                can_be_content = True
+                break
+            # end if
+        # end for
+
+        if can_be_content:
+            aclass = self._romorphology.ambiguity_class(word)
+
+            if not aclass:
+                aclass = self._lexicon.get_unknown_ambiguity_class(word)
+            # end if
+
+            known_word_msds.update(aclass)
         # end if
 
-        word_msds.update(aclass)
+        word_msds = list(known_word_msds.intersection(best_pred_msds))
 
-        if best_pred_msd in word_msds:
+        if word_msds:
             # 3. Model predicted MSD is in the extended ambiguity class. Hurray!
+            best_pred_msd = ''
+            best_pred_msd_p = 0.
+
+            for m1 in word_msds:
+                for m2, p in msd_predictions:
+                    if m1 == m2 and best_pred_msd_p < p:
+                        best_pred_msd_p = p
+                        best_pred_msd = m1
+                    # end if
+                # end for
+            # end for
+
             return (best_pred_msd, best_pred_msd_p)
         # end if
         
@@ -654,7 +680,7 @@ class RoPOSTagger(object):
         best_acls_msd_p = 0.
         best_acls_msd = ''
 
-        for msd in word_msds:
+        for msd in known_word_msds:
             idx = self._msd.msd_to_idx(msd)
             msd_p = y_pred[idx]
 
@@ -664,10 +690,9 @@ class RoPOSTagger(object):
             # end if
         # end for extended ambiguity class
 
-        print(stack()[0][3] + \
-            ": word '{0}' -> got suboptimal MSD [{1}/{2:.2f}] vs. optimal [{3}/{4:.2f}]".
-            format(word, best_acls_msd, best_acls_msd_p, best_pred_msd, best_pred_msd_p),
-            file=sys.stderr, flush=True)
+        print(stack()[0][3] +
+              ": word '{0}' -> got suboptimal MSD {1}/{2:.2f}"
+              .format(word, best_acls_msd, best_acls_msd_p), file=sys.stderr, flush=True)
 
         return (best_acls_msd, best_acls_msd_p)
 
@@ -939,14 +964,16 @@ class RoPOSTagger(object):
                         ','.join(rnn_msd_cnt), ','.join(rnn_msd_pmass), ','.join(rnn_msd_maxp)), file=debug_fh, flush=True, end='\t')
                 # end if
 
-                if crf_correct == 3:
-                    print("CRF=", file=debug_fh, flush=True)
-                elif crf_correct > 0:
-                    print("CRF~ c={0};pm={1};mx={2}".format(
-                        ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
-                else:
-                    print("CRF! c={0};pm={1};mx={2}".format(
-                        ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                if tiered_tagging:
+                    if crf_correct == 3:
+                        print("CRF=", file=debug_fh, flush=True)
+                    elif crf_correct > 0:
+                        print("CRF~ c={0};pm={1};mx={2}".format(
+                            ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                    else:
+                        print("CRF! c={0};pm={1};mx={2}".format(
+                            ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                    # end if
                 # end if
             # end for i
 
