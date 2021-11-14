@@ -7,7 +7,7 @@ class MSD(object):
     It will return a real-valued, fixed-length vector for a MSD."""
 
     punct_ctag = 'PUNCT'
-    content_word_ctag_pattern = re.compile("^(A[SPN]?|M|N[NPS]|V[123NP]|Y)")
+    content_word_ctag_pattern = re.compile("^(A[SPN]?|M|N[NPS]|V[123NP]|Y|R)")
     # Both MSD and CTAG have this
     unknown_label = 'X'
     unknown_punct_msd = 'Z'
@@ -134,6 +134,11 @@ class MSD(object):
 
     def get_input_vector_size(self):
         return self._msdinputsize
+
+    def get_ctag_input_vector_size(self):
+        """Same as output as this is a sum of one-hot vectors
+        of possible CTAGs for the input word."""
+        return self._ctagoutputsize
 
     def get_output_vector_size(self):
         return self._msdoutputsize
@@ -284,6 +289,25 @@ class MSD(object):
         msd_vec[xi] = 1.0
 
         return msd_vec
+
+    def get_ctag_x_input_vector(self) -> np.ndarray:
+        """Returns the input vector for the CTAG 'X'."""
+        return self.ctag_input_vector('X')
+
+    def ctag_input_vector(self, ctag: str) -> np.ndarray:
+        """This method takes a str CTAG and returns the numpy
+        binary vector representation for it."""
+
+        ctag_vec = np.zeros(self._ctagoutputsize, dtype=np.float32)
+
+        if ctag in self._ctaginventory:
+            ci = self._ctaginventory[ctag]
+            ctag_vec[ci] = 1.0
+        else:
+            ctag_vec[self._ctagxindex] = 1.0
+        # end if
+
+        return ctag_vec
 
     def msd_input_vector(self, msd: str) -> np.ndarray:
         """This method takes a str MSD and returns the numpy

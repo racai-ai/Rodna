@@ -16,8 +16,8 @@ from .tokenizer import RoTokenizer
 from .features import RoFeatures
 from .morphology import RoInflect
 from utils.Lex import Lex
-from config import EMBEDDING_VOCABULARY_FILE, TAGGER_MODEL_FOLDER, \
-    TAGGER_UNICODE_PROPERTY_FILE
+from config import EMBEDDING_VOCABULARY_FILE, CLS_TAGGER_MODEL_FOLDER, \
+    CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE
 
 _zero_word = '_ZERO_'
 _unk_word = '_UNK_'
@@ -36,8 +36,8 @@ class AccCallback(tf.keras.callbacks.Callback):
         self._ropt = ropt
         self._goldsentences = gold
         self._epochs = epochs
-        self._withtt = with_tt
         self._runstrat = run_strat
+        self._tieredtagging = with_tt
 
     def _sent_to_str(self, sentence):
         str_toks = [x[0] + "/" + x[1] + "/" + ",".join(x[2]) for x in sentence]
@@ -57,7 +57,7 @@ class AccCallback(tf.keras.callbacks.Callback):
         # end if
 
         for sentence in self._goldsentences:
-            pt_sentence = self._ropt._run_sentence(sentence, self._withtt, self._runstrat, ff)
+            pt_sentence = self._ropt._run_sentence(sentence, self._tieredtagging, self._runstrat, ff)
 
             if len(sentence) != len(pt_sentence):
                 print(stack()[0][3] + ": sentences differ in size!",
@@ -227,23 +227,20 @@ class RoWordEmbeddings(tf.keras.initializers.Initializer):
 
 class CRFModel(tf.keras.Model):
 
-    def __init__(self, tagset_size, prev_inputs: list, prev_outputs: list, layer_input):
+    def __init__(self, tagset_size, model_inputs: list, layer_input):
         """Takes all of the inputs from the LM model and its outputs, and builds a CRF model
         with `inputs=lm_inputs` and `outputs=lm_outputs + CRF outputs`"""
-
-        masked_input = prev_inputs[-1]
 
         # Build functional model
         crf = tfa.layers.CRF(
             units=tagset_size,
-            chain_initializer=tf.keras.initializers.Orthogonal(),
-            use_boundary=False,
-            boundary_initializer=tf.keras.initializers.Zeros(),
+            chain_initializer=tf.keras.initializers.RandomUniform(),
+            use_boundary=True,
+            boundary_initializer=tf.keras.initializers.RandomUniform(),
             use_kernel=True,
             name='crf_layer')
 
-        (decode_sequence, potentials, sequence_length, kernel) = crf(
-            inputs=layer_input, mask=masked_input)
+        (decode_sequence, potentials, sequence_length, kernel) = crf(inputs=layer_input)
 
         # Set name for outputs
         decode_sequence = tf.keras.layers.Lambda(
@@ -255,29 +252,21 @@ class CRFModel(tf.keras.Model):
         kernel = tf.keras.layers.Lambda(lambda x: x, name='kernel')(kernel)
 
         super().__init__(
-            inputs=prev_inputs,
-            outputs=prev_outputs + [decode_sequence, potentials, sequence_length, kernel])
+            inputs=model_inputs,
+            outputs=[decode_sequence, potentials, sequence_length, kernel])
 
         self._custom_metrics_train = {
-            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='encoding_acc'),
-            'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='rnn_acc'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
         self._loss_tracker_train = {
             'crf_loss': tf.keras.metrics.Mean(name='crf_loss'),
-            'dec_loss': tf.keras.metrics.Mean(name='dec_loss'),
-            'loss': tf.keras.metrics.Mean(name='loss'),
         }
 
         self._custom_metrics_test = {
-            'msd_enc': tf.keras.metrics.BinaryAccuracy(name='encoding_acc'),
-            'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='rnn_acc'),
             'decode_sequence': tf.keras.metrics.Accuracy(name='viterbi_acc')
         }
         self._loss_tracker_test = {
             'crf_loss': tf.keras.metrics.Mean(name='crf_loss'),
-            'dec_loss': tf.keras.metrics.Mean(name='dec_loss'),
-            'loss': tf.keras.metrics.Mean(name='loss'),
         }
 
     def train_step(self, data):
@@ -287,48 +276,33 @@ class CRFModel(tf.keras.Model):
         z = data[0][3]
         # y has shape (batch_size, max_seq_len) of type tf.int32
         # with indices of ground truth label on [i,j]
-        y_enc = data[1]['msd_enc']
-        y_cls = data[1]['msd_cls']
-        y_crf = data[1]['decode_sequence']
+        y_crf = data[1]
 
-        bin_cross_entropy = tf.keras.losses.BinaryCrossentropy(
-            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='bin_CE')
-        cat_cross_entropy = tf.keras.losses.CategoricalCrossentropy(
-            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='cat_CE')
-        bin_metric = self._custom_metrics_train['msd_enc']
-        oneh_metric = self._custom_metrics_train['msd_cls']
         vit_metric = self._custom_metrics_train['decode_sequence']
 
         with tf.GradientTape() as tape:
-            msd_enc, msd_cls, decode_sequence, potentials, sequence_length, kernel = \
+            decode_sequence, potentials, sequence_length, kernel = \
                 self(inputs=[x_lex, x_emb, x_ctx, z], mask=z, training=True)
             crf_loss = - \
                 tfa.text.crf_log_likelihood(
                     potentials, y_crf, sequence_length, kernel)[0]
             crf_loss = tf.reduce_mean(crf_loss)
-            bce_loss = bin_cross_entropy(y_enc, msd_enc)
-            cce_loss = cat_cross_entropy(y_cls, msd_cls)
-            loss_dec = bce_loss + cce_loss + sum(self.losses)
-            loss_crf = bce_loss + crf_loss + sum(self.losses)
-            loss_all = bce_loss + cce_loss + crf_loss + sum(self.losses)
+            loss = crf_loss + sum(self.losses)
         # end with
 
-        self.optimizer.minimize(loss_all, self.trainable_variables, tape=tape)
+        self.optimizer.minimize(loss, self.trainable_variables, tape=tape)
+        # Or, explicitly, you can do this:
+        # gradients = tape.gradient(loss, self.trainable_variables)
+        # self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
 
         # Update metrics (includes the metric that tracks the loss)
-        self._loss_tracker_train['dec_loss'].update_state(loss_dec)
-        self._loss_tracker_train['crf_loss'].update_state(loss_crf)
-        self._loss_tracker_train['loss'].update_state(loss_all)
-        bin_metric.update_state(y_enc, msd_enc)
-        oneh_metric.update_state(y_cls, msd_cls)
-        vit_metric.update_state(y_crf, decode_sequence)
+        self._loss_tracker_train['crf_loss'].update_state(loss)
+        # Need to discard the False portion of the mask (or the masked input)
+        # sample_weight does exactly that.
+        vit_metric.update_state(y_crf, decode_sequence, sample_weight=tf.cast(z, tf.int32))
 
         return {
-            self._loss_tracker_train['dec_loss'].name: self._loss_tracker_train['dec_loss'].result(),
             self._loss_tracker_train['crf_loss'].name: self._loss_tracker_train['crf_loss'].result(),
-            self._loss_tracker_train['loss'].name: self._loss_tracker_train['loss'].result(),
-            bin_metric.name: bin_metric.result(),
-            oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
         }
 
@@ -339,44 +313,24 @@ class CRFModel(tf.keras.Model):
         z = data[0][3]
         # y has shape (batch_size, max_seq_len) of type tf.int32
         # with indices of ground truth label on [i,j]
-        y_enc = data[1]['msd_enc']
-        y_cls = data[1]['msd_cls']
-        y_crf = data[1]['decode_sequence']
+        y_crf = data[1]
 
-        bin_cross_entropy = tf.keras.losses.BinaryCrossentropy(
-            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='bin_CE')
-        cat_cross_entropy = tf.keras.losses.CategoricalCrossentropy(
-            from_logits=False, reduction=tf.keras.losses.Reduction.SUM_OVER_BATCH_SIZE, name='cat_CE')
-        bin_metric = self._custom_metrics_test['msd_enc']
-        oneh_metric = self._custom_metrics_test['msd_cls']
         vit_metric = self._custom_metrics_test['decode_sequence']
 
-        msd_enc, msd_cls, decode_sequence, potentials, sequence_length, kernel = \
+        decode_sequence, potentials, sequence_length, kernel = \
             self(inputs=[x_lex, x_emb, x_ctx, z], mask=z, training=False)
         crf_loss = - \
             tfa.text.crf_log_likelihood(
                 potentials, y_crf, sequence_length, kernel)[0]
         crf_loss = tf.reduce_mean(crf_loss)
-        bce_loss=bin_cross_entropy(y_enc, msd_enc)
-        cce_loss=cat_cross_entropy(y_cls, msd_cls)
-        loss_dec = bce_loss + cce_loss + sum(self.losses)
-        loss_crf = bce_loss + crf_loss + sum(self.losses)
-        loss_all = bce_loss + cce_loss + crf_loss + sum(self.losses)
+        loss = crf_loss + sum(self.losses)
 
         # Update metrics (includes the metric that tracks the loss)
-        self._loss_tracker_test['dec_loss'].update_state(loss_dec)
-        self._loss_tracker_test['crf_loss'].update_state(loss_crf)
-        self._loss_tracker_test['loss'].update_state(loss_all)
-        bin_metric.update_state(y_enc, msd_enc)
-        oneh_metric.update_state(y_cls, msd_cls)
-        vit_metric.update_state(y_crf, decode_sequence)
+        self._loss_tracker_test['crf_loss'].update_state(loss)
+        vit_metric.update_state(y_crf, decode_sequence, sample_weight=tf.cast(z, tf.int32))
 
         return {
-            self._loss_tracker_test['dec_loss'].name: self._loss_tracker_test['dec_loss'].result(),
             self._loss_tracker_test['crf_loss'].name: self._loss_tracker_test['crf_loss'].result(),
-            self._loss_tracker_test['loss'].name: self._loss_tracker_test['loss'].result(),
-            bin_metric.name: bin_metric.result(),
-            oneh_metric.name: oneh_metric.result(),
             vit_metric.name: vit_metric.result()
         }
 
@@ -390,7 +344,7 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 150
+    _conf_maxseqlen = 100
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -398,8 +352,9 @@ class RoPOSTagger(object):
     # RNN state size
     _conf_rnn_size_1 = 128
     _conf_rnn_size_2 = 128
-    _conf_epochs = 10
-    _conf_with_tiered_tagging = False
+    _conf_epochs_cls = 10
+    _conf_epochs_crf = 5
+    _conf_with_tiered_tagging = True
     # Can be one of the following (see RoPOSTagger._run_sentence()):
     # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
     # - 'max': only keep the MSD with the highest probability at position i, from each rolling window
@@ -428,7 +383,7 @@ class RoPOSTagger(object):
         physical_devices = tf.config.list_physical_devices('GPU')
         device = "/device:CPU:0"
 
-        if RoPOSTagger._conf_maxseqlen <= 30 and \
+        if RoPOSTagger._conf_maxseqlen <= 50 and \
             RoPOSTagger._conf_rnn_size_1 <= 128 and \
             RoPOSTagger._conf_rnn_size_2 <= 128:
             device = "/device:GPU:0"
@@ -445,12 +400,12 @@ class RoPOSTagger(object):
 
     def _save(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
-        self._model.save(TAGGER_MODEL_FOLDER, overwrite=True)
+        self._cls_model.save(CLS_TAGGER_MODEL_FOLDER, overwrite=True)
 
     def load(self):
         self._uniprops.load_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
         self._wordembeddings.load_ids()
-        self._model = tf.keras.models.load_model(TAGGER_MODEL_FOLDER)
+        self._model = tf.keras.models.load_model(CLS_TAGGER_MODEL_FOLDER)
 
     def train(self,
         data_sentences: list = [],
@@ -502,13 +457,15 @@ class RoPOSTagger(object):
 
         # 4. Get train/dev/test numpy tensors
         def _generate_tensors(ml_type: str, examples: list) -> tuple:
-            print(stack()[0][3] + ": building ENC/CLS {0} tensors".format(ml_type),
+            print(stack()[0][3] + ": building ENC/CLS/CRF {0} tensors".format(ml_type),
                   file=sys.stderr, flush=True)
 
-            (x_lex, x_emb, x_ctx, y_enc, y_cls, y_crf, z_msk) = self._build_model_io_tensors(examples)
+            (x_lex_m, x_lex_c, x_emb, x_ctx, y_enc, y_cls, y_crf, z_msk) = self._build_models_io_tensors(examples)
 
-            print(stack()[0][3] + ": {0} x_lex.shape is {1!s}".format(
-                ml_type, x_lex.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": {0} MSD x_lex.shape is {1!s}".format(
+                ml_type, x_lex_m.shape), file=sys.stderr, flush=True)
+            print(stack()[0][3] + ": {0} CTAG x_lex.shape is {1!s}".format(
+                ml_type, x_lex_c.shape), file=sys.stderr, flush=True)
             print(stack()[0][3] + ": {0} x_emb.shape is {1!s}".format(
                 ml_type, x_emb.shape), file=sys.stderr, flush=True)
             print(stack()[0][3] + ": {0} x_ctx.shape is {1!s}".format(
@@ -522,47 +479,68 @@ class RoPOSTagger(object):
             print(stack()[0][3] + ": {0} MASK z.shape is {1!s}".format(
                 ml_type, z_msk.shape), file=sys.stderr, flush=True)
 
-            return (x_lex, x_emb, x_ctx, y_enc, y_cls, y_crf, z_msk)
+            return (x_lex_m, x_lex_c, x_emb, x_ctx, y_enc, y_cls, y_crf, z_msk)
         # end def
 
-        (x_lex_train, x_emb_train, x_ctx_train, y_train_enc,
+        (x_lex_msd_train, x_lex_ctag_train, x_emb_train, x_ctx_train, y_train_enc,
          y_train_cls, y_train_crf, z_train_mask) = _generate_tensors('train', train_examples)
-        (x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc,
+        (x_lex_msd_dev, x_lex_ctag_dev, x_emb_dev, x_ctx_dev, y_dev_enc,
          y_dev_cls, y_dev_crf, z_dev_mask) = _generate_tensors('dev', dev_examples)
 
         # 4.1 Save RoInflect cache file for faster startup next time
         self._romorphology.save_cache()
 
-        lex_input_dim = x_lex_train.shape[2]
+        msd_lex_input_dim = x_lex_msd_train.shape[2]
+        ctag_lex_input_dim = x_lex_ctag_train.shape[2]
         ctx_input_dim = x_ctx_train.shape[2]
         encoding_dim = y_train_enc.shape[2]
         output_msd_dim = self._msd.get_output_vector_size()
-        output_ctg_dim = self._msd.get_ctag_output_vector_size()
+        output_ctag_dim = self._msd.get_ctag_output_vector_size()
 
         with tf.device(RoPOSTagger._select_tf_device()):
-            # 5. Creating the language model
-            self._model = self._build_keras_model(
-                lex_input_dim,
+            # 5 Creating the CRF model
+            self._crf_model = self._build_crf_model(
+                ctag_lex_input_dim,
                 ctx_input_dim,
                 self._wordembeddings.get_vocabulary_size(),
                 self._wordembeddings.get_vector_length(),
-                encoding_dim, output_msd_dim, output_ctg_dim,
+                output_ctag_dim,
                 drop_prob=0.25
             )
 
-            # 6. Print model summary
-            self._model.summary()
+            # 6. Print classifier model summary
+            self._crf_model.summary()
 
-            # 7. Train the LM model
-            self._train_keras_model(
-                train=(x_lex_train, x_emb_train, x_ctx_train, y_train_enc,
-                    y_train_cls, y_train_crf, z_train_mask),
-                dev=(x_lex_dev, x_emb_dev, x_ctx_dev, y_dev_enc,
-                    y_dev_cls, y_dev_crf, z_dev_mask),
+            # 7. Train the classifier model
+            self._train_crf_model(
+                train=(x_lex_ctag_train, x_emb_train,
+                       x_ctx_train, z_train_mask, y_train_crf),
+                dev=(x_lex_ctag_dev, x_emb_dev,
+                     x_ctx_dev, z_dev_mask, y_dev_crf),
                 gold_sentences=dev_sentences
             )
 
-            # 8. Saving the model
+            # 8. Creating the classifier model
+            self._cls_model = self._build_cls_model(
+                msd_lex_input_dim,
+                ctx_input_dim,
+                self._wordembeddings.get_vocabulary_size(),
+                self._wordembeddings.get_vector_length(),
+                encoding_dim, output_msd_dim,
+                drop_prob=0.25
+            )
+
+            # 9. Print classifier model summary
+            self._cls_model.summary()
+
+            # 10. Train the classifier model
+            self._train_cls_model(
+                train=(x_lex_msd_train, x_emb_train, x_ctx_train, y_train_enc, y_train_cls),
+                dev=(x_lex_msd_dev, x_emb_dev, x_ctx_dev, y_dev_enc, y_dev_cls),
+                gold_sentences=dev_sentences
+            )
+
+            # 11. Saving the models
             self._save()
         # end with device
 
@@ -656,14 +634,20 @@ class RoPOSTagger(object):
             known_word_msds.update(aclass)
         # end if
 
-        word_msds = list(known_word_msds.intersection(best_pred_msds))
+        # This list cannot be empty!
+        computed_word_msds = best_pred_msds
 
-        if word_msds:
+        if known_word_msds:
+            computed_word_msds = list(
+                known_word_msds.intersection(best_pred_msds))
+        # end if
+
+        if computed_word_msds:
             # 3. Model predicted MSD is in the extended ambiguity class. Hurray!
             best_pred_msd = ''
             best_pred_msd_p = 0.
 
-            for m1 in word_msds:
+            for m1 in computed_word_msds:
                 for m2, p in msd_predictions:
                     if m1 == m2 and best_pred_msd_p < p:
                         best_pred_msd_p = p
@@ -673,14 +657,17 @@ class RoPOSTagger(object):
             # end for
 
             return (best_pred_msd, best_pred_msd_p)
+        else:
+            computed_word_msds = list(
+                known_word_msds.union(best_pred_msds))
         # end if
-        
-        # 4. Model predicted MSD MSD is not in the extended ambiguity class.
-        # Choose the highest probability MSD from the extended ambiguity class.
+
+        # 4. Model predicted MSD is not in the extended ambiguity class.
+        # Choose the highest probability MSD from the computed MSD list.
         best_acls_msd_p = 0.
         best_acls_msd = ''
 
-        for msd in known_word_msds:
+        for msd in computed_word_msds:
             idx = self._msd.msd_to_idx(msd)
             msd_p = y_pred[idx]
 
@@ -691,8 +678,8 @@ class RoPOSTagger(object):
         # end for extended ambiguity class
 
         print(stack()[0][3] +
-              ": word '{0}' -> got suboptimal MSD {1}/{2:.2f}"
-              .format(word, best_acls_msd, best_acls_msd_p), file=sys.stderr, flush=True)
+            ": word '{0}' -> got suboptimal MSD {1}/{2:.2f}"
+            .format(word, best_acls_msd, best_acls_msd_p), file=sys.stderr, flush=True)
 
         return (best_acls_msd, best_acls_msd_p)
 
@@ -730,10 +717,23 @@ class RoPOSTagger(object):
             # end if
         # end if
 
-        both_aclass = set(lex_aclass).union(set(infl_aclass))
-        
-        # Reduced class of MSDs
-        return list(both_aclass.intersection(set(mclass)))
+        both_aclass = set(lex_aclass).union(infl_aclass)
+        result_aclass = list(both_aclass.intersection(mclass))
+
+        if result_aclass:
+            return result_aclass
+        # end if
+
+        amend_aclass = self._lexicon.amend_ambiguity_class(word, both_aclass)
+        result_aclass = list(amend_aclass.intersection(mclass))
+
+        if result_aclass:
+            return result_aclass
+        else:
+            # If result_aclass is empty, tiered tagging failed:
+            # CTAG is very different than ambiguity classes!
+            return list(amend_aclass)
+        # end if
 
     def _run_sentence(self, sentence, tiered_tagging: bool = True, strategy: str = 'max', debug_fh = None):
         """Strategy can be `'add'` or `'max'`. When `'add'`ing contributions from the LM and CRF layers,
@@ -746,18 +746,20 @@ class RoPOSTagger(object):
         sent_samples = self._build_samples([sentence])
 
         # 2. Get the input tensors
-        (x_lex_run, x_emb_run, x_ctx_run, _, _, _, z_mask) = self._build_model_io_tensors(
+        (x_lex_msd_run, x_lex_ctg_run, x_emb_run, x_ctx_run, _, _, _, z_mask) = self._build_models_io_tensors(
             sent_samples, runtime=True)
         # end if
 
         # 3. Use the model to get predicted MSDs
         # y_pred_cls is the POS tagger sequence with RNNs, one-hot
         # viterbi_sequence is the POS tagger sequence with CRFs, CTAG index
-        (y_pred_enc, y_pred_cls, viterbi_sequence, pot, seq_len, krn) = self._model.predict(
-            x=[x_lex_run, x_emb_run, x_ctx_run, z_mask])
+        (_, y_pred_cls) = self._cls_model.predict(x=[x_lex_msd_run, x_emb_run, x_ctx_run])
+        (viterbi_sequence, _, _, _) = self._crf_model.predict(x=[x_lex_ctg_run, x_emb_run, x_ctx_run, z_mask])
 
+        # This is how many samples in the sentence
         assert y_pred_cls.shape[0] == viterbi_sequence.shape[0]
         assert y_pred_cls.shape[0] == len(sent_samples)
+        # This is the configured length of the sequence
         assert y_pred_cls.shape[1] == viterbi_sequence.shape[1]
         assert y_pred_cls.shape[1] == len(sent_samples[0])
 
@@ -1023,54 +1025,84 @@ class RoPOSTagger(object):
 
         return tagged_sentence2
 
-    def _train_keras_model(self, train: tuple, dev: tuple, gold_sentences: list):
+    def _train_cls_model(self, train: tuple, dev: tuple, gold_sentences: list):
         # Compile model
         opt = tf.keras.optimizers.Adam(learning_rate=0.001)
-        self._model.compile(
+        self._cls_model.compile(
             optimizer=opt,
-            # Set this to true for Python debugging
+            loss={
+                'msd_enc': tf.keras.losses.BinaryCrossentropy(from_logits=False, name='loss'),
+                'msd_cls': tf.keras.losses.CategoricalCrossentropy(from_logits=False, name='loss')
+            },
+            metrics={
+                'msd_enc': tf.keras.metrics.BinaryAccuracy(name='acc'),
+                'msd_cls': tf.keras.metrics.CategoricalAccuracy(name='acc')
+            },
+            # Set this to True for Python 3 debugging
             run_eagerly=None
         )
 
         x_lex_train = train[0]
         x_emb_train = train[1]
         x_ctx_train = train[2]
-        x_mask_train = train[6]
         y_train = {
             'msd_enc': train[3],
-            'msd_cls': train[4],
-            'decode_sequence': train[5]
+            'msd_cls': train[4]
         }
 
         x_lex_dev = dev[0]
         x_emb_dev = dev[1]
         x_ctx_dev = dev[2]
-        x_mask_dev = dev[6]
         y_dev = {
             'msd_enc': dev[3],
-            'msd_cls': dev[4],
-            'decode_sequence': dev[5]
+            'msd_cls': dev[4]
         }
 
         # Fit model
-        acc_callback = AccCallback(
-            self, gold_sentences, RoPOSTagger._conf_epochs,
-            RoPOSTagger._conf_with_tiered_tagging, RoPOSTagger._conf_run_strategy)
-        self._model.fit(
-            x=[x_lex_train, x_emb_train, x_ctx_train, x_mask_train],
+        acc_callback = AccCallback(self, gold_sentences, RoPOSTagger._conf_epochs_cls,
+                                   RoPOSTagger._conf_with_tiered_tagging, RoPOSTagger._conf_run_strategy)
+        self._cls_model.fit(
+            x=[x_lex_train, x_emb_train, x_ctx_train],
             y=y_train,
-            epochs=RoPOSTagger._conf_epochs, batch_size=16, shuffle=True,
-            validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev, x_mask_dev], y_dev),
+            epochs=RoPOSTagger._conf_epochs_cls, batch_size=16, shuffle=True,
+            validation_data=([x_lex_dev, x_emb_dev, x_ctx_dev], y_dev),
             callbacks=[acc_callback]
         )
     
-    def _build_keras_model(self,
+    def _train_crf_model(self, train: tuple, dev: tuple, gold_sentences: list):
+        # Compile model
+        opt = tf.keras.optimizers.Adam(learning_rate=0.001)
+        self._crf_model.compile(
+            optimizer=opt,
+            # Set this to True for Python 3 debugging
+            run_eagerly=False
+        )
+
+        x_lex_train = train[0]
+        x_emb_train = train[1]
+        x_ctx_train = train[2]
+        z_mask_train = train[3]
+        y_train = train[4]
+
+        x_lex_dev = dev[0]
+        x_emb_dev = dev[1]
+        x_ctx_dev = dev[2]
+        z_mask_dev = dev[3]
+        y_dev = dev[4]
+
+        self._crf_model.fit(
+            x=[x_lex_train, x_emb_train, x_ctx_train, z_mask_train],
+            y=y_train,
+            epochs=RoPOSTagger._conf_epochs_crf, batch_size=32, shuffle=True,
+            validation_data=(
+                [x_lex_dev, x_emb_dev, x_ctx_dev, z_mask_dev], y_dev)
+        )
+
+    def _build_crf_model(self,
                            lex_input_vector_size: int,
                            ctx_input_vector_size: int,
                            word_embeddings_voc_size: int,
                            word_embeddings_proj_size: int,
-                           msd_encoding_vector_size: int,
-                           output_msd_size: int,
                            output_ctg_size: int,
                            drop_prob: float = 0.33
                            ) -> tf.keras.Model:
@@ -1082,6 +1114,40 @@ class RoPOSTagger(object):
         x_emb = tf.keras.layers.Input(
             shape=(self._maxseqlen,), dtype='int32', name="word_embedding_input")
         z_mask = tf.keras.layers.Input(shape=(self._maxseqlen,), dtype='bool', name="masked_input")
+        # End inputs
+
+        l_emb = tf.keras.layers.Embedding(
+            word_embeddings_voc_size, word_embeddings_proj_size,
+            embeddings_initializer=self._wordembeddings, mask_zero=True,
+            input_length=self._maxseqlen)(x_emb)
+        l_lex_emb_conc = tf.keras.layers.Concatenate()([x_lex, l_emb])
+        l_bd_gru = tf.keras.layers.Bidirectional(
+            tf.keras.layers.GRU(RoPOSTagger._conf_rnn_size_1, return_sequences=True))(l_lex_emb_conc)
+        l_drop = tf.keras.layers.Dropout(drop_prob)(l_bd_gru)
+        o_bd_gru = tf.keras.layers.Concatenate()([l_drop, x_ctx])
+
+        return CRFModel(
+            output_ctg_size,
+            [x_lex, x_emb, x_ctx, z_mask],
+            o_bd_gru
+        )
+
+    def _build_cls_model(self,
+                           lex_input_vector_size: int,
+                           ctx_input_vector_size: int,
+                           word_embeddings_voc_size: int,
+                           word_embeddings_proj_size: int,
+                           msd_encoding_vector_size: int,
+                           output_msd_size: int,
+                           drop_prob: float = 0.33
+                           ) -> tf.keras.Model:
+        # Inputs
+        x_lex = tf.keras.layers.Input(shape=(self._maxseqlen,
+                                             lex_input_vector_size), dtype='float32', name="word_lexical_input")
+        x_ctx = tf.keras.layers.Input(shape=(self._maxseqlen,
+                                             ctx_input_vector_size), dtype='float32', name="word_context_input")
+        x_emb = tf.keras.layers.Input(
+            shape=(self._maxseqlen,), dtype='int32', name="word_embedding_input")
         # End inputs
 
         # MSD encoding
@@ -1098,40 +1164,32 @@ class RoPOSTagger(object):
         # End MSD encoding
 
         l_drop_2 = tf.keras.layers.Dropout(drop_prob)(o_msd_enc)
-        l_msd_enc_ctx_conc = tf.keras.layers.Concatenate(
-            name='enc_states')([l_drop_2, x_ctx])
 
         # Language model
         l_bd_gru_2 = tf.keras.layers.Bidirectional(tf.keras.layers.GRU(
             RoPOSTagger._conf_rnn_size_2, return_sequences=True))(l_drop_2)
         l_drop_3 = tf.keras.layers.Dropout(drop_prob)(l_bd_gru_2)
         l_bd_gru2_ctx_conc = tf.keras.layers.Concatenate(
-            name='lm_states')([l_drop_3, x_ctx])
+            name='dec_states')([l_drop_3, x_ctx])
         l_dense_1 = tf.keras.layers.Dense(
-            output_msd_size, name="dense_linear")(l_bd_gru2_ctx_conc)
+            output_msd_size)(l_bd_gru2_ctx_conc)
         o_msd_cls = tf.keras.layers.Activation(
             'softmax', name='msd_cls')(l_dense_1)
         # End language model
 
-        return CRFModel(
-            output_ctg_size,
-            [x_lex, x_emb, x_ctx, z_mask],
-            [o_msd_enc, o_msd_cls],
-            l_msd_enc_ctx_conc
-        )
+        return tf.keras.Model(inputs=[x_lex, x_emb, x_ctx], outputs=[o_msd_enc, o_msd_cls])
 
-    def _build_model_io_tensors(self, data_samples, runtime: bool = False) -> tuple:
+    def _build_models_io_tensors(self, data_samples, runtime: bool = False) -> tuple:
         # No of examples
         m = len(data_samples)
         # This should be equal to self._maxseqlen
         tx = len(data_samples[0])
-        # assert Tx == self._maxseqlen
-        # This is the size of the input vector
-        n = -1
+        assert tx == self._maxseqlen
 
         ### Inputs
         # Lexical tensor
-        xlex_tensor = None
+        xlex_msd_tensor = None
+        xlex_ctag_tensor = None
         # Word embeddings tensor
         xemb_tensor = np.empty((m, tx), dtype=np.int32)
         # Externally computed contextual features
@@ -1185,21 +1243,28 @@ class RoPOSTagger(object):
 
                 label_features = self._tokenizer.get_label_features(tlabel)
                 uni_features = self._uniprops.get_unicode_features(word)
-                lexical_features = self._get_lexical_features_for_pos_tagging(
-                    word)
+                lexical_features_msd = self._get_lexical_features_for_pos_tagging(
+                    word, with_ctags=False)
+                lexical_features_ctag = self._get_lexical_features_for_pos_tagging(
+                    word, with_ctags=True)
 
                 # This is the featurized version of a word in the sequence
-                x_lex = np.concatenate(
-                    (label_features, uni_features, lexical_features))
+                x_lex_msd = np.concatenate(
+                    (label_features, uni_features, lexical_features_msd))
+                x_lex_ctag = np.concatenate(
+                    (label_features, uni_features, lexical_features_ctag))
 
                 if word == _zero_word:
-                    x_lex = np.zeros(x_lex.shape, dtype=np.float32)
+                    x_lex_msd = np.zeros(x_lex_msd.shape, dtype=np.float32)
+                    x_lex_ctag = np.zeros(x_lex_ctag.shape, dtype=np.float32)
                     z_mask = False
                 # end if
 
-                if n == -1:
-                    n = x_lex.shape[0]
-                    xlex_tensor = np.empty((m, tx, n), dtype=np.float32)
+                if xlex_msd_tensor is None:
+                    xlex_msd_tensor = np.empty(
+                        (m, tx, x_lex_msd.shape[0]), dtype=np.float32)
+                    xlex_ctag_tensor = np.empty(
+                        (m, tx, x_lex_ctag.shape[0]), dtype=np.float32)
                 # end if
 
                 # Computing id for word
@@ -1207,7 +1272,8 @@ class RoPOSTagger(object):
                 # Computing external features for word
                 x_ctx = self._rofeatures.get_context_feature_vector(feats)
 
-                xlex_tensor[i, j, :] = x_lex
+                xlex_msd_tensor[i, j, :] = x_lex_msd
+                xlex_ctag_tensor[i, j, :] = x_lex_ctag
                 xemb_tensor[i, j] = x_wid
                 xctx_tensor[i, j, :] = x_ctx
                 y_tensor_crf[i, j] = y_out_idx
@@ -1217,7 +1283,7 @@ class RoPOSTagger(object):
             # end j
         # end i
 
-        return (xlex_tensor, xemb_tensor, xctx_tensor, y_tensor_enc, y_tensor_cls, y_tensor_crf, z_tensor_mask)
+        return (xlex_msd_tensor, xlex_ctag_tensor, xemb_tensor, xctx_tensor, y_tensor_enc, y_tensor_cls, y_tensor_crf, z_tensor_mask)
 
     def _build_samples(self, sentences: list) -> list:
         all_samples = []
@@ -1412,7 +1478,7 @@ class RoPOSTagger(object):
             # end for
         # end for
 
-    def _get_lexical_features_for_pos_tagging(self, word: str) -> np.ndarray:
+    def _get_lexical_features_for_pos_tagging(self, word: str, with_ctags: bool) -> np.ndarray:
         """Will get an np.array of lexical features for word,
         including the possible MSDs."""
 
@@ -1430,41 +1496,51 @@ class RoPOSTagger(object):
         # end if
 
         # 2. MSD features for word: the vector of possible MSDs
-        features2 = np.zeros(
-            self._msd.get_input_vector_size(), dtype=np.float32)
+        # If working with CTAGs, this is the vector for possible CTAGs
+        if with_ctags:
+            features2 = np.zeros(
+                self._msd.get_ctag_input_vector_size(), dtype=np.float32)
+        else:
+            features2 = np.zeros(
+                self._msd.get_input_vector_size(), dtype=np.float32)
+        # end if
+
+        def _pos_label_vector(msd: str) -> np.ndarray:
+            if with_ctags:
+                ctag = self._msd.msd_to_ctag(msd)
+                lbl_v = self._msd.ctag_input_vector(ctag)
+            else:
+                lbl_v = self._msd.msd_input_vector(msd)
+            # end if
+
+            return lbl_v
+        # end def
 
         if word != _zero_word:
             if self._lexicon.is_lex_word(word, exact_match=True):
                 for msd in self._lexicon.get_word_ambiguity_class(word, exact_match=True):
-                    msd_v = self._msd.msd_input_vector(msd)
-                    features2 += msd_v
+                    features2 += _pos_label_vector(msd)
                 # end for
             elif self._lexicon.is_lex_word(word.lower(), exact_match=True):
                 for msd in self._lexicon.get_word_ambiguity_class(word.lower(), exact_match=True):
-                    msd_v = self._msd.msd_input_vector(msd)
-                    features2 += msd_v
+                    features2 += _pos_label_vector(msd)
                 # end for
             elif word in MSD.punct_msd_inventory:
                 msd = MSD.punct_msd_inventory[word]
-                msd_v = self._msd.msd_input_vector(msd)
-                features2 += msd_v
+                features2 += _pos_label_vector(msd)
             elif MSD.punct_patt.match(word) != None:
-                msd_v = self._msd.msd_input_vector("Z")
-                features2 += msd_v
+                features2 += _pos_label_vector("Z")
             elif Lex.number_pattern.match(word):
-                msd_v = self._msd.msd_input_vector("Mc-s-d")
-                features2 += msd_v
+                features2 += _pos_label_vector("Mc-s-d")
             elif Lex.bullet_number_pattern.match(word):
-                msd_v = self._msd.msd_input_vector("Mc-s-b")
-                features2 += msd_v
+                features2 += _pos_label_vector("Mc-s-b")
             else:
                 # Use a better solution here.
                 affix_msds = self._romorphology.ambiguity_class(word)
 
                 if affix_msds:
                     for msd in affix_msds:
-                        msd_v = self._msd.msd_input_vector(msd)
-                        features2 += msd_v
+                        features2 += _pos_label_vector(msd)
                     # end for
                 else:
                     # Default to the lexicon-based one.
@@ -1473,12 +1549,15 @@ class RoPOSTagger(object):
 
                     if affix_msds:
                         for msd in affix_msds:
-                            msd_v = self._msd.msd_input_vector(msd)
-                            features2 += msd_v
+                            features2 += _pos_label_vector(msd)
                         # end for
                     # end if
                     else:
-                        features2 = self._msd.get_x_input_vector()
+                        if with_ctags:
+                            features2 = self._msd.get_ctag_x_input_vector()
+                        else:
+                            features2 = self._msd.get_x_input_vector()
+                        # end if
                     # end if
                 # end if
             # end if

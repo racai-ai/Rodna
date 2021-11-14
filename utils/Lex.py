@@ -328,6 +328,86 @@ class Lex(object):
 
         return False
 
+    def _aclass_noun_adj_msd(self, msd) -> str:
+        """If MSD is adjective, return the noun equivalent.
+        And the other way around."""
+
+        msd2 = ''
+
+        if msd.startswith('Afp'):
+            msd2 = msd.replace('Afp', 'Nc')
+        elif msd.startswith('Nc'):
+            msd2 = msd.replace('Nc', 'Afp')
+        # end if
+
+        if msd2 and self._msd.is_valid_msd(msd2):
+            return msd2
+        else:
+            return ''
+        # end if
+
+    def _aclass_prop_noun_msd(self, word: str, msd: str) -> str:
+        msd2 = ''
+
+        if Lex.sentence_case_pattern.match(word) and msd.startswith('Nc'):
+            msd2 = msd.replace('Nc', 'Np')
+        # end if
+
+        if msd2 and self._msd.is_valid_msd(msd2):
+            return msd2
+        else:
+            return ''
+        # end if
+
+    def _aclass_adj_part_msd(self, word: str, msd: str) -> str:
+        def _check_and_return(m1: str, m2: str) -> str:
+            if msd == m1 and self.can_be_msd(word, m2):
+                return m2
+            elif msd == m2 and self.can_be_msd(word, m1):
+                return m1
+            else:
+                return ''
+            # end if
+        # end def
+
+        for m1, m2 in [('Afpfsrn', 'Vmp--sf'), ('Afpfp-n', 'Vmp--pf'),
+            ('Afpms-n', 'Vmp--sm'), ('Afpmp-n', 'Vmp--pm')]:
+            msd2 = _check_and_return(m1, m2)
+
+            if msd2:
+                return msd2
+            # end if
+
+            msd2 = _check_and_return(m2, m1)
+
+            if msd2:
+                return msd2
+            # end if
+        # end for
+
+        return ''
+
+    def amend_ambiguity_class(self, word: str, aclass: set) -> set:
+        """Checks for common MSD patterns and completes the ambiguity class."""
+        result_aclass = set()
+
+        for m in aclass:
+            result_aclass.add(m)
+
+            for m2 in [
+                self._aclass_adj_part_msd(word, m),
+                self._aclass_noun_adj_msd(m),
+                self._aclass_prop_noun_msd(word, m)]:
+                if m2:
+                    result_aclass.add(m2)
+                    print_error("added MSD [{0}] to word '{1}'".format(
+                        m2, word), stack()[0][3])
+                # end if
+            # end for
+        # end for
+        
+        return result_aclass
+
     @staticmethod
     def _get_romanian_word_with_no_diacs(word: str) -> str:
         word = word.replace("ă", "a")
