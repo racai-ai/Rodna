@@ -344,7 +344,7 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 100
+    _conf_maxseqlen = 150
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -657,9 +657,10 @@ class RoPOSTagger(object):
             # end for
 
             return (best_pred_msd, best_pred_msd_p)
+        elif known_word_msds:
+            computed_word_msds = list(known_word_msds)
         else:
-            computed_word_msds = list(
-                known_word_msds.union(best_pred_msds))
+            computed_word_msds = best_pred_msds
         # end if
 
         # 4. Model predicted MSD is not in the extended ambiguity class.
