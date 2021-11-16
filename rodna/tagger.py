@@ -401,6 +401,7 @@ class RoPOSTagger(object):
     def _save(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
         self._cls_model.save(CLS_TAGGER_MODEL_FOLDER, overwrite=True)
+        self._crf_model.save(CRF_TAGGER_MODEL_FOLDER, overwrite=True)
 
     def load(self):
         self._uniprops.load_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
