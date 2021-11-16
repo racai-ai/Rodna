@@ -39,7 +39,8 @@ function train_pos_tagger {
 	echo
 
 	# Delete all model files for the RoPOSTagger model
-	rm -fvr data/models/tagger/*
+	rm -fvr data/models/tagger/cls/*
+	rm -fvr data/models/tagger/crf/*
 	rm -fv data/models/tagger_unic_props.txt
 	rm -fv data/models/word_ids.txt
 	# Retrain the tagger model
