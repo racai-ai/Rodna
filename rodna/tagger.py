@@ -234,9 +234,9 @@ class CRFModel(tf.keras.Model):
         # Build functional model
         crf = tfa.layers.CRF(
             units=tagset_size,
-            chain_initializer=tf.keras.initializers.RandomUniform(),
+            chain_initializer=tf.keras.initializers.Orthogonal(),
             use_boundary=True,
-            boundary_initializer=tf.keras.initializers.RandomUniform(),
+            boundary_initializer=tf.keras.initializers.Zeros(),
             use_kernel=True,
             name='crf_layer')
 
@@ -344,7 +344,7 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 150
+    _conf_maxseqlen = 100
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -352,8 +352,8 @@ class RoPOSTagger(object):
     # RNN state size
     _conf_rnn_size_1 = 128
     _conf_rnn_size_2 = 128
-    _conf_epochs_cls = 10
-    _conf_epochs_crf = 5
+    _conf_epochs_cls = 20
+    _conf_epochs_crf = 10
     _conf_with_tiered_tagging = True
     # Can be one of the following (see RoPOSTagger._run_sentence()):
     # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
