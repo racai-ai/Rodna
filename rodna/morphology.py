@@ -1,15 +1,101 @@
 import sys
 import os
 import numpy as np
-import tensorflow as tf
-from random import shuffle
+from regex import D
+import torch
+from torch import nn
+from torch.utils.data import Dataset, DataLoader
+from torch.optim import RMSprop
+from torch.nn.utils.rnn import pack_sequence
+from tqdm import tqdm
 from inspect import stack
-
+from random import shuffle
 from utils.errors import print_error
 from utils.Lex import Lex
 from config import TBL_WORDFORM_FILE, \
     ROINFLECT_MODEL_FOLDER, ROINFLECT_CHARID_FILE, \
     ROINFLECT_CACHE_FILE
+
+torch.manual_seed(1234)
+_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+
+class RoInflectModule(nn.Module):
+    """PyTorch neural net for encoding the characters of a word
+    using a LSTM neural network."""
+
+    _conf_char_embed_size = 32
+    _conf_lstm_size = 256
+    _conf_dense_size = 512
+
+    def __init__(self, char_vocab_dim: int, msd_vector_dim: int):
+        super().__init__()
+        self._layer_embed = nn.Embedding(
+            num_embeddings=char_vocab_dim,
+            embedding_dim=RoInflectModule._conf_char_embed_size
+        )
+        self._layer_lstm = nn.LSTM(
+            input_size=RoInflectModule._conf_char_embed_size,
+            hidden_size=RoInflectModule._conf_lstm_size,
+            batch_first=True)
+        self._layer_linear_1 = nn.Linear(
+            in_features=RoInflectModule._conf_lstm_size,
+            out_features=RoInflectModule._conf_dense_size
+        )
+        self._layer_linear_2 = nn.Linear(
+            in_features=RoInflectModule._conf_dense_size,
+            out_features=msd_vector_dim
+        )
+        self._layer_drop = nn.Dropout(p=0.3)
+        self._tanh = nn.Tanh()
+        self._sigmoid = nn.Sigmoid()
+        self.to(device=_device)
+
+    def forward(self, x):
+        b_size = len(x)
+        batch_sequences = []
+
+        # Compute embeddings first, one by one...
+        for xw in x:
+            batch_sequences.append(self._layer_embed(xw))
+        # end for
+
+        packed_embeddings = pack_sequence(batch_sequences, enforce_sorted=False)
+
+        # Hidden state initialization
+        h_0 = torch.zeros(1, b_size, RoInflectModule._conf_lstm_size)
+        h_0 = h_0.to(device=_device)
+        # Internal state initialization
+        c_0 = torch.zeros(1, b_size, RoInflectModule._conf_lstm_size)
+        c_0 = c_0.to(device=_device)
+
+        # Propagate input through LSTM, get output and state information
+        lstm_outputs, (h_n, c_n) = self._layer_lstm(
+            packed_embeddings, (h_0, c_0))
+        out = self._layer_linear_1(h_n)
+        out = self._tanh(out)
+        out = self._layer_drop(out)
+        out = self._layer_linear_2(out)
+        out = self._sigmoid(out)
+
+        # Remove the (1, ...) from the shape as it is 1
+        # for left-to-right LSTM
+        return out.view(b_size, -1)
+
+
+class RoInflectDataset(Dataset):
+    """Implements a PyTorch dataset over words
+    and possible MSDs NumPy tuples of arrays."""
+
+    def __init__(self, dataset: list):
+        super().__init__()
+        self._dataset = dataset
+
+    def __len__(self) -> int:
+        return len(self._dataset)
+
+    def __getitem__(self, index):
+        return self._dataset[index]
 
 
 class RoInflect(object):
@@ -20,18 +106,14 @@ class RoInflect(object):
 
     _conf_keep_msd_prob_threshold = 0.01
     _conf_dev_size = 0.1
-    _conf_char_embed_size = 32
-    _conf_lstm_size = 256
-    _conf_dense_size = 512
 
     def __init__(self, lexicon: Lex) -> None:
         self._lexicon = lexicon
         self._msd = self._lexicon.get_msd_object()
-        self._M = self._lexicon.longestwordlen
         # Use self._add_word_to_dataset() to update these
         self._dataset = {}
-        self._charid = 2
-        self._charmap = {'UNK': 0, ' ': 1}
+        self._charid = 1
+        self._charmap = {'UNK': 0}
         self._cache = {}
         self.load_cache()
 
@@ -54,15 +136,7 @@ class RoInflect(object):
         # end for
 
     def _build_io_vectors(self, word: str, msds: list) -> tuple:
-        if len(word) > self._M:
-            word = word[-self._M:]
-        else:
-            while len(word) < self._M:
-                word = ' ' + word
-            # end while
-        # end if
-
-        x = np.zeros(self._M, dtype=np.int32)
+        x = np.zeros(len(word), dtype=np.int32)
 
         for i in range(len(word)):
             c = word[i]
@@ -82,73 +156,150 @@ class RoInflect(object):
 
         return (x, y)
 
+    def _do_one_epoch(self, epoch: int, dataloader: DataLoader):
+        """Does one epoch of NN training."""
+        running_loss = 0.
+        epoch_loss = []
+        counter = 0
+
+        for inputs, target_labels in tqdm(dataloader, desc=f'Epoch {epoch}'):
+            counter += 1
+
+            # Zero your gradients for every batch!
+            self._optimizer.zero_grad()
+
+            # Make predictions for this batch
+            outputs = self._model(x=inputs)
+
+            # Compute the loss and its gradients
+            loss = self._loss_fn(outputs, target_labels)
+            loss.backward()
+
+            # Adjust learning weights and learning rate schedule
+            self._optimizer.step()
+
+            # Gather data and report
+            running_loss += loss.item()
+
+            if counter % 500 == 0:
+                # Average loss per batch
+                average_running_loss = running_loss / 500
+                print(f'\n  -> batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}',
+                      file=sys.stderr, flush=True)
+                epoch_loss.append(average_running_loss)
+                running_loss = 0.
+            # end if
+        # end for i
+
+        average_epoch_loss = sum(epoch_loss) / len(epoch_loss)
+        print(
+            f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
+
+    def _test(self, dataloader: DataLoader):
+        """Tests the model with the dev set."""
+
+        correct = 0
+        predicted = 0
+        existing = 0
+
+        for inputs, target_labels in tqdm(dataloader, desc=f'Eval'):
+            outputs = self._model(x=inputs)
+            predicted_labels = (outputs >= 0.5)
+            target_labels = target_labels.to(dtype=torch.int32).to(dtype=torch.bool)
+            correct_labels = torch.logical_and(predicted_labels, target_labels)
+            predicted += torch.sum(predicted_labels).item()
+            existing += torch.sum(target_labels).item()
+            correct += torch.sum(correct_labels).item()
+        # end for
+
+        prec = correct / predicted
+        rec = correct / existing
+        f1 = 2 * prec * rec / (prec + rec)
+
+        print(f'P(1) = {prec:.5f}', file=sys.stderr, flush=True)
+        print(f'R(1) = {rec:.5f}', file=sys.stderr, flush=True)
+        print(f'F1(1) = {f1:.5f}', file=sys.stderr, flush=True)
+
+    def _roinfl_collate_fn(self, batch) -> tuple:
+        batch_sequences = []
+        batch_labels = []
+
+        for x, y in batch:
+            batch_sequences.append(torch.tensor(
+                x, dtype=torch.long).to(device=_device))
+            batch_labels.append(y)
+        # end for
+
+        y_array = np.array(batch_labels, dtype=np.float32)
+
+        return \
+            batch_sequences, \
+            torch.tensor(y_array, dtype=torch.float32).to(device=_device)
+
     def train(self):
         # Read training data
         self._read_training_data()
 
         # Build model
-        self._model = self._build_keras_model()
-        self._model.summary()
+        self._model = self._build_pt_model()
+        self._loss_fn = nn.BCELoss()
+        self._optimizer = RMSprop(self._model.parameters(), lr=1e-3)
 
-        # Compile model
-        opt = tf.keras.optimizers.RMSprop(learning_rate=0.001)
-        self._model.compile(
-            loss='binary_crossentropy',
-            optimizer=opt,
-            metrics=[
-                tf.keras.metrics.TruePositives(),
-                # Uncomment if needed.
-                # tf.keras.metrics.TrueNegatives(),
-                # tf.keras.metrics.FalsePositives(),
-                # tf.keras.metrics.FalseNegatives(),
-                tf.keras.metrics.Precision(),
-                tf.keras.metrics.Recall()
-            ]
-        )
-
-        # Build data tensor
-        m = len(self._dataset)
-        x_input = np.empty((m, self._M), dtype=np.int32)
-        y_label = np.empty(
-            (m, self._msd.get_output_vector_size()), dtype=np.float32)
+        # Build NumPy dataset
+        np_dataset_train = []
         word_list = list(self._dataset.keys())
 
-        shuffle(word_list)
-
         for i in range(len(word_list)):
-            if i > 0 and i % 100000 == 0:
-                print(stack()[0][3] + ": computed {0!s}/{1!s} data samples".format(i, m),
+            if (i + 1) % 100000 == 0:
+                print(stack()[0][3] + f": computed {i + 1}/{len(word_list)} data samples",
                       file=sys.stderr, flush=True)
             # end if
 
             w = word_list[i]
             (x_w, y_w) = self._build_io_vectors(w, self._dataset[w])
-            x_input[i, :] = x_w
-            y_label[i, :] = y_w
+            np_dataset_train.append((x_w, y_w))
         # end for dataset
 
-        # Fit model
-        self._model.fit(x=x_input, y=y_label, epochs=50, batch_size=256,
-                        validation_split=RoInflect._conf_dev_size)
+        shuffle(np_dataset_train)
+        np_dataset_dev = []
+        devlen = int(len(np_dataset_train) * RoInflect._conf_dev_size)
+
+        while len(np_dataset_dev) < devlen:
+            np_dataset_dev.append(np_dataset_train.pop())
+        # end while
+
+        # Build PyTorch datasets
+        pt_dataset_train = RoInflectDataset(dataset=np_dataset_train)
+        pt_dataset_dev = RoInflectDataset(dataset=np_dataset_dev)
+
+        train_dataloader = DataLoader(
+            dataset=pt_dataset_train, batch_size=256, shuffle=True, collate_fn=self._roinfl_collate_fn)
+        dev_dataloader = DataLoader(
+            dataset=pt_dataset_dev, batch_size=64, shuffle=False, collate_fn=self._roinfl_collate_fn)
+
+        for ep in range(1, 11):
+            # Fit model for one epoch
+            self._model.train(True)
+            self._do_one_epoch(epoch=ep, dataloader=train_dataloader)
+
+            # Test model
+            # Put model into eval mode first
+            self._model.eval()
+            self._test(dataloader=dev_dataloader)
+        # end for
+
         # Save model
-        self._save_keras_model()        
+        self._save_pt_model()
 
-    def _build_keras_model(self):
-        x = tf.keras.layers.Input(
-            shape=(self._M,), dtype='int32', name="char_id_input")
-        e = tf.keras.layers.Embedding(
-            self._charid, RoInflect._conf_char_embed_size, input_length=self._M)(x)
-        l = tf.keras.layers.LSTM(
-            RoInflect._conf_lstm_size, return_sequences=False)(e)
-        d = tf.keras.layers.Dense(
-            RoInflect._conf_dense_size, activation='tanh')(l)
-        y = tf.keras.layers.Dense(self._msd.get_output_vector_size(
-        ), activation='sigmoid', name="possible_msds")(d)
+    def _build_pt_model(self) -> RoInflectModule:
+        return RoInflectModule(
+            char_vocab_dim=self._charid,
+            msd_vector_dim=self._msd.get_output_vector_size()
+        )
 
-        return tf.keras.Model(inputs=x, outputs=y)
-
-    def _save_keras_model(self):
-        self._model.save(ROINFLECT_MODEL_FOLDER, overwrite=True)
+    def _save_pt_model(self):
+        torchmodelfile = os.path.join(ROINFLECT_MODEL_FOLDER, 'model.pt')
+        torch.save(self._model.state_dict(), torchmodelfile)
         self._save_char_map()
 
     def _save_char_map(self):
@@ -188,7 +339,13 @@ class RoInflect(object):
         # end with
 
     def load(self):
-        self._model = tf.keras.models.load_model(ROINFLECT_MODEL_FOLDER)
+        self._model = self._build_pt_model()
+        torchmodelfile = os.path.join(ROINFLECT_MODEL_FOLDER, 'model.pt')
+        self._model.load_state_dict(torch.load(
+            torchmodelfile, map_location=_device))
+        # Put model into eval mode.
+        # It is only used for inferencing.
+        self._model.eval()
         self._load_char_map()
 
     def save_cache(self) -> None:
