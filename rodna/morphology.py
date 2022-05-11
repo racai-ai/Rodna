@@ -104,7 +104,6 @@ class RoInflect(object):
     That is, it learns ambiguity classes for nouns, verbs,
     adjectives and adverbs."""
 
-    _conf_keep_msd_prob_threshold = 0.01
     _conf_dev_size = 0.1
 
     def __init__(self, lexicon: Lex) -> None:
@@ -339,6 +338,7 @@ class RoInflect(object):
         # end with
 
     def load(self):
+        self._load_char_map()
         self._model = self._build_pt_model()
         torchmodelfile = os.path.join(ROINFLECT_MODEL_FOLDER, 'model.pt')
         self._model.load_state_dict(torch.load(
@@ -346,7 +346,6 @@ class RoInflect(object):
         # Put model into eval mode.
         # It is only used for inferencing.
         self._model.eval()
-        self._load_char_map()
 
     def save_cache(self) -> None:
         with open(ROINFLECT_CACHE_FILE, mode='w', encoding='utf-8') as f:
@@ -381,9 +380,12 @@ class RoInflect(object):
             return self._cache[word_key]
         # end if
 
-        (x_word, _) = self._build_io_vectors(word, [])
-        x_word = np.reshape(x_word, (1, x_word.shape[0]))
-        y_pred = self._model.predict(x=x_word)
+        word_vector = self._build_io_vectors(word, [])
+        word_tensor, _ = self._roinfl_collate_fn([word_vector])
+        y_pred = self._model(x=word_tensor)
+        # Copy tensor on GPU to CPU first
+        y_pred = y_pred.cpu()
+        y_pred = y_pred.detach().numpy()
         # Default for the Precition/Recall computation of a '1'
         prob_thr = 0.5
         # Indexes of the positions in y_pred that are > prob_thr
