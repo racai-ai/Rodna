@@ -617,17 +617,15 @@ if __name__ == '__main__':
     ss = RoSentenceSplitter(tk)
 
     # Using the .tok files for now.
-    #tok_files = read_all_ext_files_from_dir(os.path.join(
-    #    'data', 'training', 'splitter'), extension='.tok')
-    #long_token_sequence = []
+    tok_files = read_all_ext_files_from_dir(os.path.join(
+        'data', 'training', 'splitter'), extension='.tok')
+    long_token_sequence = []
 
-    #for file in tok_files:
-    #    print(stack()[
-    #          0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
-    #    file_wsq = tok_file_to_tokens(file)
-    #    long_token_sequence.extend(file_wsq)
+    for file in tok_files:
+        print(stack()[
+              0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
+        file_wsq = tok_file_to_tokens(file)
+        long_token_sequence.extend(file_wsq)
     # end all files
 
-    #ss.train(long_token_sequence)
-    ss.load()
-    ss.sentence_split("Aiasta e o propoziție. Acum începe a doua propoziție. Iar asta e a treia.")
+    ss.train(long_token_sequence)
