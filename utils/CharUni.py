@@ -18,7 +18,7 @@ class CharUni(object):
             name_words = c_name.split()
 
             for c_cat in name_words:
-                if not c_cat in self._seenunicodeprops:
+                if c_cat not in self._seenunicodeprops:
                     self._seenunicodeprops[c_cat] = self._seenunicodeid
                     self._seenunicodeid += 1
                 # end if

@@ -1,7 +1,6 @@
 import sys
 import os
 import numpy as np
-from regex import D
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader

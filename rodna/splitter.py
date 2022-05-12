@@ -2,68 +2,65 @@ import sys
 import os
 from inspect import stack
 import numpy as np
-import tensorflow as tf
+from regex import D
+import torch
+from torch import nn
+from torch.utils.data import TensorDataset, DataLoader
+from torch.optim import Adam
+from tqdm import tqdm
 from utils.CharUni import CharUni
 from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
-from config import SENT_SPLITTER_MODEL_FOLDER, SPLITTER_UNICODE_PROPERTY_FILE
-
-# Disable GPU
-# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+from config import SENT_SPLITTER_MODEL_FOLDER, \
+    SPLITTER_UNICODE_PROPERTY_FILE, SPLITTER_FEAT_LEN_FILE
 
 
-class PRFCallback(tf.keras.callbacks.Callback):
-    """Precision/Recall/F-measure callback for model.fit() to compute other measures."""
+torch.manual_seed(1234)
+_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    def __init__(self, x, y):
+
+class RoSentenceSplitterModule(nn.Module):
+    """The PyTorch neural network module for sentence splitting."""
+
+    # LSTM state size
+    _conf_lstm_size = 64
+
+    def __init__(self, feat_dim: int):
         super().__init__()
-        self.x_data = x
-        self.y_gold = y
+        self._layer_lstm = nn.LSTM(
+            input_size=feat_dim,
+            hidden_size=RoSentenceSplitterModule._conf_lstm_size,
+            batch_first=True,
+            bidirectional=True)
+        # We are going to concatenate the left-to-right and the
+        # right-to-left LSTM output states.
+        self._layer_linear = nn.Linear(
+            in_features=2 * RoSentenceSplitterModule._conf_lstm_size,
+            out_features=2
+        )
+        self._layer_drop = nn.Dropout(p=0.3)
+        self._layer_logsoftmax = nn.LogSoftmax(dim=2)
+        self.to(device=_device)
 
-    def computeMetric(self, x, y):
-        y_pred = self.model.predict(x)
-        gold_argmax = np.argmax(y, axis=-1)
-        pred_argmax = np.argmax(y_pred, axis=-1)
-        diff = gold_argmax - pred_argmax
-        fn = np.sum(diff == 1)
-        fp = np.sum(diff == -1)
-        match_sum = gold_argmax + pred_argmax
-        tp = np.sum(match_sum == 2)
-        prec = 0.0
-        rec = 0.0
-        fm = 0.0
+    def forward(self, x):
+        b_size = x.shape[0]
+        # Hidden state initialization
+        h_0 = torch.zeros(
+            2, b_size,
+            RoSentenceSplitterModule._conf_lstm_size).to(device=_device)
+        # Internal state initialization
+        c_0 = torch.zeros(
+            2, b_size,
+            RoSentenceSplitterModule._conf_lstm_size).to(device=_device)
 
-        if tp + fp > 0:
-            prec = float(tp) / float(tp + fp)
-        # end if
+        # Propagate input through LSTM, get output and state information
+        lstm_outputs, (h_n, c_n) = self._layer_lstm(x, (h_0, c_0))
+        # Shape is (N, L, 2 * _conf_lstm_size)
+        out = self._layer_drop(lstm_outputs)
+        out = self._layer_linear(out)
+        out = self._layer_logsoftmax(out)
 
-        if tp + fn > 0:
-            rec = float(tp) / float(tp + fn)
-        # end if
-
-        if prec > 0.0 or rec > 0.0:
-            fm = 2 * prec * rec / (prec + rec)
-        # end if
-
-        prec = float(int(prec * 10000.0)) / 10000.0
-        rec = float(int(rec * 10000.0)) / 10000.0
-        fm = float(int(fm * 10000.0)) / 10000.0
-
-        return (prec, rec, fm)
-
-    def on_epoch_end(self, epoch, logs):
-        (P, R, F) = self.computeMetric(self.x_data, self.y_gold)
-
-        logs["prec"] = P
-        logs["rec"] = R
-        logs["fmeas"] = F
-
-        print(stack()[0][3] + ": {0} dev precision at epoch {1!s} is P = {2!s}".format(
-            RoSentenceSplitter.eos_label, epoch + 1, P), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": {0} dev recall at epoch {1!s} is R = {2!s}".format(
-            RoSentenceSplitter.eos_label, epoch + 1, R), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": {0} dev f-measure at epoch {1!s} is F1 = {2!s}".format(
-            RoSentenceSplitter.eos_label, epoch + 1, F), file=sys.stderr, flush=True)
+        return out
 
 
 class RoSentenceSplitter(object):
@@ -77,10 +74,7 @@ class RoSentenceSplitter(object):
     # we assign the eosLabel
     _conf_eos_prob = 0.5
     # How many words in a window to consider when constructing a sample.
-    # This is the Tx value in the Deep Learning course.
     _conf_max_seq_length = 50
-    # LSTM state size
-    _conf_lstm_state_size = 64
     # When we do sentence splitting, how many samples to run
     # through the NN at once.
     _conf_run_batch_length = 4096
@@ -128,7 +122,7 @@ class RoSentenceSplitter(object):
         # 4. Get train/dev/test numpy tensors
         print(stack()[0][3] + ": building train tensor",
               file=sys.stderr, flush=True)
-        (x_train, y_train) = self._build_keras_model_input(train_examples)
+        (x_train, y_train) = self._build_model_input(train_examples)
         print(stack()[
               0][3] + ": X_train.shape is {0!s}".format(x_train.shape), file=sys.stderr, flush=True)
         print(stack()[
@@ -136,8 +130,8 @@ class RoSentenceSplitter(object):
 
         print(stack()[0][3] + ": building dev/test tensors",
               file=sys.stderr, flush=True)
-        (x_dev, y_dev) = self._build_keras_model_input(dev_examples)
-        (x_test, y_test) = self._build_keras_model_input(test_examples)
+        (x_dev, y_dev) = self._build_model_input(dev_examples)
+        (x_test, y_test) = self._build_model_input(test_examples)
         print(stack()[
               0][3] + ": X_dev.shape is {0!s}".format(x_dev.shape), file=sys.stderr, flush=True)
         print(stack()[
@@ -148,67 +142,186 @@ class RoSentenceSplitter(object):
               0][3] + ": Y_test.shape is {0!s}".format(y_test.shape), file=sys.stderr, flush=True)
 
         # We leave out the number of examples in a batch
-        input_shape = (x_train.shape[1], x_train.shape[2])
-        output_shape = (y_train.shape[1], y_train.shape[2])
         print(stack()[
-              0][3] + ": input shape is {0!s}".format(input_shape), file=sys.stderr, flush=True)
+              0][3] + ": input shape is {0!s}".format(x_train.shape), file=sys.stderr, flush=True)
         print(stack()[
-              0][3] + ": output shape is {0!s}".format(output_shape), file=sys.stderr, flush=True)
-        self._model = self._build_keras_model(
-            input_shape, output_shape[1], a_units=RoSentenceSplitter._conf_lstm_state_size)
-        self._model.summary()
-
+              0][3] + ": output shape is {0!s}".format(y_train.shape), file=sys.stderr, flush=True)
+        self._features_dim = x_train.shape[2]
+        self._model = self._build_pt_model()
+        
         # Save the model as a class attribute
-        self._train_keras_model(train=(x_train, y_train), dev=(x_dev, y_dev), test=(x_test, y_test))
-        self._save_keras_model()
+        self._train_pt_model(train=(x_train, y_train), dev=(x_dev, y_dev), test=(x_test, y_test))
+        self._save_pt_model()
 
-    def _build_keras_model(self, in_shape: tuple, out_dim: int, a_units: int = 64) -> tf.keras.Model:
-        """in_shape is of shape (maxSeqLength, len(features)) where 'features' is the input vector
-        and out_dim is the length of the classification, output vector, e.g. 2 in this case."""
+    def _build_pt_model(self) -> RoSentenceSplitterModule:
+        """Builds the PyTorch NN for the splitter."""
 
-        # Ignore the batch_size or m, the number of training examples.
-        # It is added by the Input layer.
-        X = tf.keras.layers.Input(shape=in_shape, dtype='float32')
-        # return_sequences = True tells the model to output a at each time step
-        L = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(
-            a_units, return_sequences=True))(X)
-        # Connect a dense layer to a which has shape (a_units,)
-        L = tf.keras.layers.Dense(out_dim)(L)
-        # Activate it with the softmax function
-        Y = tf.keras.layers.Activation('softmax')(L)
+        return RoSentenceSplitterModule(feat_dim=self._features_dim)
 
-        return tf.keras.Model(X, Y)
-
-    def _train_keras_model(self, train: tuple, dev: tuple, test: tuple) -> None:
+    def _train_pt_model(self, train: tuple, dev: tuple, test: tuple) -> None:
+        # NumPy tensors
         (x_train, y_train) = train
         (x_dev, y_dev) = dev
         (x_test, y_test) = test
 
-        # Compile model
-        prf_callback = PRFCallback(x_dev, y_dev)
-        self._model.compile(loss='categorical_crossentropy',
-                            optimizer='Adam', metrics=['categorical_accuracy'])
+        # PyTorch tensors
+        x_train = torch.tensor(x_train).to(_device)
+        y_train = torch.tensor(y_train, dtype=torch.long).to(_device)
+        x_dev = torch.tensor(x_dev).to(_device)
+        y_dev = torch.tensor(y_dev, dtype=torch.long).to(_device)
+        x_test = torch.tensor(x_test).to(_device)
+        y_test = torch.tensor(y_test, dtype=torch.long).to(_device)
+        
+        # PyTorch datasets
+        pt_dataset_train = TensorDataset(x_train, y_train)
+        pt_dataset_dev = TensorDataset(x_dev, y_dev)
+        pt_dataset_test = TensorDataset(x_test, y_test)
 
-        # Fit model (train)
-        # validation_data = dev as argument if you want
-        self._model.fit(x_train, y_train, epochs=10,
-                        batch_size=128, shuffle=True, callbacks=[prf_callback])
+        self._loss_fn = nn.NLLLoss()
+        self._optimizer = Adam(self._model.parameters(), lr=1e-3)
 
-        (P, R, F) = prf_callback.computeMetric(x_test, y_test)
-        print(stack()[0][3] + ": {0} test Precision is P = {1!s}".format(
-            RoSentenceSplitter.eos_label, P), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": {0} test Recall is R = {1!s}".format(
-            RoSentenceSplitter.eos_label, R), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": {0} test F-measure is F1 = {1!s}".format(
-            RoSentenceSplitter.eos_label, F), file=sys.stderr, flush=True)
+        train_dataloader = DataLoader(
+            dataset=pt_dataset_train, batch_size=16, shuffle=True)
+        dev_dataloader = DataLoader(
+            dataset=pt_dataset_dev, batch_size=16, shuffle=False)
+        test_dataloader = DataLoader(
+            dataset=pt_dataset_test, batch_size=16, shuffle=False)
+
+        for ep in range(1, 11):
+            # Fit model for one epoch
+            self._model.train(True)
+            self._do_one_epoch(epoch=ep, dataloader=train_dataloader)
+
+            # Test model
+            # Put model into eval mode first
+            self._model.eval()
+            self._test(dataloader=dev_dataloader, ml_set='dev')
+        # end for
+
+        self._model.eval()
+        self._test(dataloader=test_dataloader, ml_set='test')
+
+    def _do_one_epoch(self, epoch: int, dataloader: DataLoader):
+        """Does one epoch of NN training."""
+        running_loss = 0.
+        epoch_loss = []
+        counter = 0
+
+        for inputs, target_labels in tqdm(dataloader, desc=f'Epoch {epoch}'):
+            counter += 1
+
+            # Zero your gradients for every batch!
+            self._optimizer.zero_grad()
+
+            # Make predictions for this batch
+            outputs = self._model(x=inputs)
+
+            # Have to swap axes for NLLLoss function
+            # Classes are on the second dimension, dim=1
+            outputs = torch.swapaxes(outputs, 1, 2)
+            loss = self._loss_fn(outputs, target_labels)
+            loss.backward()
+
+            # Adjust learning weights and learning rate schedule
+            self._optimizer.step()
+
+            # Gather data and report
+            running_loss += loss.item()
+
+            if counter % 200 == 0:
+                # Average loss per batch
+                average_running_loss = running_loss / 500
+                print(f'\n  -> batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}',
+                      file=sys.stderr, flush=True)
+                epoch_loss.append(average_running_loss)
+                running_loss = 0.
+            # end if
+        # end for i
+
+        average_epoch_loss = sum(epoch_loss) / len(epoch_loss)
+        print(
+            f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
+
+    def _compute_metric(self, x, y):
+        y_pred = self._model(x)
+        gold_argmax = np.argmax(y, axis=-1)
+        pred_argmax = np.argmax(y_pred, axis=-1)
+        diff = gold_argmax - pred_argmax
+        fn = np.sum(diff == 1)
+        fp = np.sum(diff == -1)
+        match_sum = gold_argmax + pred_argmax
+        tp = np.sum(match_sum == 2)
+        prec = 0.0
+        rec = 0.0
+        fm = 0.0
+
+        if tp + fp > 0:
+            prec = float(tp) / float(tp + fp)
+        # end if
+
+        if tp + fn > 0:
+            rec = float(tp) / float(tp + fn)
+        # end if
+
+        if prec > 0.0 or rec > 0.0:
+            fm = 2 * prec * rec / (prec + rec)
+        # end if
+
+        prec = float(int(prec * 10000.0)) / 10000.0
+        rec = float(int(rec * 10000.0)) / 10000.0
+        fm = float(int(fm * 10000.0)) / 10000.0
+
+        return (prec, rec, fm)
+
+    def _test(self, dataloader: DataLoader, ml_set: str):
+        """Tests the model with the dev/test sets."""
+
+        correct = 0
+        predicted = 0
+        existing = 0
+
+        for inputs, target_labels in tqdm(dataloader, desc=f'Eval'):
+            outputs = self._model(x=inputs)
+            outputs = torch.exp(outputs)
+            predicted_labels = (outputs >= 0.5).to(dtype=torch.int64)[:, :, 1]
+            target_labels = target_labels.to(dtype=torch.bool)
+            predicted_labels = predicted_labels.to(dtype=torch.bool)
+            correct_labels = torch.logical_and(predicted_labels, target_labels)
+            predicted += torch.sum(predicted_labels).item()
+            existing += torch.sum(target_labels).item()
+            correct += torch.sum(correct_labels).item()
+        # end for
+
+        prec = correct / predicted
+        rec = correct / existing
+        f1 = 2 * prec * rec / (prec + rec)
+
+        print(f'P(1) = {prec:.5f} on {ml_set}', file=sys.stderr, flush=True)
+        print(f'R(1) = {rec:.5f} on {ml_set}', file=sys.stderr, flush=True)
+        print(f'F1(1) = {f1:.5f} on {ml_set}', file=sys.stderr, flush=True)
 
     def load(self):
-        self._model = tf.keras.models.load_model(SENT_SPLITTER_MODEL_FOLDER)
-        self._uniprops.load_unicode_props(SPLITTER_UNICODE_PROPERTY_FILE)
+        with open(SPLITTER_FEAT_LEN_FILE, mode='r', encoding='utf-8') as f:
+            self._features_dim = int(f.readline().strip())
+        # end with
 
-    def _save_keras_model(self):
-        self._model.save(SENT_SPLITTER_MODEL_FOLDER, overwrite=True)
+        self._uniprops.load_unicode_props(SPLITTER_UNICODE_PROPERTY_FILE)
+        self._model = self._build_pt_model()
+        torchmodelfile = os.path.join(SENT_SPLITTER_MODEL_FOLDER, 'model.pt')
+        self._model.load_state_dict(torch.load(
+            torchmodelfile, map_location=_device))
+        # Put model into eval mode.
+        # It is only used for inferencing.
+        self._model.eval()
+
+    def _save_pt_model(self):
+        torchmodelfile = os.path.join(SENT_SPLITTER_MODEL_FOLDER, 'model.pt')
+        torch.save(self._model.state_dict(), torchmodelfile)
         self._uniprops.save_unicode_props(SPLITTER_UNICODE_PROPERTY_FILE)
+
+        with open(SPLITTER_FEAT_LEN_FILE, mode='w', encoding='utf-8') as f:
+            print(f'{self._features_dim}', file=f)
+        # end with
 
     def sentence_split(self, input_text: str) -> list:
         """Will run the sentence splitter model on the input_text and return
@@ -257,7 +370,10 @@ class RoSentenceSplitter(object):
                 print(stack()[0][3] + ": running NN batch #{0!s}, size = {1!s}".format(
                     batch_count, x_batch.shape[0]), file=sys.stderr, flush=True)
                 # Pass X_batch through the neural net
-                y_pred = self._model.predict(x_batch)
+                pt_x_batch = torch.tensor(x_batch).to(_device)
+                y_pred = self._model(pt_x_batch)
+                y_pred = torch.exp(y_pred)
+                y_pred = y_pred.cpu().detach().numpy()
 
                 for bi in batch_i:
                     left_b = bi
@@ -316,7 +432,10 @@ class RoSentenceSplitter(object):
             print(stack()[0][3] + ": running final NN batch #{0!s}, size = {1!s}".format(
                 batch_count, x_batch.shape[0]), file=sys.stderr, flush=True)
             # Pass X_batch through the neural net
-            y_pred = self._model.predict(x_batch)
+            pt_x_batch = torch.tensor(x_batch).to(_device)
+            y_pred = self._model(pt_x_batch)
+            y_pred = torch.exp(y_pred)
+            y_pred = y_pred.cpu().detach().numpy()
 
             for bi in batch_i:
                 left_b = bi
@@ -405,8 +524,10 @@ class RoSentenceSplitter(object):
                 parts = data_sequence[j]
                 sample.append(parts)
 
-                if not sample_is_positive and RoSentenceSplitter.is_eos_label(parts):
+                if not sample_is_positive and \
+                        RoSentenceSplitter.is_eos_label(parts):
                     sample_is_positive = True
+                # end if
 
             if sample_is_positive:
                 positive_samples.append(sample)
@@ -442,7 +563,7 @@ class RoSentenceSplitter(object):
 
         return (train_samples, dev_samples, test_samples)
 
-    def _build_keras_model_input(self, data_samples: list) -> tuple:
+    def _build_model_input(self, data_samples: list) -> tuple:
         # No of examples
         m = len(data_samples)
         # This should be equal to maxSeqLength
@@ -453,7 +574,7 @@ class RoSentenceSplitter(object):
         X = None
         Y = None
 
-        # sample size is Tx, the number of time steps
+        # Sample size is Tx, the number of time steps
         for i in range(len(data_samples)):
             sample = data_samples[i]
             # We must have that len(sample) == tx
@@ -462,12 +583,11 @@ class RoSentenceSplitter(object):
                 parts = sample[j]
                 word = parts[0]
                 tlabel = parts[1]
-                y = np.zeros(2)
+                y = 0
 
                 if RoSentenceSplitter.is_eos_label(parts):
-                    y[1] = 1.0
-                else:
-                    y[0] = 1.0
+                    y = 1
+                # end if
 
                 label_features = self._tokenizer.get_label_features(tlabel)
                 uni_features = self._uniprops.get_unicode_features(word)
@@ -480,12 +600,11 @@ class RoSentenceSplitter(object):
                 if n == -1:
                     n = x.shape[0]
                     X = np.empty((m, tx, n), dtype=np.float32)
-                    Y = np.empty((m, tx, 2), dtype=np.float32)
-                #else:
-                #    assert (n,) == x.shape
+                    Y = np.empty((m, tx), dtype=np.int32)
+                # end if
 
                 X[i, j, :] = x
-                Y[i, j, :] = y
+                Y[i, j] = y
             # end for j in a sample
         # end for i with all samples
 
@@ -498,15 +617,17 @@ if __name__ == '__main__':
     ss = RoSentenceSplitter(tk)
 
     # Using the .tok files for now.
-    tok_files = read_all_ext_files_from_dir(os.path.join(
-        'data', 'training', 'splitter'), extension='.tok')
-    long_token_sequence = []
+    #tok_files = read_all_ext_files_from_dir(os.path.join(
+    #    'data', 'training', 'splitter'), extension='.tok')
+    #long_token_sequence = []
 
-    for file in tok_files:
-        print(stack()[
-              0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
-        file_wsq = tok_file_to_tokens(file)
-        long_token_sequence.extend(file_wsq)
+    #for file in tok_files:
+    #    print(stack()[
+    #          0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
+    #    file_wsq = tok_file_to_tokens(file)
+    #    long_token_sequence.extend(file_wsq)
     # end all files
 
-    ss.train(long_token_sequence)
+    #ss.train(long_token_sequence)
+    ss.load()
+    ss.sentence_split("Aiasta e o propoziție. Acum începe a doua propoziție. Iar asta e a treia.")
