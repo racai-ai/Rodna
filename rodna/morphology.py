@@ -366,6 +366,19 @@ class RoInflect(object):
             # end with
         # end if
 
+    def msd_prob_for_word(self, word: str, msd: str) -> float:
+        """Returns the learned probabilit for the given word/MSD combination."""
+
+        word_vector = self._build_io_vectors(word, [])
+        word_tensor, _ = self._roinfl_collate_fn([word_vector])
+        y_pred = self._model(x=word_tensor)
+        # Copy tensor on GPU to CPU first
+        y_pred = y_pred.cpu()
+        y_pred = y_pred.detach().numpy()
+        msd_idx = self._msd.msd_to_idx(msd)
+
+        return y_pred[0, msd_idx]
+
     def ambiguity_class(self, word: str, min_msds: int = 3) -> list:
         """Returns a list of possible MSDs for the given word.
         The list was learned from the training corpus and the lexicon.
@@ -463,6 +476,6 @@ class RoInflect(object):
         # end while
 
 if __name__ == '__main__':
-    lexicon = Lex()
-    morpho = RoInflect(lexicon)
+    lexi = Lex()
+    morpho = RoInflect(lexi)
     morpho.train()

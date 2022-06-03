@@ -1,6 +1,8 @@
 import os
 
 TBL_WORDFORM_FILE = os.path.join('data', 'resources', 'tbl.wordform.ro')
+TBL_WORDROOT_FILE = os.path.join('data', 'resources', 'tbl.wordroot.ro')
+TBL_ROOT2ROOT_FILE = os.path.join('data', 'resources', 'root_rules.ro')
 MSD_MAP_FILE = os.path.join('data', 'resources', 'msdtag.ro.map')
 # CoRoLa vectors
 EXTERNAL_WORD_EMBEDDINGS_FILE = os.path.join('data', 'resources', 'corola.200.5.vec.gz')
@@ -16,3 +18,4 @@ SPLITTER_FEAT_LEN_FILE = os.path.join('data', 'models', 'splitter_feat_len.txt')
 TAGGER_UNICODE_PROPERTY_FILE = os.path.join('data', 'models', 'tagger_unic_props.txt')
 CLS_TAGGER_MODEL_FOLDER = os.path.join('data', 'models', 'tagger', 'cls')
 CRF_TAGGER_MODEL_FOLDER = os.path.join('data', 'models', 'tagger', 'crf')
+PARADIGM_MORPHO_FILE = os.path.join('data', 'resources', 'morphalt.xml')

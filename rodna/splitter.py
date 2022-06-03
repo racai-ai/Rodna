@@ -2,13 +2,13 @@ import sys
 import os
 from inspect import stack
 import numpy as np
-from regex import D
 import torch
 from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
 from torch.optim import Adam
 from tqdm import tqdm
 from utils.CharUni import CharUni
+from utils.Lex import Lex
 from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from config import SENT_SPLITTER_MODEL_FOLDER, \
@@ -82,16 +82,10 @@ class RoSentenceSplitter(object):
     _conf_dev_percent = 0.1
     _conf_test_percent = 0.1
 
-    def __init__(self, tokenizer: RoTokenizer):
+    def __init__(self, lexicon: Lex, tokenizer: RoTokenizer):
         self._tokenizer = tokenizer
         self._uniprops = CharUni()
-        self._lexicon = tokenizer.get_lexicon()
-
-    def get_tokenizer(self):
-        return self._tokenizer
-
-    def get_lexicon(self):
-        return self._lexicon
+        self._lexicon = lexicon
 
     def train(self, word_sequence: list):
         """Takes a long word sequence (RoTokenizer tokenized text with 'SENTEND' annotations),
@@ -613,8 +607,9 @@ class RoSentenceSplitter(object):
 
 if __name__ == '__main__':
     # Use this module to train the sentence splitter.
-    tk = RoTokenizer()
-    ss = RoSentenceSplitter(tk)
+    lx = Lex()
+    tk = RoTokenizer(lx)
+    ss = RoSentenceSplitter(lx, tk)
 
     # Using the .tok files for now.
     tok_files = read_all_ext_files_from_dir(os.path.join(

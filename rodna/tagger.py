@@ -4,17 +4,16 @@ import sys
 from math import isclose
 import numpy as np
 import tensorflow as tf
-from tensorflow.python.ops.math_ops import _ReductionDims
 import tensorflow_addons as tfa
 from inspect import stack
 from utils.CharUni import CharUni
 
 from utils.MSD import MSD
 from utils.datafile import read_all_ext_files_from_dir
-from .splitter import RoSentenceSplitter
-from .tokenizer import RoTokenizer
-from .features import RoFeatures
-from .morphology import RoInflect
+from splitter import RoSentenceSplitter
+from tokenizer import RoTokenizer
+from features import RoFeatures
+from morphology import RoInflect
 from utils.Lex import Lex
 from config import EMBEDDING_VOCABULARY_FILE, CLS_TAGGER_MODEL_FOLDER, \
     CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE
@@ -22,11 +21,6 @@ from config import EMBEDDING_VOCABULARY_FILE, CLS_TAGGER_MODEL_FOLDER, \
 _zero_word = '_ZERO_'
 _unk_word = '_UNK_'
 
-# Disable GPU
-# os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
-# Enable 'as needed' GPU memory allocation
-# physical_devices = tf.config.list_physical_devices('GPU')
-# tf.config.experimental.set_memory_growth(physical_devices[0], True)
 
 class AccCallback(tf.keras.callbacks.Callback):
     """Accuracy callback for model.fit."""
@@ -234,9 +228,9 @@ class CRFModel(tf.keras.Model):
         # Build functional model
         crf = tfa.layers.CRF(
             units=tagset_size,
-            chain_initializer=tf.keras.initializers.Orthogonal(),
+            chain_initializer=tf.keras.initializers.RandomUniform(),
             use_boundary=True,
-            boundary_initializer=tf.keras.initializers.Zeros(),
+            boundary_initializer=tf.keras.initializers.RandomUniform(),
             use_kernel=True,
             name='crf_layer')
 
@@ -344,16 +338,16 @@ class RoPOSTagger(object):
     # This is the Tx value in the Deep Learning course.
     # Set to 0 to estimate it as the average sentence length in the
     # training set.
-    _conf_maxseqlen = 100
+    _conf_maxseqlen = 50
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
     _conf_test_percent = 0.0
     # RNN state size
-    _conf_rnn_size_1 = 128
+    _conf_rnn_size_1 = 256
     _conf_rnn_size_2 = 128
-    _conf_epochs_cls = 20
-    _conf_epochs_crf = 10
+    _conf_epochs_cls = 10
+    _conf_epochs_crf = 3
     _conf_with_tiered_tagging = True
     # Can be one of the following (see RoPOSTagger._run_sentence()):
     # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
@@ -383,7 +377,7 @@ class RoPOSTagger(object):
         physical_devices = tf.config.list_physical_devices('GPU')
         device = "/device:CPU:0"
 
-        if RoPOSTagger._conf_maxseqlen <= 50 and \
+        if RoPOSTagger._conf_maxseqlen <= 100 and \
             RoPOSTagger._conf_rnn_size_1 <= 128 and \
             RoPOSTagger._conf_rnn_size_2 <= 128:
             device = "/device:GPU:0"
@@ -913,9 +907,6 @@ class RoPOSTagger(object):
                 'crf_maxp_correct': 0
             }
 
-            print(">>>>>",
-                  file=debug_fh, flush=True)
-
             for i in range(len(debug_info)):
                 word = sentence[i][0]
                 gold_msd = sentence[i][1]
@@ -997,8 +988,7 @@ class RoPOSTagger(object):
 
             print("Best performances (Acc = {0:.5f}): {1}".format(acc,
                 ', '.join(best_methods)), file=debug_fh, flush=True)
-            print("<<<<<",
-                  file=debug_fh, flush=True)
+            print(file=debug_fh, flush=True)
         # end if debug
 
         tagged_sentence2 = []
@@ -1627,7 +1617,7 @@ class RoPOSTagger(object):
 
         for word in self._datavocabulary:
             if Lex.sentence_case_pattern.match(word):
-                if not word.lower() in self._datavocabulary:
+                if word.lower() not in self._datavocabulary:
                     new_vocabulary.add(word)
                 else:
                     print(stack()[

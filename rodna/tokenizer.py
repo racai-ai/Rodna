@@ -1,6 +1,6 @@
-from inspect import stack
 import sys
 import re
+from inspect import stack
 import numpy as np
 import unicodedata as uc
 from utils.Lex import Lex
@@ -65,13 +65,10 @@ class RoTokenizer(object):
         set()
     ]
 
-    def __init__(self):
+    def __init__(self, lexicon: Lex):
         """Takes the Romanian lexicon file and the Romanian word embeddings file."""
 
-        self._lexicon = Lex()
-
-    def get_lexicon(self) -> Lex:
-        return self._lexicon
+        self._lexicon = lexicon
 
     @staticmethod
     def get_label_features(label: str) -> np.ndarray:

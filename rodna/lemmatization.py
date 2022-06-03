@@ -1,13 +1,14 @@
 import os
 import re
 import sys
+from random import shuffle, seed
 from tqdm import tqdm
 from lxml import etree
 from lxml.etree import _Element
 from .morphology import RoInflect
 from utils.Lex import Lex
 from config import PARADIGM_MORPHO_FILE, \
-    TBL_WORDROOT_FILE, TBL_ROOT2LEMMA_FILE
+    TBL_WORDROOT_FILE, TBL_ROOT2ROOT_FILE
 
 class RoLemmatizer(object):
     """This is the Romanian lemmatizer, using the Romanian Paradigmatic Morphology."""
@@ -124,6 +125,8 @@ class RoLemmatizer(object):
         paras, term2paras = self._read_paradigm_morph()
         self._paradigms = paras
         self._terms_to_paradigms = term2paras
+        self._nn_weight = 0.5
+        self._fq_weight = 0.5
 
         if os.path.exists(TBL_WORDROOT_FILE):
             self._word_roots = self._read_root_lexicon()
@@ -131,65 +134,73 @@ class RoLemmatizer(object):
             self._word_roots = self._build_root_lexicon()
         # end if
 
-        if os.path.exists(TBL_ROOT2LEMMA_FILE):
-            pass
+        if os.path.exists(TBL_ROOT2ROOT_FILE):
+            self._root_rules = self._read_root_changing_rules()
         else:
-            self._root_rules = self._build_lemmatization_rules()
+            self._root_rules = self._build_root_changing_rules()
         # end if
 
-    def _r2l_rule(self, root: str, lemma: str) -> tuple:
-        if len(root) <= len(lemma):
+    def _s2s_rule(self, left: str, right: str) -> tuple:
+        """String to string changing rule. Change `left` string
+        into the `right` string."""
+
+        if len(left) <= len(right):
             i = 0
 
-            while i < len(root) and root[i] == lemma[i]:
+            while i < len(left) and left[i] == right[i]:
                 i += 1
             # end while
 
-            if i == len(root):
-                return ('add', lemma[i:])
+            if i == len(left):
+                return ('add', right[i:])
             else:
-                return ('chg', root[i:], lemma[i:])
+                return ('chg', left[i:], right[i:])
             # end if
         else:
             i = 0
 
-            while i < len(lemma) and root[i] == lemma[i]:
+            while i < len(right) and left[i] == right[i]:
                 i += 1
             # end while
 
-            if i == len(lemma):
-                return ('del', root[i:])
+            if i == len(right):
+                return ('del', left[i:])
             else:
-                return ('chg', root[i:], lemma[i:])
+                return ('chg', left[i:], right[i:])
             # end if
         # end if
 
-    def _build_nom_root_to_lemma_rules(self) -> dict:
+    def _build_nom_root_rules(self) -> dict:
         """Learns the string transformation rules from
-        a root of a noun/adjective to its lemma."""
+        a plural nominal root of a noun/adjective to its singular root."""
 
         nominal_rules = {}
 
         for lemma in tqdm(self._word_roots, desc='Nominal rules: '):
             for pos, sg_root, pl_root, paradigm, _ in self._word_roots[lemma]:
-                if pos == 'noun' or pos == 'adje':
-                    sg_rule = self._r2l_rule(sg_root, lemma)
-                    pl_rule = self._r2l_rule(pl_root, lemma)
+                if (pos == 'noun' or pos == 'adje'):
+                    if sg_root != pl_root:
+                        ps_rule = self._s2s_rule(pl_root, sg_root)
+                        sp_rule = self._s2s_rule(sg_root, pl_root)
+                    else:
+                        ps_rule = ('none', '', '')
+                        sp_rule = ('none', '', '')
+                    # end if
 
                     if paradigm not in nominal_rules:
-                        nominal_rules[paradigm] = {'sing': {}, 'plur': {}}
+                        nominal_rules[paradigm] = {'sg-pl': {}, 'pl-sg': {}}
                     # end if
 
-                    if sg_rule not in nominal_rules[paradigm]['sing']:
-                        nominal_rules[paradigm]['sing'][sg_rule] = 1
+                    if ps_rule not in nominal_rules[paradigm]['pl-sg']:
+                        nominal_rules[paradigm]['pl-sg'][ps_rule] = 1
                     else:
-                        nominal_rules[paradigm]['sing'][sg_rule] += 1
+                        nominal_rules[paradigm]['pl-sg'][ps_rule] += 1
                     # end if
 
-                    if pl_rule not in nominal_rules[paradigm]['plur']:
-                        nominal_rules[paradigm]['plur'][pl_rule] = 1
+                    if sp_rule not in nominal_rules[paradigm]['sg-pl']:
+                        nominal_rules[paradigm]['sg-pl'][sp_rule] = 1
                     else:
-                        nominal_rules[paradigm]['plur'][pl_rule] += 1
+                        nominal_rules[paradigm]['sg-pl'][sp_rule] += 1
                     # end if
                 # end if nominal
             # end all roots
@@ -453,22 +464,51 @@ class RoLemmatizer(object):
 
         return roots
 
-    def _build_lemmatization_rules(self) -> dict:
-        """Learns a set of root to lemma string changing rules."""
+    def _read_root_changing_rules(self) -> dict:
+        rules = {}
+
+        print(
+            f'Reading lemmatization rules from [{TBL_ROOT2ROOT_FILE}]', file=sys.stderr, flush=True)
+
+        with open(TBL_ROOT2ROOT_FILE, mode='r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split()
+                paradigm = parts[0]
+                direction = parts[1]
+                rule = tuple(['' if x == '--' else x for x in parts[2:-1]])
+                freq = int(parts[-1])
+
+                if paradigm.startswith('nom'):
+                    if paradigm not in rules:
+                        rules[paradigm] = {direction: {}}
+                    elif direction not in rules[paradigm]:
+                        rules[paradigm][direction] = {}
+                    # end if
+
+                    rules[paradigm][direction][rule] = freq
+                # end if
+            # end for
+        # end with
+
+        return rules
+
+    def _build_root_changing_rules(self) -> dict:
+        """Learns a set of pl. root to sg. root changes and
+        the reverse of it."""
        
         rules = {}
 
-        with open(TBL_ROOT2LEMMA_FILE, mode='w', encoding='utf-8') as f:
-            nom_rules = self._build_nom_root_to_lemma_rules()
+        with open(TBL_ROOT2ROOT_FILE, mode='w', encoding='utf-8') as f:
+            nom_rules = self._build_nom_root_rules()
 
             for paradigm in nom_rules:
-                for number in nom_rules[paradigm]:
-                    for rule in nom_rules[paradigm][number]:
-                        rule_string = '\t'.join(rule)
-                        freq = nom_rules[paradigm][number][rule]
-                        print('\t'.join([paradigm, number, rule_string, str(freq)]), file=f)
+                for direction in nom_rules[paradigm]:
+                    for rule in nom_rules[paradigm][direction]:
+                        rule2 = [x if x else '--' for x in rule]
+                        rule_string = '\t'.join(rule2)
+                        freq = nom_rules[paradigm][direction][rule]
+                        print('\t'.join([paradigm, direction, rule_string, str(freq)]), file=f)
                     # end for
-                # end for
             # end for
 
             rules.update(nom_rules)
@@ -704,7 +744,7 @@ class RoLemmatizer(object):
 
         for pname in paradigms:
             for msd in paradigms[pname]:
-                for term, alter in paradigms[pname][msd]:
+                for term, _ in paradigms[pname][msd]:
                     if term not in term_to_paradigms:
                         term_to_paradigms[term] = set()
                     # end if
@@ -716,18 +756,51 @@ class RoLemmatizer(object):
 
         return paradigms, term_to_paradigms
 
-    def _get_lemma_msd(self, msd: str, para_name: str) -> str:
-        if msd.startswith('Afp'):
-            # Adjectives and nouns have the same paradigms
-            msd = msd.replace('Afp', 'Nc')
-        # end if
+    def _transform_root(self, root: str, paradigm: str, direction: str) -> list:
+        """This method takes the plural root of the word, after the inflexional
+        ending has been removed and transforms it into the singular root in the paradigm.
+        For instance `canioanele` has root `canioan` -> `canion`."""
 
-        # TODO: add verbs here!
+        candidates = []
 
-        if msd.startswith('Ncm'):
+        if paradigm in self._root_rules:
+            for rule in self._root_rules[paradigm][direction]:
+                new_root = ''
+                r_action = rule[0]
+                r_what = rule[1]
+                freq = self._root_rules[paradigm][direction][rule]
+
+                if r_action == 'add':
+                    new_root = root + r_what
+                elif r_action == 'chg' and root.endswith(r_what):
+                    r_with = rule[2]
+                    new_root = re.sub(r_what + '$', r_with, root)
+                elif r_action == 'del' and root.endswith(r_what):
+                    new_root = re.sub(r_what + '$', '', root)
+                elif r_action == 'none':
+                    new_root = root
+                # end if
+                
+                if new_root:
+                    candidates.append((new_root, freq))
+                # end if
+            # end for
+
+            if not candidates:
+                candidates.append((root, 1))
+            # end if    
+        else:
+            # No change
+            candidates.append((root, 1))
+        # end if paradigm
+
+        return candidates
+
+    def _get_nom_lemma_msd(self, nmsd: str, paradigm: str) -> str:
+        if nmsd.startswith('Ncm'):
             return 'Ncms-n'
-        elif msd.startswith('Ncf'):
-            if para_name.startswith('nomneu'):
+        elif nmsd.startswith('Ncf'):
+            if paradigm.startswith('nomneu'):
                 # For neuter gender nouns, get the masculine MSD
                 return 'Ncms-n'
             else:
@@ -735,13 +808,82 @@ class RoLemmatizer(object):
             # end if
         # end if
 
-    def _transform_root(self, root: str) -> str:
-        """This method takes a root of the word, after the inflexional
-        ending has been removed and transforms it into the lemma root.
-        For instance `canioanele` has root `canioan` -> `canion`."""
+    def _check_lemma_by_paradigm(self, lemma: str, lemm_msd: str, wordform: str, orig_msd: str, paradigm: str) -> bool:
+        """Checks if obtained `lemma` with MSD `lemm_msd` can be inflected back to the
+        original `wordform` with MSD `orig_msd`, using provided `paradigm`."""
+        
+        if lemm_msd in self._paradigms[paradigm] and \
+                orig_msd in self._paradigms[paradigm]:
+            for term, _ in self._paradigms[paradigm][lemm_msd]:
+                if lemma.endswith(term):
+                    root = re.sub(term + '$', '', lemma)
 
-        # TODO here!
-        return root
+                    if orig_msd.startswith('Nc'):
+                        if orig_msd[3] == 'p':
+                            new_roots = self._transform_root(
+                                root, paradigm, 'sg-pl')
+                        else:
+                            new_roots = [(root, 1)]
+                        # end if
+                    elif orig_msd.startswith('Vm'):
+                        # TODO: add verbs here
+                        new_roots = []
+                    # end if
+
+                    for term2, _ in self._paradigms[paradigm][orig_msd]:
+                        for new_root, freq in new_roots:
+                            new_wordform = new_root + term2
+
+                            if wordform == new_wordform:
+                                return True
+                            # end if
+                        # end for
+                    # end for
+                # end if
+            # end for
+        # end if
+
+        return False
+    
+    def _produce_lemma(self, sg_root: str, paradigm: str, lemma_msd: str) -> list:
+        """This methods takes the singular root of the word and produces its lemma,
+        according to `paradigm` and the lemma MSD."""
+
+        lemmas = []
+
+        if paradigm in self._paradigms and \
+                lemma_msd in self._paradigms[paradigm]:
+            for term, _ in self._paradigms[paradigm][lemma_msd]:
+                lemmas.append(sg_root + term)
+            # end for
+        else:
+            lemmas.append(sg_root)
+        # end if
+
+        return lemmas
+
+    def _generate_nom_possible_paradigms(self, word: str, nmsd: str) -> list:
+        """Word is already lower cased."""
+        paradigm_candidates = []
+
+        for i in range(1, len(word)):
+            term = word[-i:]
+
+            if term in self._terms_to_paradigms:
+                for pname in self._terms_to_paradigms[term]:
+                    if nmsd in self._paradigms[pname]:
+                        for pterm, _ in self._paradigms[pname][nmsd]:
+                            if word.endswith(pterm):
+                                # Found a possible paradigm for the word
+                                paradigm_candidates.append((pname, pterm))
+                            # end if
+                        # end for
+                    # end if MSD is in paradigm
+                # end all paradigms for term
+            # end if term is in paradigms index
+        # end all terminations
+
+        return paradigm_candidates
 
     def lemmatize(self, word: str, msd: str, use_lex: bool = True) -> list:
         """Main lemmatization method. If `use_lex` is `True`, if word/MSD is in the
@@ -753,7 +895,7 @@ class RoLemmatizer(object):
             lex_lemmas = self._lexicon.get_word_lemma(word, msd)
 
             if lex_lemmas:
-                return lex_lemmas
+                return [(x, 1.0) for x in lex_lemmas]
             # end if
         # end if
 
@@ -761,83 +903,200 @@ class RoLemmatizer(object):
         # just return the word
         if msd in RoLemmatizer._lemma_msds:
             if msd.startswith('Np') or msd.startswith('Y'):
-                return word
+                return [(word, 1.0)]
             else:
-                return word.lower()
+                return [(word.lower(), 1.0)]
             # end if
         # end if
 
         lcword = word.lower()
-        para_candidates = []
+        paradigm_candidates = []
+        nmsd = msd
 
         # 3. Do the lemmatization of the unknown word
-        for i in range(1, len(lcword)):
-            term = lcword[-i:]
+        if msd.startswith('Nc') or msd.startswith('Afp'):
+            if msd.startswith('Afp'):
+                nmsd = msd.replace('Afp', 'Nc')
+            # end if
 
-            if term in self._terms_to_paradigms:
-                for pname in self._terms_to_paradigms[term]:
-                    if msd in self._paradigms[pname]:
-                        for pterm, _ in self._paradigms[pname][msd]:
-                            if lcword.endswith(pterm):
-                                # Found a possible paradigm for the word
-                                para_candidates.append((pname, pterm))
-                            # end if
-                        # end for
-                    # end if MSD is in paradigm
-                # end all paradigms for term
-            # end if term is in paradigms index
-        # end all terminations
+            paradigm_candidates = self._generate_nom_possible_paradigms(
+                lcword, nmsd)
+        elif msd.startswith('Vm'):
+            # TODO: Lemmatize verbs
+            pass
+        # end if
 
         lemma_candidates = []
 
         # 4. Main lemmatization algorithm.
         # - remove the ending
-        # - transform root to lemma based on rules
-        for pname, pterm in para_candidates:
+        # - transform pl. root to sg. root based on rules
+        # - append lemma ending to sg. root
+        for pname, pterm in paradigm_candidates:
             word_root = re.sub(pterm + '$', '', lcword)
-            word_root = self._transform_root(word_root)
-            lmsd = self._get_lemma_msd(msd, pname)
-            
-            for lpterm, _ in self._paradigms[pname][lmsd]:
-                lemma = word_root + lpterm
-                lemma_candidates.append((lemma, lmsd, pname))
-            # end for
-        # end for
 
-        lemma_scores = {}
+            if msd.startswith('Nc') or msd.startswith('Afp'):
+                lmsd = self._get_nom_lemma_msd(nmsd, pname)
+                possible_sg_roots = [(word_root, 1)]
 
-        for l, m, p in lemma_candidates:
-            aclass = self._roinflect.most_probable_msds(l)
+                if nmsd[3] == 'p':
+                    # Plural wordform, get singular roots
+                    possible_sg_roots = self._transform_root(word_root, pname, 'pl-sg')
+                # end if
 
-            for mm, sc in aclass:
-                if mm == m:
-                    if l not in lemma_scores:
-                        lemma_scores[l] = {'SCORE': sc, 'PARADIGMS': [p]}
-                    else:
-                        lemma_scores[l]['SCORE'] += sc
-                        lemma_scores[l]['PARADIGMS'].append(p)
-                    # end if
+                for sgr, frq in possible_sg_roots:
+                    lemmas = self._produce_lemma(sg_root=sgr, paradigm=pname, lemma_msd=lmsd)
 
-                    break
+                    for lem in lemmas:
+                        # 4.1 Validate final lemma by getting back the inflected wordform
+                        # that produced it
+                        if self._check_lemma_by_paradigm(lem, lmsd, lcword, nmsd, pname):
+                            lemma_candidates.append((lem, frq, lmsd, pname))
+                        # end if
+                    # end for
+                # end for
+            elif msd.startswith('Vm'):
+                # TODO: Lemmatize verbs
+                pass
             # end if
         # end for
 
-        a = 1
+        lemma_scores = {}
+        freq_sum = 0
 
+        # 5. Compute lemma scores based on how many paradigms generated it
+        # Also use our NN morphology module to say how likely the lemma is
+        for l, f, m, p in lemma_candidates:
+            sc = self._roinflect.msd_prob_for_word(l, m)
 
+            if l not in lemma_scores:
+                lemma_scores[l] = {'SCORE': sc, 'PARADIGMS': [(p, m)], 'RULEFREQ': f}
+            else:
+                lemma_scores[l]['SCORE'] += sc
+                lemma_scores[l]['RULEFREQ'] += f
+                lemma_scores[l]['PARADIGMS'].append((p, m))
+            # end if
 
+            freq_sum += f
+        # end for
 
+        lemma_scores2 = []       
 
+        for lemma in lemma_scores:
+            avg_prob = lemma_scores[lemma]['SCORE'] / \
+                len(lemma_scores[lemma]['PARADIGMS'])
+            freq = lemma_scores[lemma]['RULEFREQ']
+            frq_prob = freq / freq_sum
+            lemma_score = self._compute_lemma_score(
+                nn_score=avg_prob, fq_score=frq_prob)
+            lemma_scores2.append((lemma, lemma_score))
+            freq_sum += freq
+        # end for
 
+        lemma_scores2 = sorted(lemma_scores2, key=lambda x: x[1], reverse=True)
+        final_lemmas = []
 
+        for lm, sc in lemma_scores2:
+            if sc >= 0.001:
+                final_lemmas.append((lm, sc))
+            else:
+                break
+            # end if
+        # end for
 
+        if not final_lemmas:
+            print(f'Empty response from lemmatizer for {word}/{msd}', file=sys.stderr, flush=True)
+        # end if
 
+        return final_lemmas
 
+    def _compute_lemma_score(self, nn_score: float, fq_score: float) -> float:
+        return self._nn_weight * nn_score + self._fq_weight * fq_score
 
+    def set_lemma_score_weights(self, nnw: float, fqw: float):
+        self._nn_weight = nnw
+        self._fq_weight = fqw
 
+    def test(self, sample_size: int = 1000):
+        """Executes a test test with wordforms from the lexicon,
+        without using the lexicon for lemmatization.
+        Computes accuracy and MRR for the returned lemmas."""
 
+        # Get same results from the random number generator
+        seed(1234)
 
+        lemma_lexicon = self._lexicon.get_lemma_lexicon()
+        lexicon_words = list(lemma_lexicon.keys())
+        shuffle(lexicon_words)
+        noun_rx = re.compile('^Nc[mf][sp]')
+        word_rx = re.compile('^[a-zșțăîâ]+$')
+        test_set = []
 
+        # For now, just for nouns, as adjectives have the masculine lemma.
+        for w in lexicon_words:
+            if word_rx.fullmatch(w):
+                for m in lemma_lexicon[w]:
+                    if noun_rx.match(m) and \
+                            m != 'Ncfsrn' and m != 'Ncms-n':
+                        for l in lemma_lexicon[w][m]:
+                            test_set.append((w, m, l))
+                        # end for
+                    # end if
+
+                    if len(test_set) == sample_size:
+                        break
+                    # end if
+                # end for
+
+                if len(test_set) == sample_size:
+                    break
+                # end if
+            # end if
+        # end for
+
+        recall = 0
+        mrr = 0
+        accuracy1 = 0
+        accuracy2 = 0
+
+        # Test
+        for w, m, l in tqdm(test_set, desc='Test: '):
+            lemmas = self.lemmatize(word=w, msd=m, use_lex=False)
+
+            if not lemmas:
+                continue
+            # end if
+
+            if lemmas[0][0] == l:
+                accuracy1 += 1
+                accuracy2 += 1
+            elif len(lemmas) > 1 and lemmas[1][0] == l:
+                accuracy2 += 1
+            # end if
+
+            for i in range(len(lemmas)):
+                pred_lemma = lemmas[i][0]
+
+                if pred_lemma == l:
+                    mrr += 1 / (i + 1)
+                    recall += 1
+                    break
+                # end if
+            # end for
+        # end for
+
+        accuracy1 /= len(test_set)
+        accuracy2 /= len(test_set)
+        recall /= len(test_set)
+        mrr /= len(test_set)
+
+        # Print results
+        print(f'NN weight: {self._nn_weight}')
+        print(f'FQ weight: {self._fq_weight}')
+        print(f'Accuracy@1: {accuracy1:.5f}')
+        print(f'Accuracy@2: {accuracy2:.5f}')
+        print(f'MRR: {mrr:.5f}')
+        print(f'Recall: {recall:.5f}')
 
 
 if __name__ == '__main__':
@@ -846,14 +1105,15 @@ if __name__ == '__main__':
     morpho.load()
     lemmi = RoLemmatizer(lexi, morpho)
 
+    #for w in range(11):
+    #    w = w / 10.
+    #    lemmi.set_lemma_score_weights(w, 1 - w)
+    #    lemmi.test()
+    # end for
+
     while True:
         print("> ", end='')
         word, msd = sys.stdin.readline().strip().split()
-        lemmi.lemmatize(word, msd, use_lex=False)
+        lemmas = lemmi.lemmatize(word, msd, use_lex=False)
+        print(lemmas)
     # end while
-
-
-
-
-    #lemmas = lemmi.lemmatize('mașinatorul', 'Ncmsry')
-    #lemmas = lemmi.lemmatize('francizistei', 'Ncfsoy')        

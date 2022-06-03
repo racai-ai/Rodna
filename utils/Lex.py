@@ -24,9 +24,12 @@ class Lex(object):
     sentence_case_pattern = re.compile("^[A-ZȘȚĂÎÂ][a-zșțăîâ_-]+$")
     mixed_case_pattern = re.compile(
         "^[a-zA-ZșțăîâȘȚĂÎÂ]*[a-zșțăîâ-][A-ZȘȚĂÎÂ][a-zA-ZșțăîâȘȚĂÎÂ-]*$")
+    code_case_pattern = re.compile(
+        "^[A-Z][A-ZȘȚĂÎÂ-]*\\d[A-Za-z0-9șțăîâȘȚĂÎÂ-]*$")
+    _simple_word_pattern = re.compile('^[a-zșțăîâ]+$')
     upper_case_pattern = re.compile("^[A-ZȘȚĂÎÂ_-]+$")
-    number_pattern = re.compile("^([0-9]+|[0-9]+[.,][0-9]+)$")
-    bullet_number_pattern = re.compile("^(.*[0-9][./-].+|.*[./-][0-9].*)$")
+    number_pattern = re.compile("^(\\d+|\\d+[.,]\\d+)$")
+    bullet_number_pattern = re.compile("^(.*\\d[./-].+|.*[./-]\\d.*)$")
     _case_patterns = [
         # Lower
         re.compile("^[a-zșțăîâ_-]+$"),
@@ -37,14 +40,15 @@ class Lex(object):
         # Mixed
         mixed_case_pattern,
         # Code
-        re.compile("^[A-Z][A-ZȘȚĂÎÂ-]*[0-9][A-Za-z0-9șțăîâȘȚĂÎÂ-]*$"),
+        code_case_pattern,
         # Punctuation
-        re.compile("^\\W+$"),
+        re.compile("^\\W+$")
     ]
 
     def __init__(self):
         # Dictionary lexicon
         self._lexicon = {}
+        self._lemma_lexicon = {}
         # The MSD representation
         self._msd = MSD()
         # Word embeddings lexicon
@@ -62,6 +66,10 @@ class Lex(object):
         # The set of 'a fi' word forms, lower-cased
         self._tobewordforms = set()
         self._canwordforms = set()
+        # 'canioane' has lemma 'canion', so we need to learn
+        # to change the word root
+        # Also 'băiatul' vs. 'băieții'
+        self._inflectional_class = {}
         # For abbreviations with 2 tokens, e.g. 'etc.', 'nr.', etc.
         # They have effectively one token
         self._abbrfirstword1 = set()
@@ -110,6 +118,14 @@ class Lex(object):
 
     def get_msd_object(self) -> MSD:
         return self._msd
+
+    def get_inflectional_classes(self) -> dict:
+        """Returns the lemma to its possible inflectional forms dictionary."""
+
+        return self._inflectional_class
+
+    def get_lemma_lexicon(self) -> dict:
+        return self._lemma_lexicon
 
     def _remove_abbr_first_words_that_are_lex_words(self) -> None:
         """We don't want to tag 'loc.' in e.g. 'au adus-o pe loc.' as an abbreviation."""
@@ -208,10 +224,27 @@ class Lex(object):
                         self._tagid += 1
                     # end if
 
+                    # Record all inflected forms for a lemma
+                    if Lex._simple_word_pattern.match(lemma) and \
+                            len(lemma) > 1 and \
+                            (msd.startswith('Nc') or msd.startswith('Afp') or msd.startswith('Vm')):
+                        if lemma not in self._inflectional_class:
+                            self._inflectional_class[lemma] = {}
+                        # end if
+
+                        if msd not in self._inflectional_class[lemma]:
+                            self._inflectional_class[lemma][msd] = []
+                        # end if
+
+                        if word not in self._inflectional_class[lemma][msd]:
+                            self._inflectional_class[lemma][msd].append(word)
+                        # end if
+                    # end if
+
                     diac_word = word
                     no_diac_word = self._get_romanian_word_with_no_diacs(word)
 
-                    self._add_word_to_lex(diac_word, msd)
+                    self._add_word_to_lex(diac_word, msd, lemma)
                     self._add_word_to_lex(no_diac_word, msd)
 
                     # It's an abbreviation
@@ -328,16 +361,26 @@ class Lex(object):
 
         return False
 
-    def _aclass_noun_adj_msd(self, msd) -> str:
+    def _aclass_noun_adj_msd(self, word: str, msd: str) -> str:
         """If MSD is adjective, return the noun equivalent.
         And the other way around."""
 
         msd2 = ''
 
         if msd.startswith('Afp'):
-            msd2 = msd.replace('Afp', 'Nc')
+            msd3 = msd.replace('Afp', 'Nc')
+
+            if (self.is_lex_word(word) and self.can_be_msd(word, msd3)) or \
+                not self.is_lex_word(word):
+                msd2 = msd3
+            # end if
         elif msd.startswith('Nc'):
-            msd2 = msd.replace('Nc', 'Afp')
+            msd3 = msd.replace('Nc', 'Afp')
+
+            if (self.is_lex_word(word) and self.can_be_msd(word, msd3)) or \
+                    not self.is_lex_word(word):
+                msd2 = msd3
+            # end if
         # end if
 
         if msd2 and self._msd.is_valid_msd(msd2):
@@ -396,7 +439,7 @@ class Lex(object):
 
             for m2 in [
                 self._aclass_adj_part_msd(word, m),
-                self._aclass_noun_adj_msd(m),
+                self._aclass_noun_adj_msd(word, m),
                 self._aclass_prop_noun_msd(word, m)]:
                 if m2:
                     result_aclass.add(m2)
@@ -428,13 +471,29 @@ class Lex(object):
 
         return word
 
-    def _add_word_to_lex(self, word: str, msd: str) -> None:
+    def _add_word_to_lex(self, word: str, msd: str, lemma: str = ''):
+        if not self._msd.is_valid_msd(msd):
+            raise RuntimeError(f'MSD {msd} is not valid for word {word}')
+        # end if
+
         if word not in self._lexicon:
             self._lexicon[word] = set()
         # end if
 
-        if msd not in self._lexicon[word]:
-            self._lexicon[word].add(msd)
+        self._lexicon[word].add(msd)
+
+        if lemma:
+            if word not in self._lemma_lexicon:
+                self._lemma_lexicon[word] = {}
+            # end if
+
+            if msd not in self._lemma_lexicon[word]:
+                self._lemma_lexicon[word][msd] = []
+            # end if
+
+            if lemma not in self._lemma_lexicon[word][msd]:
+                self._lemma_lexicon[word][msd].append(lemma)
+            # end if
         # end if
 
     def is_msd_rxonly_word(self, word: str, pattern: Pattern) -> bool:
@@ -733,3 +792,31 @@ class Lex(object):
 
         # 4. Concatenate 1, 1.1, 2 and 3
         return np.concatenate((features1, features11, features2, features3))
+
+    def get_word_lemma(self, word: str, msd: str) -> list:
+        if word in self._lemma_lexicon and \
+                msd in self._lemma_lexicon[word]:
+            return self._lemma_lexicon[word][msd]
+        # end if
+
+        exact_match = False
+
+        # For some of the word forms such as 'NaCl2' or 'Radu/Np',
+        # we require an exact match in the lexicon.
+        if Lex.mixed_case_pattern.match(word) or \
+                Lex.code_case_pattern.match(word) or \
+                msd.startswith('Np') or \
+                msd.startswith('Yn'):
+            exact_match = True
+        # end if
+
+        if not exact_match:
+            word = word.lower()
+
+            if word in self._lemma_lexicon and \
+                    msd in self._lemma_lexicon[word]:
+                return self._lemma_lexicon[word][msd]
+            # end if
+        # end if
+
+        return []
