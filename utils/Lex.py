@@ -18,6 +18,7 @@ class Lex(object):
     _abbr_pos_pattern = re.compile("^Y")
     content_word_pos_pattern = re.compile("^([YNAM]|Vm|Rg)")
     _comm_pattern = re.compile("^\\s*#")
+    _verb_no_number_pattern = re.compile('^Vmi[pisl][123]$')
     # Length of the affixes to do affix analysis.
     _prefix_length = 5
     _suffix_length = 5
@@ -69,7 +70,12 @@ class Lex(object):
         # 'canioane' has lemma 'canion', so we need to learn
         # to change the word root
         # Also 'băiatul' vs. 'băieții'
-        self._inflectional_class = {}
+        self._inflectional_class = {
+            'noun': {},
+            'adje_masc': {},
+            'adje_fem': {},
+            'verb': {}
+        }
         # For abbreviations with 2 tokens, e.g. 'etc.', 'nr.', etc.
         # They have effectively one token
         self._abbrfirstword1 = set()
@@ -171,6 +177,20 @@ class Lex(object):
         counter = 0
         word_lengths = {}
 
+        def _add_to_infl_class(iclass: dict, lemma: str, word: str, msd: str):
+            if lemma not in iclass:
+                iclass[lemma] = {}
+            # end if
+
+            if msd not in iclass[lemma]:
+                iclass[lemma][msd] = []
+            # end if
+
+            if word not in iclass[lemma][msd]:
+                iclass[lemma][msd].append(word)
+            # end if
+        # end def
+
         with open(TBL_WORDFORM_FILE, mode='r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
@@ -228,16 +248,34 @@ class Lex(object):
                     if Lex._simple_word_pattern.match(lemma) and \
                             len(lemma) > 1 and \
                             (msd.startswith('Nc') or msd.startswith('Afp') or msd.startswith('Vm')):
-                        if lemma not in self._inflectional_class:
-                            self._inflectional_class[lemma] = {}
+                        if msd.startswith('Nc'):
+                            infl_class = self._inflectional_class['noun']
+                        elif msd.startswith('Afpm'):
+                            infl_class = self._inflectional_class['adje_masc']
+                        elif msd.startswith('Afpf'):
+                            infl_class = self._inflectional_class['adje_fem']
+                        elif msd.startswith('Vm'):
+                            infl_class = self._inflectional_class['verb']
                         # end if
 
-                        if msd not in self._inflectional_class[lemma]:
-                            self._inflectional_class[lemma][msd] = []
+                        if Lex._verb_no_number_pattern.fullmatch(msd):
+                            msd_s = msd + 's'
+                            msd_p = msd + 'p'
+
+                            _add_to_infl_class(infl_class, lemma, word, msd_s)
+                            _add_to_infl_class(infl_class, lemma, word, msd_p)
                         # end if
 
-                        if word not in self._inflectional_class[lemma][msd]:
-                            self._inflectional_class[lemma][msd].append(word)
+                        if msd.startswith('Afp-'):
+                            for infl_class in [
+                                self._inflectional_class['adje_masc'],
+                                self._inflectional_class['adje_fem']
+                            ]:
+                                _add_to_infl_class(
+                                    infl_class, lemma, word, msd)
+                            # end for
+                        else:
+                            _add_to_infl_class(infl_class, lemma, word, msd)
                         # end if
                     # end if
 

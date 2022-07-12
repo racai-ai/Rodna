@@ -2,6 +2,7 @@ import os
 
 TBL_WORDFORM_FILE = os.path.join('data', 'resources', 'tbl.wordform.ro')
 TBL_WORDROOT_FILE = os.path.join('data', 'resources', 'tbl.wordroot.ro')
+ROOT_EXTRACT_LOG_FILE = os.path.join('data', 'resources', 'root_build.log')
 TBL_ROOT2ROOT_FILE = os.path.join('data', 'resources', 'root_rules.ro')
 MSD_MAP_FILE = os.path.join('data', 'resources', 'msdtag.ro.map')
 # CoRoLa vectors

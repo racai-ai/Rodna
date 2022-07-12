@@ -1,2864 +1,2116 @@
-nomsuf39	sg-pl	none	--	--	866
-nomsuf39	pl-sg	none	--	--	866
-nomfem14	sg-pl	none	--	--	115
-nomfem14	sg-pl	chg	a	ă	1
-nomfem14	sg-pl	chg	î	i	1
-nomfem14	pl-sg	none	--	--	115
-nomfem14	pl-sg	chg	ă	a	1
-nomfem14	pl-sg	chg	i	î	1
-nomneu1	sg-pl	none	--	--	29764
-nomneu1	sg-pl	chg	r	ar	1637
-nomneu1	sg-pl	chg	p	ap	191
-nomneu1	sg-pl	chg	m	am	88
-nomneu1	sg-pl	chg	eptant	ceptant	1
-nomneu1	sg-pl	chg	an	en	24
-nomneu1	sg-pl	chg	ânt	int	31
-nomneu1	sg-pl	chg	n	an	405
-nomneu1	sg-pl	chg	test	otest	1
-nomneu1	sg-pl	chg	c	ac	33
-nomneu1	sg-pl	chg	togamic	-togamic	1
-nomneu1	sg-pl	chg	t	at	5
-nomneu1	sg-pl	chg	ticolaș	itcolaș	1
-nomneu1	sg-pl	chg	ac	ec	2
-nomneu1	sg-pl	chg	orologic	riologic	1
-nomneu1	sg-pl	chg	zmetic	smetic	1
-nomneu1	sg-pl	chg	nc	anc	1
-nomneu1	sg-pl	chg	ș	aș	5
-nomneu1	sg-pl	chg	ău	ai	61
-nomneu1	sg-pl	chg	sc	șt	1
-nomneu1	sg-pl	chg	iardaj	hiardaj	1
-nomneu1	sg-pl	chg	aș	eș	1
-nomneu1	sg-pl	chg	el	ic	1
-nomneu1	sg-pl	chg	ăț	eț	7
-nomneu1	sg-pl	chg	ros	aroas	1
-nomneu1	sg-pl	chg	d	ad	14
-nomneu1	sg-pl	chg	ăt	et	6
-nomneu1	sg-pl	chg	g	ag	26
-nomneu1	sg-pl	chg	v	av	4
-nomneu1	sg-pl	chg	mb	amb	1
-nomneu1	sg-pl	chg	ag	eg	2
-nomneu1	sg-pl	chg	nt	ant	2
-nomneu1	sg-pl	chg	ovariant	avariant	1
-nomneu1	sg-pl	chg	ăr	er	6
-nomneu1	sg-pl	chg	siastic	ziastic	1
-nomneu1	sg-pl	chg	trocar	lrocar	1
-nomneu1	sg-pl	chg	emitor	Emitoar	1
-nomneu1	sg-pl	chg	er	ar	1
-nomneu1	sg-pl	chg	nf	anf	1
-nomneu1	sg-pl	chg	ăd	ed	1
-nomneu1	sg-pl	chg	nț	anț	1
-nomneu1	sg-pl	chg	z	az	2
-nomneu1	sg-pl	chg	b	ab	4
-nomneu1	sg-pl	chg	f	af	1
-nomneu1	sg-pl	chg	ăpădat	epădat	1
-nomneu1	sg-pl	chg	nic	inc	1
-nomneu1	sg-pl	chg	ereic	areic	1
-nomneu1	sg-pl	chg	oblast	ablast	1
-nomneu1	sg-pl	add	t	1
-nomneu1	sg-pl	chg	ar	er	1
-nomneu1	sg-pl	chg	rt	art	4
-nomneu1	sg-pl	chg	pt	apt	4
-nomneu1	sg-pl	chg	rs	ars	5
-nomneu1	sg-pl	chg	blu	abl	1
-nomneu1	sg-pl	chg	rb	arb	1
-nomneu1	sg-pl	chg	s	as	1
-nomneu1	sg-pl	chg	rm	mr	1
-nomneu1	sg-pl	chg	ng	ang	1
-nomneu1	sg-pl	chg	m	t	1
-nomneu1	sg-pl	chg	redicant	erdicant	1
-nomneu1	sg-pl	chg	st	ast	1
-nomneu1	sg-pl	chg	ci	ac	2
-nomneu1	sg-pl	chg	saj	asaj	1
-nomneu1	sg-pl	chg	scentist	nscentist	1
-nomneu1	sg-pl	chg	atic	etic	1
-nomneu1	sg-pl	chg	ău	el	1
-nomneu1	sg-pl	chg	tuleț	luleț	1
-nomneu1	sg-pl	chg	k	c	1
-nomneu1	sg-pl	chg	tradactil	lradactil	1
-nomneu1	sg-pl	chg	ător	atoar	1
-nomneu1	sg-pl	chg	ânăr	enir	1
-nomneu1	sg-pl	chg	ul	ol	1
-nomneu1	sg-pl	chg	t	ț	1
-nomneu1	sg-pl	chg	ânăt	inet	1
-nomneu1	sg-pl	chg	ăn	en	1
-nomneu1	sg-pl	chg	at	iat	1
-nomneu1	sg-pl	chg	lt	alt	1
-nomneu1	pl-sg	none	--	--	29764
-nomneu1	pl-sg	chg	ar	r	1637
-nomneu1	pl-sg	chg	ap	p	191
-nomneu1	pl-sg	chg	am	m	88
-nomneu1	pl-sg	chg	ceptant	eptant	1
-nomneu1	pl-sg	chg	en	an	24
-nomneu1	pl-sg	chg	int	ânt	31
-nomneu1	pl-sg	chg	an	n	405
-nomneu1	pl-sg	chg	otest	test	1
-nomneu1	pl-sg	chg	ac	c	33
-nomneu1	pl-sg	chg	-togamic	togamic	1
-nomneu1	pl-sg	chg	at	t	5
-nomneu1	pl-sg	chg	itcolaș	ticolaș	1
-nomneu1	pl-sg	chg	ec	ac	2
-nomneu1	pl-sg	chg	riologic	orologic	1
-nomneu1	pl-sg	chg	smetic	zmetic	1
-nomneu1	pl-sg	chg	anc	nc	1
-nomneu1	pl-sg	chg	aș	ș	5
-nomneu1	pl-sg	chg	ai	ău	61
-nomneu1	pl-sg	chg	șt	sc	1
-nomneu1	pl-sg	chg	hiardaj	iardaj	1
-nomneu1	pl-sg	chg	eș	aș	1
-nomneu1	pl-sg	chg	ic	el	1
-nomneu1	pl-sg	chg	eț	ăț	7
-nomneu1	pl-sg	chg	aroas	ros	1
-nomneu1	pl-sg	chg	ad	d	14
-nomneu1	pl-sg	chg	et	ăt	6
-nomneu1	pl-sg	chg	ag	g	26
-nomneu1	pl-sg	chg	av	v	4
-nomneu1	pl-sg	chg	amb	mb	1
-nomneu1	pl-sg	chg	eg	ag	2
-nomneu1	pl-sg	chg	ant	nt	2
-nomneu1	pl-sg	chg	avariant	ovariant	1
-nomneu1	pl-sg	chg	er	ăr	6
-nomneu1	pl-sg	chg	ziastic	siastic	1
-nomneu1	pl-sg	chg	lrocar	trocar	1
-nomneu1	pl-sg	chg	Emitoar	emitor	1
-nomneu1	pl-sg	chg	ar	er	1
-nomneu1	pl-sg	chg	anf	nf	1
-nomneu1	pl-sg	chg	ed	ăd	1
-nomneu1	pl-sg	chg	anț	nț	1
-nomneu1	pl-sg	chg	az	z	2
-nomneu1	pl-sg	chg	ab	b	4
-nomneu1	pl-sg	chg	af	f	1
-nomneu1	pl-sg	chg	epădat	ăpădat	1
-nomneu1	pl-sg	chg	inc	nic	1
-nomneu1	pl-sg	chg	areic	ereic	1
-nomneu1	pl-sg	chg	ablast	oblast	1
-nomneu1	pl-sg	del	t	1
-nomneu1	pl-sg	chg	er	ar	1
-nomneu1	pl-sg	chg	art	rt	4
-nomneu1	pl-sg	chg	apt	pt	4
-nomneu1	pl-sg	chg	ars	rs	5
-nomneu1	pl-sg	chg	abl	blu	1
-nomneu1	pl-sg	chg	arb	rb	1
-nomneu1	pl-sg	chg	as	s	1
-nomneu1	pl-sg	chg	mr	rm	1
-nomneu1	pl-sg	chg	ang	ng	1
-nomneu1	pl-sg	chg	t	m	1
-nomneu1	pl-sg	chg	erdicant	redicant	1
-nomneu1	pl-sg	chg	ast	st	1
-nomneu1	pl-sg	chg	ac	ci	2
-nomneu1	pl-sg	chg	asaj	saj	1
-nomneu1	pl-sg	chg	nscentist	scentist	1
-nomneu1	pl-sg	chg	etic	atic	1
-nomneu1	pl-sg	chg	el	ău	1
-nomneu1	pl-sg	chg	luleț	tuleț	1
-nomneu1	pl-sg	chg	c	k	1
-nomneu1	pl-sg	chg	lradactil	tradactil	1
-nomneu1	pl-sg	chg	atoar	ător	1
-nomneu1	pl-sg	chg	enir	ânăr	1
-nomneu1	pl-sg	chg	ol	ul	1
-nomneu1	pl-sg	chg	ț	t	1
-nomneu1	pl-sg	chg	inet	ânăt	1
-nomneu1	pl-sg	chg	en	ăn	1
-nomneu1	pl-sg	chg	iat	at	1
-nomneu1	pl-sg	chg	alt	lt	1
-nomsuf38	sg-pl	none	--	--	267
-nomsuf38	pl-sg	none	--	--	267
-nomfem1	sg-pl	none	--	--	13374
-nomfem1	sg-pl	chg	anc	nc	184
-nomfem1	sg-pl	chg	an	n	141
-nomfem1	sg-pl	chg	sc	șt	20
-nomfem1	sg-pl	chg	asm	sm	2
-nomfem1	sg-pl	chg	asm	esm	1
-nomfem1	sg-pl	chg	anc	enc	39
-nomfem1	sg-pl	chg	aț	ț	76
-nomfem1	sg-pl	chg	aț	eț	13
-nomfem1	sg-pl	chg	an	en	10
-nomfem1	sg-pl	chg	ac	ec	1
-nomfem1	sg-pl	chg	ant	ent	2
-nomfem1	sg-pl	chg	arz	erz	2
-nomfem1	sg-pl	chg	ataxin	etaxin	1
-nomfem1	sg-pl	chg	andr	ndr	9
-nomfem1	sg-pl	chg	az	z	8
-nomfem1	sg-pl	chg	azn	zn	1
-nomfem1	sg-pl	chg	anhogram	onhogram	1
-nomfem1	sg-pl	chg	asl	sl	1
-nomfem1	sg-pl	chg	c	t	18
-nomfem1	sg-pl	chg	rădioar	ădioar	1
-nomfem1	sg-pl	chg	at	et	3
-nomfem1	sg-pl	chg	af	f	1
-nomfem1	sg-pl	chg	aps	ps	2
-nomfem1	sg-pl	chg	ap	p	4
-nomfem1	sg-pl	chg	apț	pț	1
-nomfem1	sg-pl	chg	at	t	6
-nomfem1	sg-pl	chg	andur	ndur	1
-nomfem1	sg-pl	chg	aș	ș	3
-nomfem1	sg-pl	chg	anț	nț	7
-nomfem1	sg-pl	chg	apt	pt	4
-nomfem1	sg-pl	chg	al	l	16
-nomfem1	sg-pl	chg	andr	endr	2
-nomfem1	sg-pl	chg	ast	st	3
-nomfem1	sg-pl	chg	as	es	2
-nomfem1	sg-pl	chg	estul	ăstul	1
-nomfem1	sg-pl	chg	av	v	3
-nomfem1	sg-pl	chg	unamogram	inamogram	1
-nomfem1	sg-pl	chg	aș	eș	1
-nomfem1	sg-pl	chg	astr	str	1
-nomfem1	sg-pl	chg	aj	j	2
-nomfem1	sg-pl	chg	ad	ed	1
-nomfem1	sg-pl	chg	ap	ep	1
-nomfem1	sg-pl	chg	azm	ezm	1
-nomfem1	sg-pl	chg	tuționalist	-tuționalist	1
-nomfem1	sg-pl	chg	ț	t	1
-nomfem1	sg-pl	chg	ar	er	2
-nomfem1	sg-pl	chg	ah	h	1
-nomfem1	sg-pl	chg	apș	pș	1
-nomfem1	sg-pl	chg	așc	șt	1
-nomfem1	sg-pl	chg	ahn	hn	1
-nomfem1	sg-pl	chg	moan	imoan	1
-nomfem1	sg-pl	chg	ast	est	1
-nomfem1	sg-pl	chg	ac	c	1
-nomfem1	sg-pl	chg	ag	g	3
-nomfem1	sg-pl	chg	al	el	1
-nomfem1	sg-pl	chg	atr	etr	3
-nomfem1	sg-pl	chg	az	ez	1
-nomfem1	sg-pl	chg	asn	sn	3
-nomfem1	sg-pl	chg	alt	lt	2
-nomfem1	sg-pl	chg	arn	ern	1
-nomfem1	sg-pl	chg	u	l	1
-nomfem1	sg-pl	chg	st	t	1
-nomfem1	sg-pl	chg	ânt	int	1
-nomfem1	sg-pl	chg	atopauz	ratopauz	1
-nomfem1	sg-pl	chg	ămânț	eminț	1
-nomfem1	sg-pl	chg	ogram	agram	1
-nomfem1	sg-pl	chg	k	c	1
-nomfem1	sg-pl	chg	arf	rf	1
-nomfem1	sg-pl	chg	arc	rc	1
-nomfem1	sg-pl	chg	ânăr	iner	1
-nomfem1	sg-pl	chg	orm	urm	1
-nomfem1	sg-pl	chg	adr	edr	1
-nomfem1	sg-pl	chg	ân	in	1
-nomfem1	sg-pl	chg	ânăt	inet	1
-nomfem1	sg-pl	chg	aloag	ăloag	1
-nomfem1	sg-pl	chg	arb	erb	1
-nomfem1	sg-pl	chg	aht	ht	1
-nomfem1	pl-sg	none	--	--	13374
-nomfem1	pl-sg	chg	nc	anc	184
-nomfem1	pl-sg	chg	n	an	141
-nomfem1	pl-sg	chg	șt	sc	20
-nomfem1	pl-sg	chg	sm	asm	2
-nomfem1	pl-sg	chg	esm	asm	1
-nomfem1	pl-sg	chg	enc	anc	39
-nomfem1	pl-sg	chg	ț	aț	76
-nomfem1	pl-sg	chg	eț	aț	13
-nomfem1	pl-sg	chg	en	an	10
-nomfem1	pl-sg	chg	ec	ac	1
-nomfem1	pl-sg	chg	ent	ant	2
-nomfem1	pl-sg	chg	erz	arz	2
-nomfem1	pl-sg	chg	etaxin	ataxin	1
-nomfem1	pl-sg	chg	ndr	andr	9
-nomfem1	pl-sg	chg	z	az	8
-nomfem1	pl-sg	chg	zn	azn	1
-nomfem1	pl-sg	chg	onhogram	anhogram	1
-nomfem1	pl-sg	chg	sl	asl	1
-nomfem1	pl-sg	chg	t	c	18
-nomfem1	pl-sg	chg	ădioar	rădioar	1
-nomfem1	pl-sg	chg	et	at	3
-nomfem1	pl-sg	chg	f	af	1
-nomfem1	pl-sg	chg	ps	aps	2
-nomfem1	pl-sg	chg	p	ap	4
-nomfem1	pl-sg	chg	pț	apț	1
-nomfem1	pl-sg	chg	t	at	6
-nomfem1	pl-sg	chg	ndur	andur	1
-nomfem1	pl-sg	chg	ș	aș	3
-nomfem1	pl-sg	chg	nț	anț	7
-nomfem1	pl-sg	chg	pt	apt	4
-nomfem1	pl-sg	chg	l	al	16
-nomfem1	pl-sg	chg	endr	andr	2
-nomfem1	pl-sg	chg	st	ast	3
-nomfem1	pl-sg	chg	es	as	2
-nomfem1	pl-sg	chg	ăstul	estul	1
-nomfem1	pl-sg	chg	v	av	3
-nomfem1	pl-sg	chg	inamogram	unamogram	1
-nomfem1	pl-sg	chg	eș	aș	1
-nomfem1	pl-sg	chg	str	astr	1
-nomfem1	pl-sg	chg	j	aj	2
-nomfem1	pl-sg	chg	ed	ad	1
-nomfem1	pl-sg	chg	ep	ap	1
-nomfem1	pl-sg	chg	ezm	azm	1
-nomfem1	pl-sg	chg	-tuționalist	tuționalist	1
-nomfem1	pl-sg	chg	t	ț	1
-nomfem1	pl-sg	chg	er	ar	2
-nomfem1	pl-sg	chg	h	ah	1
-nomfem1	pl-sg	chg	pș	apș	1
-nomfem1	pl-sg	chg	șt	așc	1
-nomfem1	pl-sg	chg	hn	ahn	1
-nomfem1	pl-sg	chg	imoan	moan	1
-nomfem1	pl-sg	chg	est	ast	1
-nomfem1	pl-sg	chg	c	ac	1
-nomfem1	pl-sg	chg	g	ag	3
-nomfem1	pl-sg	chg	el	al	1
-nomfem1	pl-sg	chg	etr	atr	3
-nomfem1	pl-sg	chg	ez	az	1
-nomfem1	pl-sg	chg	sn	asn	3
-nomfem1	pl-sg	chg	lt	alt	2
-nomfem1	pl-sg	chg	ern	arn	1
-nomfem1	pl-sg	chg	l	u	1
-nomfem1	pl-sg	chg	t	st	1
-nomfem1	pl-sg	chg	int	ânt	1
-nomfem1	pl-sg	chg	ratopauz	atopauz	1
-nomfem1	pl-sg	chg	eminț	ămânț	1
-nomfem1	pl-sg	chg	agram	ogram	1
-nomfem1	pl-sg	chg	c	k	1
-nomfem1	pl-sg	chg	rf	arf	1
-nomfem1	pl-sg	chg	rc	arc	1
-nomfem1	pl-sg	chg	iner	ânăr	1
-nomfem1	pl-sg	chg	urm	orm	1
-nomfem1	pl-sg	chg	edr	adr	1
-nomfem1	pl-sg	chg	in	ân	1
-nomfem1	pl-sg	chg	inet	ânăt	1
-nomfem1	pl-sg	chg	ăloag	aloag	1
-nomfem1	pl-sg	chg	erb	arb	1
-nomfem1	pl-sg	chg	ht	aht	1
-nommobfem1	sg-pl	none	--	--	13374
-nommobfem1	sg-pl	chg	anc	nc	184
-nommobfem1	sg-pl	chg	an	n	141
-nommobfem1	sg-pl	chg	sc	șt	20
-nommobfem1	sg-pl	chg	asm	sm	2
-nommobfem1	sg-pl	chg	asm	esm	1
-nommobfem1	sg-pl	chg	anc	enc	39
-nommobfem1	sg-pl	chg	aț	ț	76
-nommobfem1	sg-pl	chg	aț	eț	13
-nommobfem1	sg-pl	chg	an	en	10
-nommobfem1	sg-pl	chg	ac	ec	1
-nommobfem1	sg-pl	chg	ant	ent	2
-nommobfem1	sg-pl	chg	arz	erz	2
-nommobfem1	sg-pl	chg	ataxin	etaxin	1
-nommobfem1	sg-pl	chg	andr	ndr	9
-nommobfem1	sg-pl	chg	az	z	8
-nommobfem1	sg-pl	chg	azn	zn	1
-nommobfem1	sg-pl	chg	anhogram	onhogram	1
-nommobfem1	sg-pl	chg	asl	sl	1
-nommobfem1	sg-pl	chg	c	t	18
-nommobfem1	sg-pl	chg	rădioar	ădioar	1
-nommobfem1	sg-pl	chg	at	et	3
-nommobfem1	sg-pl	chg	af	f	1
-nommobfem1	sg-pl	chg	aps	ps	2
-nommobfem1	sg-pl	chg	ap	p	4
-nommobfem1	sg-pl	chg	apț	pț	1
-nommobfem1	sg-pl	chg	at	t	6
-nommobfem1	sg-pl	chg	andur	ndur	1
-nommobfem1	sg-pl	chg	aș	ș	3
-nommobfem1	sg-pl	chg	anț	nț	7
-nommobfem1	sg-pl	chg	apt	pt	4
-nommobfem1	sg-pl	chg	al	l	16
-nommobfem1	sg-pl	chg	andr	endr	2
-nommobfem1	sg-pl	chg	ast	st	3
-nommobfem1	sg-pl	chg	as	es	2
-nommobfem1	sg-pl	chg	estul	ăstul	1
-nommobfem1	sg-pl	chg	av	v	3
-nommobfem1	sg-pl	chg	unamogram	inamogram	1
-nommobfem1	sg-pl	chg	aș	eș	1
-nommobfem1	sg-pl	chg	astr	str	1
-nommobfem1	sg-pl	chg	aj	j	2
-nommobfem1	sg-pl	chg	ad	ed	1
-nommobfem1	sg-pl	chg	ap	ep	1
-nommobfem1	sg-pl	chg	azm	ezm	1
-nommobfem1	sg-pl	chg	tuționalist	-tuționalist	1
-nommobfem1	sg-pl	chg	ț	t	1
-nommobfem1	sg-pl	chg	ar	er	2
-nommobfem1	sg-pl	chg	ah	h	1
-nommobfem1	sg-pl	chg	apș	pș	1
-nommobfem1	sg-pl	chg	așc	șt	1
-nommobfem1	sg-pl	chg	ahn	hn	1
-nommobfem1	sg-pl	chg	moan	imoan	1
-nommobfem1	sg-pl	chg	ast	est	1
-nommobfem1	sg-pl	chg	ac	c	1
-nommobfem1	sg-pl	chg	ag	g	3
-nommobfem1	sg-pl	chg	al	el	1
-nommobfem1	sg-pl	chg	atr	etr	3
-nommobfem1	sg-pl	chg	az	ez	1
-nommobfem1	sg-pl	chg	asn	sn	3
-nommobfem1	sg-pl	chg	alt	lt	2
-nommobfem1	sg-pl	chg	arn	ern	1
-nommobfem1	sg-pl	chg	u	l	1
-nommobfem1	sg-pl	chg	st	t	1
-nommobfem1	sg-pl	chg	ânt	int	1
-nommobfem1	sg-pl	chg	atopauz	ratopauz	1
-nommobfem1	sg-pl	chg	ămânț	eminț	1
-nommobfem1	sg-pl	chg	ogram	agram	1
-nommobfem1	sg-pl	chg	k	c	1
-nommobfem1	sg-pl	chg	arf	rf	1
-nommobfem1	sg-pl	chg	arc	rc	1
-nommobfem1	sg-pl	chg	ânăr	iner	1
-nommobfem1	sg-pl	chg	orm	urm	1
-nommobfem1	sg-pl	chg	adr	edr	1
-nommobfem1	sg-pl	chg	ân	in	1
-nommobfem1	sg-pl	chg	ânăt	inet	1
-nommobfem1	sg-pl	chg	aloag	ăloag	1
-nommobfem1	sg-pl	chg	arb	erb	1
-nommobfem1	sg-pl	chg	aht	ht	1
-nommobfem1	pl-sg	none	--	--	13374
-nommobfem1	pl-sg	chg	nc	anc	184
-nommobfem1	pl-sg	chg	n	an	141
-nommobfem1	pl-sg	chg	șt	sc	20
-nommobfem1	pl-sg	chg	sm	asm	2
-nommobfem1	pl-sg	chg	esm	asm	1
-nommobfem1	pl-sg	chg	enc	anc	39
-nommobfem1	pl-sg	chg	ț	aț	76
-nommobfem1	pl-sg	chg	eț	aț	13
-nommobfem1	pl-sg	chg	en	an	10
-nommobfem1	pl-sg	chg	ec	ac	1
-nommobfem1	pl-sg	chg	ent	ant	2
-nommobfem1	pl-sg	chg	erz	arz	2
-nommobfem1	pl-sg	chg	etaxin	ataxin	1
-nommobfem1	pl-sg	chg	ndr	andr	9
-nommobfem1	pl-sg	chg	z	az	8
-nommobfem1	pl-sg	chg	zn	azn	1
-nommobfem1	pl-sg	chg	onhogram	anhogram	1
-nommobfem1	pl-sg	chg	sl	asl	1
-nommobfem1	pl-sg	chg	t	c	18
-nommobfem1	pl-sg	chg	ădioar	rădioar	1
-nommobfem1	pl-sg	chg	et	at	3
-nommobfem1	pl-sg	chg	f	af	1
-nommobfem1	pl-sg	chg	ps	aps	2
-nommobfem1	pl-sg	chg	p	ap	4
-nommobfem1	pl-sg	chg	pț	apț	1
-nommobfem1	pl-sg	chg	t	at	6
-nommobfem1	pl-sg	chg	ndur	andur	1
-nommobfem1	pl-sg	chg	ș	aș	3
-nommobfem1	pl-sg	chg	nț	anț	7
-nommobfem1	pl-sg	chg	pt	apt	4
-nommobfem1	pl-sg	chg	l	al	16
-nommobfem1	pl-sg	chg	endr	andr	2
-nommobfem1	pl-sg	chg	st	ast	3
-nommobfem1	pl-sg	chg	es	as	2
-nommobfem1	pl-sg	chg	ăstul	estul	1
-nommobfem1	pl-sg	chg	v	av	3
-nommobfem1	pl-sg	chg	inamogram	unamogram	1
-nommobfem1	pl-sg	chg	eș	aș	1
-nommobfem1	pl-sg	chg	str	astr	1
-nommobfem1	pl-sg	chg	j	aj	2
-nommobfem1	pl-sg	chg	ed	ad	1
-nommobfem1	pl-sg	chg	ep	ap	1
-nommobfem1	pl-sg	chg	ezm	azm	1
-nommobfem1	pl-sg	chg	-tuționalist	tuționalist	1
-nommobfem1	pl-sg	chg	t	ț	1
-nommobfem1	pl-sg	chg	er	ar	2
-nommobfem1	pl-sg	chg	h	ah	1
-nommobfem1	pl-sg	chg	pș	apș	1
-nommobfem1	pl-sg	chg	șt	așc	1
-nommobfem1	pl-sg	chg	hn	ahn	1
-nommobfem1	pl-sg	chg	imoan	moan	1
-nommobfem1	pl-sg	chg	est	ast	1
-nommobfem1	pl-sg	chg	c	ac	1
-nommobfem1	pl-sg	chg	g	ag	3
-nommobfem1	pl-sg	chg	el	al	1
-nommobfem1	pl-sg	chg	etr	atr	3
-nommobfem1	pl-sg	chg	ez	az	1
-nommobfem1	pl-sg	chg	sn	asn	3
-nommobfem1	pl-sg	chg	lt	alt	2
-nommobfem1	pl-sg	chg	ern	arn	1
-nommobfem1	pl-sg	chg	l	u	1
-nommobfem1	pl-sg	chg	t	st	1
-nommobfem1	pl-sg	chg	int	ânt	1
-nommobfem1	pl-sg	chg	ratopauz	atopauz	1
-nommobfem1	pl-sg	chg	eminț	ămânț	1
-nommobfem1	pl-sg	chg	agram	ogram	1
-nommobfem1	pl-sg	chg	c	k	1
-nommobfem1	pl-sg	chg	rf	arf	1
-nommobfem1	pl-sg	chg	rc	arc	1
-nommobfem1	pl-sg	chg	iner	ânăr	1
-nommobfem1	pl-sg	chg	urm	orm	1
-nommobfem1	pl-sg	chg	edr	adr	1
-nommobfem1	pl-sg	chg	in	ân	1
-nommobfem1	pl-sg	chg	inet	ânăt	1
-nommobfem1	pl-sg	chg	ăloag	aloag	1
-nommobfem1	pl-sg	chg	erb	arb	1
-nommobfem1	pl-sg	chg	ht	aht	1
-nommasc8	sg-pl	none	--	--	5205
-nommasc8	sg-pl	chg	t	ț	331
-nommasc8	sg-pl	chg	s	ș	55
-nommasc8	sg-pl	chg	d	z	151
-nommasc8	sg-pl	chg	st	șt	25
-nommasc8	sg-pl	chg	x	cș	14
-nommasc8	sg-pl	add	ur	3
-nommasc8	sg-pl	chg	z	j	8
-nommasc8	sg-pl	chg	an	en	12
-nommasc8	sg-pl	chg	ușor	ișor	2
-nommasc8	sg-pl	chg	aș	eș	1
-nommasc8	sg-pl	chg	at	eț	1
-nommasc8	sg-pl	chg	ăț	eț	3
-nommasc8	sg-pl	chg	sc	șt	1
-nommasc8	sg-pl	chg	ăt	eț	2
-nommasc8	sg-pl	chg	ăr	er	3
-nommasc8	sg-pl	chg	ac	ec	1
-nommasc8	sg-pl	chg	andru	ndr	1
-nommasc8	sg-pl	chg	m	amen	3
-nommasc8	sg-pl	del	iu	4
-nommasc8	sg-pl	chg	al	el	1
-nommasc8	sg-pl	chg	edențiabil	idențiabil	1
-nommasc8	sg-pl	chg	ag	eg	2
-nommasc8	sg-pl	chg	atuț	ătuț	1
-nommasc8	sg-pl	chg	ator	ător	1
-nommasc8	sg-pl	chg	d	j	1
-nommasc8	pl-sg	none	--	--	5205
-nommasc8	pl-sg	chg	ț	t	331
-nommasc8	pl-sg	chg	ș	s	55
-nommasc8	pl-sg	chg	z	d	151
-nommasc8	pl-sg	chg	șt	st	25
-nommasc8	pl-sg	chg	cș	x	14
-nommasc8	pl-sg	del	ur	3
-nommasc8	pl-sg	chg	j	z	8
-nommasc8	pl-sg	chg	en	an	12
-nommasc8	pl-sg	chg	ișor	ușor	2
-nommasc8	pl-sg	chg	eș	aș	1
-nommasc8	pl-sg	chg	eț	at	1
-nommasc8	pl-sg	chg	eț	ăț	3
-nommasc8	pl-sg	chg	șt	sc	1
-nommasc8	pl-sg	chg	eț	ăt	2
-nommasc8	pl-sg	chg	er	ăr	3
-nommasc8	pl-sg	chg	ec	ac	1
-nommasc8	pl-sg	chg	ndr	andru	1
-nommasc8	pl-sg	chg	amen	m	3
-nommasc8	pl-sg	add	iu	4
-nommasc8	pl-sg	chg	el	al	1
-nommasc8	pl-sg	chg	idențiabil	edențiabil	1
-nommasc8	pl-sg	chg	eg	ag	2
-nommasc8	pl-sg	chg	ătuț	atuț	1
-nommasc8	pl-sg	chg	ător	ator	1
-nommasc8	pl-sg	chg	j	d	1
-nommasc10	sg-pl	none	--	--	5205
-nommasc10	sg-pl	chg	t	ț	331
-nommasc10	sg-pl	chg	s	ș	55
-nommasc10	sg-pl	chg	d	z	151
-nommasc10	sg-pl	chg	st	șt	25
-nommasc10	sg-pl	chg	x	cș	14
-nommasc10	sg-pl	add	ur	3
-nommasc10	sg-pl	chg	z	j	8
-nommasc10	sg-pl	chg	an	en	12
-nommasc10	sg-pl	chg	ușor	ișor	2
-nommasc10	sg-pl	chg	aș	eș	1
-nommasc10	sg-pl	chg	at	eț	1
-nommasc10	sg-pl	chg	ăț	eț	3
-nommasc10	sg-pl	chg	sc	șt	1
-nommasc10	sg-pl	chg	ăt	eț	2
-nommasc10	sg-pl	chg	ăr	er	3
-nommasc10	sg-pl	chg	ac	ec	1
-nommasc10	sg-pl	chg	andru	ndr	1
-nommasc10	sg-pl	chg	m	amen	3
-nommasc10	sg-pl	del	iu	4
-nommasc10	sg-pl	chg	al	el	1
-nommasc10	sg-pl	chg	edențiabil	idențiabil	1
-nommasc10	sg-pl	chg	ag	eg	2
-nommasc10	sg-pl	chg	atuț	ătuț	1
-nommasc10	sg-pl	chg	ator	ător	1
-nommasc10	sg-pl	chg	d	j	1
-nommasc10	pl-sg	none	--	--	5205
-nommasc10	pl-sg	chg	ț	t	331
-nommasc10	pl-sg	chg	ș	s	55
-nommasc10	pl-sg	chg	z	d	151
-nommasc10	pl-sg	chg	șt	st	25
-nommasc10	pl-sg	chg	cș	x	14
-nommasc10	pl-sg	del	ur	3
-nommasc10	pl-sg	chg	j	z	8
-nommasc10	pl-sg	chg	en	an	12
-nommasc10	pl-sg	chg	ișor	ușor	2
-nommasc10	pl-sg	chg	eș	aș	1
-nommasc10	pl-sg	chg	eț	at	1
-nommasc10	pl-sg	chg	eț	ăț	3
-nommasc10	pl-sg	chg	șt	sc	1
-nommasc10	pl-sg	chg	eț	ăt	2
-nommasc10	pl-sg	chg	er	ăr	3
-nommasc10	pl-sg	chg	ec	ac	1
-nommasc10	pl-sg	chg	ndr	andru	1
-nommasc10	pl-sg	chg	amen	m	3
-nommasc10	pl-sg	add	iu	4
-nommasc10	pl-sg	chg	el	al	1
-nommasc10	pl-sg	chg	idențiabil	edențiabil	1
-nommasc10	pl-sg	chg	eg	ag	2
-nommasc10	pl-sg	chg	ătuț	atuț	1
-nommasc10	pl-sg	chg	ător	ator	1
-nommasc10	pl-sg	chg	j	d	1
-nomsuf2	sg-pl	none	--	--	383
-nomsuf2	pl-sg	none	--	--	383
-nomfem10	sg-pl	none	--	--	9557
-nomfem10	sg-pl	chg	ani	ăni	10
-nomfem10	sg-pl	chg	ar	r	18
-nomfem10	sg-pl	chg	ar	ăr	32
-nomfem10	sg-pl	chg	aști	ăști	2
-nomfem10	sg-pl	del	i	3
-nomfem10	sg-pl	chg	cadori	adori	1
-nomfem10	sg-pl	chg	lați	ați	1
-nomfem10	sg-pl	chg	ai	ă	4
-nomfem10	sg-pl	chg	abi	ăbi	5
-nomfem10	sg-pl	chg	opati	apati	1
-nomfem10	sg-pl	chg	ajdi	ăjdi	1
-nomfem10	sg-pl	chg	ali	ăli	1
-nomfem10	sg-pl	chg	ar	rur	1
-nomfem10	sg-pl	chg	vanocromi	anocromi	1
-nomfem10	sg-pl	chg	tologi	lologi	1
-nomfem10	sg-pl	chg	ast	șt	1
-nomfem10	sg-pl	chg	ac	ăc	1
-nomfem10	sg-pl	chg	asti	ăsti	1
-nomfem10	sg-pl	chg	cați	țicați	1
-nomfem10	sg-pl	chg	albi	ălbi	1
-nomfem10	sg-pl	chg	alci	ălci	1
-nomfem10	sg-pl	chg	alvi	ălvi	1
-nomfem10	sg-pl	chg	tilografi	lilografi	1
-nomfem10	sg-pl	chg	rezoreri	ezoreri	1
-nomfem10	sg-pl	del	ai	1
-nomfem10	sg-pl	chg	tărășeni	țărășeni	1
-nomfem10	sg-pl	chg	st	șt	1
-nomfem10	sg-pl	chg	t	ț	2
-nomfem10	pl-sg	none	--	--	9557
-nomfem10	pl-sg	chg	ăni	ani	10
-nomfem10	pl-sg	chg	r	ar	18
-nomfem10	pl-sg	chg	ăr	ar	32
-nomfem10	pl-sg	chg	ăști	aști	2
-nomfem10	pl-sg	add	i	3
-nomfem10	pl-sg	chg	adori	cadori	1
-nomfem10	pl-sg	chg	ați	lați	1
-nomfem10	pl-sg	chg	ă	ai	4
-nomfem10	pl-sg	chg	ăbi	abi	5
-nomfem10	pl-sg	chg	apati	opati	1
-nomfem10	pl-sg	chg	ăjdi	ajdi	1
-nomfem10	pl-sg	chg	ăli	ali	1
-nomfem10	pl-sg	chg	rur	ar	1
-nomfem10	pl-sg	chg	anocromi	vanocromi	1
-nomfem10	pl-sg	chg	lologi	tologi	1
-nomfem10	pl-sg	chg	șt	ast	1
-nomfem10	pl-sg	chg	ăc	ac	1
-nomfem10	pl-sg	chg	ăsti	asti	1
-nomfem10	pl-sg	chg	țicați	cați	1
-nomfem10	pl-sg	chg	ălbi	albi	1
-nomfem10	pl-sg	chg	ălci	alci	1
-nomfem10	pl-sg	chg	ălvi	alvi	1
-nomfem10	pl-sg	chg	lilografi	tilografi	1
-nomfem10	pl-sg	chg	ezoreri	rezoreri	1
-nomfem10	pl-sg	add	ai	1
-nomfem10	pl-sg	chg	țărășeni	tărășeni	1
-nomfem10	pl-sg	chg	șt	st	1
-nomfem10	pl-sg	chg	ț	t	2
-nommobfem9	sg-pl	none	--	--	9557
-nommobfem9	sg-pl	chg	ani	ăni	10
-nommobfem9	sg-pl	chg	ar	r	18
-nommobfem9	sg-pl	chg	ar	ăr	32
-nommobfem9	sg-pl	chg	aști	ăști	2
-nommobfem9	sg-pl	del	i	3
-nommobfem9	sg-pl	chg	cadori	adori	1
-nommobfem9	sg-pl	chg	lați	ați	1
-nommobfem9	sg-pl	chg	ai	ă	4
-nommobfem9	sg-pl	chg	abi	ăbi	5
-nommobfem9	sg-pl	chg	opati	apati	1
-nommobfem9	sg-pl	chg	ajdi	ăjdi	1
-nommobfem9	sg-pl	chg	ali	ăli	1
-nommobfem9	sg-pl	chg	ar	rur	1
-nommobfem9	sg-pl	chg	vanocromi	anocromi	1
-nommobfem9	sg-pl	chg	tologi	lologi	1
-nommobfem9	sg-pl	chg	ast	șt	1
-nommobfem9	sg-pl	chg	ac	ăc	1
-nommobfem9	sg-pl	chg	asti	ăsti	1
-nommobfem9	sg-pl	chg	cați	țicați	1
-nommobfem9	sg-pl	chg	albi	ălbi	1
-nommobfem9	sg-pl	chg	alci	ălci	1
-nommobfem9	sg-pl	chg	alvi	ălvi	1
-nommobfem9	sg-pl	chg	tilografi	lilografi	1
-nommobfem9	sg-pl	chg	rezoreri	ezoreri	1
-nommobfem9	sg-pl	del	ai	1
-nommobfem9	sg-pl	chg	tărășeni	țărășeni	1
-nommobfem9	sg-pl	chg	st	șt	1
-nommobfem9	sg-pl	chg	t	ț	2
-nommobfem9	pl-sg	none	--	--	9557
-nommobfem9	pl-sg	chg	ăni	ani	10
-nommobfem9	pl-sg	chg	r	ar	18
-nommobfem9	pl-sg	chg	ăr	ar	32
-nommobfem9	pl-sg	chg	ăști	aști	2
-nommobfem9	pl-sg	add	i	3
-nommobfem9	pl-sg	chg	adori	cadori	1
-nommobfem9	pl-sg	chg	ați	lați	1
-nommobfem9	pl-sg	chg	ă	ai	4
-nommobfem9	pl-sg	chg	ăbi	abi	5
-nommobfem9	pl-sg	chg	apati	opati	1
-nommobfem9	pl-sg	chg	ăjdi	ajdi	1
-nommobfem9	pl-sg	chg	ăli	ali	1
-nommobfem9	pl-sg	chg	rur	ar	1
-nommobfem9	pl-sg	chg	anocromi	vanocromi	1
-nommobfem9	pl-sg	chg	lologi	tologi	1
-nommobfem9	pl-sg	chg	șt	ast	1
-nommobfem9	pl-sg	chg	ăc	ac	1
-nommobfem9	pl-sg	chg	ăsti	asti	1
-nommobfem9	pl-sg	chg	țicați	cați	1
-nommobfem9	pl-sg	chg	ălbi	albi	1
-nommobfem9	pl-sg	chg	ălci	alci	1
-nommobfem9	pl-sg	chg	ălvi	alvi	1
-nommobfem9	pl-sg	chg	lilografi	tilografi	1
-nommobfem9	pl-sg	chg	ezoreri	rezoreri	1
-nommobfem9	pl-sg	add	ai	1
-nommobfem9	pl-sg	chg	țărășeni	tărășeni	1
-nommobfem9	pl-sg	chg	șt	st	1
-nommobfem9	pl-sg	chg	ț	t	2
-nomsuf13	sg-pl	none	--	--	9931
-nomsuf13	sg-pl	chg	an	ăn	10
-nomsuf13	sg-pl	chg	așt	ășt	2
-nomsuf13	sg-pl	chg	cador	ador	1
-nomsuf13	sg-pl	chg	laț	aț	1
-nomsuf13	sg-pl	chg	ab	ăb	5
-nomsuf13	sg-pl	chg	opat	apat	1
-nomsuf13	sg-pl	chg	ajd	ăjd	1
-nomsuf13	sg-pl	chg	al	ăl	1
-nomsuf13	sg-pl	chg	vanocrom	anocrom	1
-nomsuf13	sg-pl	chg	tolog	lolog	1
-nomsuf13	sg-pl	chg	ast	ăst	1
-nomsuf13	sg-pl	chg	caț	țicaț	1
-nomsuf13	sg-pl	chg	alb	ălb	1
-nomsuf13	sg-pl	chg	alc	ălc	1
-nomsuf13	sg-pl	chg	alv	ălv	1
-nomsuf13	sg-pl	chg	tilograf	lilograf	1
-nomsuf13	sg-pl	chg	rezorer	ezorer	1
-nomsuf13	sg-pl	chg	tărășen	țărășen	1
-nomsuf13	pl-sg	none	--	--	9931
-nomsuf13	pl-sg	chg	ăn	an	10
-nomsuf13	pl-sg	chg	ășt	așt	2
-nomsuf13	pl-sg	chg	ador	cador	1
-nomsuf13	pl-sg	chg	aț	laț	1
-nomsuf13	pl-sg	chg	ăb	ab	5
-nomsuf13	pl-sg	chg	apat	opat	1
-nomsuf13	pl-sg	chg	ăjd	ajd	1
-nomsuf13	pl-sg	chg	ăl	al	1
-nomsuf13	pl-sg	chg	anocrom	vanocrom	1
-nomsuf13	pl-sg	chg	lolog	tolog	1
-nomsuf13	pl-sg	chg	ăst	ast	1
-nomsuf13	pl-sg	chg	țicaț	caț	1
-nomsuf13	pl-sg	chg	ălb	alb	1
-nomsuf13	pl-sg	chg	ălc	alc	1
-nomsuf13	pl-sg	chg	ălv	alv	1
-nomsuf13	pl-sg	chg	lilograf	tilograf	1
-nomsuf13	pl-sg	chg	ezorer	rezorer	1
-nomsuf13	pl-sg	chg	țărășen	tărășen	1
-nomsuf24	sg-pl	none	--	--	9519
-nomsuf24	sg-pl	chg	an	ăn	10
-nomsuf24	sg-pl	chg	așt	ășt	2
-nomsuf24	sg-pl	chg	cador	ador	1
-nomsuf24	sg-pl	chg	laț	aț	1
-nomsuf24	sg-pl	chg	ab	ăb	5
-nomsuf24	sg-pl	chg	opat	apat	1
-nomsuf24	sg-pl	chg	ajd	ăjd	1
-nomsuf24	sg-pl	chg	al	ăl	1
-nomsuf24	sg-pl	chg	vanocrom	anocrom	1
-nomsuf24	sg-pl	chg	tolog	lolog	1
-nomsuf24	sg-pl	chg	ast	ăst	1
-nomsuf24	sg-pl	chg	caț	țicaț	1
-nomsuf24	sg-pl	chg	alb	ălb	1
-nomsuf24	sg-pl	chg	alc	ălc	1
-nomsuf24	sg-pl	chg	alv	ălv	1
-nomsuf24	sg-pl	chg	tilograf	lilograf	1
-nomsuf24	sg-pl	chg	rezorer	ezorer	1
-nomsuf24	sg-pl	chg	tărășen	țărășen	1
-nomsuf24	pl-sg	none	--	--	9519
-nomsuf24	pl-sg	chg	ăn	an	10
-nomsuf24	pl-sg	chg	ășt	așt	2
-nomsuf24	pl-sg	chg	ador	cador	1
-nomsuf24	pl-sg	chg	aț	laț	1
-nomsuf24	pl-sg	chg	ăb	ab	5
-nomsuf24	pl-sg	chg	apat	opat	1
-nomsuf24	pl-sg	chg	ăjd	ajd	1
-nomsuf24	pl-sg	chg	ăl	al	1
-nomsuf24	pl-sg	chg	anocrom	vanocrom	1
-nomsuf24	pl-sg	chg	lolog	tolog	1
-nomsuf24	pl-sg	chg	ăst	ast	1
-nomsuf24	pl-sg	chg	țicaț	caț	1
-nomsuf24	pl-sg	chg	ălb	alb	1
-nomsuf24	pl-sg	chg	ălc	alc	1
-nomsuf24	pl-sg	chg	ălv	alv	1
-nomsuf24	pl-sg	chg	lilograf	tilograf	1
-nomsuf24	pl-sg	chg	ezorer	rezorer	1
-nomsuf24	pl-sg	chg	țărășen	tărășen	1
-nommasc1	sg-pl	none	--	--	459
-nommasc1	sg-pl	chg	str	ștr	29
-nommasc1	sg-pl	chg	ătr	etr	1
-nommasc1	sg-pl	chg	andr	ndr	1
-nommasc1	sg-pl	del	i	4
-nommasc1	pl-sg	none	--	--	459
-nommasc1	pl-sg	chg	ștr	str	29
-nommasc1	pl-sg	chg	etr	ătr	1
-nommasc1	pl-sg	chg	ndr	andr	1
-nommasc1	pl-sg	add	i	4
-nommasc2	sg-pl	none	--	--	459
-nommasc2	sg-pl	chg	str	ștr	29
-nommasc2	sg-pl	chg	ătr	etr	1
-nommasc2	sg-pl	chg	andr	ndr	1
-nommasc2	sg-pl	del	i	4
-nommasc2	pl-sg	none	--	--	459
-nommasc2	pl-sg	chg	ștr	str	29
-nommasc2	pl-sg	chg	etr	ătr	1
-nommasc2	pl-sg	chg	ndr	andr	1
-nommasc2	pl-sg	add	i	4
-nomsuf6	sg-pl	none	--	--	165
-nomsuf6	pl-sg	none	--	--	165
-nomsuf7	sg-pl	none	--	--	81
-nomsuf7	pl-sg	none	--	--	81
-nomdimfem10	sg-pl	none	--	--	981
-nomdimfem10	pl-sg	none	--	--	981
-nommobfem2	sg-pl	none	--	--	981
-nommobfem2	pl-sg	none	--	--	981
-nommobfem3	sg-pl	none	--	--	2134
-nommobfem3	sg-pl	del	a	76
-nommobfem3	sg-pl	chg	a	e	13
-nommobfem3	sg-pl	chg	ap	p	1
-nommobfem3	sg-pl	chg	an	n	7
-nommobfem3	sg-pl	chg	ămân	emin	1
-nommobfem3	pl-sg	none	--	--	2134
-nommobfem3	pl-sg	add	a	76
-nommobfem3	pl-sg	chg	e	a	13
-nommobfem3	pl-sg	chg	p	ap	1
-nommobfem3	pl-sg	chg	n	an	7
-nommobfem3	pl-sg	chg	emin	ămân	1
-nomneu3	sg-pl	none	--	--	3664
-nomneu3	sg-pl	chg	c	ece	1
-nomneu3	sg-pl	chg	at	ăt	1
-nomneu3	sg-pl	add	t	1
-nomneu3	sg-pl	chg	saic	zaic	1
-nomneu3	sg-pl	chg	d	ad	1
-nomneu3	sg-pl	chg	av	ăv	1
-nomneu3	sg-pl	chg	ămănat	emănat	1
-nomneu3	sg-pl	chg	sălciș	Sălciș	1
-nomneu3	sg-pl	chg	cal	grin	1
-nomneu3	pl-sg	none	--	--	3664
-nomneu3	pl-sg	chg	ece	c	1
-nomneu3	pl-sg	chg	ăt	at	1
-nomneu3	pl-sg	del	t	1
-nomneu3	pl-sg	chg	zaic	saic	1
-nomneu3	pl-sg	chg	ad	d	1
-nomneu3	pl-sg	chg	ăv	av	1
-nomneu3	pl-sg	chg	emănat	ămănat	1
-nomneu3	pl-sg	chg	Sălciș	sălciș	1
-nomneu3	pl-sg	chg	grin	cal	1
-nomfem8	sg-pl	chg	ar	ăr	5141
-nomfem8	sg-pl	none	--	--	5535
-nomfem8	sg-pl	chg	ar	r	218
-nomfem8	sg-pl	chg	ovionar	uvionăr	1
-nomfem8	sg-pl	chg	t	ț	17
-nomfem8	sg-pl	chg	ang	ăng	1
-nomfem8	sg-pl	chg	art	ărț	2
-nomfem8	sg-pl	chg	ai	ă	1
-nomfem8	sg-pl	add	e	1
-nomfem8	sg-pl	chg	at	ăț	19
-nomfem8	sg-pl	chg	ar	rur	1
-nomfem8	sg-pl	chg	ac	c	2
-nomfem8	sg-pl	chg	uisar	isăr	1
-nomfem8	sg-pl	chg	anc	ănc	1
-nomfem8	sg-pl	chg	d	z	1
-nomfem8	sg-pl	chg	art	rț	1
-nomfem8	sg-pl	chg	apt	pț	1
-nomfem8	sg-pl	chg	ast	șt	1
-nomfem8	sg-pl	chg	ac	ăc	2
-nomfem8	sg-pl	chg	aser	ăser	1
-nomfem8	sg-pl	chg	asăr	ăsăr	1
-nomfem8	sg-pl	chg	st	șt	2
-nomfem8	sg-pl	chg	lorcătoar	torcător	1
-nomfem8	sg-pl	chg	iclozitat	eclozităț	1
-nomfem8	sg-pl	chg	transmiter	ransmiteri	1
-nomfem8	pl-sg	chg	ăr	ar	5141
-nomfem8	pl-sg	none	--	--	5535
-nomfem8	pl-sg	chg	r	ar	218
-nomfem8	pl-sg	chg	uvionăr	ovionar	1
-nomfem8	pl-sg	chg	ț	t	17
-nomfem8	pl-sg	chg	ăng	ang	1
-nomfem8	pl-sg	chg	ărț	art	2
-nomfem8	pl-sg	chg	ă	ai	1
-nomfem8	pl-sg	del	e	1
-nomfem8	pl-sg	chg	ăț	at	19
-nomfem8	pl-sg	chg	rur	ar	1
-nomfem8	pl-sg	chg	c	ac	2
-nomfem8	pl-sg	chg	isăr	uisar	1
-nomfem8	pl-sg	chg	ănc	anc	1
-nomfem8	pl-sg	chg	z	d	1
-nomfem8	pl-sg	chg	rț	art	1
-nomfem8	pl-sg	chg	pț	apt	1
-nomfem8	pl-sg	chg	șt	ast	1
-nomfem8	pl-sg	chg	ăc	ac	2
-nomfem8	pl-sg	chg	ăser	aser	1
-nomfem8	pl-sg	chg	ăsăr	asăr	1
-nomfem8	pl-sg	chg	șt	st	2
-nomfem8	pl-sg	chg	torcător	lorcătoar	1
-nomfem8	pl-sg	chg	eclozităț	iclozitat	1
-nomfem8	pl-sg	chg	ransmiteri	transmiter	1
-nomfem11	sg-pl	chg	are	ări	5141
-nomfem11	sg-pl	chg	ancă	nce	184
-nomfem11	sg-pl	chg	ană	ne	141
-nomfem11	sg-pl	none	--	--	191
-nomfem11	sg-pl	chg	ală	li	534
-nomfem11	sg-pl	chg	are	ri	222
-nomfem11	sg-pl	chg	scă	ște	20
-nomfem11	sg-pl	chg	ară	ări	16
-nomfem11	sg-pl	chg	anie	ănii	10
-nomfem11	sg-pl	chg	asmă	sme	2
-nomfem11	sg-pl	chg	asmă	esme	1
-nomfem11	sg-pl	chg	ancă	ence	39
-nomfem11	sg-pl	chg	ață	ți	10
-nomfem11	sg-pl	chg	ață	țe	76
-nomfem11	sg-pl	chg	ală	eli	367
-nomfem11	sg-pl	chg	ancă	enci	1
-nomfem11	sg-pl	del	ă	7
-nomfem11	sg-pl	chg	ovionare	uvionări	1
-nomfem11	sg-pl	chg	ască	ști	14
-nomfem11	sg-pl	chg	ă	e	11
-nomfem11	sg-pl	del	e	29
-nomfem11	sg-pl	chg	dă	zi	10
-nomfem11	sg-pl	chg	ază	ezi	1
-nomfem11	sg-pl	chg	ardă	ărzi	5
-nomfem11	sg-pl	chg	ață	ețe	13
-nomfem11	sg-pl	chg	ă	a	2
-nomfem11	sg-pl	chg	ască	ăști	6
-nomfem11	sg-pl	chg	scă	ști	6
-nomfem11	sg-pl	chg	ană	ene	10
-nomfem11	sg-pl	chg	acă	ece	1
-nomfem11	sg-pl	chg	andă	enzi	6
-nomfem11	sg-pl	chg	adă	ăzi	8
-nomfem11	sg-pl	chg	acă	ci	7
-nomfem11	sg-pl	chg	aie	ăi	49
-nomfem11	sg-pl	chg	alangă	ălăngi	2
-nomfem11	sg-pl	add	e	3
-nomfem11	sg-pl	chg	altă	ălți	2
-nomfem11	sg-pl	chg	ancă	ănci	14
-nomfem11	sg-pl	chg	antă	enți	1
-nomfem11	sg-pl	chg	aracă	ărăci	1
-nomfem11	sg-pl	chg	angă	ăngi	5
-nomfem11	sg-pl	chg	atcă	ătci	5
-nomfem11	sg-pl	chg	arbă	ărbi	1
-nomfem11	sg-pl	chg	arcă	ărci	14
-nomfem11	sg-pl	chg	arză	erze	2
-nomfem11	sg-pl	chg	ataxină	etaxine	1
-nomfem11	sg-pl	chg	așcă	ăști	8
-nomfem11	sg-pl	chg	aștie	ăștii	2
-nomfem11	sg-pl	chg	că	ti	26
-nomfem11	sg-pl	chg	e	i	3
-nomfem11	sg-pl	chg	acă	ăci	8
-nomfem11	sg-pl	chg	agă	ăgi	10
-nomfem11	sg-pl	chg	ană	ăni	3
-nomfem11	sg-pl	chg	andră	ndre	9
-nomfem11	sg-pl	chg	ază	ze	8
-nomfem11	sg-pl	chg	aznă	zne	1
-nomfem11	sg-pl	chg	tă	ți	3
-nomfem11	sg-pl	chg	ă	i	6
-nomfem11	sg-pl	chg	anhogramă	onhograme	1
-nomfem11	sg-pl	chg	aslă	sle	1
-nomfem11	sg-pl	chg	că	te	23
-nomfem11	sg-pl	chg	rădioară	ădioare	1
-nomfem11	sg-pl	chg	ată	ăți	8
-nomfem11	sg-pl	chg	arcă	rci	3
-nomfem11	sg-pl	chg	ană	eni	3
-nomfem11	sg-pl	chg	alcă	ălci	6
-nomfem11	sg-pl	chg	te	ți	17
-nomfem11	sg-pl	chg	aică	ăici	10
-nomfem11	sg-pl	chg	ată	ete	3
-nomfem11	sg-pl	chg	așcă	ști	4
-nomfem11	sg-pl	chg	ange	ăngi	1
-nomfem11	sg-pl	chg	arte	ărți	2
-nomfem11	sg-pl	chg	cadorie	adorii	1
-nomfem11	sg-pl	chg	lație	ații	1
-nomfem11	sg-pl	chg	afă	fe	1
-nomfem11	sg-pl	chg	apsă	pse	2
-nomfem11	sg-pl	chg	apă	pe	4
-nomfem11	sg-pl	chg	apță	pțe	1
-nomfem11	sg-pl	chg	artă	rturi	1
-nomfem11	sg-pl	chg	ată	te	6
-nomfem11	sg-pl	chg	ață	țuri	4
-nomfem11	sg-pl	chg	aie	i	12
-nomfem11	sg-pl	chg	ară	ri	11
-nomfem11	sg-pl	chg	andură	ndure	1
-nomfem11	sg-pl	chg	adă	zi	1
-nomfem11	sg-pl	chg	așă	șe	3
-nomfem11	sg-pl	chg	ajă	ji	3
-nomfem11	sg-pl	chg	anță	nțe	7
-nomfem11	sg-pl	chg	ată	ți	4
-nomfem11	sg-pl	chg	aptă	pte	4
-nomfem11	sg-pl	chg	abie	ăbii	5
-nomfem11	sg-pl	chg	ală	le	16
-nomfem11	sg-pl	chg	oadă	ezi	1
-nomfem11	sg-pl	chg	ască	ești	2
-nomfem11	sg-pl	chg	ată	eți	3
-nomfem11	sg-pl	chg	opatie	apatii	1
-nomfem11	sg-pl	chg	andră	endre	2
-nomfem11	sg-pl	chg	angă	ngi	1
-nomfem11	sg-pl	chg	astă	ste	3
-nomfem11	sg-pl	chg	asă	ese	2
-nomfem11	sg-pl	chg	antă	ente	1
-nomfem11	sg-pl	chg	agă	gi	2
-nomfem11	sg-pl	chg	așă	ăși	1
-nomfem11	sg-pl	chg	ajdie	ăjdii	1
-nomfem11	sg-pl	chg	alie	ălii	1
-nomfem11	sg-pl	chg	estulă	ăstule	1
-nomfem11	sg-pl	add	i	1
-nomfem11	sg-pl	chg	ate	ăți	19
-nomfem11	sg-pl	chg	adă	ezi	10
-nomfem11	sg-pl	chg	avă	ve	3
-nomfem11	sg-pl	chg	avă	ăvi	4
-nomfem11	sg-pl	chg	unamogramă	inamograme	1
-nomfem11	sg-pl	chg	abrică	ăbrici	1
-nomfem11	sg-pl	chg	are	ruri	1
-nomfem11	sg-pl	chg	așă	eșe	1
-nomfem11	sg-pl	chg	astră	stre	1
-nomfem11	sg-pl	chg	ancă	nci	4
-nomfem11	sg-pl	chg	andură	nduri	2
-nomfem11	sg-pl	chg	artă	ărți	3
-nomfem11	sg-pl	chg	vanocromie	anocromii	1
-nomfem11	sg-pl	chg	aură	ăuri	1
-nomfem11	sg-pl	chg	antă	nți	1
-nomfem11	sg-pl	chg	ajă	ăji	5
-nomfem11	sg-pl	chg	glumiflore	Glumiflore	1
-nomfem11	sg-pl	chg	apă	pi	1
-nomfem11	sg-pl	chg	avă	vi	2
-nomfem11	sg-pl	chg	ace	ci	2
-nomfem11	sg-pl	chg	apcă	ăpci	1
-nomfem11	sg-pl	chg	arabaie	ărăbăi	1
-nomfem11	sg-pl	chg	ată	t	1
-nomfem11	sg-pl	chg	apcă	pci	2
-nomfem11	sg-pl	chg	ajă	je	2
-nomfem11	sg-pl	chg	adă	ede	1
-nomfem11	sg-pl	chg	apă	epe	1
-nomfem11	sg-pl	chg	arnă	erni	1
-nomfem11	sg-pl	chg	azmă	ezme	1
-nomfem11	sg-pl	chg	tuționalistă	-tuționaliste	1
-nomfem11	sg-pl	chg	ță	te	1
-nomfem11	sg-pl	chg	ala	eli	2
-nomfem11	sg-pl	chg	uisare	isări	1
-nomfem11	sg-pl	chg	arcă	erci	1
-nomfem11	sg-pl	chg	ampă	ămpi	1
-nomfem11	sg-pl	chg	ance	ănci	1
-nomfem11	sg-pl	chg	afă	furi	1
-nomfem11	sg-pl	chg	ahă	he	1
-nomfem11	sg-pl	chg	apșă	pșe	1
-nomfem11	sg-pl	chg	așcă	ște	1
-nomfem11	sg-pl	chg	de	zi	1
-nomfem11	sg-pl	chg	etalotecă	ataloteci	1
-nomfem11	sg-pl	chg	ahnă	hne	1
-nomfem11	sg-pl	chg	arte	rți	1
-nomfem11	sg-pl	chg	tologie	lologii	1
-nomfem11	sg-pl	chg	moană	imoane	1
-nomfem11	sg-pl	chg	ață	ăți	1
-nomfem11	sg-pl	chg	nă	ini	1
-nomfem11	sg-pl	chg	tuială	luieli	1
-nomfem11	sg-pl	chg	amiază	ămiezi	1
-nomfem11	sg-pl	chg	astă	este	1
-nomfem11	sg-pl	chg	acă	ce	1
-nomfem11	sg-pl	chg	apte	pți	1
-nomfem11	sg-pl	chg	oră	urori	2
-nomfem11	sg-pl	chg	agă	ge	3
-nomfem11	sg-pl	chg	aste	ști	1
-nomfem11	sg-pl	chg	ală	ele	2
-nomfem11	sg-pl	chg	agă	egi	2
-nomfem11	sg-pl	chg	ace	ăci	2
-nomfem11	sg-pl	chg	alașcă	ălăști	2
-nomfem11	sg-pl	chg	acără	ăcări	1
-nomfem11	sg-pl	chg	ară	ere	1
-nomfem11	sg-pl	chg	asere	ăseri	1
-nomfem11	sg-pl	chg	asăre	ăsări	1
-nomfem11	sg-pl	chg	atră	etre	3
-nomfem11	sg-pl	chg	ază	eze	1
-nomfem11	sg-pl	chg	asnă	sne	3
-nomfem11	sg-pl	chg	are	r	1
-nomfem11	sg-pl	chg	artă	rți	2
-nomfem11	sg-pl	chg	altă	lte	2
-nomfem11	sg-pl	chg	arnă	erne	1
-nomfem11	sg-pl	chg	ară	eri	4
-nomfem11	sg-pl	chg	ste	ști	2
-nomfem11	sg-pl	chg	uă	le	1
-nomfem11	sg-pl	chg	astie	ăstii	1
-nomfem11	sg-pl	chg	cație	țicații	1
-nomfem11	sg-pl	chg	așcă	ășci	1
-nomfem11	sg-pl	chg	stă	te	1
-nomfem11	sg-pl	chg	albie	ălbii	1
-nomfem11	sg-pl	chg	alcie	ălcii	1
-nomfem11	sg-pl	chg	alvie	ălvii	1
-nomfem11	sg-pl	chg	ală	ăli	1
-nomfem11	sg-pl	chg	ardă	erzi	1
-nomfem11	sg-pl	chg	ântă	inte	1
-nomfem11	sg-pl	chg	lorcătoare	torcători	1
-nomfem11	sg-pl	chg	atopauză	ratopauze	1
-nomfem11	sg-pl	chg	iclozitate	eclozități	1
-nomfem11	sg-pl	chg	tilografie	lilografii	1
-nomfem11	sg-pl	chg	achină	ăchini	1
-nomfem11	sg-pl	chg	așină	ășini	1
-nomfem11	sg-pl	chg	așină	șini	1
-nomfem11	sg-pl	chg	ânță	enți	1
-nomfem11	sg-pl	chg	ogramă	agrame	1
-nomfem11	sg-pl	chg	kă	ce	1
-nomfem11	sg-pl	chg	alpă	ălpi	1
-nomfem11	sg-pl	chg	arancă	ărănci	1
-nomfem11	sg-pl	chg	argă	ărgi	2
-nomfem11	sg-pl	chg	arfă	rfe	1
-nomfem11	sg-pl	chg	transmitere	ransmiterii	1
-nomfem11	sg-pl	chg	a	i	1
-nomfem11	sg-pl	chg	abă	bi	1
-nomfem11	sg-pl	chg	rezorerie	ezorerii	1
-nomfem11	sg-pl	chg	arcă	rce	1
-nomfem11	sg-pl	chg	atcă	tci	1
-nomfem11	sg-pl	chg	ânără	inere	1
-nomfem11	sg-pl	chg	tărășenie	țărășenii	1
-nomfem11	sg-pl	chg	ormă	urme	1
-nomfem11	sg-pl	chg	adră	edre	1
-nomfem11	sg-pl	chg	almă	ălmi	1
-nomfem11	sg-pl	chg	amă	ămi	1
-nomfem11	sg-pl	chg	ate	ății	1
-nomfem11	sg-pl	chg	ață	eți	1
-nomfem11	sg-pl	chg	ână	ine	1
-nomfem11	sg-pl	chg	ânătă	inete	1
-nomfem11	sg-pl	chg	aloagă	ăloage	1
-nomfem11	sg-pl	chg	amcă	ămci	1
-nomfem11	sg-pl	chg	amă	mi	1
-nomfem11	sg-pl	chg	zugrăveală	sugrăveli	1
-nomfem11	sg-pl	chg	apcă	epci	1
-nomfem11	sg-pl	chg	arbă	erbe	1
-nomfem11	sg-pl	chg	ahtă	hte	1
-nomfem11	sg-pl	chg	antă	ănți	1
-nomfem11	sg-pl	chg	ierătură	erături	1
-nomfem11	sg-pl	chg	andură	ănduri	1
-nomfem11	sg-pl	chg	andără	ăndări	1
-nomfem11	sg-pl	chg	arnă	ărni	1
-nomfem11	sg-pl	chg	ică	elei	1
-nomfem11	pl-sg	chg	ări	are	5141
-nomfem11	pl-sg	chg	nce	ancă	184
-nomfem11	pl-sg	chg	ne	ană	141
-nomfem11	pl-sg	none	--	--	191
-nomfem11	pl-sg	chg	li	ală	534
-nomfem11	pl-sg	chg	ri	are	222
-nomfem11	pl-sg	chg	ște	scă	20
-nomfem11	pl-sg	chg	ări	ară	16
-nomfem11	pl-sg	chg	ănii	anie	10
-nomfem11	pl-sg	chg	sme	asmă	2
-nomfem11	pl-sg	chg	esme	asmă	1
-nomfem11	pl-sg	chg	ence	ancă	39
-nomfem11	pl-sg	chg	ți	ață	10
-nomfem11	pl-sg	chg	țe	ață	76
-nomfem11	pl-sg	chg	eli	ală	367
-nomfem11	pl-sg	chg	enci	ancă	1
-nomfem11	pl-sg	add	ă	7
-nomfem11	pl-sg	chg	uvionări	ovionare	1
-nomfem11	pl-sg	chg	ști	ască	14
-nomfem11	pl-sg	chg	e	ă	11
-nomfem11	pl-sg	add	e	29
-nomfem11	pl-sg	chg	zi	dă	10
-nomfem11	pl-sg	chg	ezi	ază	1
-nomfem11	pl-sg	chg	ărzi	ardă	5
-nomfem11	pl-sg	chg	ețe	ață	13
-nomfem11	pl-sg	chg	a	ă	2
-nomfem11	pl-sg	chg	ăști	ască	6
-nomfem11	pl-sg	chg	ști	scă	6
-nomfem11	pl-sg	chg	ene	ană	10
-nomfem11	pl-sg	chg	ece	acă	1
-nomfem11	pl-sg	chg	enzi	andă	6
-nomfem11	pl-sg	chg	ăzi	adă	8
-nomfem11	pl-sg	chg	ci	acă	7
-nomfem11	pl-sg	chg	ăi	aie	49
-nomfem11	pl-sg	chg	ălăngi	alangă	2
-nomfem11	pl-sg	del	e	3
-nomfem11	pl-sg	chg	ălți	altă	2
-nomfem11	pl-sg	chg	ănci	ancă	14
-nomfem11	pl-sg	chg	enți	antă	1
-nomfem11	pl-sg	chg	ărăci	aracă	1
-nomfem11	pl-sg	chg	ăngi	angă	5
-nomfem11	pl-sg	chg	ătci	atcă	5
-nomfem11	pl-sg	chg	ărbi	arbă	1
-nomfem11	pl-sg	chg	ărci	arcă	14
-nomfem11	pl-sg	chg	erze	arză	2
-nomfem11	pl-sg	chg	etaxine	ataxină	1
-nomfem11	pl-sg	chg	ăști	așcă	8
-nomfem11	pl-sg	chg	ăștii	aștie	2
-nomfem11	pl-sg	chg	ti	că	26
-nomfem11	pl-sg	chg	i	e	3
-nomfem11	pl-sg	chg	ăci	acă	8
-nomfem11	pl-sg	chg	ăgi	agă	10
-nomfem11	pl-sg	chg	ăni	ană	3
-nomfem11	pl-sg	chg	ndre	andră	9
-nomfem11	pl-sg	chg	ze	ază	8
-nomfem11	pl-sg	chg	zne	aznă	1
-nomfem11	pl-sg	chg	ți	tă	3
-nomfem11	pl-sg	chg	i	ă	6
-nomfem11	pl-sg	chg	onhograme	anhogramă	1
-nomfem11	pl-sg	chg	sle	aslă	1
-nomfem11	pl-sg	chg	te	că	23
-nomfem11	pl-sg	chg	ădioare	rădioară	1
-nomfem11	pl-sg	chg	ăți	ată	8
-nomfem11	pl-sg	chg	rci	arcă	3
-nomfem11	pl-sg	chg	eni	ană	3
-nomfem11	pl-sg	chg	ălci	alcă	6
-nomfem11	pl-sg	chg	ți	te	17
-nomfem11	pl-sg	chg	ăici	aică	10
-nomfem11	pl-sg	chg	ete	ată	3
-nomfem11	pl-sg	chg	ști	așcă	4
-nomfem11	pl-sg	chg	ăngi	ange	1
-nomfem11	pl-sg	chg	ărți	arte	2
-nomfem11	pl-sg	chg	adorii	cadorie	1
-nomfem11	pl-sg	chg	ații	lație	1
-nomfem11	pl-sg	chg	fe	afă	1
-nomfem11	pl-sg	chg	pse	apsă	2
-nomfem11	pl-sg	chg	pe	apă	4
-nomfem11	pl-sg	chg	pțe	apță	1
-nomfem11	pl-sg	chg	rturi	artă	1
-nomfem11	pl-sg	chg	te	ată	6
-nomfem11	pl-sg	chg	țuri	ață	4
-nomfem11	pl-sg	chg	i	aie	12
-nomfem11	pl-sg	chg	ri	ară	11
-nomfem11	pl-sg	chg	ndure	andură	1
-nomfem11	pl-sg	chg	zi	adă	1
-nomfem11	pl-sg	chg	șe	așă	3
-nomfem11	pl-sg	chg	ji	ajă	3
-nomfem11	pl-sg	chg	nțe	anță	7
-nomfem11	pl-sg	chg	ți	ată	4
-nomfem11	pl-sg	chg	pte	aptă	4
-nomfem11	pl-sg	chg	ăbii	abie	5
-nomfem11	pl-sg	chg	le	ală	16
-nomfem11	pl-sg	chg	ezi	oadă	1
-nomfem11	pl-sg	chg	ești	ască	2
-nomfem11	pl-sg	chg	eți	ată	3
-nomfem11	pl-sg	chg	apatii	opatie	1
-nomfem11	pl-sg	chg	endre	andră	2
-nomfem11	pl-sg	chg	ngi	angă	1
-nomfem11	pl-sg	chg	ste	astă	3
-nomfem11	pl-sg	chg	ese	asă	2
-nomfem11	pl-sg	chg	ente	antă	1
-nomfem11	pl-sg	chg	gi	agă	2
-nomfem11	pl-sg	chg	ăși	așă	1
-nomfem11	pl-sg	chg	ăjdii	ajdie	1
-nomfem11	pl-sg	chg	ălii	alie	1
-nomfem11	pl-sg	chg	ăstule	estulă	1
-nomfem11	pl-sg	del	i	1
-nomfem11	pl-sg	chg	ăți	ate	19
-nomfem11	pl-sg	chg	ezi	adă	10
-nomfem11	pl-sg	chg	ve	avă	3
-nomfem11	pl-sg	chg	ăvi	avă	4
-nomfem11	pl-sg	chg	inamograme	unamogramă	1
-nomfem11	pl-sg	chg	ăbrici	abrică	1
-nomfem11	pl-sg	chg	ruri	are	1
-nomfem11	pl-sg	chg	eșe	așă	1
-nomfem11	pl-sg	chg	stre	astră	1
-nomfem11	pl-sg	chg	nci	ancă	4
-nomfem11	pl-sg	chg	nduri	andură	2
-nomfem11	pl-sg	chg	ărți	artă	3
-nomfem11	pl-sg	chg	anocromii	vanocromie	1
-nomfem11	pl-sg	chg	ăuri	aură	1
-nomfem11	pl-sg	chg	nți	antă	1
-nomfem11	pl-sg	chg	ăji	ajă	5
-nomfem11	pl-sg	chg	Glumiflore	glumiflore	1
-nomfem11	pl-sg	chg	pi	apă	1
-nomfem11	pl-sg	chg	vi	avă	2
-nomfem11	pl-sg	chg	ci	ace	2
-nomfem11	pl-sg	chg	ăpci	apcă	1
-nomfem11	pl-sg	chg	ărăbăi	arabaie	1
-nomfem11	pl-sg	chg	t	ată	1
-nomfem11	pl-sg	chg	pci	apcă	2
-nomfem11	pl-sg	chg	je	ajă	2
-nomfem11	pl-sg	chg	ede	adă	1
-nomfem11	pl-sg	chg	epe	apă	1
-nomfem11	pl-sg	chg	erni	arnă	1
-nomfem11	pl-sg	chg	ezme	azmă	1
-nomfem11	pl-sg	chg	-tuționaliste	tuționalistă	1
-nomfem11	pl-sg	chg	te	ță	1
-nomfem11	pl-sg	chg	eli	ala	2
-nomfem11	pl-sg	chg	isări	uisare	1
-nomfem11	pl-sg	chg	erci	arcă	1
-nomfem11	pl-sg	chg	ămpi	ampă	1
-nomfem11	pl-sg	chg	ănci	ance	1
-nomfem11	pl-sg	chg	furi	afă	1
-nomfem11	pl-sg	chg	he	ahă	1
-nomfem11	pl-sg	chg	pșe	apșă	1
-nomfem11	pl-sg	chg	ște	așcă	1
-nomfem11	pl-sg	chg	zi	de	1
-nomfem11	pl-sg	chg	ataloteci	etalotecă	1
-nomfem11	pl-sg	chg	hne	ahnă	1
-nomfem11	pl-sg	chg	rți	arte	1
-nomfem11	pl-sg	chg	lologii	tologie	1
-nomfem11	pl-sg	chg	imoane	moană	1
-nomfem11	pl-sg	chg	ăți	ață	1
-nomfem11	pl-sg	chg	ini	nă	1
-nomfem11	pl-sg	chg	luieli	tuială	1
-nomfem11	pl-sg	chg	ămiezi	amiază	1
-nomfem11	pl-sg	chg	este	astă	1
-nomfem11	pl-sg	chg	ce	acă	1
-nomfem11	pl-sg	chg	pți	apte	1
-nomfem11	pl-sg	chg	urori	oră	2
-nomfem11	pl-sg	chg	ge	agă	3
-nomfem11	pl-sg	chg	ști	aste	1
-nomfem11	pl-sg	chg	ele	ală	2
-nomfem11	pl-sg	chg	egi	agă	2
-nomfem11	pl-sg	chg	ăci	ace	2
-nomfem11	pl-sg	chg	ălăști	alașcă	2
-nomfem11	pl-sg	chg	ăcări	acără	1
-nomfem11	pl-sg	chg	ere	ară	1
-nomfem11	pl-sg	chg	ăseri	asere	1
-nomfem11	pl-sg	chg	ăsări	asăre	1
-nomfem11	pl-sg	chg	etre	atră	3
-nomfem11	pl-sg	chg	eze	ază	1
-nomfem11	pl-sg	chg	sne	asnă	3
-nomfem11	pl-sg	chg	r	are	1
-nomfem11	pl-sg	chg	rți	artă	2
-nomfem11	pl-sg	chg	lte	altă	2
-nomfem11	pl-sg	chg	erne	arnă	1
-nomfem11	pl-sg	chg	eri	ară	4
-nomfem11	pl-sg	chg	ști	ste	2
-nomfem11	pl-sg	chg	le	uă	1
-nomfem11	pl-sg	chg	ăstii	astie	1
-nomfem11	pl-sg	chg	țicații	cație	1
-nomfem11	pl-sg	chg	ășci	așcă	1
-nomfem11	pl-sg	chg	te	stă	1
-nomfem11	pl-sg	chg	ălbii	albie	1
-nomfem11	pl-sg	chg	ălcii	alcie	1
-nomfem11	pl-sg	chg	ălvii	alvie	1
-nomfem11	pl-sg	chg	ăli	ală	1
-nomfem11	pl-sg	chg	erzi	ardă	1
-nomfem11	pl-sg	chg	inte	ântă	1
-nomfem11	pl-sg	chg	torcători	lorcătoare	1
-nomfem11	pl-sg	chg	ratopauze	atopauză	1
-nomfem11	pl-sg	chg	eclozități	iclozitate	1
-nomfem11	pl-sg	chg	lilografii	tilografie	1
-nomfem11	pl-sg	chg	ăchini	achină	1
-nomfem11	pl-sg	chg	ășini	așină	1
-nomfem11	pl-sg	chg	șini	așină	1
-nomfem11	pl-sg	chg	enți	ânță	1
-nomfem11	pl-sg	chg	agrame	ogramă	1
-nomfem11	pl-sg	chg	ce	kă	1
-nomfem11	pl-sg	chg	ălpi	alpă	1
-nomfem11	pl-sg	chg	ărănci	arancă	1
-nomfem11	pl-sg	chg	ărgi	argă	2
-nomfem11	pl-sg	chg	rfe	arfă	1
-nomfem11	pl-sg	chg	ransmiterii	transmitere	1
-nomfem11	pl-sg	chg	i	a	1
-nomfem11	pl-sg	chg	bi	abă	1
-nomfem11	pl-sg	chg	ezorerii	rezorerie	1
-nomfem11	pl-sg	chg	rce	arcă	1
-nomfem11	pl-sg	chg	tci	atcă	1
-nomfem11	pl-sg	chg	inere	ânără	1
-nomfem11	pl-sg	chg	țărășenii	tărășenie	1
-nomfem11	pl-sg	chg	urme	ormă	1
-nomfem11	pl-sg	chg	edre	adră	1
-nomfem11	pl-sg	chg	ălmi	almă	1
-nomfem11	pl-sg	chg	ămi	amă	1
-nomfem11	pl-sg	chg	ății	ate	1
-nomfem11	pl-sg	chg	eți	ață	1
-nomfem11	pl-sg	chg	ine	ână	1
-nomfem11	pl-sg	chg	inete	ânătă	1
-nomfem11	pl-sg	chg	ăloage	aloagă	1
-nomfem11	pl-sg	chg	ămci	amcă	1
-nomfem11	pl-sg	chg	mi	amă	1
-nomfem11	pl-sg	chg	sugrăveli	zugrăveală	1
-nomfem11	pl-sg	chg	epci	apcă	1
-nomfem11	pl-sg	chg	erbe	arbă	1
-nomfem11	pl-sg	chg	hte	ahtă	1
-nomfem11	pl-sg	chg	ănți	antă	1
-nomfem11	pl-sg	chg	erături	ierătură	1
-nomfem11	pl-sg	chg	ănduri	andură	1
-nomfem11	pl-sg	chg	ăndări	andără	1
-nomfem11	pl-sg	chg	ărni	arnă	1
-nomfem11	pl-sg	chg	elei	ică	1
-nommobfem8	sg-pl	chg	are	ări	5141
-nommobfem8	sg-pl	chg	ancă	nce	184
-nommobfem8	sg-pl	chg	ană	ne	141
-nommobfem8	sg-pl	none	--	--	191
-nommobfem8	sg-pl	chg	ală	li	534
-nommobfem8	sg-pl	chg	are	ri	222
-nommobfem8	sg-pl	chg	scă	ște	20
-nommobfem8	sg-pl	chg	ară	ări	16
-nommobfem8	sg-pl	chg	anie	ănii	10
-nommobfem8	sg-pl	chg	asmă	sme	2
-nommobfem8	sg-pl	chg	asmă	esme	1
-nommobfem8	sg-pl	chg	ancă	ence	39
-nommobfem8	sg-pl	chg	ață	ți	10
-nommobfem8	sg-pl	chg	ață	țe	76
-nommobfem8	sg-pl	chg	ală	eli	367
-nommobfem8	sg-pl	chg	ancă	enci	1
-nommobfem8	sg-pl	del	ă	7
-nommobfem8	sg-pl	chg	ovionare	uvionări	1
-nommobfem8	sg-pl	chg	ască	ști	14
-nommobfem8	sg-pl	chg	ă	e	11
-nommobfem8	sg-pl	del	e	29
-nommobfem8	sg-pl	chg	dă	zi	10
-nommobfem8	sg-pl	chg	ază	ezi	1
-nommobfem8	sg-pl	chg	ardă	ărzi	5
-nommobfem8	sg-pl	chg	ață	ețe	13
-nommobfem8	sg-pl	chg	ă	a	2
-nommobfem8	sg-pl	chg	ască	ăști	6
-nommobfem8	sg-pl	chg	scă	ști	6
-nommobfem8	sg-pl	chg	ană	ene	10
-nommobfem8	sg-pl	chg	acă	ece	1
-nommobfem8	sg-pl	chg	andă	enzi	6
-nommobfem8	sg-pl	chg	adă	ăzi	8
-nommobfem8	sg-pl	chg	acă	ci	7
-nommobfem8	sg-pl	chg	aie	ăi	49
-nommobfem8	sg-pl	chg	alangă	ălăngi	2
-nommobfem8	sg-pl	add	e	3
-nommobfem8	sg-pl	chg	altă	ălți	2
-nommobfem8	sg-pl	chg	ancă	ănci	14
-nommobfem8	sg-pl	chg	antă	enți	1
-nommobfem8	sg-pl	chg	aracă	ărăci	1
-nommobfem8	sg-pl	chg	angă	ăngi	5
-nommobfem8	sg-pl	chg	atcă	ătci	5
-nommobfem8	sg-pl	chg	arbă	ărbi	1
-nommobfem8	sg-pl	chg	arcă	ărci	14
-nommobfem8	sg-pl	chg	arză	erze	2
-nommobfem8	sg-pl	chg	ataxină	etaxine	1
-nommobfem8	sg-pl	chg	așcă	ăști	8
-nommobfem8	sg-pl	chg	aștie	ăștii	2
-nommobfem8	sg-pl	chg	că	ti	26
-nommobfem8	sg-pl	chg	e	i	3
-nommobfem8	sg-pl	chg	acă	ăci	8
-nommobfem8	sg-pl	chg	agă	ăgi	10
-nommobfem8	sg-pl	chg	ană	ăni	3
-nommobfem8	sg-pl	chg	andră	ndre	9
-nommobfem8	sg-pl	chg	ază	ze	8
-nommobfem8	sg-pl	chg	aznă	zne	1
-nommobfem8	sg-pl	chg	tă	ți	3
-nommobfem8	sg-pl	chg	ă	i	6
-nommobfem8	sg-pl	chg	anhogramă	onhograme	1
-nommobfem8	sg-pl	chg	aslă	sle	1
-nommobfem8	sg-pl	chg	că	te	23
-nommobfem8	sg-pl	chg	rădioară	ădioare	1
-nommobfem8	sg-pl	chg	ată	ăți	8
-nommobfem8	sg-pl	chg	arcă	rci	3
-nommobfem8	sg-pl	chg	ană	eni	3
-nommobfem8	sg-pl	chg	alcă	ălci	6
-nommobfem8	sg-pl	chg	te	ți	17
-nommobfem8	sg-pl	chg	aică	ăici	10
-nommobfem8	sg-pl	chg	ată	ete	3
-nommobfem8	sg-pl	chg	așcă	ști	4
-nommobfem8	sg-pl	chg	ange	ăngi	1
-nommobfem8	sg-pl	chg	arte	ărți	2
-nommobfem8	sg-pl	chg	cadorie	adorii	1
-nommobfem8	sg-pl	chg	lație	ații	1
-nommobfem8	sg-pl	chg	afă	fe	1
-nommobfem8	sg-pl	chg	apsă	pse	2
-nommobfem8	sg-pl	chg	apă	pe	4
-nommobfem8	sg-pl	chg	apță	pțe	1
-nommobfem8	sg-pl	chg	artă	rturi	1
-nommobfem8	sg-pl	chg	ată	te	6
-nommobfem8	sg-pl	chg	ață	țuri	4
-nommobfem8	sg-pl	chg	aie	i	12
-nommobfem8	sg-pl	chg	ară	ri	11
-nommobfem8	sg-pl	chg	andură	ndure	1
-nommobfem8	sg-pl	chg	adă	zi	1
-nommobfem8	sg-pl	chg	așă	șe	3
-nommobfem8	sg-pl	chg	ajă	ji	3
-nommobfem8	sg-pl	chg	anță	nțe	7
-nommobfem8	sg-pl	chg	ată	ți	4
-nommobfem8	sg-pl	chg	aptă	pte	4
-nommobfem8	sg-pl	chg	abie	ăbii	5
-nommobfem8	sg-pl	chg	ală	le	16
-nommobfem8	sg-pl	chg	oadă	ezi	1
-nommobfem8	sg-pl	chg	ască	ești	2
-nommobfem8	sg-pl	chg	ată	eți	3
-nommobfem8	sg-pl	chg	opatie	apatii	1
-nommobfem8	sg-pl	chg	andră	endre	2
-nommobfem8	sg-pl	chg	angă	ngi	1
-nommobfem8	sg-pl	chg	astă	ste	3
-nommobfem8	sg-pl	chg	asă	ese	2
-nommobfem8	sg-pl	chg	antă	ente	1
-nommobfem8	sg-pl	chg	agă	gi	2
-nommobfem8	sg-pl	chg	așă	ăși	1
-nommobfem8	sg-pl	chg	ajdie	ăjdii	1
-nommobfem8	sg-pl	chg	alie	ălii	1
-nommobfem8	sg-pl	chg	estulă	ăstule	1
-nommobfem8	sg-pl	add	i	1
-nommobfem8	sg-pl	chg	ate	ăți	19
-nommobfem8	sg-pl	chg	adă	ezi	10
-nommobfem8	sg-pl	chg	avă	ve	3
-nommobfem8	sg-pl	chg	avă	ăvi	4
-nommobfem8	sg-pl	chg	unamogramă	inamograme	1
-nommobfem8	sg-pl	chg	abrică	ăbrici	1
-nommobfem8	sg-pl	chg	are	ruri	1
-nommobfem8	sg-pl	chg	așă	eșe	1
-nommobfem8	sg-pl	chg	astră	stre	1
-nommobfem8	sg-pl	chg	ancă	nci	4
-nommobfem8	sg-pl	chg	andură	nduri	2
-nommobfem8	sg-pl	chg	artă	ărți	3
-nommobfem8	sg-pl	chg	vanocromie	anocromii	1
-nommobfem8	sg-pl	chg	aură	ăuri	1
-nommobfem8	sg-pl	chg	antă	nți	1
-nommobfem8	sg-pl	chg	ajă	ăji	5
-nommobfem8	sg-pl	chg	glumiflore	Glumiflore	1
-nommobfem8	sg-pl	chg	apă	pi	1
-nommobfem8	sg-pl	chg	avă	vi	2
-nommobfem8	sg-pl	chg	ace	ci	2
-nommobfem8	sg-pl	chg	apcă	ăpci	1
-nommobfem8	sg-pl	chg	arabaie	ărăbăi	1
-nommobfem8	sg-pl	chg	ată	t	1
-nommobfem8	sg-pl	chg	apcă	pci	2
-nommobfem8	sg-pl	chg	ajă	je	2
-nommobfem8	sg-pl	chg	adă	ede	1
-nommobfem8	sg-pl	chg	apă	epe	1
-nommobfem8	sg-pl	chg	arnă	erni	1
-nommobfem8	sg-pl	chg	azmă	ezme	1
-nommobfem8	sg-pl	chg	tuționalistă	-tuționaliste	1
-nommobfem8	sg-pl	chg	ță	te	1
-nommobfem8	sg-pl	chg	ala	eli	2
-nommobfem8	sg-pl	chg	uisare	isări	1
-nommobfem8	sg-pl	chg	arcă	erci	1
-nommobfem8	sg-pl	chg	ampă	ămpi	1
-nommobfem8	sg-pl	chg	ance	ănci	1
-nommobfem8	sg-pl	chg	afă	furi	1
-nommobfem8	sg-pl	chg	ahă	he	1
-nommobfem8	sg-pl	chg	apșă	pșe	1
-nommobfem8	sg-pl	chg	așcă	ște	1
-nommobfem8	sg-pl	chg	de	zi	1
-nommobfem8	sg-pl	chg	etalotecă	ataloteci	1
-nommobfem8	sg-pl	chg	ahnă	hne	1
-nommobfem8	sg-pl	chg	arte	rți	1
-nommobfem8	sg-pl	chg	tologie	lologii	1
-nommobfem8	sg-pl	chg	moană	imoane	1
-nommobfem8	sg-pl	chg	ață	ăți	1
-nommobfem8	sg-pl	chg	nă	ini	1
-nommobfem8	sg-pl	chg	tuială	luieli	1
-nommobfem8	sg-pl	chg	amiază	ămiezi	1
-nommobfem8	sg-pl	chg	astă	este	1
-nommobfem8	sg-pl	chg	acă	ce	1
-nommobfem8	sg-pl	chg	apte	pți	1
-nommobfem8	sg-pl	chg	oră	urori	2
-nommobfem8	sg-pl	chg	agă	ge	3
-nommobfem8	sg-pl	chg	aste	ști	1
-nommobfem8	sg-pl	chg	ală	ele	2
-nommobfem8	sg-pl	chg	agă	egi	2
-nommobfem8	sg-pl	chg	ace	ăci	2
-nommobfem8	sg-pl	chg	alașcă	ălăști	2
-nommobfem8	sg-pl	chg	acără	ăcări	1
-nommobfem8	sg-pl	chg	ară	ere	1
-nommobfem8	sg-pl	chg	asere	ăseri	1
-nommobfem8	sg-pl	chg	asăre	ăsări	1
-nommobfem8	sg-pl	chg	atră	etre	3
-nommobfem8	sg-pl	chg	ază	eze	1
-nommobfem8	sg-pl	chg	asnă	sne	3
-nommobfem8	sg-pl	chg	are	r	1
-nommobfem8	sg-pl	chg	artă	rți	2
-nommobfem8	sg-pl	chg	altă	lte	2
-nommobfem8	sg-pl	chg	arnă	erne	1
-nommobfem8	sg-pl	chg	ară	eri	4
-nommobfem8	sg-pl	chg	ste	ști	2
-nommobfem8	sg-pl	chg	uă	le	1
-nommobfem8	sg-pl	chg	astie	ăstii	1
-nommobfem8	sg-pl	chg	cație	țicații	1
-nommobfem8	sg-pl	chg	așcă	ășci	1
-nommobfem8	sg-pl	chg	stă	te	1
-nommobfem8	sg-pl	chg	albie	ălbii	1
-nommobfem8	sg-pl	chg	alcie	ălcii	1
-nommobfem8	sg-pl	chg	alvie	ălvii	1
-nommobfem8	sg-pl	chg	ală	ăli	1
-nommobfem8	sg-pl	chg	ardă	erzi	1
-nommobfem8	sg-pl	chg	ântă	inte	1
-nommobfem8	sg-pl	chg	lorcătoare	torcători	1
-nommobfem8	sg-pl	chg	atopauză	ratopauze	1
-nommobfem8	sg-pl	chg	iclozitate	eclozități	1
-nommobfem8	sg-pl	chg	tilografie	lilografii	1
-nommobfem8	sg-pl	chg	achină	ăchini	1
-nommobfem8	sg-pl	chg	așină	ășini	1
-nommobfem8	sg-pl	chg	așină	șini	1
-nommobfem8	sg-pl	chg	ânță	enți	1
-nommobfem8	sg-pl	chg	ogramă	agrame	1
-nommobfem8	sg-pl	chg	kă	ce	1
-nommobfem8	sg-pl	chg	alpă	ălpi	1
-nommobfem8	sg-pl	chg	arancă	ărănci	1
-nommobfem8	sg-pl	chg	argă	ărgi	2
-nommobfem8	sg-pl	chg	arfă	rfe	1
-nommobfem8	sg-pl	chg	transmitere	ransmiterii	1
-nommobfem8	sg-pl	chg	a	i	1
-nommobfem8	sg-pl	chg	abă	bi	1
-nommobfem8	sg-pl	chg	rezorerie	ezorerii	1
-nommobfem8	sg-pl	chg	arcă	rce	1
-nommobfem8	sg-pl	chg	atcă	tci	1
-nommobfem8	sg-pl	chg	ânără	inere	1
-nommobfem8	sg-pl	chg	tărășenie	țărășenii	1
-nommobfem8	sg-pl	chg	ormă	urme	1
-nommobfem8	sg-pl	chg	adră	edre	1
-nommobfem8	sg-pl	chg	almă	ălmi	1
-nommobfem8	sg-pl	chg	amă	ămi	1
-nommobfem8	sg-pl	chg	ate	ății	1
-nommobfem8	sg-pl	chg	ață	eți	1
-nommobfem8	sg-pl	chg	ână	ine	1
-nommobfem8	sg-pl	chg	ânătă	inete	1
-nommobfem8	sg-pl	chg	aloagă	ăloage	1
-nommobfem8	sg-pl	chg	amcă	ămci	1
-nommobfem8	sg-pl	chg	amă	mi	1
-nommobfem8	sg-pl	chg	zugrăveală	sugrăveli	1
-nommobfem8	sg-pl	chg	apcă	epci	1
-nommobfem8	sg-pl	chg	arbă	erbe	1
-nommobfem8	sg-pl	chg	ahtă	hte	1
-nommobfem8	sg-pl	chg	antă	ănți	1
-nommobfem8	sg-pl	chg	ierătură	erături	1
-nommobfem8	sg-pl	chg	andură	ănduri	1
-nommobfem8	sg-pl	chg	andără	ăndări	1
-nommobfem8	sg-pl	chg	arnă	ărni	1
-nommobfem8	sg-pl	chg	ică	elei	1
-nommobfem8	pl-sg	chg	ări	are	5141
-nommobfem8	pl-sg	chg	nce	ancă	184
-nommobfem8	pl-sg	chg	ne	ană	141
-nommobfem8	pl-sg	none	--	--	191
-nommobfem8	pl-sg	chg	li	ală	534
-nommobfem8	pl-sg	chg	ri	are	222
-nommobfem8	pl-sg	chg	ște	scă	20
-nommobfem8	pl-sg	chg	ări	ară	16
-nommobfem8	pl-sg	chg	ănii	anie	10
-nommobfem8	pl-sg	chg	sme	asmă	2
-nommobfem8	pl-sg	chg	esme	asmă	1
-nommobfem8	pl-sg	chg	ence	ancă	39
-nommobfem8	pl-sg	chg	ți	ață	10
-nommobfem8	pl-sg	chg	țe	ață	76
-nommobfem8	pl-sg	chg	eli	ală	367
-nommobfem8	pl-sg	chg	enci	ancă	1
-nommobfem8	pl-sg	add	ă	7
-nommobfem8	pl-sg	chg	uvionări	ovionare	1
-nommobfem8	pl-sg	chg	ști	ască	14
-nommobfem8	pl-sg	chg	e	ă	11
-nommobfem8	pl-sg	add	e	29
-nommobfem8	pl-sg	chg	zi	dă	10
-nommobfem8	pl-sg	chg	ezi	ază	1
-nommobfem8	pl-sg	chg	ărzi	ardă	5
-nommobfem8	pl-sg	chg	ețe	ață	13
-nommobfem8	pl-sg	chg	a	ă	2
-nommobfem8	pl-sg	chg	ăști	ască	6
-nommobfem8	pl-sg	chg	ști	scă	6
-nommobfem8	pl-sg	chg	ene	ană	10
-nommobfem8	pl-sg	chg	ece	acă	1
-nommobfem8	pl-sg	chg	enzi	andă	6
-nommobfem8	pl-sg	chg	ăzi	adă	8
-nommobfem8	pl-sg	chg	ci	acă	7
-nommobfem8	pl-sg	chg	ăi	aie	49
-nommobfem8	pl-sg	chg	ălăngi	alangă	2
-nommobfem8	pl-sg	del	e	3
-nommobfem8	pl-sg	chg	ălți	altă	2
-nommobfem8	pl-sg	chg	ănci	ancă	14
-nommobfem8	pl-sg	chg	enți	antă	1
-nommobfem8	pl-sg	chg	ărăci	aracă	1
-nommobfem8	pl-sg	chg	ăngi	angă	5
-nommobfem8	pl-sg	chg	ătci	atcă	5
-nommobfem8	pl-sg	chg	ărbi	arbă	1
-nommobfem8	pl-sg	chg	ărci	arcă	14
-nommobfem8	pl-sg	chg	erze	arză	2
-nommobfem8	pl-sg	chg	etaxine	ataxină	1
-nommobfem8	pl-sg	chg	ăști	așcă	8
-nommobfem8	pl-sg	chg	ăștii	aștie	2
-nommobfem8	pl-sg	chg	ti	că	26
-nommobfem8	pl-sg	chg	i	e	3
-nommobfem8	pl-sg	chg	ăci	acă	8
-nommobfem8	pl-sg	chg	ăgi	agă	10
-nommobfem8	pl-sg	chg	ăni	ană	3
-nommobfem8	pl-sg	chg	ndre	andră	9
-nommobfem8	pl-sg	chg	ze	ază	8
-nommobfem8	pl-sg	chg	zne	aznă	1
-nommobfem8	pl-sg	chg	ți	tă	3
-nommobfem8	pl-sg	chg	i	ă	6
-nommobfem8	pl-sg	chg	onhograme	anhogramă	1
-nommobfem8	pl-sg	chg	sle	aslă	1
-nommobfem8	pl-sg	chg	te	că	23
-nommobfem8	pl-sg	chg	ădioare	rădioară	1
-nommobfem8	pl-sg	chg	ăți	ată	8
-nommobfem8	pl-sg	chg	rci	arcă	3
-nommobfem8	pl-sg	chg	eni	ană	3
-nommobfem8	pl-sg	chg	ălci	alcă	6
-nommobfem8	pl-sg	chg	ți	te	17
-nommobfem8	pl-sg	chg	ăici	aică	10
-nommobfem8	pl-sg	chg	ete	ată	3
-nommobfem8	pl-sg	chg	ști	așcă	4
-nommobfem8	pl-sg	chg	ăngi	ange	1
-nommobfem8	pl-sg	chg	ărți	arte	2
-nommobfem8	pl-sg	chg	adorii	cadorie	1
-nommobfem8	pl-sg	chg	ații	lație	1
-nommobfem8	pl-sg	chg	fe	afă	1
-nommobfem8	pl-sg	chg	pse	apsă	2
-nommobfem8	pl-sg	chg	pe	apă	4
-nommobfem8	pl-sg	chg	pțe	apță	1
-nommobfem8	pl-sg	chg	rturi	artă	1
-nommobfem8	pl-sg	chg	te	ată	6
-nommobfem8	pl-sg	chg	țuri	ață	4
-nommobfem8	pl-sg	chg	i	aie	12
-nommobfem8	pl-sg	chg	ri	ară	11
-nommobfem8	pl-sg	chg	ndure	andură	1
-nommobfem8	pl-sg	chg	zi	adă	1
-nommobfem8	pl-sg	chg	șe	așă	3
-nommobfem8	pl-sg	chg	ji	ajă	3
-nommobfem8	pl-sg	chg	nțe	anță	7
-nommobfem8	pl-sg	chg	ți	ată	4
-nommobfem8	pl-sg	chg	pte	aptă	4
-nommobfem8	pl-sg	chg	ăbii	abie	5
-nommobfem8	pl-sg	chg	le	ală	16
-nommobfem8	pl-sg	chg	ezi	oadă	1
-nommobfem8	pl-sg	chg	ești	ască	2
-nommobfem8	pl-sg	chg	eți	ată	3
-nommobfem8	pl-sg	chg	apatii	opatie	1
-nommobfem8	pl-sg	chg	endre	andră	2
-nommobfem8	pl-sg	chg	ngi	angă	1
-nommobfem8	pl-sg	chg	ste	astă	3
-nommobfem8	pl-sg	chg	ese	asă	2
-nommobfem8	pl-sg	chg	ente	antă	1
-nommobfem8	pl-sg	chg	gi	agă	2
-nommobfem8	pl-sg	chg	ăși	așă	1
-nommobfem8	pl-sg	chg	ăjdii	ajdie	1
-nommobfem8	pl-sg	chg	ălii	alie	1
-nommobfem8	pl-sg	chg	ăstule	estulă	1
-nommobfem8	pl-sg	del	i	1
-nommobfem8	pl-sg	chg	ăți	ate	19
-nommobfem8	pl-sg	chg	ezi	adă	10
-nommobfem8	pl-sg	chg	ve	avă	3
-nommobfem8	pl-sg	chg	ăvi	avă	4
-nommobfem8	pl-sg	chg	inamograme	unamogramă	1
-nommobfem8	pl-sg	chg	ăbrici	abrică	1
-nommobfem8	pl-sg	chg	ruri	are	1
-nommobfem8	pl-sg	chg	eșe	așă	1
-nommobfem8	pl-sg	chg	stre	astră	1
-nommobfem8	pl-sg	chg	nci	ancă	4
-nommobfem8	pl-sg	chg	nduri	andură	2
-nommobfem8	pl-sg	chg	ărți	artă	3
-nommobfem8	pl-sg	chg	anocromii	vanocromie	1
-nommobfem8	pl-sg	chg	ăuri	aură	1
-nommobfem8	pl-sg	chg	nți	antă	1
-nommobfem8	pl-sg	chg	ăji	ajă	5
-nommobfem8	pl-sg	chg	Glumiflore	glumiflore	1
-nommobfem8	pl-sg	chg	pi	apă	1
-nommobfem8	pl-sg	chg	vi	avă	2
-nommobfem8	pl-sg	chg	ci	ace	2
-nommobfem8	pl-sg	chg	ăpci	apcă	1
-nommobfem8	pl-sg	chg	ărăbăi	arabaie	1
-nommobfem8	pl-sg	chg	t	ată	1
-nommobfem8	pl-sg	chg	pci	apcă	2
-nommobfem8	pl-sg	chg	je	ajă	2
-nommobfem8	pl-sg	chg	ede	adă	1
-nommobfem8	pl-sg	chg	epe	apă	1
-nommobfem8	pl-sg	chg	erni	arnă	1
-nommobfem8	pl-sg	chg	ezme	azmă	1
-nommobfem8	pl-sg	chg	-tuționaliste	tuționalistă	1
-nommobfem8	pl-sg	chg	te	ță	1
-nommobfem8	pl-sg	chg	eli	ala	2
-nommobfem8	pl-sg	chg	isări	uisare	1
-nommobfem8	pl-sg	chg	erci	arcă	1
-nommobfem8	pl-sg	chg	ămpi	ampă	1
-nommobfem8	pl-sg	chg	ănci	ance	1
-nommobfem8	pl-sg	chg	furi	afă	1
-nommobfem8	pl-sg	chg	he	ahă	1
-nommobfem8	pl-sg	chg	pșe	apșă	1
-nommobfem8	pl-sg	chg	ște	așcă	1
-nommobfem8	pl-sg	chg	zi	de	1
-nommobfem8	pl-sg	chg	ataloteci	etalotecă	1
-nommobfem8	pl-sg	chg	hne	ahnă	1
-nommobfem8	pl-sg	chg	rți	arte	1
-nommobfem8	pl-sg	chg	lologii	tologie	1
-nommobfem8	pl-sg	chg	imoane	moană	1
-nommobfem8	pl-sg	chg	ăți	ață	1
-nommobfem8	pl-sg	chg	ini	nă	1
-nommobfem8	pl-sg	chg	luieli	tuială	1
-nommobfem8	pl-sg	chg	ămiezi	amiază	1
-nommobfem8	pl-sg	chg	este	astă	1
-nommobfem8	pl-sg	chg	ce	acă	1
-nommobfem8	pl-sg	chg	pți	apte	1
-nommobfem8	pl-sg	chg	urori	oră	2
-nommobfem8	pl-sg	chg	ge	agă	3
-nommobfem8	pl-sg	chg	ști	aste	1
-nommobfem8	pl-sg	chg	ele	ală	2
-nommobfem8	pl-sg	chg	egi	agă	2
-nommobfem8	pl-sg	chg	ăci	ace	2
-nommobfem8	pl-sg	chg	ălăști	alașcă	2
-nommobfem8	pl-sg	chg	ăcări	acără	1
-nommobfem8	pl-sg	chg	ere	ară	1
-nommobfem8	pl-sg	chg	ăseri	asere	1
-nommobfem8	pl-sg	chg	ăsări	asăre	1
-nommobfem8	pl-sg	chg	etre	atră	3
-nommobfem8	pl-sg	chg	eze	ază	1
-nommobfem8	pl-sg	chg	sne	asnă	3
-nommobfem8	pl-sg	chg	r	are	1
-nommobfem8	pl-sg	chg	rți	artă	2
-nommobfem8	pl-sg	chg	lte	altă	2
-nommobfem8	pl-sg	chg	erne	arnă	1
-nommobfem8	pl-sg	chg	eri	ară	4
-nommobfem8	pl-sg	chg	ști	ste	2
-nommobfem8	pl-sg	chg	le	uă	1
-nommobfem8	pl-sg	chg	ăstii	astie	1
-nommobfem8	pl-sg	chg	țicații	cație	1
-nommobfem8	pl-sg	chg	ășci	așcă	1
-nommobfem8	pl-sg	chg	te	stă	1
-nommobfem8	pl-sg	chg	ălbii	albie	1
-nommobfem8	pl-sg	chg	ălcii	alcie	1
-nommobfem8	pl-sg	chg	ălvii	alvie	1
-nommobfem8	pl-sg	chg	ăli	ală	1
-nommobfem8	pl-sg	chg	erzi	ardă	1
-nommobfem8	pl-sg	chg	inte	ântă	1
-nommobfem8	pl-sg	chg	torcători	lorcătoare	1
-nommobfem8	pl-sg	chg	ratopauze	atopauză	1
-nommobfem8	pl-sg	chg	eclozități	iclozitate	1
-nommobfem8	pl-sg	chg	lilografii	tilografie	1
-nommobfem8	pl-sg	chg	ăchini	achină	1
-nommobfem8	pl-sg	chg	ășini	așină	1
-nommobfem8	pl-sg	chg	șini	așină	1
-nommobfem8	pl-sg	chg	enți	ânță	1
-nommobfem8	pl-sg	chg	agrame	ogramă	1
-nommobfem8	pl-sg	chg	ce	kă	1
-nommobfem8	pl-sg	chg	ălpi	alpă	1
-nommobfem8	pl-sg	chg	ărănci	arancă	1
-nommobfem8	pl-sg	chg	ărgi	argă	2
-nommobfem8	pl-sg	chg	rfe	arfă	1
-nommobfem8	pl-sg	chg	ransmiterii	transmitere	1
-nommobfem8	pl-sg	chg	i	a	1
-nommobfem8	pl-sg	chg	bi	abă	1
-nommobfem8	pl-sg	chg	ezorerii	rezorerie	1
-nommobfem8	pl-sg	chg	rce	arcă	1
-nommobfem8	pl-sg	chg	tci	atcă	1
-nommobfem8	pl-sg	chg	inere	ânără	1
-nommobfem8	pl-sg	chg	țărășenii	tărășenie	1
-nommobfem8	pl-sg	chg	urme	ormă	1
-nommobfem8	pl-sg	chg	edre	adră	1
-nommobfem8	pl-sg	chg	ălmi	almă	1
-nommobfem8	pl-sg	chg	ămi	amă	1
-nommobfem8	pl-sg	chg	ății	ate	1
-nommobfem8	pl-sg	chg	eți	ață	1
-nommobfem8	pl-sg	chg	ine	ână	1
-nommobfem8	pl-sg	chg	inete	ânătă	1
-nommobfem8	pl-sg	chg	ăloage	aloagă	1
-nommobfem8	pl-sg	chg	ămci	amcă	1
-nommobfem8	pl-sg	chg	mi	amă	1
-nommobfem8	pl-sg	chg	sugrăveli	zugrăveală	1
-nommobfem8	pl-sg	chg	epci	apcă	1
-nommobfem8	pl-sg	chg	erbe	arbă	1
-nommobfem8	pl-sg	chg	hte	ahtă	1
-nommobfem8	pl-sg	chg	ănți	antă	1
-nommobfem8	pl-sg	chg	erături	ierătură	1
-nommobfem8	pl-sg	chg	ănduri	andură	1
-nommobfem8	pl-sg	chg	ăndări	andără	1
-nommobfem8	pl-sg	chg	ărni	arnă	1
-nommobfem8	pl-sg	chg	elei	ică	1
-nomsuf11	sg-pl	none	--	--	8503
-nomsuf11	sg-pl	chg	ăpăd	epăd	1
-nomsuf11	sg-pl	add	i	1
-nomsuf11	pl-sg	none	--	--	8503
-nomsuf11	pl-sg	chg	epăd	ăpăd	1
-nomsuf11	pl-sg	del	i	1
-nomdimneu9	sg-pl	none	--	--	3838
-nomdimneu9	sg-pl	chg	togam	-togam	1
-nomdimneu9	sg-pl	chg	orolog	riolog	1
-nomdimneu9	sg-pl	chg	zmet	smet	1
-nomdimneu9	sg-pl	chg	siast	ziast	1
-nomdimneu9	sg-pl	chg	ere	are	1
-nomdimneu9	sg-pl	chg	at	et	1
-nomdimneu9	pl-sg	none	--	--	3838
-nomdimneu9	pl-sg	chg	-togam	togam	1
-nomdimneu9	pl-sg	chg	riolog	orolog	1
-nomdimneu9	pl-sg	chg	smet	zmet	1
-nomdimneu9	pl-sg	chg	ziast	siast	1
-nomdimneu9	pl-sg	chg	are	ere	1
-nomdimneu9	pl-sg	chg	et	at	1
-nomsuf14	sg-pl	none	--	--	1214
-nomsuf14	sg-pl	chg	r	ar	1
-nomsuf14	sg-pl	chg	izomat	ozomat	1
-nomsuf14	sg-pl	chg	nți	ați	1
-nomsuf14	pl-sg	none	--	--	1214
-nomsuf14	pl-sg	chg	ar	r	1
-nomsuf14	pl-sg	chg	ozomat	izomat	1
-nomsuf14	pl-sg	chg	ați	nți	1
-nommasc3	sg-pl	chg	t	ț	69
-nommasc3	sg-pl	chg	d	z	8
-nommasc3	sg-pl	none	--	--	73
-nommasc3	sg-pl	chg	ar	r	2
-nommasc3	sg-pl	chg	st	șt	1
-nommasc3	sg-pl	chg	arp	erp	1
-nommasc3	pl-sg	chg	ț	t	69
-nommasc3	pl-sg	chg	z	d	8
-nommasc3	pl-sg	none	--	--	73
-nommasc3	pl-sg	chg	r	ar	2
-nommasc3	pl-sg	chg	șt	st	1
-nommasc3	pl-sg	chg	erp	arp	1
-nommobfem7	sg-pl	none	--	--	30
-nommobfem7	pl-sg	none	--	--	30
-nomneu10	sg-pl	chg	r	are	1637
-nomneu10	sg-pl	chg	c	eceuri	1
-nomneu10	sg-pl	chg	p	ape	191
-nomneu10	sg-pl	chg	an	ne	200
-nomneu10	sg-pl	chg	m	ame	88
-nomneu10	sg-pl	chg	eptant	ceptante	1
-nomneu10	sg-pl	chg	n	ane	405
-nomneu10	sg-pl	chg	test	oteste	1
-nomneu10	sg-pl	chg	c	ace	33
-nomneu10	sg-pl	chg	togamic	-togamice	1
-nomneu10	sg-pl	chg	t	ate	5
-nomneu10	sg-pl	chg	nual	uale	1
-nomneu10	sg-pl	none	--	--	66
-nomneu10	sg-pl	chg	at	te	1
-nomneu10	sg-pl	chg	ag	ge	7
-nomneu10	sg-pl	chg	nc	ance	1
-nomneu10	sg-pl	chg	ș	așe	5
-nomneu10	sg-pl	chg	az	ze	3
-nomneu10	sg-pl	chg	iardaj	hiardaje	1
-nomneu10	sg-pl	chg	ros	aroase	1
-nomneu10	sg-pl	chg	d	ade	14
-nomneu10	sg-pl	chg	rgabas	gabase	1
-nomneu10	sg-pl	chg	g	age	26
-nomneu10	sg-pl	chg	v	ave	4
-nomneu10	sg-pl	add	e	15
-nomneu10	sg-pl	chg	mb	ambe	1
-nomneu10	sg-pl	chg	nt	ante	2
-nomneu10	sg-pl	chg	sc	asca	1
-nomneu10	sg-pl	add	uri	6
-nomneu10	sg-pl	chg	ap	pe	3
-nomneu10	sg-pl	chg	ăstru	estre	1
-nomneu10	sg-pl	chg	t	ți	1
-nomneu10	sg-pl	chg	emitor	Emitoare	1
-nomneu10	sg-pl	chg	hnic	nice	1
-nomneu10	sg-pl	chg	e	i	4
-nomneu10	sg-pl	chg	cș	xe	1
-nomneu10	sg-pl	chg	nf	anfe	1
-nomneu10	sg-pl	chg	amăn	mene	1
-nomneu10	sg-pl	chg	amăt	mete	1
-nomneu10	sg-pl	chg	nț	anțe	1
-nomneu10	sg-pl	chg	z	aze	2
-nomneu10	sg-pl	chg	hic	ice	1
-nomneu10	sg-pl	chg	ă	e	1
-nomneu10	sg-pl	chg	l	i	1
-nomneu10	sg-pl	chg	b	abe	4
-nomneu10	sg-pl	chg	f	afe	1
-nomneu10	sg-pl	add	i	1
-nomneu10	sg-pl	chg	a	e	3
-nomneu10	sg-pl	chg	ah	șe	1
-nomneu10	sg-pl	add	te	1
-nomneu10	sg-pl	chg	rt	arte	4
-nomneu10	sg-pl	chg	pt	apte	4
-nomneu10	sg-pl	chg	es	se	1
-nomneu10	sg-pl	chg	rs	arse	5
-nomneu10	sg-pl	chg	ac	ce	4
-nomneu10	sg-pl	chg	rb	arbe	1
-nomneu10	sg-pl	chg	s	ase	1
-nomneu10	sg-pl	chg	âu	ii	1
-nomneu10	sg-pl	add	ă	1
-nomneu10	sg-pl	chg	rcutanat	cutanate	1
-nomneu10	sg-pl	chg	ng	ange	1
-nomneu10	sg-pl	chg	ă	i	1
-nomneu10	sg-pl	chg	d	aduri	1
-nomneu10	sg-pl	chg	st	aste	1
-nomneu10	sg-pl	chg	saj	asaje	1
-nomneu10	sg-pl	chg	avăn	vene	1
-nomneu10	sg-pl	chg	ctract	tracte	1
-nomneu10	sg-pl	add	ei	1
-nomneu10	sg-pl	chg	scentist	nscentiste	1
-nomneu10	sg-pl	chg	sc	ște	1
-nomneu10	sg-pl	chg	arbăd	rbede	1
-nomneu10	sg-pl	chg	ate	ăți	4
-nomneu10	sg-pl	chg	ad	de	1
-nomneu10	sg-pl	chg	c	e	1
-nomneu10	sg-pl	chg	săpat	Săpaturi	1
-nomneu10	sg-pl	chg	afăr	fere	1
-nomneu10	sg-pl	del	u	1
-nomneu10	sg-pl	chg	ător	atoare	1
-nomneu10	sg-pl	chg	an	ni	1
-nomneu10	sg-pl	chg	at	iate	1
-nomneu10	sg-pl	chg	lt	alte	1
-nomneu10	sg-pl	chg	cal	grinuri	1
-nomneu10	sg-pl	chg	apăn	pene	1
-nomneu10	pl-sg	chg	are	r	1637
-nomneu10	pl-sg	chg	eceuri	c	1
-nomneu10	pl-sg	chg	ape	p	191
-nomneu10	pl-sg	chg	ne	an	200
-nomneu10	pl-sg	chg	ame	m	88
-nomneu10	pl-sg	chg	ceptante	eptant	1
-nomneu10	pl-sg	chg	ane	n	405
-nomneu10	pl-sg	chg	oteste	test	1
-nomneu10	pl-sg	chg	ace	c	33
-nomneu10	pl-sg	chg	-togamice	togamic	1
-nomneu10	pl-sg	chg	ate	t	5
-nomneu10	pl-sg	chg	uale	nual	1
-nomneu10	pl-sg	none	--	--	66
-nomneu10	pl-sg	chg	te	at	1
-nomneu10	pl-sg	chg	ge	ag	7
-nomneu10	pl-sg	chg	ance	nc	1
-nomneu10	pl-sg	chg	așe	ș	5
-nomneu10	pl-sg	chg	ze	az	3
-nomneu10	pl-sg	chg	hiardaje	iardaj	1
-nomneu10	pl-sg	chg	aroase	ros	1
-nomneu10	pl-sg	chg	ade	d	14
-nomneu10	pl-sg	chg	gabase	rgabas	1
-nomneu10	pl-sg	chg	age	g	26
-nomneu10	pl-sg	chg	ave	v	4
-nomneu10	pl-sg	del	e	15
-nomneu10	pl-sg	chg	ambe	mb	1
-nomneu10	pl-sg	chg	ante	nt	2
-nomneu10	pl-sg	chg	asca	sc	1
-nomneu10	pl-sg	del	uri	6
-nomneu10	pl-sg	chg	pe	ap	3
-nomneu10	pl-sg	chg	estre	ăstru	1
-nomneu10	pl-sg	chg	ți	t	1
-nomneu10	pl-sg	chg	Emitoare	emitor	1
-nomneu10	pl-sg	chg	nice	hnic	1
-nomneu10	pl-sg	chg	i	e	4
-nomneu10	pl-sg	chg	xe	cș	1
-nomneu10	pl-sg	chg	anfe	nf	1
-nomneu10	pl-sg	chg	mene	amăn	1
-nomneu10	pl-sg	chg	mete	amăt	1
-nomneu10	pl-sg	chg	anțe	nț	1
-nomneu10	pl-sg	chg	aze	z	2
-nomneu10	pl-sg	chg	ice	hic	1
-nomneu10	pl-sg	chg	e	ă	1
-nomneu10	pl-sg	chg	i	l	1
-nomneu10	pl-sg	chg	abe	b	4
-nomneu10	pl-sg	chg	afe	f	1
-nomneu10	pl-sg	del	i	1
-nomneu10	pl-sg	chg	e	a	3
-nomneu10	pl-sg	chg	șe	ah	1
-nomneu10	pl-sg	del	te	1
-nomneu10	pl-sg	chg	arte	rt	4
-nomneu10	pl-sg	chg	apte	pt	4
-nomneu10	pl-sg	chg	se	es	1
-nomneu10	pl-sg	chg	arse	rs	5
-nomneu10	pl-sg	chg	ce	ac	4
-nomneu10	pl-sg	chg	arbe	rb	1
-nomneu10	pl-sg	chg	ase	s	1
-nomneu10	pl-sg	chg	ii	âu	1
-nomneu10	pl-sg	del	ă	1
-nomneu10	pl-sg	chg	cutanate	rcutanat	1
-nomneu10	pl-sg	chg	ange	ng	1
-nomneu10	pl-sg	chg	i	ă	1
-nomneu10	pl-sg	chg	aduri	d	1
-nomneu10	pl-sg	chg	aste	st	1
-nomneu10	pl-sg	chg	asaje	saj	1
-nomneu10	pl-sg	chg	vene	avăn	1
-nomneu10	pl-sg	chg	tracte	ctract	1
-nomneu10	pl-sg	del	ei	1
-nomneu10	pl-sg	chg	nscentiste	scentist	1
-nomneu10	pl-sg	chg	ște	sc	1
-nomneu10	pl-sg	chg	rbede	arbăd	1
-nomneu10	pl-sg	chg	ăți	ate	4
-nomneu10	pl-sg	chg	de	ad	1
-nomneu10	pl-sg	chg	e	c	1
-nomneu10	pl-sg	chg	Săpaturi	săpat	1
-nomneu10	pl-sg	chg	fere	afăr	1
-nomneu10	pl-sg	add	u	1
-nomneu10	pl-sg	chg	atoare	ător	1
-nomneu10	pl-sg	chg	ni	an	1
-nomneu10	pl-sg	chg	iate	at	1
-nomneu10	pl-sg	chg	alte	lt	1
-nomneu10	pl-sg	chg	grinuri	cal	1
-nomneu10	pl-sg	chg	pene	apăn	1
-nomsuf10	sg-pl	none	--	--	1803
-nomsuf10	pl-sg	none	--	--	1803
-nomneu4	sg-pl	chg	c	eceuri	1
-nomneu4	sg-pl	chg	eptant	ceptante	1
-nomneu4	sg-pl	chg	r	are	53
-nomneu4	sg-pl	none	--	--	57
-nomneu4	sg-pl	chg	test	oteste	1
-nomneu4	sg-pl	chg	an	ne	10
-nomneu4	sg-pl	chg	n	ane	15
-nomneu4	sg-pl	add	uri	2
-nomneu4	sg-pl	chg	iardaj	hiardaje	1
-nomneu4	sg-pl	chg	g	age	2
-nomneu4	sg-pl	chg	e	i	5
-nomneu4	sg-pl	chg	c	ace	2
-nomneu4	sg-pl	chg	amăn	mene	1
-nomneu4	sg-pl	chg	ă	e	1
-nomneu4	sg-pl	chg	m	ame	2
-nomneu4	sg-pl	chg	a	e	3
-nomneu4	sg-pl	chg	rt	arte	1
-nomneu4	sg-pl	chg	es	se	1
-nomneu4	sg-pl	chg	ate	ăți	5
-nomneu4	sg-pl	chg	rcutanat	cutanate	1
-nomneu4	sg-pl	chg	ă	i	1
-nomneu4	sg-pl	chg	ag	ge	1
-nomneu4	sg-pl	chg	st	aste	1
-nomneu4	sg-pl	chg	aie	ăi	1
-nomneu4	sg-pl	chg	ctract	tracte	1
-nomneu4	sg-pl	add	ei	1
-nomneu4	sg-pl	add	e	1
-nomneu4	sg-pl	chg	rs	arse	2
-nomneu4	sg-pl	chg	c	e	1
-nomneu4	sg-pl	chg	ător	atoare	1
-nomneu4	pl-sg	chg	eceuri	c	1
-nomneu4	pl-sg	chg	ceptante	eptant	1
-nomneu4	pl-sg	chg	are	r	53
-nomneu4	pl-sg	none	--	--	57
-nomneu4	pl-sg	chg	oteste	test	1
-nomneu4	pl-sg	chg	ne	an	10
-nomneu4	pl-sg	chg	ane	n	15
-nomneu4	pl-sg	del	uri	2
-nomneu4	pl-sg	chg	hiardaje	iardaj	1
-nomneu4	pl-sg	chg	age	g	2
-nomneu4	pl-sg	chg	i	e	5
-nomneu4	pl-sg	chg	ace	c	2
-nomneu4	pl-sg	chg	mene	amăn	1
-nomneu4	pl-sg	chg	e	ă	1
-nomneu4	pl-sg	chg	ame	m	2
-nomneu4	pl-sg	chg	e	a	3
-nomneu4	pl-sg	chg	arte	rt	1
-nomneu4	pl-sg	chg	se	es	1
-nomneu4	pl-sg	chg	ăți	ate	5
-nomneu4	pl-sg	chg	cutanate	rcutanat	1
-nomneu4	pl-sg	chg	i	ă	1
-nomneu4	pl-sg	chg	ge	ag	1
-nomneu4	pl-sg	chg	aste	st	1
-nomneu4	pl-sg	chg	ăi	aie	1
-nomneu4	pl-sg	chg	tracte	ctract	1
-nomneu4	pl-sg	del	ei	1
-nomneu4	pl-sg	del	e	1
-nomneu4	pl-sg	chg	arse	rs	2
-nomneu4	pl-sg	chg	e	c	1
-nomneu4	pl-sg	chg	atoare	ător	1
-nomneu11	sg-pl	chg	c	eceur	1
-nomneu11	sg-pl	none	--	--	46
-nomneu11	sg-pl	chg	d	z	2
-nomneu11	sg-pl	chg	an	en	2
-nomneu11	sg-pl	chg	el	ic	1
-nomneu11	sg-pl	chg	u	i	2
-nomneu11	sg-pl	chg	t	ț	2
-nomneu11	sg-pl	add	tur	1
-nomneu11	sg-pl	chg	d	adur	1
-nomneu11	sg-pl	add	e	1
-nomneu11	sg-pl	del	iu	1
-nomneu11	sg-pl	chg	cal	grinur	1
-nomneu11	pl-sg	chg	eceur	c	1
-nomneu11	pl-sg	none	--	--	46
-nomneu11	pl-sg	chg	z	d	2
-nomneu11	pl-sg	chg	en	an	2
-nomneu11	pl-sg	chg	ic	el	1
-nomneu11	pl-sg	chg	i	u	2
-nomneu11	pl-sg	chg	ț	t	2
-nomneu11	pl-sg	del	tur	1
-nomneu11	pl-sg	chg	adur	d	1
-nomneu11	pl-sg	del	e	1
-nomneu11	pl-sg	add	iu	1
-nomneu11	pl-sg	chg	grinur	cal	1
-nomsuf37	sg-pl	none	--	--	4313
-nomsuf37	pl-sg	none	--	--	4313
-nomsuf26	sg-pl	none	--	--	202
-nomsuf26	pl-sg	none	--	--	202
-nomneu5	sg-pl	none	--	--	890
-nomneu5	sg-pl	chg	ăstr	estr	1
-nomneu5	sg-pl	add	ut	1
-nomneu5	pl-sg	none	--	--	890
-nomneu5	pl-sg	chg	estr	ăstr	1
-nomneu5	pl-sg	del	ut	1
-nomsuf21	sg-pl	none	--	--	1532
-nomsuf21	sg-pl	chg	icloz	ecloz	1
-nomsuf21	pl-sg	none	--	--	1532
-nomsuf21	pl-sg	chg	ecloz	icloz	1
-nomsuf35	sg-pl	none	--	--	521
-nomsuf35	pl-sg	none	--	--	521
-nomsuf8	sg-pl	none	--	--	1859
-nomsuf8	sg-pl	chg	tuțional	-tuțional	1
-nomsuf8	sg-pl	chg	scent	nscent	1
-nomsuf8	pl-sg	none	--	--	1859
-nomsuf8	pl-sg	chg	-tuțional	tuțional	1
-nomsuf8	pl-sg	chg	nscent	scent	1
-nomfem7	sg-pl	none	--	--	37
-nomfem7	pl-sg	none	--	--	37
-nomfem2	sg-pl	chg	anc	nc	4
-nomfem2	sg-pl	none	--	--	204
-nomfem2	sg-pl	chg	ant	enț	1
-nomfem2	sg-pl	chg	asc	ășt	1
-nomfem2	sg-pl	chg	c	t	5
-nomfem2	sg-pl	chg	at	ăț	2
-nomfem2	sg-pl	chg	an	en	1
-nomfem2	sg-pl	chg	an	ăn	1
-nomfem2	sg-pl	chg	andur	ndur	1
-nomfem2	sg-pl	chg	al	l	14
-nomfem2	sg-pl	chg	an	n	1
-nomfem2	sg-pl	chg	ar	ăr	2
-nomfem2	sg-pl	chg	aș	eș	1
-nomfem2	sg-pl	chg	az	z	2
-nomfem2	sg-pl	chg	aț	țur	1
-nomfem2	sg-pl	chg	ac	c	1
-nomfem2	sg-pl	chg	or	uror	2
-nomfem2	sg-pl	chg	d	z	1
-nomfem2	sg-pl	chg	sc	șt	2
-nomfem2	sg-pl	chg	aț	ț	2
-nomfem2	sg-pl	chg	at	ț	1
-nomfem2	sg-pl	chg	alc	ălc	1
-nomfem2	sg-pl	chg	art	rț	1
-nomfem2	sg-pl	chg	ad	ăz	1
-nomfem2	sg-pl	chg	ânț	enț	1
-nomfem2	sg-pl	chg	al	el	1
-nomfem2	sg-pl	chg	alm	ălm	1
-nomfem2	sg-pl	chg	ar	er	1
-nomfem2	sg-pl	chg	aț	eț	1
-nomfem2	sg-pl	chg	ag	ăg	1
-nomfem2	sg-pl	chg	andăr	ăndăr	1
-nomfem2	sg-pl	chg	anc	ănc	2
-nomfem2	pl-sg	chg	nc	anc	4
-nomfem2	pl-sg	none	--	--	204
-nomfem2	pl-sg	chg	enț	ant	1
-nomfem2	pl-sg	chg	ășt	asc	1
-nomfem2	pl-sg	chg	t	c	5
-nomfem2	pl-sg	chg	ăț	at	2
-nomfem2	pl-sg	chg	en	an	1
-nomfem2	pl-sg	chg	ăn	an	1
-nomfem2	pl-sg	chg	ndur	andur	1
-nomfem2	pl-sg	chg	l	al	14
-nomfem2	pl-sg	chg	n	an	1
-nomfem2	pl-sg	chg	ăr	ar	2
-nomfem2	pl-sg	chg	eș	aș	1
-nomfem2	pl-sg	chg	z	az	2
-nomfem2	pl-sg	chg	țur	aț	1
-nomfem2	pl-sg	chg	c	ac	1
-nomfem2	pl-sg	chg	uror	or	2
-nomfem2	pl-sg	chg	z	d	1
-nomfem2	pl-sg	chg	șt	sc	2
-nomfem2	pl-sg	chg	ț	aț	2
-nomfem2	pl-sg	chg	ț	at	1
-nomfem2	pl-sg	chg	ălc	alc	1
-nomfem2	pl-sg	chg	rț	art	1
-nomfem2	pl-sg	chg	ăz	ad	1
-nomfem2	pl-sg	chg	enț	ânț	1
-nomfem2	pl-sg	chg	el	al	1
-nomfem2	pl-sg	chg	ălm	alm	1
-nomfem2	pl-sg	chg	er	ar	1
-nomfem2	pl-sg	chg	eț	aț	1
-nomfem2	pl-sg	chg	ăg	ag	1
-nomfem2	pl-sg	chg	ăndăr	andăr	1
-nomfem2	pl-sg	chg	ănc	anc	2
-nomfem4	sg-pl	chg	anc	nc	8
-nomfem4	sg-pl	none	--	--	2522
-nomfem4	sg-pl	chg	al	l	543
-nomfem4	sg-pl	chg	ar	ăr	16
-nomfem4	sg-pl	chg	aț	ț	11
-nomfem4	sg-pl	chg	al	el	368
-nomfem4	sg-pl	chg	anc	enc	1
-nomfem4	sg-pl	chg	d	z	11
-nomfem4	sg-pl	chg	az	ez	1
-nomfem4	sg-pl	chg	ard	ărz	5
-nomfem4	sg-pl	chg	asc	ășt	6
-nomfem4	sg-pl	chg	sc	șt	8
-nomfem4	sg-pl	chg	and	enz	6
-nomfem4	sg-pl	chg	ad	ăz	8
-nomfem4	sg-pl	chg	ac	c	8
-nomfem4	sg-pl	chg	alang	ălăng	2
-nomfem4	sg-pl	chg	alt	ălț	2
-nomfem4	sg-pl	chg	anc	ănc	14
-nomfem4	sg-pl	chg	ant	enț	1
-nomfem4	sg-pl	chg	arac	ărăc	1
-nomfem4	sg-pl	chg	ang	ăng	5
-nomfem4	sg-pl	chg	atc	ătc	5
-nomfem4	sg-pl	chg	arb	ărb	1
-nomfem4	sg-pl	chg	arc	ărc	14
-nomfem4	sg-pl	chg	așc	ășt	8
-nomfem4	sg-pl	chg	c	t	32
-nomfem4	sg-pl	chg	ac	ăc	8
-nomfem4	sg-pl	chg	ag	ăg	10
-nomfem4	sg-pl	chg	an	ăn	3
-nomfem4	sg-pl	chg	t	ț	3
-nomfem4	sg-pl	chg	at	ăț	8
-nomfem4	sg-pl	chg	arc	rc	3
-nomfem4	sg-pl	chg	an	en	3
-nomfem4	sg-pl	chg	alc	ălc	6
-nomfem4	sg-pl	chg	aic	ăic	10
-nomfem4	sg-pl	chg	așc	șt	4
-nomfem4	sg-pl	chg	aț	țur	4
-nomfem4	sg-pl	chg	ar	r	11
-nomfem4	sg-pl	chg	andur	ndur	3
-nomfem4	sg-pl	chg	ad	z	1
-nomfem4	sg-pl	chg	aj	j	3
-nomfem4	sg-pl	chg	at	ț	4
-nomfem4	sg-pl	chg	oad	ez	1
-nomfem4	sg-pl	chg	asc	eșt	2
-nomfem4	sg-pl	chg	at	eț	3
-nomfem4	sg-pl	chg	ang	ng	1
-nomfem4	sg-pl	chg	ag	g	2
-nomfem4	sg-pl	chg	aș	ăș	1
-nomfem4	sg-pl	chg	ad	ez	10
-nomfem4	sg-pl	chg	an	n	1
-nomfem4	sg-pl	chg	av	ăv	4
-nomfem4	sg-pl	chg	abric	ăbric	1
-nomfem4	sg-pl	chg	aș	eș	1
-nomfem4	sg-pl	chg	az	z	2
-nomfem4	sg-pl	chg	art	ărț	3
-nomfem4	sg-pl	chg	aur	ăur	1
-nomfem4	sg-pl	chg	ant	nț	1
-nomfem4	sg-pl	chg	aj	ăj	5
-nomfem4	sg-pl	chg	ap	p	1
-nomfem4	sg-pl	chg	av	v	2
-nomfem4	sg-pl	chg	apc	ăpc	1
-nomfem4	sg-pl	chg	apc	pc	2
-nomfem4	sg-pl	chg	arn	ern	1
-nomfem4	sg-pl	chg	arc	erc	1
-nomfem4	sg-pl	chg	amp	ămp	1
-nomfem4	sg-pl	chg	af	fur	1
-nomfem4	sg-pl	chg	etalotec	atalotec	1
-nomfem4	sg-pl	chg	aț	ăț	1
-nomfem4	sg-pl	chg	n	in	1
-nomfem4	sg-pl	chg	tuial	luiel	1
-nomfem4	sg-pl	chg	amiaz	ămiez	1
-nomfem4	sg-pl	chg	or	uror	2
-nomfem4	sg-pl	chg	ag	eg	2
-nomfem4	sg-pl	chg	alașc	ălășt	2
-nomfem4	sg-pl	chg	acăr	ăcăr	1
-nomfem4	sg-pl	chg	art	rț	2
-nomfem4	sg-pl	chg	ar	er	4
-nomfem4	sg-pl	chg	așc	ășc	1
-nomfem4	sg-pl	chg	al	ăl	1
-nomfem4	sg-pl	chg	ard	erz	1
-nomfem4	sg-pl	chg	achin	ăchin	1
-nomfem4	sg-pl	chg	așin	ășin	1
-nomfem4	sg-pl	chg	așin	șin	1
-nomfem4	sg-pl	chg	ânț	enț	1
-nomfem4	sg-pl	chg	alp	ălp	1
-nomfem4	sg-pl	chg	aranc	ărănc	1
-nomfem4	sg-pl	chg	arg	ărg	2
-nomfem4	sg-pl	chg	ab	b	1
-nomfem4	sg-pl	chg	atc	tc	1
-nomfem4	sg-pl	chg	alm	ălm	1
-nomfem4	sg-pl	chg	am	ăm	1
-nomfem4	sg-pl	chg	aț	eț	1
-nomfem4	sg-pl	chg	amc	ămc	1
-nomfem4	sg-pl	chg	am	m	1
-nomfem4	sg-pl	chg	zugrăveal	sugrăvel	1
-nomfem4	sg-pl	chg	apc	epc	1
-nomfem4	sg-pl	chg	ant	ănț	1
-nomfem4	sg-pl	chg	ierătur	erătur	1
-nomfem4	sg-pl	chg	andur	ăndur	1
-nomfem4	sg-pl	chg	andăr	ăndăr	1
-nomfem4	sg-pl	chg	arn	ărn	1
-nomfem4	pl-sg	chg	nc	anc	8
-nomfem4	pl-sg	none	--	--	2522
-nomfem4	pl-sg	chg	l	al	543
-nomfem4	pl-sg	chg	ăr	ar	16
-nomfem4	pl-sg	chg	ț	aț	11
-nomfem4	pl-sg	chg	el	al	368
-nomfem4	pl-sg	chg	enc	anc	1
-nomfem4	pl-sg	chg	z	d	11
-nomfem4	pl-sg	chg	ez	az	1
-nomfem4	pl-sg	chg	ărz	ard	5
-nomfem4	pl-sg	chg	ășt	asc	6
-nomfem4	pl-sg	chg	șt	sc	8
-nomfem4	pl-sg	chg	enz	and	6
-nomfem4	pl-sg	chg	ăz	ad	8
-nomfem4	pl-sg	chg	c	ac	8
-nomfem4	pl-sg	chg	ălăng	alang	2
-nomfem4	pl-sg	chg	ălț	alt	2
-nomfem4	pl-sg	chg	ănc	anc	14
-nomfem4	pl-sg	chg	enț	ant	1
-nomfem4	pl-sg	chg	ărăc	arac	1
-nomfem4	pl-sg	chg	ăng	ang	5
-nomfem4	pl-sg	chg	ătc	atc	5
-nomfem4	pl-sg	chg	ărb	arb	1
-nomfem4	pl-sg	chg	ărc	arc	14
-nomfem4	pl-sg	chg	ășt	așc	8
-nomfem4	pl-sg	chg	t	c	32
-nomfem4	pl-sg	chg	ăc	ac	8
-nomfem4	pl-sg	chg	ăg	ag	10
-nomfem4	pl-sg	chg	ăn	an	3
-nomfem4	pl-sg	chg	ț	t	3
-nomfem4	pl-sg	chg	ăț	at	8
-nomfem4	pl-sg	chg	rc	arc	3
-nomfem4	pl-sg	chg	en	an	3
-nomfem4	pl-sg	chg	ălc	alc	6
-nomfem4	pl-sg	chg	ăic	aic	10
-nomfem4	pl-sg	chg	șt	așc	4
-nomfem4	pl-sg	chg	țur	aț	4
-nomfem4	pl-sg	chg	r	ar	11
-nomfem4	pl-sg	chg	ndur	andur	3
-nomfem4	pl-sg	chg	z	ad	1
-nomfem4	pl-sg	chg	j	aj	3
-nomfem4	pl-sg	chg	ț	at	4
-nomfem4	pl-sg	chg	ez	oad	1
-nomfem4	pl-sg	chg	eșt	asc	2
-nomfem4	pl-sg	chg	eț	at	3
-nomfem4	pl-sg	chg	ng	ang	1
-nomfem4	pl-sg	chg	g	ag	2
-nomfem4	pl-sg	chg	ăș	aș	1
-nomfem4	pl-sg	chg	ez	ad	10
-nomfem4	pl-sg	chg	n	an	1
-nomfem4	pl-sg	chg	ăv	av	4
-nomfem4	pl-sg	chg	ăbric	abric	1
-nomfem4	pl-sg	chg	eș	aș	1
-nomfem4	pl-sg	chg	z	az	2
-nomfem4	pl-sg	chg	ărț	art	3
-nomfem4	pl-sg	chg	ăur	aur	1
-nomfem4	pl-sg	chg	nț	ant	1
-nomfem4	pl-sg	chg	ăj	aj	5
-nomfem4	pl-sg	chg	p	ap	1
-nomfem4	pl-sg	chg	v	av	2
-nomfem4	pl-sg	chg	ăpc	apc	1
-nomfem4	pl-sg	chg	pc	apc	2
-nomfem4	pl-sg	chg	ern	arn	1
-nomfem4	pl-sg	chg	erc	arc	1
-nomfem4	pl-sg	chg	ămp	amp	1
-nomfem4	pl-sg	chg	fur	af	1
-nomfem4	pl-sg	chg	atalotec	etalotec	1
-nomfem4	pl-sg	chg	ăț	aț	1
-nomfem4	pl-sg	chg	in	n	1
-nomfem4	pl-sg	chg	luiel	tuial	1
-nomfem4	pl-sg	chg	ămiez	amiaz	1
-nomfem4	pl-sg	chg	uror	or	2
-nomfem4	pl-sg	chg	eg	ag	2
-nomfem4	pl-sg	chg	ălășt	alașc	2
-nomfem4	pl-sg	chg	ăcăr	acăr	1
-nomfem4	pl-sg	chg	rț	art	2
-nomfem4	pl-sg	chg	er	ar	4
-nomfem4	pl-sg	chg	ășc	așc	1
-nomfem4	pl-sg	chg	ăl	al	1
-nomfem4	pl-sg	chg	erz	ard	1
-nomfem4	pl-sg	chg	ăchin	achin	1
-nomfem4	pl-sg	chg	ășin	așin	1
-nomfem4	pl-sg	chg	șin	așin	1
-nomfem4	pl-sg	chg	enț	ânț	1
-nomfem4	pl-sg	chg	ălp	alp	1
-nomfem4	pl-sg	chg	ărănc	aranc	1
-nomfem4	pl-sg	chg	ărg	arg	2
-nomfem4	pl-sg	chg	b	ab	1
-nomfem4	pl-sg	chg	tc	atc	1
-nomfem4	pl-sg	chg	ălm	alm	1
-nomfem4	pl-sg	chg	ăm	am	1
-nomfem4	pl-sg	chg	eț	aț	1
-nomfem4	pl-sg	chg	ămc	amc	1
-nomfem4	pl-sg	chg	m	am	1
-nomfem4	pl-sg	chg	sugrăvel	zugrăveal	1
-nomfem4	pl-sg	chg	epc	apc	1
-nomfem4	pl-sg	chg	ănț	ant	1
-nomfem4	pl-sg	chg	erătur	ierătur	1
-nomfem4	pl-sg	chg	ăndur	andur	1
-nomfem4	pl-sg	chg	ăndăr	andăr	1
-nomfem4	pl-sg	chg	ărn	arn	1
-nommobfem4	sg-pl	chg	ancă	n	184
-nommobfem4	sg-pl	del	acă	1
-nommobfem4	sg-pl	chg	arcă	r	1
-nommobfem4	pl-sg	chg	n	ancă	184
-nommobfem4	pl-sg	add	acă	1
-nommobfem4	pl-sg	chg	r	arcă	1
-nomfem16	sg-pl	chg	ană	ne	77
-nomfem16	sg-pl	chg	ață	țe	3
-nomfem16	sg-pl	chg	ovionare	uvionări	1
-nomfem16	sg-pl	chg	ață	ețe	2
-nomfem16	sg-pl	chg	are	ări	24
-nomfem16	sg-pl	chg	andă	enzi	1
-nomfem16	sg-pl	chg	ană	ene	4
-nomfem16	sg-pl	add	e	3
-nomfem16	sg-pl	chg	ataxină	etaxine	1
-nomfem16	sg-pl	chg	anhogramă	onhograme	1
-nomfem16	sg-pl	chg	ă	a	1
-nomfem16	sg-pl	del	e	1
-nomfem16	sg-pl	none	--	--	2
-nomfem16	sg-pl	chg	unamogramă	inamograme	1
-nomfem16	sg-pl	chg	ară	ări	1
-nomfem16	sg-pl	chg	ă	e	3
-nomfem16	sg-pl	chg	glumiflore	Glumiflore	1
-nomfem16	sg-pl	chg	tuționalistă	-tuționaliste	1
-nomfem16	sg-pl	chg	ță	te	1
-nomfem16	sg-pl	chg	ala	eli	2
-nomfem16	sg-pl	chg	ahă	he	1
-nomfem16	sg-pl	chg	tuială	luieli	1
-nomfem16	sg-pl	chg	agă	ge	1
-nomfem16	sg-pl	chg	stă	te	1
-nomfem16	sg-pl	chg	ază	ze	1
-nomfem16	sg-pl	chg	lorcătoare	torcători	1
-nomfem16	sg-pl	chg	atopauză	ratopauze	1
-nomfem16	sg-pl	chg	că	te	1
-nomfem16	sg-pl	del	ă	1
-nomfem16	sg-pl	chg	aloagă	ăloage	1
-nomfem16	pl-sg	chg	ne	ană	77
-nomfem16	pl-sg	chg	țe	ață	3
-nomfem16	pl-sg	chg	uvionări	ovionare	1
-nomfem16	pl-sg	chg	ețe	ață	2
-nomfem16	pl-sg	chg	ări	are	24
-nomfem16	pl-sg	chg	enzi	andă	1
-nomfem16	pl-sg	chg	ene	ană	4
-nomfem16	pl-sg	del	e	3
-nomfem16	pl-sg	chg	etaxine	ataxină	1
-nomfem16	pl-sg	chg	onhograme	anhogramă	1
-nomfem16	pl-sg	chg	a	ă	1
-nomfem16	pl-sg	add	e	1
-nomfem16	pl-sg	none	--	--	2
-nomfem16	pl-sg	chg	inamograme	unamogramă	1
-nomfem16	pl-sg	chg	ări	ară	1
-nomfem16	pl-sg	chg	e	ă	3
-nomfem16	pl-sg	chg	Glumiflore	glumiflore	1
-nomfem16	pl-sg	chg	-tuționaliste	tuționalistă	1
-nomfem16	pl-sg	chg	te	ță	1
-nomfem16	pl-sg	chg	eli	ala	2
-nomfem16	pl-sg	chg	he	ahă	1
-nomfem16	pl-sg	chg	luieli	tuială	1
-nomfem16	pl-sg	chg	ge	agă	1
-nomfem16	pl-sg	chg	te	stă	1
-nomfem16	pl-sg	chg	ze	ază	1
-nomfem16	pl-sg	chg	torcători	lorcătoare	1
-nomfem16	pl-sg	chg	ratopauze	atopauză	1
-nomfem16	pl-sg	chg	te	că	1
-nomfem16	pl-sg	add	ă	1
-nomfem16	pl-sg	chg	ăloage	aloagă	1
-nomsuf27	sg-pl	none	--	--	377
-nomsuf27	pl-sg	none	--	--	377
-nomsuf29	sg-pl	none	--	--	266
-nomsuf29	pl-sg	none	--	--	266
-nomsuf23	sg-pl	none	--	--	242
-nomsuf23	sg-pl	chg	drob	brob	1
-nomsuf23	pl-sg	none	--	--	242
-nomsuf23	pl-sg	chg	brob	drob	1
-nomfem6	sg-pl	none	--	--	249
-nomfem6	pl-sg	none	--	--	249
-nomdimfem14	sg-pl	none	--	--	249
-nomdimfem14	pl-sg	none	--	--	249
-nomsuf18	sg-pl	none	--	--	355
-nomsuf18	pl-sg	none	--	--	355
-nomsuf9	sg-pl	none	--	--	506
-nomsuf9	pl-sg	none	--	--	506
-nomfem17	sg-pl	none	--	--	190
-nomfem17	sg-pl	chg	glumiflor	Glumiflor	1
-nomfem17	pl-sg	none	--	--	190
-nomfem17	pl-sg	chg	Glumiflor	glumiflor	1
-nomneu6	sg-pl	none	--	--	211
-nomneu6	sg-pl	add	utur	1
-nomneu6	sg-pl	chg	â	i	1
-nomneu6	sg-pl	del	i	1
-nomneu6	pl-sg	none	--	--	211
-nomneu6	pl-sg	del	utur	1
-nomneu6	pl-sg	chg	i	â	1
-nomneu6	pl-sg	add	i	1
-nomsuf1	sg-pl	none	--	--	695
-nomsuf1	pl-sg	none	--	--	695
-nommasc9	sg-pl	chg	stru	ștri	29
-nommasc9	sg-pl	chg	x	cși	14
-nommasc9	sg-pl	add	e	11
-nommasc9	sg-pl	add	uri	2
-nommasc9	sg-pl	chg	dvocat	vocați	1
-nommasc9	sg-pl	chg	r	are	3
-nommasc9	sg-pl	chg	m	ame	1
-nommasc9	sg-pl	chg	ss	și	3
-nommasc9	sg-pl	chg	abăn	beni	1
-nommasc9	sg-pl	chg	az	ji	1
-nommasc9	sg-pl	chg	ag	gi	3
-nommasc9	sg-pl	chg	ătru	etri	1
-nommasc9	sg-pl	chg	ac	ci	1
-nommasc9	sg-pl	none	--	--	28
-nommasc9	sg-pl	chg	tt	ți	6
-nommasc9	sg-pl	chg	apăn	peni	1
-nommasc9	sg-pl	chg	e	i	1
-nommasc9	sg-pl	chg	te	ți	1
-nommasc9	sg-pl	chg	rșt	ști	1
-nommasc9	sg-pl	chg	afăr	feri	1
-nommasc9	sg-pl	chg	acăn	ceni	1
-nommasc9	sg-pl	chg	andru	ndri	1
-nommasc9	sg-pl	chg	amț	mți	1
-nommasc9	sg-pl	chg	m	ameni	3
-nommasc9	sg-pl	chg	o	i	1
-nommasc9	sg-pl	del	u	4
-nommasc9	sg-pl	chg	al	li	2
-nommasc9	sg-pl	chg	ăr	eri	1
-nommasc9	sg-pl	chg	u	e	1
-nommasc9	sg-pl	chg	amăn	meni	1
-nommasc9	sg-pl	chg	ringpartner	ingpartneri	1
-nommasc9	sg-pl	chg	anc	nci	1
-nommasc9	sg-pl	chg	ap	pi	1
-nommasc9	pl-sg	chg	ștri	stru	29
-nommasc9	pl-sg	chg	cși	x	14
-nommasc9	pl-sg	del	e	11
-nommasc9	pl-sg	del	uri	2
-nommasc9	pl-sg	chg	vocați	dvocat	1
-nommasc9	pl-sg	chg	are	r	3
-nommasc9	pl-sg	chg	ame	m	1
-nommasc9	pl-sg	chg	și	ss	3
-nommasc9	pl-sg	chg	beni	abăn	1
-nommasc9	pl-sg	chg	ji	az	1
-nommasc9	pl-sg	chg	gi	ag	3
-nommasc9	pl-sg	chg	etri	ătru	1
-nommasc9	pl-sg	chg	ci	ac	1
-nommasc9	pl-sg	none	--	--	28
-nommasc9	pl-sg	chg	ți	tt	6
-nommasc9	pl-sg	chg	peni	apăn	1
-nommasc9	pl-sg	chg	i	e	1
-nommasc9	pl-sg	chg	ți	te	1
-nommasc9	pl-sg	chg	ști	rșt	1
-nommasc9	pl-sg	chg	feri	afăr	1
-nommasc9	pl-sg	chg	ceni	acăn	1
-nommasc9	pl-sg	chg	ndri	andru	1
-nommasc9	pl-sg	chg	mți	amț	1
-nommasc9	pl-sg	chg	ameni	m	3
-nommasc9	pl-sg	chg	i	o	1
-nommasc9	pl-sg	add	u	4
-nommasc9	pl-sg	chg	li	al	2
-nommasc9	pl-sg	chg	eri	ăr	1
-nommasc9	pl-sg	chg	e	u	1
-nommasc9	pl-sg	chg	meni	amăn	1
-nommasc9	pl-sg	chg	ingpartneri	ringpartner	1
-nommasc9	pl-sg	chg	nci	anc	1
-nommasc9	pl-sg	chg	pi	ap	1
-nomdimmasc9	sg-pl	none	--	--	305
-nomdimmasc9	pl-sg	none	--	--	305
-nomneu8	sg-pl	none	--	--	306
-nomneu8	sg-pl	add	ut	1
-nomneu8	pl-sg	none	--	--	306
-nomneu8	pl-sg	del	ut	1
-nomaugmneu1	sg-pl	none	--	--	74
-nomaugmneu1	pl-sg	none	--	--	74
-nomsuf32	sg-pl	none	--	--	121
-nomsuf32	sg-pl	chg	sălc	Sălc	1
-nomsuf32	pl-sg	none	--	--	121
-nomsuf32	pl-sg	chg	Sălc	sălc	1
-nomsuf15	sg-pl	none	--	--	336
-nomsuf15	sg-pl	chg	nț	aț	1
-nomsuf15	pl-sg	none	--	--	336
-nomsuf15	pl-sg	chg	aț	nț	1
-nomsuf16	sg-pl	none	--	--	79
-nomsuf16	pl-sg	none	--	--	79
-nomsuf17	sg-pl	none	--	--	183
-nomsuf17	pl-sg	none	--	--	183
-nomsuf28	sg-pl	none	--	--	191
-nomsuf28	pl-sg	none	--	--	191
-nomdimneu4	sg-pl	none	--	--	162
-nomdimneu4	pl-sg	none	--	--	162
-nomdimneu11	sg-pl	none	--	--	72
-nomdimneu11	pl-sg	none	--	--	72
-nomdimneu13	sg-pl	none	--	--	60
-nomdimneu13	pl-sg	none	--	--	60
-nomdimmasc2	sg-pl	none	--	--	268
-nomdimmasc2	pl-sg	none	--	--	268
-nomsuf3	sg-pl	none	--	--	283
-nomsuf3	pl-sg	none	--	--	283
-nomsuf45	sg-pl	none	--	--	21
-nomsuf45	pl-sg	none	--	--	21
-nomdimneu12	sg-pl	none	--	--	68
-nomdimneu12	pl-sg	none	--	--	68
-nomdimfem2	sg-pl	none	--	--	630
-nomdimfem2	sg-pl	chg	a	ă	10
-nomdimfem2	sg-pl	chg	abr	ăbr	1
-nomdimfem2	pl-sg	none	--	--	630
-nomdimfem2	pl-sg	chg	ă	a	10
-nomdimfem2	pl-sg	chg	ăbr	abr	1
-nomdimneu6	sg-pl	none	--	--	303
-nomdimneu6	pl-sg	none	--	--	303
-nomdimfem18	sg-pl	none	--	--	16
-nomdimfem18	pl-sg	none	--	--	16
-nomdimfem4	sg-pl	none	--	--	392
-nomdimfem4	sg-pl	chg	rădi	ădi	1
-nomdimfem4	pl-sg	none	--	--	392
-nomdimfem4	pl-sg	chg	ădi	rădi	1
-nomdimfem12	sg-pl	none	--	--	122
-nomdimfem12	pl-sg	none	--	--	122
-nomdimmasc4	sg-pl	none	--	--	122
-nomdimmasc4	sg-pl	chg	u	i	2
-nomdimmasc4	pl-sg	none	--	--	122
-nomdimmasc4	pl-sg	chg	i	u	2
-nomdimmasc12	sg-pl	none	--	--	76
-nomdimmasc12	pl-sg	none	--	--	76
-nomaugmfem3	sg-pl	none	--	--	89
-nomaugmfem3	pl-sg	none	--	--	89
-nomsuf34	sg-pl	none	--	--	63
-nomsuf34	pl-sg	none	--	--	63
-nommasc4	sg-pl	none	--	--	33
-nommasc4	sg-pl	chg	ag	g	2
-nommasc4	sg-pl	chg	t	ț	1
-nommasc4	pl-sg	none	--	--	33
-nommasc4	pl-sg	chg	g	ag	2
-nommasc4	pl-sg	chg	ț	t	1
-nommasc5	sg-pl	none	--	--	32
-nommasc5	sg-pl	chg	ag	g	2
-nommasc5	sg-pl	chg	t	ț	1
-nommasc5	pl-sg	none	--	--	32
-nommasc5	pl-sg	chg	g	ag	2
-nommasc5	pl-sg	chg	ț	t	1
-nommasc6	sg-pl	none	--	--	10
-nommasc6	pl-sg	none	--	--	10
-nommasc11	sg-pl	none	--	--	15
-nommasc11	sg-pl	chg	ag	g	2
-nommasc11	pl-sg	none	--	--	15
-nommasc11	pl-sg	chg	g	ag	2
-nomdimmasc3	sg-pl	none	--	--	37
-nomdimmasc3	pl-sg	none	--	--	37
-nomneu2	sg-pl	none	--	--	10
-nomneu2	pl-sg	none	--	--	10
-nomdimfem1	sg-pl	none	--	--	140
-nomdimfem1	pl-sg	none	--	--	140
-nomdimfem3	sg-pl	none	--	--	188
-nomdimfem3	sg-pl	chg	răd	ăd	1
-nomdimfem3	pl-sg	none	--	--	188
-nomdimfem3	pl-sg	chg	ăd	răd	1
-nomdimfem8	sg-pl	none	--	--	37
-nomdimfem8	pl-sg	none	--	--	37
-nomdimfem5	sg-pl	none	--	--	354
-nomdimfem5	pl-sg	none	--	--	354
-nommasc7	sg-pl	none	--	--	175
-nommasc7	sg-pl	chg	a	l	2
-nommasc7	pl-sg	none	--	--	175
-nommasc7	pl-sg	chg	l	a	2
-nomsuf25	sg-pl	none	--	--	409
-nomsuf25	pl-sg	none	--	--	409
-nomdimneu2	sg-pl	none	--	--	102
-nomdimneu2	sg-pl	chg	t	l	1
-nomdimneu2	pl-sg	none	--	--	102
-nomdimneu2	pl-sg	chg	l	t	1
-nomdimneu8	sg-pl	none	--	--	109
-nomdimneu8	sg-pl	chg	tu	lu	1
-nomdimneu8	pl-sg	none	--	--	109
-nomdimneu8	pl-sg	chg	lu	tu	1
-nomaugmmasc2	sg-pl	none	--	--	327
-nomaugmmasc2	pl-sg	none	--	--	327
-nommobmasc2	sg-pl	none	--	--	327
-nommobmasc2	pl-sg	none	--	--	327
-nommobfem6	sg-pl	none	--	--	174
-nommobfem6	pl-sg	none	--	--	174
-nomsuf5	sg-pl	none	--	--	174
-nomsuf5	pl-sg	none	--	--	174
-nomsuf36	sg-pl	none	--	--	25
-nomsuf36	pl-sg	none	--	--	25
-nomdimneu5	sg-pl	none	--	--	24
-nomdimneu5	pl-sg	none	--	--	24
-nomdimfem6	sg-pl	none	--	--	80
-nomdimfem6	pl-sg	none	--	--	80
-nomsuf31	sg-pl	none	--	--	65
-nomsuf31	pl-sg	none	--	--	65
-nomsuf33	sg-pl	none	--	--	96
-nomsuf33	pl-sg	none	--	--	96
-nomneu7	sg-pl	none	--	--	40
-nomneu7	sg-pl	chg	ă	a	61
-nomneu7	pl-sg	none	--	--	40
-nomneu7	pl-sg	chg	a	ă	61
-nomsuf22	sg-pl	none	--	--	26
-nomsuf22	pl-sg	none	--	--	26
-nommobfem5	sg-pl	none	--	--	40
-nommobfem5	pl-sg	none	--	--	40
-nomsuf19	sg-pl	none	--	--	41
-nomsuf19	pl-sg	none	--	--	41
-nomaugmfem1	sg-pl	none	--	--	5
-nomaugmfem1	pl-sg	none	--	--	5
-nomneu13	sg-pl	none	--	--	16
-nomneu13	pl-sg	none	--	--	16
-nomneu15	sg-pl	chg	l	a	20
-nomneu15	sg-pl	chg	o	a	1
-nomneu15	sg-pl	none	--	--	1
-nomneu15	sg-pl	chg	donabil	adonabi	1
-nomneu15	pl-sg	chg	a	l	20
-nomneu15	pl-sg	chg	a	o	1
-nomneu15	pl-sg	none	--	--	1
-nomneu15	pl-sg	chg	adonabi	donabil	1
-nomfem21	sg-pl	none	--	--	45
-nomfem21	sg-pl	chg	al	l	1
-nomfem21	sg-pl	chg	ar	ăr	1
-nomfem21	sg-pl	chg	asc	șt	1
-nomfem21	sg-pl	chg	c	t	1
-nomfem21	sg-pl	chg	asc	eșt	1
-nomfem21	sg-pl	chg	ac	ăc	1
-nomfem21	sg-pl	chg	alc	ălc	1
-nomfem21	sg-pl	chg	ag	ăg	1
-nomfem21	pl-sg	none	--	--	45
-nomfem21	pl-sg	chg	l	al	1
-nomfem21	pl-sg	chg	ăr	ar	1
-nomfem21	pl-sg	chg	șt	asc	1
-nomfem21	pl-sg	chg	t	c	1
-nomfem21	pl-sg	chg	eșt	asc	1
-nomfem21	pl-sg	chg	ăc	ac	1
-nomfem21	pl-sg	chg	ălc	alc	1
-nomfem21	pl-sg	chg	ăg	ag	1
-nomdimfem13	sg-pl	none	--	--	32
-nomdimfem13	pl-sg	none	--	--	32
-nomsuf4	sg-pl	none	--	--	19
-nomsuf4	pl-sg	none	--	--	19
-nomdimmasc5	sg-pl	none	--	--	7
-nomdimmasc5	pl-sg	none	--	--	7
-nomdimmasc15	sg-pl	none	--	--	7
-nomdimmasc15	pl-sg	none	--	--	7
-nomdimmasc6	sg-pl	none	--	--	38
-nomdimmasc6	sg-pl	chg	at	ăt	1
-nomdimmasc6	pl-sg	none	--	--	38
-nomdimmasc6	pl-sg	chg	ăt	at	1
-nomdimfem17	sg-pl	none	--	--	30
-nomdimfem17	pl-sg	none	--	--	30
-nomneu12	sg-pl	add	e	2
-nomneu12	sg-pl	chg	apt	ăpt	1
-nomneu12	pl-sg	del	e	2
-nomneu12	pl-sg	chg	ăpt	apt	1
-nomfem18	sg-pl	none	--	--	5
-nomfem18	pl-sg	none	--	--	5
-nomaugmmasc4	sg-pl	none	--	--	101
-nomaugmmasc4	pl-sg	none	--	--	101
-nomsuf20	sg-pl	none	--	--	29
-nomsuf20	pl-sg	none	--	--	29
-nomfem3	sg-pl	chg	an	ăn	1
-nomfem3	sg-pl	chg	aț	ț	5
-nomfem3	sg-pl	none	--	--	3
-nomfem3	sg-pl	chg	al	l	1
-nomfem3	sg-pl	chg	andur	nd	3
-nomfem3	sg-pl	chg	av	ăv	2
-nomfem3	sg-pl	chg	arb	ărb	1
-nomfem3	sg-pl	chg	arb	erb	1
-nomfem3	sg-pl	chg	af	f	1
-nomfem3	sg-pl	chg	arf	ărf	1
-nomfem3	sg-pl	chg	ab	b	1
-nomfem3	sg-pl	chg	am	ăm	1
-nomfem3	sg-pl	chg	am	m	1
-nomfem3	sg-pl	chg	ierătur	erăt	1
-nomfem3	pl-sg	chg	ăn	an	1
-nomfem3	pl-sg	chg	ț	aț	5
-nomfem3	pl-sg	none	--	--	3
-nomfem3	pl-sg	chg	l	al	1
-nomfem3	pl-sg	chg	nd	andur	3
-nomfem3	pl-sg	chg	ăv	av	2
-nomfem3	pl-sg	chg	ărb	arb	1
-nomfem3	pl-sg	chg	erb	arb	1
-nomfem3	pl-sg	chg	f	af	1
-nomfem3	pl-sg	chg	ărf	arf	1
-nomfem3	pl-sg	chg	b	ab	1
-nomfem3	pl-sg	chg	ăm	am	1
-nomfem3	pl-sg	chg	m	am	1
-nomfem3	pl-sg	chg	erăt	ierătur	1
-nomdimfem11	sg-pl	none	--	--	93
-nomdimfem11	pl-sg	none	--	--	93
-nomfem5	sg-pl	none	--	--	13
-nomfem5	pl-sg	none	--	--	13
-nomdimmasc8	sg-pl	none	--	--	17
-nomdimmasc8	pl-sg	none	--	--	17
-nomdimfem16	sg-pl	add	lene	10
-nomdimfem16	pl-sg	del	lene	10
-nomdimneu7	sg-pl	none	--	--	7
-nomdimneu7	pl-sg	none	--	--	7
-nomsuf12	sg-pl	none	--	--	13
-nomsuf12	pl-sg	none	--	--	13
-nommasc13	sg-pl	none	--	--	4
-nommasc13	sg-pl	chg	t	ț	1
-nommasc13	pl-sg	none	--	--	4
-nommasc13	pl-sg	chg	ț	t	1
-nomaugmmasc3	sg-pl	none	--	--	10
-nomaugmmasc3	pl-sg	none	--	--	10
-nomfem13	sg-pl	chg	a	ă	2
-nomfem13	sg-pl	none	--	--	1
-nomfem13	pl-sg	chg	ă	a	2
-nomfem13	pl-sg	none	--	--	1
-nomfem9	sg-pl	chg	arn	ărn	1
-nomfem9	sg-pl	chg	ar	ăr	3
-nomfem9	sg-pl	chg	ar	r	3
-nomfem9	sg-pl	none	--	--	4
-nomfem9	sg-pl	chg	as	ăs	1
-nomfem9	pl-sg	chg	ărn	arn	1
-nomfem9	pl-sg	chg	ăr	ar	3
-nomfem9	pl-sg	chg	r	ar	3
-nomfem9	pl-sg	none	--	--	4
-nomfem9	pl-sg	chg	ăs	as	1
-nomfem20	sg-pl	chg	art	rt	1
-nomfem20	sg-pl	none	--	--	4
-nomfem20	sg-pl	chg	andur	nd	1
-nomfem20	sg-pl	chg	aț	ț	1
-nomfem20	sg-pl	chg	astram	ăstrăm	1
-nomfem20	pl-sg	chg	rt	art	1
-nomfem20	pl-sg	none	--	--	4
-nomfem20	pl-sg	chg	nd	andur	1
-nomfem20	pl-sg	chg	ț	aț	1
-nomfem20	pl-sg	chg	ăstrăm	astram	1
-nomfem15	sg-pl	chg	aie	ă	1
-nomfem15	sg-pl	chg	egnare	regnăr	1
-nomfem15	sg-pl	chg	așă	șur	1
-nomfem15	sg-pl	chg	ală	l	1
-nomfem15	sg-pl	chg	lorcătoare	torcător	1
-nomfem15	sg-pl	chg	are	r	1
-nomfem15	sg-pl	chg	a	e	1
-nomfem15	pl-sg	chg	ă	aie	1
-nomfem15	pl-sg	chg	regnăr	egnare	1
-nomfem15	pl-sg	chg	șur	așă	1
-nomfem15	pl-sg	chg	l	ală	1
-nomfem15	pl-sg	chg	torcător	lorcătoare	1
-nomfem15	pl-sg	chg	r	are	1
-nomfem15	pl-sg	chg	e	a	1
-nommasc14	sg-pl	none	--	--	1
-nommasc14	pl-sg	none	--	--	1
-nomsuf46	sg-pl	none	--	--	5
-nomsuf46	pl-sg	none	--	--	5
-nomdimfem7	sg-pl	none	--	--	12
-nomdimfem7	pl-sg	none	--	--	12
-nomdimmasc7	sg-pl	none	--	--	2
-nomdimmasc7	pl-sg	none	--	--	2
-nomdimfem19	sg-pl	none	--	--	14
-nomdimfem19	pl-sg	none	--	--	14
-nomneu16	sg-pl	none	--	--	2
-nomneu16	pl-sg	none	--	--	2
-nomneu14	sg-pl	none	--	--	2
-nomneu14	sg-pl	chg	bl	ab	1
-nomneu14	sg-pl	chg	ă	e	1
-nomneu14	pl-sg	none	--	--	2
-nomneu14	pl-sg	chg	ab	bl	1
-nomneu14	pl-sg	chg	e	ă	1
-nomaugmmasc1	sg-pl	none	--	--	7
-nomaugmmasc1	pl-sg	none	--	--	7
-nommobmasc1	sg-pl	none	--	--	7
-nommobmasc1	pl-sg	none	--	--	7
-nomdimfem9	sg-pl	none	--	--	3
-nomdimfem9	pl-sg	none	--	--	3
+nomfem14	1	nop	416
+nomfem14	1	del	ă	176
+nomfem14	1	chg	a	l	28
+nomfem14	1	chg	ă	ial	1
+nomfem14	1	chg	a	el	1
+nomfem14	1	chg	a	u	3
+nomfem14	1	chg	ă	e	1
+nomfem14	1	chg	ea	ău	1
+nomfem14	1	chg	ă	u	2
+nomfem14	2	nop	115
+nomfem14	2	add	a	248
+nomfem14	2	add	lă	40
+nomfem14	2	chg	e	a	11
+nomfem14	2	chg	ă	a	1
+nomfem14	2	chg	e	ică	1
+nomfem14	2	add	l	206
+nomfem14	2	add	u	3
+nomfem14	2	add	le	1
+nomfem14	2	chg	e	ău	1
+nomfem14	2	add	lu	2
+nomneu1	1	nop	6910
+nomneu1	1	chg	a	ă	1
+nomneu1	2	nop	4923
+nomneu1	2	chg	ar	r	915
+nomneu1	2	chg	ap	p	195
+nomneu1	2	chg	am	m	107
+nomneu1	2	chg	ai	i	74
+nomneu1	2	chg	int	ânt	32
+nomneu1	2	chg	an	n	410
+nomneu1	2	add	u	15
+nomneu1	2	chg	as	s	13
+nomneu1	2	chg	otest	test	1
+nomneu1	2	chg	ac	c	35
+nomneu1	2	chg	-togamic	togamic	1
+nomneu1	2	chg	en	an	22
+nomneu1	2	chg	at	t	3
+nomneu1	2	add	e	17
+nomneu1	2	add	i	16
+nomneu1	2	chg	al	u	1
+nomneu1	2	chg	al	l	18
+nomneu1	2	chg	c	ac	5
+nomneu1	2	chg	ab	b	5
+nomneu1	2	chg	aș	ș	4
+nomneu1	2	chg	g	ag	5
+nomneu1	2	chg	hiardaj	iardaj	1
+nomneu1	2	chg	eț	ăț	9
+nomneu1	2	chg	aroas	ros	1
+nomneu1	2	chg	ad	d	12
+nomneu1	2	del	et	1
+nomneu1	2	chg	et	ăt	3
+nomneu1	2	chg	al	o	1
+nomneu1	2	chg	ag	g	15
+nomneu1	2	chg	av	v	5
+nomneu1	2	chg	eg	ag	2
+nomneu1	2	chg	art	rt	6
+nomneu1	2	chg	arn	rn	1
+nomneu1	2	chg	er	ăr	6
+nomneu1	2	chg	p	ap	2
+nomneu1	2	chg	n	an	9
+nomneu1	2	chg	Emitoar	emitor	1
+nomneu1	2	chg	ar	er	1
+nomneu1	2	chg	met	amăt	1
+nomneu1	2	chg	iuvaer	hint	1
+nomneu1	2	chg	anț	nț	1
+nomneu1	2	chg	az	z	2
+nomneu1	2	chg	af	f	2
+nomneu1	2	add	a	2
+nomneu1	2	del	l	1
+nomneu1	2	chg	arz	rz	1
+nomneu1	2	chg	ez	ăz	1
+nomneu1	2	chg	ang	ng	1
+nomneu1	2	chg	ac	ci	2
+nomneu1	2	chg	tract	ctract	1
+nomneu1	2	add	ă	1
+nomneu1	2	chg	atoar	ător	1
+nomneu10	1	nop	10136
+nomneu10	1	chg	a	ă	1
+nomneu10	2	del	e	4920
+nomneu10	2	del	uri	3119
+nomneu10	2	chg	are	r	915
+nomneu10	2	chg	eceuri	c	1
+nomneu10	2	chg	ape	p	195
+nomneu10	2	chg	ame	m	107
+nomneu10	2	del	i	36
+nomneu10	2	chg	aie	i	74
+nomneu10	2	chg	inte	ânt	30
+nomneu10	2	chg	ane	n	410
+nomneu10	2	chg	e	u	15
+nomneu10	2	chg	zi	d	2
+nomneu10	2	chg	ase	s	13
+nomneu10	2	chg	oteste	test	1
+nomneu10	2	chg	ace	c	35
+nomneu10	2	chg	-togamice	togamic	1
+nomneu10	2	chg	ene	an	22
+nomneu10	2	chg	ate	t	3
+nomneu10	2	nop	64
+nomneu10	2	chg	e	i	16
+nomneu10	2	chg	ale	u	1
+nomneu10	2	chg	ale	l	18
+nomneu10	2	chg	i	u	7
+nomneu10	2	chg	eni	an	2
+nomneu10	2	del	ri	9
+nomneu10	2	chg	abe	b	5
+nomneu10	2	chg	așe	ș	4
+nomneu10	2	chg	ge	ag	3
+nomneu10	2	chg	hiardaje	iardaj	1
+nomneu10	2	chg	ețe	ăț	6
+nomneu10	2	chg	aroase	ros	1
+nomneu10	2	chg	ade	d	12
+nomneu10	2	del	ete	1
+nomneu10	2	del	ii	6
+nomneu10	2	chg	ete	ăt	3
+nomneu10	2	chg	ale	o	1
+nomneu10	2	chg	age	g	15
+nomneu10	2	chg	ave	v	5
+nomneu10	2	chg	ege	ag	2
+nomneu10	2	chg	arte	rt	6
+nomneu10	2	chg	arne	rn	1
+nomneu10	2	chg	ere	ăr	6
+nomneu10	2	chg	pe	ap	2
+nomneu10	2	chg	ne	an	9
+nomneu10	2	chg	ți	t	3
+nomneu10	2	chg	Emitoare	emitor	1
+nomneu10	2	chg	i	e	2
+nomneu10	2	chg	are	er	1
+nomneu10	2	chg	mete	amăt	1
+nomneu10	2	chg	anțe	nț	1
+nomneu10	2	chg	aze	z	2
+nomneu10	2	chg	ături	at	1
+nomneu10	2	chg	afe	f	2
+nomneu10	2	chg	e	a	2
+nomneu10	2	del	le	1
+nomneu10	2	chg	ări	ar	1
+nomneu10	2	chg	arze	rz	1
+nomneu10	2	chg	ange	ng	1
+nomneu10	2	chg	i	ă	1
+nomneu10	2	chg	ăvuri	av	1
+nomneu10	2	chg	ce	ac	2
+nomneu10	2	chg	ace	ci	2
+nomneu10	2	chg	tracte	ctract	1
+nomneu10	2	chg	e	ă	1
+nomneu10	2	chg	Sălcișuri	sălciș	1
+nomneu10	2	chg	atoare	ător	1
+nomneu10	2	chg	ni	an	1
+nomneu10	2	chg	grinuri	cal	1
+nomsuf38	1	add	ac	205
+nomsuf38	1	add	acă	110
+nomsuf38	1	add	c	4
+nomfem1	1	add	ă	14119
+nomfem1	1	chg	ic	ea	11
+nomfem1	1	del	tem	1
+nomfem1	1	del	u	1
+nomfem1	1	nop	26267
+nomfem1	1	chg	as	s	1055
+nomfem1	1	chg	ceptant	eptant	1
+nomfem1	1	chg	ar	r	74
+nomfem1	1	add	u	84
+nomfem1	1	chg	aț	ț	56
+nomfem1	1	chg	ic	el	34
+nomfem1	1	chg	ap	p	5
+nomfem1	1	chg	ag	g	17
+nomfem1	1	chg	arc	rc	1
+nomfem1	1	chg	at	et	1
+nomfem1	1	add	ial	1
+nomfem1	1	chg	at	t	9
+nomfem1	1	chg	anc	nc	1
+nomfem1	1	chg	ac	c	6
+nomfem1	1	chg	ant	nt	3
+nomfem1	1	chg	astr	estru	3
+nomfem1	1	chg	c	el	1
+nomfem1	1	chg	al	l	9
+nomfem1	1	chg	amb	mb	1
+nomfem1	1	add	e	3
+nomfem1	1	chg	apt	pt	12
+nomfem1	1	chg	alt	lt	2
+nomfem1	1	chg	art	ert	5
+nomfem1	1	chg	am	m	2
+nomfem1	1	chg	ars	rs	13
+nomfem1	1	chg	aș	ș	1
+nomfem1	1	chg	anf	nf	1
+nomfem1	1	chg	an	n	4
+nomfem1	1	chg	-vor	vor	1
+nomfem1	1	chg	rtativist	trativist	1
+nomfem1	1	chg	aț	eț	5
+nomfem1	1	chg	areic	ereic	1
+nomfem1	1	chg	art	rt	1
+nomfem1	1	chg	ab	b	2
+nomfem1	1	chg	agr	gru	1
+nomfem1	1	chg	s	es	1
+nomfem1	1	chg	ad	d	4
+nomfem1	1	chg	ț	t	1
+nomfem1	1	chg	abl	blu	1
+nomfem1	1	chg	arb	rb	1
+nomfem1	1	chg	cutanat	rcutanat	1
+nomfem1	1	chg	t	m	1
+nomfem1	1	chg	ast	st	1
+nomfem1	1	chg	ăbănoag	ab	1
+nomfem1	1	chg	arp	rp	1
+nomfem1	1	chg	af	f	1
+nomfem1	1	chg	eaț	ăț	1
+nomfem1	2	add	ă	12952
+nomfem1	2	chg	en	ană	229
+nomfem1	2	chg	nc	ancă	185
+nomfem1	2	chg	n	ană	124
+nomfem1	2	chg	șt	scă	20
+nomfem1	2	chg	sm	asmă	2
+nomfem1	2	chg	esm	asmă	1
+nomfem1	2	chg	l	a	11
+nomfem1	2	chg	enc	ancă	39
+nomfem1	2	chg	ț	ață	70
+nomfem1	2	chg	el	ică	129
+nomfem1	2	chg	s	asă	174
+nomfem1	2	chg	l	ală	18
+nomfem1	2	chg	eț	ață	12
+nomfem1	2	chg	ec	acă	1
+nomfem1	2	chg	t	că	49
+nomfem1	2	chg	ent	antă	2
+nomfem1	2	chg	erz	arză	2
+nomfem1	2	chg	etaxin	ataxină	1
+nomfem1	2	chg	ndr	andră	9
+nomfem1	2	chg	z	ază	8
+nomfem1	2	chg	zn	aznă	1
+nomfem1	2	chg	onhogram	anhogramă	1
+nomfem1	2	chg	sl	aslă	1
+nomfem1	2	chg	et	ată	3
+nomfem1	2	chg	f	afă	1
+nomfem1	2	chg	ps	apsă	2
+nomfem1	2	chg	p	apă	4
+nomfem1	2	chg	pț	apță	1
+nomfem1	2	chg	t	ată	6
+nomfem1	2	chg	ndur	andură	1
+nomfem1	2	chg	ș	așă	3
+nomfem1	2	chg	nț	anță	7
+nomfem1	2	del	tem	1
+nomfem1	2	chg	pt	aptă	4
+nomfem1	2	chg	endr	andră	2
+nomfem1	2	chg	st	astă	3
+nomfem1	2	chg	es	asă	2
+nomfem1	2	chg	v	avă	3
+nomfem1	2	chg	inamogram	unamogramă	1
+nomfem1	2	chg	eș	așă	1
+nomfem1	2	chg	str	astră	1
+nomfem1	2	chg	j	ajă	2
+nomfem1	2	chg	ed	adă	1
+nomfem1	2	chg	ep	apă	1
+nomfem1	2	chg	ezm	azmă	1
+nomfem1	2	chg	-tuționalist	tuționalistă	1
+nomfem1	2	chg	t	ță	1
+nomfem1	2	chg	er	ară	2
+nomfem1	2	chg	h	ahă	1
+nomfem1	2	chg	pș	apșă	1
+nomfem1	2	chg	șt	așcă	1
+nomfem1	2	chg	hn	ahnă	1
+nomfem1	2	chg	c	acă	2
+nomfem1	2	chg	est	astă	1
+nomfem1	2	chg	g	agă	3
+nomfem1	2	chg	el	ală	1
+nomfem1	2	chg	etr	atră	3
+nomfem1	2	chg	ez	ază	1
+nomfem1	2	chg	sn	asnă	3
+nomfem1	2	chg	lt	altă	2
+nomfem1	2	chg	ern	arnă	1
+nomfem1	2	del	l	1
+nomfem1	2	chg	t	stă	1
+nomfem1	2	chg	int	ântă	1
+nomfem1	2	chg	ratopauz	atopauză	1
+nomfem1	2	chg	eminț	ămânță	1
+nomfem1	2	chg	c	kă	1
+nomfem1	2	chg	rf	arfă	1
+nomfem1	2	chg	rc	arcă	1
+nomfem1	2	chg	iner	ânără	1
+nomfem1	2	chg	edr	adră	1
+nomfem1	2	chg	in	ână	1
+nomfem1	2	chg	inet	ânătă	1
+nomfem1	2	chg	ăloag	aloagă	1
+nomfem1	2	chg	erb	arbă	1
+nomfem1	2	chg	ht	ahtă	1
+nomfem1	2	chg	en	an	577
+nomfem1	2	nop	25589
+nomfem1	2	chg	n	an	209
+nomfem1	2	chg	as	s	1036
+nomfem1	2	chg	ceptant	eptant	1
+nomfem1	2	chg	an	n	7
+nomfem1	2	chg	ar	r	75
+nomfem1	2	add	u	88
+nomfem1	2	chg	ap	p	4
+nomfem1	2	chg	ag	g	13
+nomfem1	2	chg	ec	ac	2
+nomfem1	2	chg	t	at	1
+nomfem1	2	chg	g	ag	4
+nomfem1	2	add	ial	1
+nomfem1	2	chg	at	t	4
+nomfem1	2	chg	anc	nc	1
+nomfem1	2	chg	ac	c	4
+nomfem1	2	chg	ant	nt	3
+nomfem1	2	chg	z	az	3
+nomfem1	2	chg	șt	sc	1
+nomfem1	2	chg	eș	aș	1
+nomfem1	2	chg	amb	mb	1
+nomfem1	2	chg	nc	an	3
+nomfem1	2	add	e	3
+nomfem1	2	chg	apt	pt	5
+nomfem1	2	chg	alt	lt	2
+nomfem1	2	chg	art	ert	1
+nomfem1	2	chg	al	l	8
+nomfem1	2	chg	am	m	2
+nomfem1	2	chg	aș	ș	1
+nomfem1	2	chg	anf	nf	1
+nomfem1	2	chg	ed	ăd	1
+nomfem1	2	chg	men	amăn	1
+nomfem1	2	chg	ș	ah	1
+nomfem1	2	chg	inc	nic	1
+nomfem1	2	chg	areic	ereic	1
+nomfem1	2	chg	art	rt	1
+nomfem1	2	chg	ab	b	2
+nomfem1	2	chg	s	es	1
+nomfem1	2	chg	ad	d	4
+nomfem1	2	chg	ars	rs	7
+nomfem1	2	chg	c	ac	2
+nomfem1	2	chg	abl	blu	1
+nomfem1	2	chg	arb	rb	1
+nomfem1	2	chg	cutanat	rcutanat	1
+nomfem1	2	chg	aț	ț	1
+nomfem1	2	chg	t	m	1
+nomfem1	2	chg	erdicant	redicant	1
+nomfem1	2	chg	et	ăt	3
+nomfem1	2	chg	ast	st	1
+nomfem1	2	chg	ven	avăn	1
+nomfem1	2	chg	ozomatoas	izomatos	1
+nomfem1	2	chg	rbed	arbăd	1
+nomfem1	2	chg	int	ânt	1
+nomfem1	2	chg	p	ap	1
+nomfem1	2	chg	ăbănoag	ab	1
+nomfem1	2	chg	d	ad	1
+nomfem1	2	add	c	1
+nomfem1	2	chg	fer	afăr	1
+nomfem1	2	chg	af	f	1
+nomfem1	2	chg	enir	ânăr	1
+nomfem1	2	chg	ț	t	1
+nomfem1	2	chg	inet	ânăt	1
+nomfem1	2	chg	en	ăn	1
+nomfem1	2	chg	eț	ăț	1
+nomfem1	2	chg	pen	apăn	1
+nommobfem1	1	add	ă	14119
+nommobfem1	1	chg	ic	ea	11
+nommobfem1	1	del	tem	1
+nommobfem1	1	del	u	1
+nommobfem1	1	nop	26267
+nommobfem1	1	chg	as	s	1055
+nommobfem1	1	chg	ceptant	eptant	1
+nommobfem1	1	chg	ar	r	74
+nommobfem1	1	add	u	84
+nommobfem1	1	chg	aț	ț	56
+nommobfem1	1	chg	ic	el	34
+nommobfem1	1	chg	ap	p	5
+nommobfem1	1	chg	ag	g	17
+nommobfem1	1	chg	arc	rc	1
+nommobfem1	1	chg	at	et	1
+nommobfem1	1	add	ial	1
+nommobfem1	1	chg	at	t	9
+nommobfem1	1	chg	anc	nc	1
+nommobfem1	1	chg	ac	c	6
+nommobfem1	1	chg	ant	nt	3
+nommobfem1	1	chg	astr	estru	3
+nommobfem1	1	chg	c	el	1
+nommobfem1	1	chg	al	l	9
+nommobfem1	1	chg	amb	mb	1
+nommobfem1	1	add	e	3
+nommobfem1	1	chg	apt	pt	12
+nommobfem1	1	chg	alt	lt	2
+nommobfem1	1	chg	art	ert	5
+nommobfem1	1	chg	am	m	2
+nommobfem1	1	chg	ars	rs	13
+nommobfem1	1	chg	aș	ș	1
+nommobfem1	1	chg	anf	nf	1
+nommobfem1	1	chg	an	n	4
+nommobfem1	1	chg	-vor	vor	1
+nommobfem1	1	chg	rtativist	trativist	1
+nommobfem1	1	chg	aț	eț	5
+nommobfem1	1	chg	areic	ereic	1
+nommobfem1	1	chg	art	rt	1
+nommobfem1	1	chg	ab	b	2
+nommobfem1	1	chg	agr	gru	1
+nommobfem1	1	chg	s	es	1
+nommobfem1	1	chg	ad	d	4
+nommobfem1	1	chg	ț	t	1
+nommobfem1	1	chg	abl	blu	1
+nommobfem1	1	chg	arb	rb	1
+nommobfem1	1	chg	cutanat	rcutanat	1
+nommobfem1	1	chg	t	m	1
+nommobfem1	1	chg	ast	st	1
+nommobfem1	1	chg	ăbănoag	ab	1
+nommobfem1	1	chg	arp	rp	1
+nommobfem1	1	chg	af	f	1
+nommobfem1	1	chg	eaț	ăț	1
+nommobfem1	2	add	ă	12952
+nommobfem1	2	chg	en	ană	229
+nommobfem1	2	chg	nc	ancă	185
+nommobfem1	2	chg	n	ană	124
+nommobfem1	2	chg	șt	scă	20
+nommobfem1	2	chg	sm	asmă	2
+nommobfem1	2	chg	esm	asmă	1
+nommobfem1	2	chg	l	a	11
+nommobfem1	2	chg	enc	ancă	39
+nommobfem1	2	chg	ț	ață	70
+nommobfem1	2	chg	el	ică	129
+nommobfem1	2	chg	s	asă	174
+nommobfem1	2	chg	l	ală	18
+nommobfem1	2	chg	eț	ață	12
+nommobfem1	2	chg	ec	acă	1
+nommobfem1	2	chg	t	că	49
+nommobfem1	2	chg	ent	antă	2
+nommobfem1	2	chg	erz	arză	2
+nommobfem1	2	chg	etaxin	ataxină	1
+nommobfem1	2	chg	ndr	andră	9
+nommobfem1	2	chg	z	ază	8
+nommobfem1	2	chg	zn	aznă	1
+nommobfem1	2	chg	onhogram	anhogramă	1
+nommobfem1	2	chg	sl	aslă	1
+nommobfem1	2	chg	et	ată	3
+nommobfem1	2	chg	f	afă	1
+nommobfem1	2	chg	ps	apsă	2
+nommobfem1	2	chg	p	apă	4
+nommobfem1	2	chg	pț	apță	1
+nommobfem1	2	chg	t	ată	6
+nommobfem1	2	chg	ndur	andură	1
+nommobfem1	2	chg	ș	așă	3
+nommobfem1	2	chg	nț	anță	7
+nommobfem1	2	del	tem	1
+nommobfem1	2	chg	pt	aptă	4
+nommobfem1	2	chg	endr	andră	2
+nommobfem1	2	chg	st	astă	3
+nommobfem1	2	chg	es	asă	2
+nommobfem1	2	chg	v	avă	3
+nommobfem1	2	chg	inamogram	unamogramă	1
+nommobfem1	2	chg	eș	așă	1
+nommobfem1	2	chg	str	astră	1
+nommobfem1	2	chg	j	ajă	2
+nommobfem1	2	chg	ed	adă	1
+nommobfem1	2	chg	ep	apă	1
+nommobfem1	2	chg	ezm	azmă	1
+nommobfem1	2	chg	-tuționalist	tuționalistă	1
+nommobfem1	2	chg	t	ță	1
+nommobfem1	2	chg	er	ară	2
+nommobfem1	2	chg	h	ahă	1
+nommobfem1	2	chg	pș	apșă	1
+nommobfem1	2	chg	șt	așcă	1
+nommobfem1	2	chg	hn	ahnă	1
+nommobfem1	2	chg	c	acă	2
+nommobfem1	2	chg	est	astă	1
+nommobfem1	2	chg	g	agă	3
+nommobfem1	2	chg	el	ală	1
+nommobfem1	2	chg	etr	atră	3
+nommobfem1	2	chg	ez	ază	1
+nommobfem1	2	chg	sn	asnă	3
+nommobfem1	2	chg	lt	altă	2
+nommobfem1	2	chg	ern	arnă	1
+nommobfem1	2	del	l	1
+nommobfem1	2	chg	t	stă	1
+nommobfem1	2	chg	int	ântă	1
+nommobfem1	2	chg	ratopauz	atopauză	1
+nommobfem1	2	chg	eminț	ămânță	1
+nommobfem1	2	chg	c	kă	1
+nommobfem1	2	chg	rf	arfă	1
+nommobfem1	2	chg	rc	arcă	1
+nommobfem1	2	chg	iner	ânără	1
+nommobfem1	2	chg	edr	adră	1
+nommobfem1	2	chg	in	ână	1
+nommobfem1	2	chg	inet	ânătă	1
+nommobfem1	2	chg	ăloag	aloagă	1
+nommobfem1	2	chg	erb	arbă	1
+nommobfem1	2	chg	ht	ahtă	1
+nommobfem1	2	chg	en	an	577
+nommobfem1	2	nop	25589
+nommobfem1	2	chg	n	an	209
+nommobfem1	2	chg	as	s	1036
+nommobfem1	2	chg	ceptant	eptant	1
+nommobfem1	2	chg	an	n	7
+nommobfem1	2	chg	ar	r	75
+nommobfem1	2	add	u	88
+nommobfem1	2	chg	ap	p	4
+nommobfem1	2	chg	ag	g	13
+nommobfem1	2	chg	ec	ac	2
+nommobfem1	2	chg	t	at	1
+nommobfem1	2	chg	g	ag	4
+nommobfem1	2	add	ial	1
+nommobfem1	2	chg	at	t	4
+nommobfem1	2	chg	anc	nc	1
+nommobfem1	2	chg	ac	c	4
+nommobfem1	2	chg	ant	nt	3
+nommobfem1	2	chg	z	az	3
+nommobfem1	2	chg	șt	sc	1
+nommobfem1	2	chg	eș	aș	1
+nommobfem1	2	chg	amb	mb	1
+nommobfem1	2	chg	nc	an	3
+nommobfem1	2	add	e	3
+nommobfem1	2	chg	apt	pt	5
+nommobfem1	2	chg	alt	lt	2
+nommobfem1	2	chg	art	ert	1
+nommobfem1	2	chg	al	l	8
+nommobfem1	2	chg	am	m	2
+nommobfem1	2	chg	aș	ș	1
+nommobfem1	2	chg	anf	nf	1
+nommobfem1	2	chg	ed	ăd	1
+nommobfem1	2	chg	men	amăn	1
+nommobfem1	2	chg	ș	ah	1
+nommobfem1	2	chg	inc	nic	1
+nommobfem1	2	chg	areic	ereic	1
+nommobfem1	2	chg	art	rt	1
+nommobfem1	2	chg	ab	b	2
+nommobfem1	2	chg	s	es	1
+nommobfem1	2	chg	ad	d	4
+nommobfem1	2	chg	ars	rs	7
+nommobfem1	2	chg	c	ac	2
+nommobfem1	2	chg	abl	blu	1
+nommobfem1	2	chg	arb	rb	1
+nommobfem1	2	chg	cutanat	rcutanat	1
+nommobfem1	2	chg	aț	ț	1
+nommobfem1	2	chg	t	m	1
+nommobfem1	2	chg	erdicant	redicant	1
+nommobfem1	2	chg	et	ăt	3
+nommobfem1	2	chg	ast	st	1
+nommobfem1	2	chg	ven	avăn	1
+nommobfem1	2	chg	ozomatoas	izomatos	1
+nommobfem1	2	chg	rbed	arbăd	1
+nommobfem1	2	chg	int	ânt	1
+nommobfem1	2	chg	p	ap	1
+nommobfem1	2	chg	ăbănoag	ab	1
+nommobfem1	2	chg	d	ad	1
+nommobfem1	2	add	c	1
+nommobfem1	2	chg	fer	afăr	1
+nommobfem1	2	chg	af	f	1
+nommobfem1	2	chg	enir	ânăr	1
+nommobfem1	2	chg	ț	t	1
+nommobfem1	2	chg	inet	ânăt	1
+nommobfem1	2	chg	en	ăn	1
+nommobfem1	2	chg	eț	ăț	1
+nommobfem1	2	chg	pen	apăn	1
+nommasc8	1	nop	37589
+nommasc8	1	chg	cș	x	1
+nommasc8	1	chg	at	it	1
+nommasc8	1	chg	ămănat	emănat	1
+nommasc8	1	chg	ăbănog	ab	1
+nommasc8	2	nop	17499
+nommasc8	2	chg	ț	t	14751
+nommasc8	2	chg	ș	s	1579
+nommasc8	2	chg	en	an	800
+nommasc8	2	chg	n	an	362
+nommasc8	2	chg	șt	st	1652
+nommasc8	2	chg	z	d	498
+nommasc8	2	chg	-paniator	paniator	1
+nommasc8	2	add	l	235
+nommasc8	2	chg	cș	x	35
+nommasc8	2	del	ur	3
+nommasc8	2	add	u	21
+nommasc8	2	chg	j	z	13
+nommasc8	2	chg	ec	ac	4
+nommasc8	2	chg	aletrișt	eletrist	1
+nommasc8	2	chg	ș	ss	3
+nommasc8	2	chg	ișor	ușor	2
+nommasc8	2	chg	-ghez	ghez	1
+nommasc8	2	chg	ben	abăn	1
+nommasc8	2	chg	eș	aș	1
+nommasc8	2	chg	eț	at	1
+nommasc8	2	add	ă	5
+nommasc8	2	chg	eț	ăț	4
+nommasc8	2	add	o	1
+nommasc8	2	chg	estofor	istofor	1
+nommasc8	2	chg	j	az	4
+nommasc8	2	chg	g	ag	8
+nommasc8	2	chg	ț	te	2
+nommasc8	2	chg	c	ac	3
+nommasc8	2	chg	eț	ăt	5
+nommasc8	2	chg	men	amăn	3
+nommasc8	2	add	i	29
+nommasc8	2	chg	ț	tt	6
+nommasc8	2	chg	er	ăr	3
+nommasc8	2	chg	-ționalișt	ționalist	1
+nommasc8	2	chg	pen	apăn	2
+nommasc8	2	chg	ș	ah	2
+nommasc8	2	chg	fer	afăr	2
+nommasc8	2	chg	cen	acăn	1
+nommasc8	2	chg	mț	amț	1
+nommasc8	2	chg	amen	m	3
+nommasc8	2	chg	ișt	alist	1
+nommasc8	2	chg	el	al	1
+nommasc8	2	chg	l	al	2
+nommasc8	2	chg	idențiabil	edențiabil	1
+nommasc8	2	chg	eg	ag	2
+nommasc8	2	chg	inț	ânt	2
+nommasc8	2	chg	c	k	2
+nommasc8	2	chg	ătuț	atuț	1
+nommasc8	2	chg	j	d	1
+nommasc8	2	chg	iner	ânăr	1
+nommasc8	2	chg	nc	anc	1
+nommasc8	2	chg	p	ap	2
+nommasc8	2	chg	ceptanț	eptant	1
+nommasc8	2	chg	ț	at	1
+nommasc8	2	chg	șt	sc	8
+nommasc8	2	chg	ertinoiz	retinoid	1
+nommasc8	2	chg	ez	ăd	1
+nommasc8	2	chg	areic	ereic	1
+nommasc8	2	chg	cșt	xt	1
+nommasc8	2	chg	ț	tu	1
+nommasc8	2	chg	ș	t	1
+nommasc8	2	chg	ș	es	1
+nommasc8	2	chg	cutanaț	rcutanat	1
+nommasc8	2	chg	șt	sm	1
+nommasc8	2	add	e	1
+nommasc8	2	chg	ven	avăn	1
+nommasc8	2	chg	ț	nt	1
+nommasc8	2	chg	rbez	arbăd	1
+nommasc8	2	chg	ăbănog	ab	1
+nommasc8	2	chg	z	ad	1
+nommasc8	2	chg	enir	ânăr	1
+nommasc8	2	chg	en	ăn	1
+nommasc9	1	nop	37603
+nommasc9	1	chg	cș	x	1
+nommasc9	1	chg	at	it	1
+nommasc9	1	chg	ămănat	emănat	1
+nommasc9	1	chg	ăbănog	ab	1
+nommasc9	2	del	i	17492
+nommasc9	2	chg	ți	t	14751
+nommasc9	2	chg	și	s	1579
+nommasc9	2	chg	eni	an	800
+nommasc9	2	chg	ni	an	362
+nommasc9	2	chg	ști	st	1652
+nommasc9	2	chg	zi	d	498
+nommasc9	2	chg	-paniatori	paniator	1
+nommasc9	2	chg	i	l	235
+nommasc9	2	chg	cși	x	35
+nommasc9	2	del	e	16
+nommasc9	2	del	uri	2
+nommasc9	2	chg	i	u	21
+nommasc9	2	chg	ji	z	13
+nommasc9	2	chg	eci	ac	4
+nommasc9	2	chg	aletriști	eletrist	1
+nommasc9	2	chg	ame	m	1
+nommasc9	2	chg	și	ss	3
+nommasc9	2	chg	ișori	ușor	2
+nommasc9	2	chg	-ghezi	ghez	1
+nommasc9	2	chg	beni	abăn	1
+nommasc9	2	chg	eși	aș	1
+nommasc9	2	chg	eți	at	1
+nommasc9	2	chg	i	ă	5
+nommasc9	2	chg	eți	ăț	4
+nommasc9	2	chg	i	o	1
+nommasc9	2	chg	estofori	istofor	1
+nommasc9	2	chg	ji	az	4
+nommasc9	2	chg	gi	ag	8
+nommasc9	2	chg	ți	te	2
+nommasc9	2	chg	ci	ac	3
+nommasc9	2	chg	eți	ăt	5
+nommasc9	2	chg	meni	amăn	3
+nommasc9	2	nop	29
+nommasc9	2	chg	ți	tt	6
+nommasc9	2	chg	eri	ăr	3
+nommasc9	2	chg	-ționaliști	ționalist	1
+nommasc9	2	chg	peni	apăn	2
+nommasc9	2	chg	și	ah	2
+nommasc9	2	chg	feri	afăr	2
+nommasc9	2	chg	ceni	acăn	1
+nommasc9	2	chg	mți	amț	1
+nommasc9	2	chg	ameni	m	3
+nommasc9	2	chg	iști	alist	1
+nommasc9	2	chg	eli	al	1
+nommasc9	2	chg	li	al	2
+nommasc9	2	chg	idențiabili	edențiabil	1
+nommasc9	2	chg	egi	ag	2
+nommasc9	2	chg	inți	ânt	2
+nommasc9	2	chg	ci	k	2
+nommasc9	2	chg	ătuți	atuț	1
+nommasc9	2	chg	ji	d	1
+nommasc9	2	chg	ineri	ânăr	1
+nommasc9	2	chg	nci	anc	1
+nommasc9	2	chg	are	r	3
+nommasc9	2	chg	pi	ap	2
+nommasc9	2	chg	ceptanți	eptant	1
+nommasc9	2	chg	ți	at	1
+nommasc9	2	chg	ști	sc	8
+nommasc9	2	chg	ertinoizi	retinoid	1
+nommasc9	2	chg	ezi	ăd	1
+nommasc9	2	chg	areici	ereic	1
+nommasc9	2	chg	ane	n	1
+nommasc9	2	chg	cști	xt	1
+nommasc9	2	chg	ți	tu	1
+nommasc9	2	chg	și	t	1
+nommasc9	2	chg	și	es	1
+nommasc9	2	chg	cutanați	rcutanat	1
+nommasc9	2	chg	ști	sm	1
+nommasc9	2	chg	i	e	1
+nommasc9	2	chg	veni	avăn	1
+nommasc9	2	chg	ți	nt	1
+nommasc9	2	chg	e	u	1
+nommasc9	2	chg	rbezi	arbăd	1
+nommasc9	2	chg	ăbănogi	ab	1
+nommasc9	2	chg	zi	ad	1
+nommasc9	2	chg	eniri	ânăr	1
+nommasc9	2	chg	eni	ăn	1
+nomsuf2	1	add	er	670
+nomfem10	1	add	e	9556
+nomfem10	1	add	i	1
+nomfem10	1	add	u	1
+nomfem10	1	chg	i	u	2
+nomfem10	2	add	e	9519
+nomfem10	2	chg	ăni	anie	8
+nomfem10	2	chg	ăști	aștie	2
+nomfem10	2	add	ie	3
+nomfem10	2	chg	ăr	are	11
+nomfem10	2	chg	ă	aie	3
+nomfem10	2	chg	ăbi	abie	4
+nomfem10	2	chg	ăjdi	ajdie	1
+nomfem10	2	chg	ăli	alie	1
+nomfem10	2	add	i	1
+nomfem10	2	chg	ăr	ație	1
+nomfem10	2	chg	ăsti	astie	1
+nomfem10	2	chg	ălci	alcie	1
+nomfem10	2	add	aie	1
+nomfem10	2	add	u	1
+nomfem10	2	chg	i	âu	1
+nomfem10	2	chg	i	u	1
+nommobfem9	1	add	e	9538
+nommobfem9	1	add	i	1
+nommobfem9	1	add	u	1
+nommobfem9	1	chg	i	u	1
+nomsuf13	1	add	ie	9533
+nomsuf13	1	add	iu	413
+nomsuf13	1	add	ii	1
+nomsuf13	1	add	u	1
+nomsuf24	1	add	ie	9533
+nomsuf24	1	add	ii	1
+nomsuf24	1	add	iu	1
+nomsuf24	1	add	u	1
+nommasc1	1	add	u	620
+nommasc1	2	add	u	552
+nommasc1	2	chg	ștr	stru	59
+nommasc1	2	chg	etr	ătru	1
+nommasc1	2	chg	șt	stru	2
+nommasc1	2	chg	ndr	andru	1
+nommasc1	2	add	iu	4
+nommasc1	2	chg	ț	tu	1
+nommasc2	1	add	u	620
+nommasc2	2	add	u	552
+nommasc2	2	chg	ștr	stru	59
+nommasc2	2	chg	etr	ătru	1
+nommasc2	2	chg	șt	stru	2
+nommasc2	2	chg	ndr	andru	1
+nommasc2	2	add	iu	4
+nommasc2	2	chg	ț	tu	1
+nomsuf6	1	add	giu	160
+nomsuf6	1	add	giță	5
+nomsuf7	1	add	agiu	81
+nomdimfem10	1	add	iță	981
+nomdimfem10	1	add	iț	4
+nomdimfem10	1	add	eț	1
+nommobfem2	1	add	iță	981
+nommobfem2	1	add	iț	4
+nommobfem2	1	add	eț	1
+nommobfem3	1	add	ță	2131
+nommobfem3	1	add	ț	46
+nommobfem3	1	chg	a	ț	1
+nomneu3	1	nop	3578
+nomneu3	2	nop	3563
+nomneu3	2	chg	ece	c	1
+nomneu3	2	add	u	9
+nomneu3	2	chg	ăt	at	1
+nomneu3	2	chg	ăv	av	1
+nomneu3	2	chg	Sălciș	sălciș	1
+nomneu3	2	add	ur	1
+nomneu3	2	chg	grin	cal	1
+nomfem8	1	add	e	12545
+nomfem8	1	del	proclamar	1
+nomfem8	2	chg	ăr	are	5140
+nomfem8	2	add	e	5535
+nomfem8	2	chg	ăț	ate	1611
+nomfem8	2	chg	r	are	219
+nomfem8	2	chg	uvionăr	ovionare	1
+nomfem8	2	del	proclamăr	1
+nomfem8	2	chg	ț	te	17
+nomfem8	2	chg	ă	ale	2
+nomfem8	2	chg	ăng	ange	1
+nomfem8	2	chg	ărț	arte	2
+nomfem8	2	chg	ă	aie	2
+nomfem8	2	chg	c	ace	2
+nomfem8	2	chg	regnăr	egnare	1
+nomfem8	2	chg	ănc	ance	1
+nomfem8	2	chg	z	de	1
+nomfem8	2	chg	rț	arte	1
+nomfem8	2	chg	pț	apte	1
+nomfem8	2	chg	șt	aste	1
+nomfem8	2	chg	ăc	ace	2
+nomfem8	2	chg	ăser	asere	1
+nomfem8	2	chg	ăsăr	asăre	1
+nomfem8	2	add	le	1
+nomfem8	2	chg	șt	ste	1
+nomfem8	2	chg	torcător	lorcătoare	1
+nomfem11	1	nop	13264
+nomfem11	1	del	proclamare	1
+nomfem11	1	del	temă	1
+nomfem11	1	del	ștergură	1
+nomfem11	1	chg	are	r	1039
+nomfem11	1	del	ă	5035
+nomfem11	1	chg	ceptantă	eptant	1
+nomfem11	1	chg	asă	s	57
+nomfem11	1	chg	ă	u	7
+nomfem11	1	chg	ache	chi	1
+nomfem11	1	chg	ă	ial	1
+nomfem11	1	chg	e	i	12
+nomfem11	1	chg	e	u	23
+nomfem11	1	chg	arsă	rs	2
+nomfem11	1	chg	-voră	vor	1
+nomfem11	1	chg	acă	c	1
+nomfem11	1	chg	rtativistă	trativist	1
+nomfem11	1	chg	areică	ereic	1
+nomfem11	1	chg	să	es	1
+nomfem11	1	chg	ță	t	1
+nomfem11	1	chg	cutanată	rcutanat	1
+nomfem11	1	chg	tă	m	1
+nomfem11	1	chg	ă	e	1
+nomfem11	1	chg	ană	n	1
+nomfem11	1	del	e	1
+nomfem11	2	chg	ări	are	5140
+nomfem11	2	chg	e	ă	548
+nomfem11	2	chg	i	e	5535
+nomfem11	2	chg	ăți	ate	1611
+nomfem11	2	chg	ene	ană	38
+nomfem11	2	chg	ne	ană	77
+nomfem11	2	chg	ri	are	219
+nomfem11	2	chg	țe	ață	2
+nomfem11	2	chg	uvionări	ovionare	1
+nomfem11	2	chg	ețe	ață	2
+nomfem11	2	chg	enzi	andă	1
+nomfem11	2	chg	i	ă	13
+nomfem11	2	del	proclamări	1
+nomfem11	2	del	e	5027
+nomfem11	2	chg	etaxine	ataxină	1
+nomfem11	2	chg	le	a	2
+nomfem11	2	chg	onhograme	anhogramă	1
+nomfem11	2	chg	ți	te	17
+nomfem11	2	chg	ăi	ale	2
+nomfem11	2	chg	ăngi	ange	1
+nomfem11	2	chg	ărți	arte	2
+nomfem11	2	chg	ăi	aie	2
+nomfem11	2	del	teme	1
+nomfem11	2	nop	11
+nomfem11	2	chg	inamograme	unamogramă	1
+nomfem11	2	chg	e	a	2
+nomfem11	2	del	le	1
+nomfem11	2	chg	ări	ară	1
+nomfem11	2	chg	Glumiflore	glumiflore	1
+nomfem11	2	chg	ci	ace	2
+nomfem11	2	chg	regnări	egnare	1
+nomfem11	2	chg	-tuționaliste	tuționalistă	1
+nomfem11	2	chg	te	ță	1
+nomfem11	2	chg	eli	ala	2
+nomfem11	2	chg	ănci	ance	1
+nomfem11	2	chg	he	ahă	1
+nomfem11	2	chg	zi	de	1
+nomfem11	2	chg	rți	arte	1
+nomfem11	2	del	șterguri	1
+nomfem11	2	chg	luieli	tuială	1
+nomfem11	2	chg	pți	apte	1
+nomfem11	2	chg	ge	agă	1
+nomfem11	2	chg	ști	aste	1
+nomfem11	2	chg	ăci	ace	2
+nomfem11	2	chg	ăseri	asere	1
+nomfem11	2	chg	ăsări	asăre	1
+nomfem11	2	chg	i	le	1
+nomfem11	2	chg	șuri	așă	1
+nomfem11	2	chg	ști	ste	1
+nomfem11	2	chg	te	stă	1
+nomfem11	2	chg	ze	ază	1
+nomfem11	2	chg	torcători	lorcătoare	1
+nomfem11	2	chg	ratopauze	atopauză	1
+nomfem11	2	chg	ele	ică	1
+nomfem11	2	chg	ăloage	aloagă	1
+nomfem11	2	chg	are	r	1039
+nomfem11	2	chg	ceptante	eptant	1
+nomfem11	2	chg	ase	s	55
+nomfem11	2	chg	ene	an	14
+nomfem11	2	chg	e	u	30
+nomfem11	2	chg	ache	chi	1
+nomfem11	2	chg	e	ial	1
+nomfem11	2	chg	e	i	12
+nomfem11	2	chg	ince	nic	1
+nomfem11	2	chg	areice	ereic	1
+nomfem11	2	chg	nce	ancă	1
+nomfem11	2	chg	se	es	1
+nomfem11	2	chg	cutanate	rcutanat	1
+nomfem11	2	chg	te	m	1
+nomfem11	2	chg	erdicante	redicant	1
+nomfem11	2	del	ei	1
+nomfem11	2	chg	arse	rs	1
+nomfem11	2	chg	ozomatoase	izomatos	1
+nomfem11	2	chg	ii	ă	1
+nomfem11	2	chg	e	c	1
+nomfem11	2	chg	ane	n	1
+nomsuf11	1	add	at	16440
+nomsuf11	1	add	ată	301
+nomsuf11	1	add	t	4
+nomsuf11	1	chg	cutan	rcutanat	1
+nomdimmasc9	1	add	ic	4028
+nomfem16	1	nop	767
+nomfem16	1	del	proclamare	1
+nomfem16	1	del	temă	1
+nomfem16	1	del	ștergură	1
+nomfem16	1	del	ă	5017
+nomfem16	1	chg	ceptantă	eptant	1
+nomfem16	1	chg	asă	s	57
+nomfem16	1	chg	ă	u	6
+nomfem16	1	chg	ă	ial	1
+nomfem16	1	chg	arsă	rs	2
+nomfem16	1	chg	-voră	vor	1
+nomfem16	1	chg	rtativistă	trativist	1
+nomfem16	1	chg	areică	ereic	1
+nomfem16	1	chg	să	es	1
+nomfem16	1	chg	ță	t	1
+nomfem16	1	chg	cutanată	rcutanat	1
+nomfem16	1	chg	tă	m	1
+nomfem16	1	chg	ă	e	1
+nomfem16	2	chg	e	ă	545
+nomfem16	2	chg	ene	ană	38
+nomfem16	2	chg	i	e	27
+nomfem16	2	chg	ne	ană	77
+nomfem16	2	chg	țe	ață	2
+nomfem16	2	chg	uvionări	ovionare	1
+nomfem16	2	chg	ețe	ață	2
+nomfem16	2	chg	ări	are	23
+nomfem16	2	chg	enzi	andă	1
+nomfem16	2	chg	i	ă	11
+nomfem16	2	del	proclamări	1
+nomfem16	2	del	e	5007
+nomfem16	2	chg	etaxine	ataxină	1
+nomfem16	2	chg	le	a	2
+nomfem16	2	chg	onhograme	anhogramă	1
+nomfem16	2	chg	ăți	ate	5
+nomfem16	2	del	teme	1
+nomfem16	2	nop	6
+nomfem16	2	chg	inamograme	unamogramă	1
+nomfem16	2	chg	e	a	2
+nomfem16	2	del	le	1
+nomfem16	2	chg	ări	ară	1
+nomfem16	2	chg	Glumiflore	glumiflore	1
+nomfem16	2	chg	regnări	egnare	1
+nomfem16	2	chg	-tuționaliste	tuționalistă	1
+nomfem16	2	chg	te	ță	1
+nomfem16	2	chg	eli	ala	2
+nomfem16	2	chg	he	ahă	1
+nomfem16	2	del	șterguri	1
+nomfem16	2	chg	luieli	tuială	1
+nomfem16	2	chg	ge	agă	1
+nomfem16	2	chg	șuri	așă	1
+nomfem16	2	chg	te	stă	1
+nomfem16	2	chg	ze	ază	1
+nomfem16	2	chg	torcători	lorcătoare	1
+nomfem16	2	chg	ratopauze	atopauză	1
+nomfem16	2	chg	ăloage	aloagă	1
+nomfem16	2	chg	ceptante	eptant	1
+nomfem16	2	chg	ase	s	55
+nomfem16	2	chg	ene	an	14
+nomfem16	2	chg	e	u	6
+nomfem16	2	chg	e	ial	1
+nomfem16	2	chg	ince	nic	1
+nomfem16	2	chg	areice	ereic	1
+nomfem16	2	chg	nce	ancă	1
+nomfem16	2	chg	se	es	1
+nomfem16	2	chg	cutanate	rcutanat	1
+nomfem16	2	chg	te	m	1
+nomfem16	2	chg	erdicante	redicant	1
+nomfem16	2	del	ei	1
+nomfem16	2	chg	arse	rs	1
+nomfem16	2	chg	ozomatoase	izomatos	1
+nomfem16	2	chg	ii	ă	1
+nomfem16	2	chg	e	c	1
+nomfem16	2	chg	ăi	aie	1
+nomsuf14	1	add	os	2194
+nomsuf14	1	add	oasă	84
+nomsuf14	1	add	at	2
+nomsuf14	1	add	lipit	1
+nommasc3	1	add	e	160
+nommasc3	2	chg	ț	te	71
+nommasc3	2	chg	z	de	8
+nommasc3	2	add	e	77
+nommasc3	2	chg	r	are	2
+nommasc3	2	chg	șt	ste	1
+nommasc3	2	chg	erp	arpe	1
+nommobfem7	1	add	esă	30
+nommobfem7	1	add	es	2
+nomsuf37	1	add	it	4523
+nomsuf26	1	add	anță	202
+nomneu5	1	add	u	881
+nomneu5	2	add	u	786
+nomneu5	2	chg	i	u	31
+nomneu5	2	chg	ai	ău	61
+nomneu5	2	chg	estr	ăstru	1
+nomneu5	2	add	iu	1
+nomneu5	2	chg	el	ău	1
+nomsuf21	1	add	itate	1533
+nomsuf35	1	add	eză	408
+nomsuf35	1	add	ez	258
+nomsuf39	1	add	ian	1348
+nomsuf39	1	add	iană	225
+nomfem7	1	add	a	37
+nomfem7	1	nop	8
+nomfem7	1	chg	ar	r	1
+nomfem15	1	nop	70
+nomfem15	1	del	proclamare	1
+nomfem15	1	del	ștergură	1
+nomfem15	1	del	ă	1
+nomfem15	2	add	e	20
+nomfem15	2	chg	uvionăr	ovionare	1
+nomfem15	2	chg	enz	andă	1
+nomfem15	2	add	ă	14
+nomfem15	2	del	proclamăr	1
+nomfem15	2	chg	z	dă	1
+nomfem15	2	chg	ăr	are	19
+nomfem15	2	chg	ă	aie	2
+nomfem15	2	chg	ăr	ară	1
+nomfem15	2	chg	regnăr	egnare	1
+nomfem15	2	chg	el	ala	2
+nomfem15	2	chg	ă	a	1
+nomfem15	2	del	ștergur	1
+nomfem15	2	chg	luiel	tuială	1
+nomfem15	2	chg	șur	așă	1
+nomfem15	2	chg	torcător	lorcătoare	1
+nomfem15	2	chg	r	are	1
+nomfem15	2	chg	ăț	ate	1
+nomfem15	2	chg	e	a	1
+nomfem15	2	del	e	1
+nomfem15	2	chg	i	ă	1
+nomsuf10	1	add	al	3064
+nomsuf10	1	add	ală	200
+nomsuf10	1	add	l	8
+nomsuf34	1	add	ean	365
+nomfem4	1	add	ă	4079
+nomfem4	1	del	ștergur	1
+nomfem4	1	chg	ic	el	1
+nomfem4	1	chg	asc	sc	2
+nomfem4	1	nop	1
+nomfem4	2	chg	nc	ancă	9
+nomfem4	2	chg	l	ală	785
+nomfem4	2	add	ă	2516
+nomfem4	2	chg	ăr	ară	15
+nomfem4	2	chg	ț	ață	11
+nomfem4	2	chg	el	ală	368
+nomfem4	2	chg	enc	ancă	1
+nomfem4	2	chg	șt	ască	9
+nomfem4	2	chg	z	dă	15
+nomfem4	2	chg	ez	ază	1
+nomfem4	2	chg	ărz	ardă	7
+nomfem4	2	chg	ășt	ască	6
+nomfem4	2	chg	șt	scă	8
+nomfem4	2	chg	enz	andă	7
+nomfem4	2	chg	ăz	adă	13
+nomfem4	2	chg	c	acă	8
+nomfem4	2	chg	ălț	altă	2
+nomfem4	2	chg	ănc	ancă	16
+nomfem4	2	chg	enț	antă	1
+nomfem4	2	chg	ărăc	aracă	1
+nomfem4	2	chg	ăng	angă	5
+nomfem4	2	chg	ătc	atcă	5
+nomfem4	2	chg	ărb	arbă	1
+nomfem4	2	chg	ărc	arcă	15
+nomfem4	2	chg	ășt	așcă	8
+nomfem4	2	chg	ășt	aștă	1
+nomfem4	2	chg	t	că	42
+nomfem4	2	chg	ăc	acă	8
+nomfem4	2	chg	ăg	agă	10
+nomfem4	2	chg	ăn	ană	3
+nomfem4	2	chg	ăic	aică	12
+nomfem4	2	chg	ț	tă	8
+nomfem4	2	chg	ăț	ată	11
+nomfem4	2	chg	rc	arcă	4
+nomfem4	2	chg	en	ană	4
+nomfem4	2	chg	ălc	alcă	6
+nomfem4	2	chg	ărg	argă	3
+nomfem4	2	chg	șt	așcă	4
+nomfem4	2	chg	ărm	armă	1
+nomfem4	2	chg	pc	apcă	3
+nomfem4	2	chg	r	ară	12
+nomfem4	2	chg	ndur	andură	3
+nomfem4	2	chg	z	adă	2
+nomfem4	2	chg	ăpc	apcă	1
+nomfem4	2	chg	j	ajă	3
+nomfem4	2	chg	rz	ardă	1
+nomfem4	2	chg	ț	ată	4
+nomfem4	2	chg	ez	oadă	1
+nomfem4	2	chg	eșt	ască	2
+nomfem4	2	chg	eț	ată	3
+nomfem4	2	chg	ng	angă	1
+nomfem4	2	chg	g	agă	2
+nomfem4	2	chg	ăș	așă	1
+nomfem4	2	chg	ez	adă	10
+nomfem4	2	chg	n	ană	1
+nomfem4	2	chg	ăv	avă	5
+nomfem4	2	chg	ăbric	abrică	1
+nomfem4	2	chg	eș	așă	1
+nomfem4	2	chg	ăcăr	acără	2
+nomfem4	2	chg	z	ază	2
+nomfem4	2	chg	ărț	artă	3
+nomfem4	2	chg	ăur	aură	1
+nomfem4	2	chg	nț	antă	1
+nomfem4	2	chg	ănz	andă	1
+nomfem4	2	chg	ăj	ajă	5
+nomfem4	2	chg	ș	așă	2
+nomfem4	2	chg	p	apă	1
+nomfem4	2	chg	v	avă	2
+nomfem4	2	chg	ern	arnă	1
+nomfem4	2	chg	ălb	albă	1
+nomfem4	2	chg	ăpș	apșă	1
+nomfem4	2	chg	erc	arcă	1
+nomfem4	2	chg	ămp	ampă	1
+nomfem4	2	chg	ăț	ață	2
+nomfem4	2	chg	in	nă	1
+nomfem4	2	del	ștergur	1
+nomfem4	2	chg	luiel	tuială	1
+nomfem4	2	chg	ămiez	amiază	1
+nomfem4	2	chg	uror	oră	2
+nomfem4	2	chg	ășt	astă	2
+nomfem4	2	chg	eg	agă	2
+nomfem4	2	chg	ăpăr	apară	1
+nomfem4	2	chg	ăpum	apumă	1
+nomfem4	2	chg	ăș	asă	1
+nomfem4	2	chg	șur	așă	1
+nomfem4	2	chg	rț	artă	2
+nomfem4	2	chg	ănț	anță	1
+nomfem4	2	chg	er	ară	6
+nomfem4	2	chg	ășc	așcă	1
+nomfem4	2	chg	ălăt	alată	1
+nomfem4	2	chg	ăl	ală	2
+nomfem4	2	chg	erz	ardă	1
+nomfem4	2	chg	ăchin	achină	1
+nomfem4	2	chg	ășin	așină	1
+nomfem4	2	chg	șin	așină	1
+nomfem4	2	chg	ălm	almă	1
+nomfem4	2	chg	enț	ânță	1
+nomfem4	2	chg	ălp	alpă	1
+nomfem4	2	chg	b	abă	1
+nomfem4	2	chg	tc	atcă	1
+nomfem4	2	chg	ăm	amă	1
+nomfem4	2	chg	eț	ață	1
+nomfem4	2	chg	ămc	amcă	1
+nomfem4	2	chg	m	amă	1
+nomfem4	2	chg	epc	apcă	1
+nomfem4	2	chg	ănț	antă	1
+nomfem4	2	chg	ăndur	andură	1
+nomfem4	2	chg	ăndăr	andără	1
+nomfem4	2	chg	ărn	arnă	1
+nomfem4	2	chg	ic	el	1
+nomfem4	2	chg	șt	sc	2
+nomfem4	2	del	e	1
+nomfem4	2	chg	i	ă	1
+nomsuf8	1	add	ist	2558
+nomsuf8	1	add	istă	538
+nomsuf8	1	add	ism	1
+nomsuf27	1	add	ență	377
+nomsuf29	1	add	ism	265
+nomfem18	1	add	a	5
+nomfem5	1	add	a	261
+nomfem5	1	add	l	28
+nomfem5	1	add	el	1
+nomfem5	1	add	u	3
+nomfem5	1	chg	e	ău	1
+nomfem5	2	add	ea	248
+nomfem5	2	add	a	13
+nomfem5	2	add	el	29
+nomfem5	2	add	eu	3
+nomfem5	2	add	ău	1
+nomfem6	1	add	a	248
+nomfem6	1	add	l	28
+nomfem6	1	add	u	3
+nomfem6	1	chg	e	ău	1
+nomdimfem14	1	add	ea	248
+nomdimfem14	1	add	el	28
+nomdimfem14	1	add	eu	3
+nomdimfem14	1	add	ău	1
+nomsuf18	1	add	niță	355
+nomdimneu9	1	add	ic	177
+nomsuf9	1	add	ier	388
+nomsuf9	1	add	ieră	193
+nomneu6	1	add	u	209
+nomsuf1	1	add	ar	1472
+nomneu11	1	nop	37
+nomneu8	1	add	u	307
+nomneu8	2	add	u	306
+nomneu8	2	nop	1
+nomneu13	1	add	i	130
+nomneu13	2	chg	ai	i	74
+nomneu13	2	add	i	16
+nomneu13	2	nop	38
+nomneu13	2	chg	ac	ci	2
+nomaugmneu1	1	add	oi	74
+nomsuf32	1	add	iș	121
+nomsuf28	1	add	ime	191
+nomdimmasc2	1	add	aș	312
+nomsuf3	1	add	aș	326
+nomfem2	1	add	ă	257
+nomfem2	1	chg	asc	sc	1
+nomfem2	1	nop	1
+nomfem2	2	add	ă	180
+nomfem2	2	chg	z	dă	5
+nomfem2	2	chg	ărz	ardă	2
+nomfem2	2	chg	enz	andă	1
+nomfem2	2	chg	ășt	ască	1
+nomfem2	2	chg	ășt	aștă	1
+nomfem2	2	chg	l	ală	4
+nomfem2	2	chg	ăic	aică	2
+nomfem2	2	chg	ăț	ată	5
+nomfem2	2	chg	ărg	argă	1
+nomfem2	2	chg	ăn	ană	1
+nomfem2	2	chg	ărm	armă	1
+nomfem2	2	chg	pc	apcă	1
+nomfem2	2	chg	ăz	adă	6
+nomfem2	2	chg	ăpc	apcă	1
+nomfem2	2	chg	z	adă	1
+nomfem2	2	chg	rz	ardă	1
+nomfem2	2	chg	ț	tă	5
+nomfem2	2	chg	t	că	1
+nomfem2	2	chg	ăr	ară	1
+nomfem2	2	chg	ăcăr	acără	1
+nomfem2	2	chg	ănz	andă	1
+nomfem2	2	chg	ș	așă	2
+nomfem2	2	chg	ănc	ancă	4
+nomfem2	2	chg	ălb	albă	1
+nomfem2	2	chg	ăpș	apșă	1
+nomfem2	2	chg	uror	oră	2
+nomfem2	2	chg	ășt	astă	2
+nomfem2	2	chg	ăpăr	apară	1
+nomfem2	2	chg	rc	arcă	1
+nomfem2	2	chg	ăpum	apumă	1
+nomfem2	2	chg	ăș	asă	1
+nomfem2	2	chg	șur	așă	1
+nomfem2	2	chg	ăț	ață	1
+nomfem2	2	chg	ănț	anță	1
+nomfem2	2	chg	ț	ată	1
+nomfem2	2	chg	ălăt	alată	1
+nomfem2	2	chg	ălc	alcă	1
+nomfem2	2	chg	er	ară	2
+nomfem2	2	chg	ăv	avă	1
+nomfem2	2	chg	rț	artă	2
+nomfem2	2	chg	nc	ancă	1
+nomfem2	2	chg	ălm	almă	1
+nomfem2	2	chg	ărc	arcă	1
+nomfem2	2	chg	r	ară	1
+nomfem2	2	chg	ăl	ală	1
+nomfem2	2	chg	ăg	agă	1
+nomfem2	2	chg	șt	sc	1
+nomfem2	2	del	e	1
+nomfem2	2	chg	i	ă	1
+nomsuf45	1	add	ețe	21
+nomdimneu4	1	add	șor	129
+nomdimneu12	1	add	ușor	60
+nomneu4	1	nop	50
+nomdimfem2	1	add	ică	630
+nomdimfem2	1	add	el	1
+nomneu15	1	nop	532
+nomneu15	2	add	l	510
+nomneu15	2	chg	a	u	1
+nomneu15	2	chg	a	l	18
+nomneu15	2	chg	a	o	1
+nomneu15	2	add	la	1
+nomneu15	2	nop	1
+nomdimneu6	1	add	el	249
+nomdimfem18	1	add	ulică	16
+nomdimfem4	1	add	oară	389
+nomdimfem4	1	add	or	74
+nomdimfem12	1	add	ișoară	120
+nomdimfem12	1	add	ișor	25
+nomdimmasc4	1	add	șor	162
+nomdimmasc12	1	add	ișor	102
+nomaugmmasc2	1	add	an	561
+nommobmasc2	1	add	an	561
+nomaugmfem3	1	add	ancă	90
+nomaugmfem3	1	add	nc	1
+nomaugmfem3	1	add	anc	1
+nomsuf15	1	add	ios	374
+nommasc4	1	add	ă	29
+nommasc4	1	chg	ăicuț	aică	1
+nommasc4	2	add	ă	28
+nommasc4	2	chg	ăicuț	aică	1
+nommasc4	2	chg	ț	tă	1
+nommasc5	1	add	ă	24
+nommasc5	1	chg	ăicuț	aică	1
+nommasc5	2	chg	h	ă	5
+nommasc5	2	add	ă	20
+nommasc6	1	add	ă	10
+nommasc11	1	add	ă	14
+nomdimmasc3	1	add	ior	76
+nomneu2	1	nop	9
+nomdimfem1	1	add	ea	11
+nomdimfem1	1	add	ică	129
+nomdimfem1	1	add	el	34
+nomdimfem3	1	add	ioară	187
+nomdimfem3	1	add	ior	36
+nomdimfem8	1	add	ușă	37
+nomdimfem8	1	add	uș	5
+nomdimfem5	1	add	uță	352
+nomdimfem5	1	add	uț	32
+nommasc7	1	add	l	236
+nomsuf25	1	add	ărie	409
+nomdimneu2	1	add	uleț	98
+nomdimneu8	1	add	leț	102
+nommobfem6	1	add	easă	174
+nommobfem6	1	add	es	19
+nomsuf5	1	add	easă	174
+nomsuf5	1	add	es	19
+nomsuf12	1	add	ească	9
+nomsuf12	1	add	esc	7
+nomdimneu5	1	add	uș	18
+nomdimfem6	1	add	luță	80
+nomdimfem6	1	add	luț	3
+nomsuf31	1	add	et	98
+nomsuf33	1	add	iște	96
+nomneu7	1	add	u	110
+nomneu7	2	add	u	36
+nomneu7	2	add	iu	13
+nomneu7	2	chg	a	ău	61
+nomsuf36	1	add	iot	26
+nomsuf36	1	add	iotă	5
+nomsuf22	1	add	etate	26
+nommobfem5	1	add	oaică	40
+nomsuf19	1	add	uș	47
+nomfem21	1	add	ă	45
+nomdimfem13	1	add	ușcă	31
+nomsuf4	1	add	eș	34
+nomdimmasc5	1	add	luș	9
+nomdimmasc15	1	add	uș	12
+nomdimmasc6	1	add	uț	73
+nomdimfem17	1	add	ucă	30
+nomdimneu11	1	add	ișor	51
+nomneu12	1	add	e	7
+nomneu12	2	nop	4
+nomneu12	2	chg	i	e	2
+nomneu12	2	chg	ăpt	apte	1
+nomaugmmasc4	1	add	ău	105
+nomsuf20	1	add	ătate	29
+nomfem3	1	add	ă	19
+nomfem3	2	chg	ăn	ană	1
+nomfem3	2	chg	ț	ață	5
+nomfem3	2	add	ă	3
+nomfem3	2	chg	l	ală	1
+nomfem3	2	chg	ăv	avă	2
+nomfem3	2	chg	ărb	arbă	1
+nomfem3	2	chg	erb	arbă	1
+nomfem3	2	chg	f	afă	1
+nomfem3	2	chg	ărf	arfă	1
+nomfem3	2	chg	b	abă	1
+nomfem3	2	chg	ăm	amă	1
+nomfem3	2	chg	m	amă	1
+nomdimfem11	1	add	uliță	93
+nomdimmasc8	1	add	laș	19
+nomaugmmasc3	1	add	andru	12
+nomfem13	1	add	le	3
+nomfem13	2	chg	ă	ale	2
+nomfem13	2	add	le	1
+nomfem9	1	add	e	12
+nomfem9	2	chg	ărn	arne	1
+nomfem9	2	chg	ăr	are	3
+nomfem9	2	chg	r	are	3
+nomfem9	2	add	e	4
+nomfem9	2	chg	ăs	ase	1
+nomfem20	1	add	ă	4
+nomfem20	2	chg	rt	artă	1
+nomfem20	2	add	ă	2
+nomfem20	2	chg	ț	ață	1
+nomdimneu13	1	add	uț	30
+nommasc14	1	add	o	1
+nomsuf17	1	add	cios	343
+nomsuf17	1	add	cioasă	12
+nomsuf46	1	add	utate	5
+nomdimfem7	1	add	lușă	12
+nomdimfem7	1	add	luș	2
+nomdimmasc7	1	add	luț	5
+nomdimfem19	1	add	uică	14
+nomsuf23	1	add	eală	1
+nomfem17	1	add	e	6
+nomfem17	1	chg	ai	i	5
+nomfem17	1	nop	7
+nomfem17	1	chg	i	u	2
+nomfem17	1	chg	ar	r	1
+nomfem17	2	add	e	6
+nomfem17	2	chg	ai	i	5
+nomfem17	2	nop	7
+nomfem17	2	chg	i	u	2
+nomfem17	2	chg	ar	r	1
+nommobfem8	1	nop	10
+nommobfem8	1	chg	are	r	1039
+nommobfem8	1	chg	ache	chi	1
+nommobfem8	1	chg	e	i	12
+nommobfem8	1	chg	e	u	23
+nommobfem8	1	del	e	1
+nomneu16	1	add	e	2
+nomaugmmasc1	1	add	oi	8
+nommobmasc1	1	add	oi	8
+nomdimfem9	1	add	iușă	3
+nomsuf16	1	add	icioasă	2
+nomsuf16	1	add	icios	155
+nommasc13	1	add	e	1
+nomaugmfem1	1	add	oi	5
+verb7	1	add	a	3566
+verb7	1	chg	er	ăra	1
+verb7	1	chg	h	a	94
+verb7	1	add	eza	7
+verb7	1	chg	t	ța	1
+verb7	1	add	iza	1
+verb7	2	add	a	3670
+verb16	1	add	e	46
+verb16	1	chg	sc	aște	3
+verb16	1	chg	sc	ște	4
+verb16	1	chg	ăsc	ește	1
+verb16	2	chg	ț	te	9
+verb16	2	chg	z	de	4
+verb16	2	add	ne	11
+verb16	2	add	e	25
+verb16	2	chg	șt	aște	3
+verb16	2	chg	ș	se	2
+verb16	3	add	e	54
+verb16	4	chg	ăt	ate	8
+verb16	4	add	e	41
+verb16	4	chg	șt	aște	3
+verb16	4	chg	ășt	aște	2
+verb16	5	chg	ăt	ate	8
+verb16	5	add	e	36
+verb16	5	chg	sc	aște	3
+verb16	5	chg	sc	ște	2
+verb16	5	chg	z	de	2
+verb16	5	chg	ăsc	aște	2
+verb16	5	chg	ăsc	ește	1
+verb16	6	add	e	27
+verb16	6	chg	ad	de	2
+verb16	6	chg	ap	pe	4
+verb16	6	chg	sc	ște	5
+verb16	6	chg	arn	rne	4
+verb16	6	chg	ar	re	1
+verb16	6	chg	asc	ște	2
+verb16	6	chg	arg	rge	1
+verb16	6	chg	am	me	3
+verb16	6	chg	ac	ce	2
+verb16	6	chg	as	se	2
+verb16	6	chg	asc	ește	1
+verb15	1	add	e	41
+verb15	1	chg	sc	aște	1
+verb15	1	chg	sc	ște	3
+verb15	1	chg	ăsc	ește	1
+verb15	2	chg	z	de	4
+verb15	2	add	ne	11
+verb15	2	add	e	27
+verb15	2	chg	șt	aște	1
+verb15	2	chg	ț	te	1
+verb15	2	chg	ș	se	2
+verb15	3	add	e	46
+verb15	4	chg	ad	de	2
+verb15	4	add	e	19
+verb15	4	chg	ap	pe	6
+verb15	4	chg	sc	ște	1
+verb15	4	chg	arn	rne	4
+verb15	4	chg	ar	re	1
+verb15	4	chg	asc	ște	3
+verb15	4	chg	arg	rge	1
+verb15	4	chg	am	me	3
+verb15	4	chg	ac	ce	3
+verb15	4	chg	as	se	2
+verb15	4	chg	asc	ește	1
+verb15	5	add	e	39
+verb15	5	chg	sc	aște	1
+verb15	5	chg	sc	ște	3
+verb15	5	chg	z	de	2
+verb15	5	chg	ăsc	ește	1
+verb1	1	add	a	808
+verb1	1	chg	ez	a	121
+verb1	1	chg	ar	ăra	7
+verb1	1	chg	aog	ăoga	1
+verb1	1	chg	aug	ăuga	2
+verb1	1	chg	u	a	18
+verb1	1	chg	hez	a	3
+verb1	1	chg	ag	ăga	1
+verb1	1	chg	alig	ăliga	1
+verb1	1	chg	atin	ătina	1
+verb1	1	chg	i	a	1
+verb1	1	chg	ac	ăca	6
+verb1	1	chg	alc	ălca	3
+verb1	1	chg	aut	ăuta	1
+verb1	1	chg	as	ăsa	1
+verb1	1	chg	aier	ăiera	5
+verb1	1	chg	alec	ăleca	2
+verb1	1	chg	alic	ălica	2
+verb1	1	chg	alț	ălța	5
+verb1	1	chg	arc	ărca	3
+verb1	1	chg	or	ura	11
+verb1	1	chg	am	ăma	6
+verb1	1	chg	oc	uca	3
+verb1	1	chg	armec	ermeca	1
+verb1	1	chg	arfec	rfeca	1
+verb1	1	chg	atru	ătra	1
+verb1	1	chg	aud	ăuda	1
+verb1	1	chg	aun	euna	1
+verb1	1	chg	ănânc	ânca	1
+verb1	1	chg	acin	ăcina	2
+verb1	1	chg	int	enta	2
+verb1	1	chg	ort	urta	2
+verb1	1	chg	ap	ăpa	3
+verb1	1	chg	ac	ca	1
+verb1	1	chg	orn	urna	4
+verb1	1	chg	azăm	zema	1
+verb1	1	chg	og	uga	1
+verb1	1	chg	abd	ăbda	1
+verb1	1	chg	an	ăna	1
+verb1	1	chg	ol	ula	2
+verb1	1	chg	azim	ăzima	1
+verb1	1	chg	aun	una	1
+verb1	1	chg	ald	ălda	1
+verb1	1	chg	arpin	ărpina	1
+verb1	1	chg	alt	ălta	2
+verb1	1	chg	atur	ătura	1
+verb1	1	chg	aiet	ăieta	1
+verb1	1	chg	ait	ăita	1
+verb1	1	chg	apțăn	pțăna	1
+verb1	1	chg	air	ăira	1
+verb1	1	chg	aș	ășa	1
+verb1	1	chg	aț	ăța	1
+verb1	2	add	a	597
+verb1	2	chg	ez	a	171
+verb1	2	chg	z	da	29
+verb1	2	chg	ț	ta	109
+verb1	2	chg	ar	ăra	7
+verb1	2	chg	aog	ăoga	1
+verb1	2	chg	șt	sta	19
+verb1	2	chg	aug	ăuga	2
+verb1	2	chg	hez	a	10
+verb1	2	chg	er	ăra	1
+verb1	2	chg	ag	ăga	1
+verb1	2	chg	alig	ăliga	1
+verb1	2	chg	atin	ătina	1
+verb1	2	chg	ac	ăca	6
+verb1	2	chg	alc	ălca	3
+verb1	2	chg	auț	ăuta	1
+verb1	2	add	na	8
+verb1	2	chg	aș	ăsa	2
+verb1	2	chg	aier	ăiera	5
+verb1	2	chg	alec	ăleca	2
+verb1	2	chg	alic	ălica	2
+verb1	2	chg	alț	ălța	5
+verb1	2	chg	arc	ărca	3
+verb1	2	chg	or	ura	11
+verb1	2	chg	am	ăma	5
+verb1	2	chg	oc	uca	3
+verb1	2	chg	armec	ermeca	1
+verb1	2	chg	arfec	rfeca	1
+verb1	2	chg	șt	sca	2
+verb1	2	chg	atr	ătra	1
+verb1	2	chg	auz	ăuda	1
+verb1	2	chg	aun	euna	1
+verb1	2	chg	eșt	a	1
+verb1	2	chg	ștr	stra	1
+verb1	2	chg	ănânc	ânca	1
+verb1	2	chg	aci	ăcina	1
+verb1	2	chg	inț	enta	2
+verb1	2	chg	orț	urta	2
+verb1	2	chg	ap	ăpa	3
+verb1	2	chg	ac	ca	1
+verb1	2	chg	orn	urna	4
+verb1	2	chg	azem	zema	1
+verb1	2	chg	og	uga	1
+verb1	2	chg	abz	ăbda	1
+verb1	2	chg	agil	ăgila	1
+verb1	2	chg	an	ăna	1
+verb1	2	chg	ol	ula	2
+verb1	2	chg	azim	ăzima	1
+verb1	2	chg	aun	una	1
+verb1	2	chg	alz	ălda	1
+verb1	2	chg	arpin	ărpina	1
+verb1	2	nop	1
+verb1	2	chg	alț	ălta	2
+verb1	2	chg	atur	ătura	1
+verb1	2	chg	aieț	ăieta	1
+verb1	2	chg	aiț	ăita	1
+verb1	2	chg	apțăn	pțăna	1
+verb1	2	chg	acin	ăcina	1
+verb1	2	chg	air	ăira	1
+verb1	2	chg	ș	sa	1
+verb1	2	chg	aș	ășa	1
+verb1	2	chg	aț	ăța	1
+verb1	3	add	a	787
+verb1	3	chg	eaz	a	121
+verb1	3	chg	ag	ga	3
+verb1	3	chg	aț	ăța	3
+verb1	3	chg	ar	ăra	8
+verb1	3	chg	aog	ăoga	1
+verb1	3	chg	ap	ăpa	6
+verb1	3	chg	ast	ăsta	1
+verb1	3	chg	aug	ăuga	2
+verb1	3	chg	heaz	a	3
+verb1	3	chg	ag	ăga	1
+verb1	3	chg	alig	ăliga	1
+verb1	3	chg	atin	ătina	1
+verb1	3	chg	ac	ca	9
+verb1	3	chg	ac	ăca	6
+verb1	3	chg	alc	ălca	3
+verb1	3	chg	at	ăuta	1
+verb1	3	chg	as	ăsa	2
+verb1	3	chg	aier	ăiera	5
+verb1	3	chg	alec	ăleca	2
+verb1	3	chg	alic	ălica	2
+verb1	3	chg	alț	ălța	5
+verb1	3	chg	arc	ărca	4
+verb1	3	chg	oar	ura	11
+verb1	3	chg	am	ăma	6
+verb1	3	chg	oac	uca	3
+verb1	3	chg	aț	ța	2
+verb1	3	chg	ap	pa	2
+verb1	3	chg	ad	da	3
+verb1	3	chg	arm	ărma	3
+verb1	3	chg	armec	ermeca	1
+verb1	3	chg	arfec	rfeca	1
+verb1	3	chg	atr	ătra	1
+verb1	3	chg	aud	ăuda	1
+verb1	3	chg	aun	euna	1
+verb1	3	chg	ănânc	ânca	1
+verb1	3	chg	acin	ăcina	2
+verb1	3	chg	int	enta	2
+verb1	3	chg	oart	urta	2
+verb1	3	chg	oarn	urna	4
+verb1	3	chg	azem	zema	1
+verb1	3	chg	oag	uga	1
+verb1	3	chg	abd	ăbda	1
+verb1	3	chg	agil	ăgila	1
+verb1	3	chg	an	ăna	1
+verb1	3	chg	oal	ula	2
+verb1	3	chg	azim	ăzima	1
+verb1	3	chg	aun	una	1
+verb1	3	chg	ald	ălda	1
+verb1	3	chg	arpin	ărpina	1
+verb1	3	chg	alt	ălta	2
+verb1	3	chg	atur	ătura	1
+verb1	3	chg	uc	ca	1
+verb1	3	chg	aiet	ăieta	1
+verb1	3	chg	ait	ăita	1
+verb1	3	chg	apțăn	pțăna	1
+verb1	3	chg	air	ăira	1
+verb1	3	chg	amn	mna	1
+verb1	3	chg	as	sa	1
+verb1	3	chg	ar	ra	1
+verb1	3	chg	aș	ășa	1
+verb1	3	chg	apt	epta	1
+verb1	3	chg	at	ta	1
+verb1	3	chg	art	ărta	1
+verb1	3	chg	alb	lba	1
+verb1	3	chg	al	ela	1
+verb1	4	add	a	1051
+verb1	5	add	a	797
+verb1	5	chg	ez	a	118
+verb1	5	chg	aț	ăța	3
+verb1	5	chg	ar	ăra	7
+verb1	5	chg	aog	ăoga	1
+verb1	5	chg	ast	ăsta	1
+verb1	5	chg	aug	ăuga	2
+verb1	5	chg	hez	a	3
+verb1	5	chg	ag	ăga	1
+verb1	5	chg	alig	ăliga	1
+verb1	5	chg	atin	ătina	1
+verb1	5	chg	ac	ca	9
+verb1	5	chg	ap	ăpa	5
+verb1	5	chg	ac	ăca	6
+verb1	5	chg	alc	ălca	3
+verb1	5	chg	aut	ăuta	1
+verb1	5	chg	as	ăsa	2
+verb1	5	chg	aier	ăiera	5
+verb1	5	chg	alec	ăleca	2
+verb1	5	chg	alic	ălica	2
+verb1	5	chg	alț	ălța	5
+verb1	5	chg	arc	ărca	4
+verb1	5	chg	oar	ura	11
+verb1	5	chg	am	ăma	6
+verb1	5	chg	oac	uca	3
+verb1	5	chg	ap	pa	2
+verb1	5	chg	ad	da	3
+verb1	5	chg	arm	ărma	3
+verb1	5	chg	armec	ermeca	1
+verb1	5	chg	arfec	rfeca	1
+verb1	5	chg	ag	ga	1
+verb1	5	chg	atr	ătra	1
+verb1	5	chg	aud	ăuda	1
+verb1	5	chg	aun	euna	1
+verb1	5	chg	ănânc	ânca	1
+verb1	5	chg	acin	ăcina	2
+verb1	5	chg	int	enta	2
+verb1	5	chg	ad	ăda	1
+verb1	5	chg	oart	urta	2
+verb1	5	chg	oarn	urna	4
+verb1	5	chg	azem	zema	1
+verb1	5	chg	oag	uga	1
+verb1	5	chg	abd	ăbda	1
+verb1	5	chg	agil	ăgila	1
+verb1	5	chg	an	ăna	1
+verb1	5	chg	oal	ula	2
+verb1	5	chg	azim	ăzima	1
+verb1	5	chg	aun	una	1
+verb1	5	chg	ald	ălda	1
+verb1	5	chg	arpin	ărpina	1
+verb1	5	chg	alt	ălta	2
+verb1	5	chg	atur	ătura	1
+verb1	5	chg	uc	ca	1
+verb1	5	chg	aiet	ăieta	1
+verb1	5	chg	ait	ăita	1
+verb1	5	chg	apțăn	pțăna	1
+verb1	5	chg	air	ăira	1
+verb1	5	chg	amn	mna	1
+verb1	5	chg	ar	ra	1
+verb1	5	chg	aș	ășa	1
+verb1	5	chg	at	ta	1
+verb1	5	chg	art	ărta	1
+verb1	5	chg	alb	lba	1
+verb1	5	chg	al	ela	1
+verb10	1	add	a	803
+verb10	1	chg	ez	a	117
+verb10	1	chg	u	a	18
+verb10	1	chg	hez	a	3
+verb10	1	chg	i	a	1
+verb10	1	chg	apăn	păna	1
+verb10	1	chg	ăr	era	1
+verb10	1	chg	aptăn	eptăna	1
+verb10	1	chg	at	ăta	1
+verb10	1	chg	int	enta	1
+verb10	1	chg	og	uga	1
+verb10	1	chg	or	ura	2
+verb10	2	add	a	585
+verb10	2	chg	ez	a	164
+verb10	2	chg	z	da	26
+verb10	2	chg	ț	ta	107
+verb10	2	chg	hez	a	10
+verb10	2	chg	er	ăra	8
+verb10	2	chg	șt	sta	18
+verb10	2	chg	șt	sca	5
+verb10	2	chg	eț	ăța	2
+verb10	2	add	na	8
+verb10	2	chg	en	ăna	2
+verb10	2	chg	eșt	a	1
+verb10	2	chg	t	ca	5
+verb10	2	chg	ștr	stra	1
+verb10	2	nop	2
+verb10	2	chg	apeț	ăpăta	1
+verb10	2	chg	inț	enta	1
+verb10	2	chg	og	uga	1
+verb10	2	chg	erș	ărsa	1
+verb10	2	chg	or	ura	2
+verb10	3	add	a	810
+verb10	3	chg	eaz	a	114
+verb10	3	chg	heaz	a	3
+verb10	3	chg	az	za	2
+verb10	3	chg	atăr	tera	1
+verb10	3	chg	apăn	păna	1
+verb10	3	chg	aț	ăța	1
+verb10	3	chg	ag	ga	3
+verb10	3	chg	aptăn	eptăna	1
+verb10	3	chg	az	eza	1
+verb10	3	chg	am	ma	1
+verb10	3	chg	at	ăta	1
+verb10	3	chg	apt	pta	1
+verb10	3	chg	int	enta	1
+verb10	3	chg	oag	uga	1
+verb10	3	chg	ac	ca	4
+verb10	3	chg	amăn	măna	1
+verb10	3	chg	ansloc	ransloca	1
+verb10	3	chg	oar	ura	2
+verb10	4	add	a	950
+verb10	5	add	a	797
+verb10	5	chg	ez	a	116
+verb10	5	chg	hez	a	3
+verb10	5	chg	er	ăra	7
+verb10	5	chg	șt	sca	5
+verb10	5	chg	t	ca	7
+verb10	5	chg	eț	ăța	2
+verb10	5	chg	en	ăna	2
+verb10	5	chg	ac	ca	3
+verb10	5	chg	ag	ga	1
+verb10	5	chg	apet	ăpăta	1
+verb10	5	chg	int	enta	1
+verb10	5	chg	oag	uga	1
+verb10	5	chg	ansloc	ransloca	1
+verb10	5	chg	ers	ărsa	1
+verb10	5	chg	oar	ura	2
+verb21	1	add	e	52
+verb21	2	add	ce	24
+verb21	2	add	ge	26
+verb21	2	add	ne	2
+verb24	1	chg	esc	i	1863
+verb24	1	add	i	16
+verb24	1	chg	aog	ăogi	1
+verb24	1	chg	t	ți	4
+verb24	1	chg	d	zi	3
+verb24	1	chg	ezmeticesc	azmetici	1
+verb24	1	chg	art	ărți	4
+verb24	1	chg	ahănesc	uhăni	1
+verb24	1	del	esc	1
+verb24	1	chg	ar	ări	1
+verb24	2	chg	eșt	i	1868
+verb24	2	add	i	17
+verb24	2	chg	aog	ăogi	1
+verb24	2	chg	ș	si	2
+verb24	2	chg	ezmeticeșt	azmetici	1
+verb24	2	chg	arț	ărți	3
+verb24	2	del	eșt	1
+verb24	2	chg	ar	ări	1
+verb24	2	chg	ț	ti	1
+verb24	3	chg	eșt	i	1865
+verb24	3	chg	arb	rbi	4
+verb24	3	chg	arm	rmi	3
+verb24	3	chg	aog	ăogi	1
+verb24	3	chg	as	si	2
+verb24	3	chg	t	ți	4
+verb24	3	chg	d	zi	2
+verb24	3	chg	ezmeticeșt	azmetici	1
+verb24	3	add	i	7
+verb24	3	chg	art	ărți	4
+verb24	3	chg	ad	zi	1
+verb24	3	chg	ar	ări	1
+verb24	4	add	i	1895
+verb24	5	chg	easc	i	1864
+verb24	5	chg	arb	rbi	4
+verb24	5	chg	arm	rmi	3
+verb24	5	chg	aog	ăogi	1
+verb24	5	chg	as	si	2
+verb24	5	add	i	8
+verb24	5	chg	t	ți	3
+verb24	5	chg	d	zi	1
+verb24	5	chg	ezmeticeasc	azmetici	1
+verb24	5	chg	art	ărți	4
+verb24	5	chg	asc	i	1
+verb24	5	chg	ad	zi	2
+verb24	5	chg	ar	ări	1
+verb8	1	add	a	254
+verb27	1	add	i	21
+verb27	2	add	i	15
+verb27	2	chg	ăr	eri	5
+verb27	2	chg	u	i	1
+verb32	1	add	i	693
+verb31	1	add	i	337
+verb18	1	add	e	125
+verb18	2	chg	ț	te	13
+verb18	2	add	e	51
+verb18	2	add	ne	27
+verb18	2	chg	z	de	34
+verb18	3	add	e	125
+verb18	4	add	e	124
+verb18	4	chg	ăg	age	1
+verb18	5	add	te	13
+verb18	5	add	ge	50
+verb18	5	add	ne	27
+verb18	5	add	de	34
+verb18	5	chg	ă	age	1
+verb18	6	add	e	108
+verb18	6	chg	ag	ge	8
+verb18	6	chg	arg	rge	6
+verb18	6	chg	ț	te	1
+verb18	6	chg	aț	te	1
+verb18	6	chg	and	nde	1
+verb18	7	add	te	13
+verb18	7	add	ge	50
+verb18	7	add	ne	27
+verb18	7	add	de	33
+verb18	7	chg	nepătrun	pătrunde	1
+verb18	7	chg	neun	unge	1
+verb18	8	add	te	12
+verb18	8	add	ge	41
+verb18	8	chg	a	ge	5
+verb18	8	add	ne	27
+verb18	8	add	de	33
+verb18	8	chg	ar	rge	4
+verb18	8	chg	nepătrun	pătrunde	1
+verb18	8	chg	a	te	1
+verb18	8	chg	neun	unge	1
+verb18	9	chg	ț	te	10
+verb18	9	add	e	51
+verb18	9	chg	z	de	21
+verb18	9	add	de	5
+verb18	9	add	ge	3
+verb18	9	chg	ăg	age	1
+verb18	9	chg	nemaiomiț	omite	1
+verb18	9	chg	nemaiopun	opune	1
+verb18	9	chg	nemaiparcurg	parcurge	1
+verb18	9	chg	nemaiplâng	plânge	1
+verb18	9	chg	nemaipredispun	predispune	1
+verb18	9	chg	nemaipreling	prelinge	1
+verb18	9	chg	nemaipremerg	premerge	1
+verb18	9	chg	nemaipresupun	presupune	1
+verb18	9	chg	nemaiprinz	prinde	1
+verb18	9	chg	nemaipromiț	promite	1
+verb18	9	chg	nemaipropun	propune	1
+verb18	9	chg	nemaipătrunz	pătrunde	1
+verb18	9	chg	nemairealeg	realege	1
+verb18	9	chg	nemaireculeg	reculege	1
+verb18	9	chg	nemairecurg	recurge	1
+verb18	9	chg	nemairedeschiz	redeschide	1
+verb18	9	chg	nemairemiț	remite	1
+verb18	9	chg	nemairesping	respinge	1
+verb18	9	chg	nemairestrâng	restrânge	1
+verb18	9	chg	nemairăpun	răpune	1
+verb18	9	chg	nemairăspunz	răspunde	1
+verb18	9	chg	nemaiscurg	scurge	1
+verb18	9	chg	nemaismulg	smulge	1
+verb18	9	chg	nemaisting	stinge	1
+verb18	9	chg	nemaistrâng	strânge	1
+verb18	9	chg	nemaistrăpung	străpunge	1
+verb18	9	chg	nemaisubînțeleg	subînțelege	1
+verb18	9	chg	nemaisuprapun	suprapune	1
+verb18	9	chg	nemaisupun	supune	1
+verb18	9	chg	nemaisurprinz	surprinde	1
+verb18	9	chg	nemaitinz	tinde	1
+verb18	9	chg	nemaitranspun	transpune	1
+verb18	9	chg	nemaiucig	ucide	1
+verb18	9	chg	nemaiung	unge	1
+verb19	1	add	e	105
+verb19	2	chg	ț	te	12
+verb19	2	add	e	29
+verb19	2	add	ne	29
+verb19	2	chg	z	de	35
+verb19	3	add	e	105
+verb19	4	add	e	104
+verb19	4	chg	ăg	age	1
+verb19	5	add	te	12
+verb19	5	add	ge	28
+verb19	5	add	ne	29
+verb19	5	add	de	35
+verb19	5	chg	ă	age	1
+verb19	6	add	e	100
+verb19	6	chg	ag	ge	3
+verb19	6	chg	ț	te	1
+verb19	6	chg	and	nde	1
+verb19	7	add	te	12
+verb19	7	add	ge	28
+verb19	7	add	ne	28
+verb19	7	add	de	34
+verb19	7	chg	nepătrun	pătrunde	1
+verb19	7	chg	nespu	spune	1
+verb19	7	chg	neun	unge	1
+verb19	8	add	te	12
+verb19	8	add	ge	28
+verb19	8	add	ne	28
+verb19	8	add	de	34
+verb19	8	chg	nepătrun	pătrunde	1
+verb19	8	chg	nespu	spune	1
+verb19	8	chg	neun	unge	1
+verb19	9	chg	ț	te	9
+verb19	9	add	e	37
+verb19	9	chg	z	de	21
+verb19	9	add	de	5
+verb19	9	chg	ăg	age	1
+verb19	9	chg	nemaiomiț	omite	1
+verb19	9	chg	nemaiopun	opune	1
+verb19	9	chg	nemaipredispun	predispune	1
+verb19	9	chg	nemaipresupun	presupune	1
+verb19	9	chg	nemaiprinz	prinde	1
+verb19	9	chg	nemaipromiț	promite	1
+verb19	9	chg	nemaipropun	propune	1
+verb19	9	chg	nemaipun	pune	1
+verb19	9	chg	nemaipătrunz	pătrunde	1
+verb19	9	chg	nemairealeg	realege	1
+verb19	9	chg	nemaireculeg	reculege	1
+verb19	9	chg	nemairedeschiz	redeschide	1
+verb19	9	chg	nemairemiț	remite	1
+verb19	9	chg	nemairesping	respinge	1
+verb19	9	chg	nemairestrâng	restrânge	1
+verb19	9	chg	nemairâz	râde	1
+verb19	9	chg	nemairăpun	răpune	1
+verb19	9	chg	nemairăspunz	răspunde	1
+verb19	9	chg	nemaismulg	smulge	1
+verb19	9	chg	nemaispun	spune	1
+verb19	9	chg	nemaisting	stinge	1
+verb19	9	chg	nemaistrâng	strânge	1
+verb19	9	chg	nemaistrăpung	străpunge	1
+verb19	9	chg	nemaisuprapun	suprapune	1
+verb19	9	chg	nemaisupun	supune	1
+verb19	9	chg	nemaisurprinz	surprinde	1
+verb19	9	chg	nemaitinz	tinde	1
+verb19	9	chg	nemaitranspun	transpune	1
+verb19	9	chg	nemaiucig	ucide	1
+verb19	9	chg	nemaiung	unge	1
+verb19	9	add	ge	2
+verb23	1	add	i	6
+verb23	1	chg	esc	i	7
+verb23	1	chg	d	zi	1
+verb23	1	chg	in	eni	1
+verb23	1	chg	or	uri	1
+verb23	1	chg	t	ți	1
+verb23	1	chg	ar	ări	2
+verb23	2	add	i	7
+verb23	2	chg	eșt	i	7
+verb23	2	chg	i	eni	1
+verb23	2	chg	ș	si	1
+verb23	2	chg	or	uri	1
+verb23	2	chg	ar	ări	2
+verb23	3	chg	arm	rmi	3
+verb23	3	chg	eșt	i	7
+verb23	3	chg	d	zi	1
+verb23	3	chg	in	eni	1
+verb23	3	add	i	2
+verb23	3	chg	as	si	1
+verb23	3	chg	oar	uri	1
+verb23	3	chg	t	ți	1
+verb23	3	chg	ar	ări	2
+verb23	4	add	i	19
+verb23	5	chg	arm	rmi	3
+verb23	5	chg	easc	i	7
+verb23	5	chg	d	zi	1
+verb23	5	chg	in	eni	1
+verb23	5	add	i	2
+verb23	5	chg	as	si	1
+verb23	5	chg	oar	uri	1
+verb23	5	chg	t	ți	1
+verb23	5	chg	ar	ări	2
+verb44	1	add	i	14
+verb14	1	chg	ar	ărea	7
+verb14	1	chg	ac	ăcea	5
+verb14	1	chg	ad	ădea	4
+verb14	1	chg	ăd	edea	6
+verb14	1	chg	ot	utea	1
+verb14	1	chg	ap	ăpea	1
+verb14	1	add	ea	1
+verb14	2	chg	ar	ărea	7
+verb14	2	chg	ac	ăcea	5
+verb14	2	chg	az	ădea	4
+verb14	2	chg	z	dea	7
+verb14	2	chg	oț	utea	1
+verb14	2	chg	ap	ăpea	1
+verb14	3	chg	ar	ărea	7
+verb14	3	chg	ac	ăcea	5
+verb14	3	chg	ad	ădea	4
+verb14	3	add	ea	6
+verb14	3	chg	oat	utea	1
+verb14	3	chg	ap	ăpea	1
+verb14	3	chg	ad	edea	1
+verb14	4	add	ea	25
+verb14	5	add	ea	14
+verb14	5	chg	z	dea	5
+verb14	5	chg	ăz	edea	6
+verb14	6	chg	ar	ărea	7
+verb14	6	chg	ac	ăcea	5
+verb14	6	chg	ad	ădea	4
+verb14	6	chg	ad	edea	7
+verb14	6	chg	oat	utea	1
+verb14	6	chg	ap	ăpea	1
+verb26	1	add	i	233
+verb26	1	chg	o	ui	1
+verb26	2	add	i	231
+verb26	2	chg	a	i	2
+verb26	2	chg	oa	ui	1
+verb26	3	add	i	234
+verb25	1	chg	d	zi	1
+verb25	1	chg	in	eni	11
+verb25	1	add	i	3
+verb25	1	chg	t	ți	1
+verb25	2	add	i	5
+verb25	2	chg	i	eni	11
+verb25	3	chg	d	zi	1
+verb25	3	chg	in	eni	11
+verb25	3	add	i	2
+verb25	3	chg	t	ți	2
+verb25	4	add	i	16
+verb13	1	add	vea	1
+verb13	3	add	ea	1
+verb13	4	chg	u	ea	1
+verb13	5	chg	ib	vea	1
+verb2	1	add	a	5
+verb3	1	add	a	7
+verb9	1	add	a	6
+verb35	1	add	a	4
+verb37	1	add	a	4
+verb40	1	add	a	3
+verb11	1	add	a	1
+verb11	2	add	ea	1
+verb11	3	chg	ă	ea	1
+verb42	1	add	i	9
+verb45	1	add	i	7
+verb22	1	add	e	13
+verb20	1	chg	c	ace	1
+verb20	1	add	e	15
+verb20	2	chg	c	ace	1
+verb20	2	add	e	14
+verb20	2	add	ne	1
+verb20	3	add	e	16
+verb20	4	chg	c	ace	1
+verb20	4	add	e	15
+verb20	5	chg	p	ace	1
+verb20	5	add	e	6
+verb20	5	chg	p	ge	3
+verb20	5	add	ge	3
+verb20	5	add	ne	1
+verb20	5	add	be	2
+verb20	6	add	e	14
+verb20	6	chg	arb	erbe	2
+verb20	7	chg	p	ace	1
+verb20	7	add	e	6
+verb20	7	chg	p	ge	3
+verb20	7	add	ge	3
+verb20	7	chg	u	e	1
+verb20	7	add	be	2
+verb20	8	chg	p	ce	1
+verb20	8	add	e	6
+verb20	8	chg	p	ge	3
+verb20	8	add	ge	3
+verb20	8	chg	u	e	1
+verb20	8	add	be	2
+verb28	1	add	î	7
+verb28	2	chg	ar	rî	6
+verb28	2	add	î	1
+verb36	1	add	a	3
+verb36	2	chg	ăt	a	1
+verb36	2	chg	ăd	a	2
+verb17	1	add	e	6
+verb17	2	chg	ăc	ace	6
+verb17	3	chg	ă	ace	6
+verb6	1	chg	i	lua	3
+verb6	2	add	a	3
+verb29	1	add	i	3
+verb29	2	nop	3
+verb38	1	add	ea	1
