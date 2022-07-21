@@ -1,6 +1,7 @@
 import os
 import re
 import sys
+from math import log10
 from random import shuffle, seed
 from tqdm import tqdm
 import xml.etree.ElementTree as ET
@@ -1107,7 +1108,7 @@ class RoLemmatizer(object):
 
         if msd.startswith('Ncm') and msd.endswith('yy') and word.endswith('u'):
             # e.g. 'curentu', 'băiatu', etc.
-            word = word[0:-1]
+            word += 'l'
             msd = msd[0:-1]
             print(f'Correct word [{word}] and MSD [{msd}]', file=sys.stderr, flush=True)
             return (word, msd)
@@ -1142,7 +1143,7 @@ class RoLemmatizer(object):
 
         # Include the empty ending in the search
         if empty_ending in self._terms_to_paradigms:
-            paradigm_candidates_term = []
+            paradigm_candidates_empty = []
 
             for pname in self._terms_to_paradigms[empty_ending]:
                 msd2 = self._find_paradigm_msd(msd, pname)
@@ -1151,15 +1152,15 @@ class RoLemmatizer(object):
                     for pterm, alt in self._paradigms[pname][msd2]:
                         if word.endswith(pterm):
                             # Found a possible paradigm for the word
-                            paradigm_candidates_term.append(
+                            paradigm_candidates_empty.append(
                                 (pname, pterm, alt))
                         # end if
                     # end for
                 # end if MSD is in paradigm
             # end all paradigms for term
 
-            if paradigm_candidates_term:
-                paradigm_candidates = paradigm_candidates_term
+            if paradigm_candidates_empty:
+                paradigm_candidates.extend(paradigm_candidates_empty)
             # end if
         # end if term is in paradigms index
 
@@ -1184,8 +1185,7 @@ class RoLemmatizer(object):
                 # end all paradigms for term
 
                 if paradigm_candidates_term:
-                    paradigm_candidates = paradigm_candidates_term
-                    #paradigm_candidates.extend(paradigm_candidates_term)
+                    paradigm_candidates.extend(paradigm_candidates_term)
                 # end if
             # end if term is in paradigms index
         # end all terminations
@@ -1275,48 +1275,37 @@ class RoLemmatizer(object):
             # end if
         # end for
 
+        possible_lemma_msds = {}
         lemma_scores2 = []
-        lemma_scores3 = []
 
         for lemma, msd in lemma_scores:
             nn = lemma_scores[(lemma, msd)]['SCORE']
-            fq = lemma_scores[(lemma, msd)]['FREQ']
-            lemma_scores2.append((lemma, nn))
-            lemma_scores3.append((lemma, fq))
+            fq = \
+                lemma_scores[(lemma, msd)]['FREQ'] / \
+                len(lemma_scores[(l, m)]['PARADIGMS'])
+            sc = (nn * nn) * log10(fq)
+            lemma_scores2.append((lemma, sc, msd))
+
+            if msd not in possible_lemma_msds:
+                possible_lemma_msds[msd] = nn
+            else:
+                possible_lemma_msds[msd] += nn
+            # end if
         # end for
 
-        lemma_scores2 = sorted(lemma_scores2, key=lambda x: x[1], reverse=True)
-        lemma_scores3 = sorted(lemma_scores3, key=lambda x: x[1], reverse=True)
-        final_lemmas = []
+        lemma_scores3 = []
 
-        for i in range(len(lemma_scores2)):
-            li = lemma_scores2[i][0]
-            ri = i + 1
-            sci = lemma_scores2[i][1]
-
-            for j in range(len(lemma_scores3)):
-                lj = lemma_scores3[j][0]
-                scj = lemma_scores3[j][1]
-                rj = j + 1
-                d = abs(ri - rj)
-                
-                if d == 0:
-                    d = 1
-                # end if
-
-                d *= max(ri, rj)
-
-                if li == lj:
-                    final_lemmas.append((li, sci, scj, d))
-                # end if
-            # end for
+        for l, s, m in lemma_scores2:
+            lemma_scores3.append((l, s * possible_lemma_msds[m], m))
         # end for
+
+        final_lemmas = sorted(lemma_scores3, key=lambda x: x[1], reverse=True)
 
         if not final_lemmas:
             print(f'\nEmpty response from lemmatizer for {word}/{msd}', file=sys.stderr, flush=True)
         # end if
 
-        return sorted(final_lemmas, key=lambda x: x[3])
+        return final_lemmas
 
     def test(self, sample_size: int = 1000):
         """Executes a test test with wordforms from the lexicon,
