@@ -46,7 +46,7 @@ class RoTokenizer(object):
         "XVI", "XVII", "XVIII", "XIX", "XX",
         "XXI", "XXII", "XXIII", "XXIV", "XXV",
         "XXVI", "XXVII", "XXVIII", "XXIX", "XXX"])
-    _number_pattern = re.compile("^[0-9]+$")
+    _number_pattern = re.compile("^\\d+$")
     _newline_pattern = re.compile("\\s+$")
     _tab_pattern = re.compile("\\t+")
     _special_pattern = re.compile("^[_-]+$")

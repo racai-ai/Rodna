@@ -24,6 +24,7 @@ class MSD(object):
         "...": "Zh",
         "…": "Zh",
         "/": "Zo",
+        "_": "Zu",
         # Pair tags
         # Z1 = open punctuation
         # Z2 = close punctuation
@@ -58,8 +59,9 @@ class MSD(object):
         ("NumType", ("c", "o", "f", "m", "l")),
         ("PartType", ("z", "n", "s", "a", "f")),
         ("AbbrevType", ("n", "v", "a", "r", "p")),
-        ("PuncType", ("c", "p", "l", "s", "d", "q", "x", "h", "o", "1", "2")),
+        ("PuncType", ("c", "p", "l", "s", "d", "q", "x", "h", "o", "u", "1", "2")),
         ("PuncPairType", ("p", "q")),
+        ("EndType", ("b", "e")),
         # General attributes, applicable to all POSes
         ("Gender", ("m", "f", "n")),
         ("Number", ("s", "p")),
@@ -92,7 +94,9 @@ class MSD(object):
         "Q": ("PartType", "-", "Clitic"),
         "Y": ("AbbrevType", "Gender", "Number", "Case", "Definiteness"),
         "X": (),
-        "Z": ("PuncType", "PuncPairType")
+        "Z": ("PuncType", "PuncPairType"),
+        # These are the sentence START/END MSDs.
+        "L": ("EndType")
     }
 
     def __init__(self):
@@ -132,6 +136,31 @@ class MSD(object):
             return '?'
         # end if
 
+    @staticmethod
+    def get_start_end_tags(limit: str, ctag: bool = True) -> str:
+        """If `ctag` is `False`, get the MSD start/end tags."""
+
+        if limit.lower() == 'start' or \
+                limit.lower() == 'begin' or \
+                limit.lower() == 'beginning':
+            if ctag:
+                return 'SBEG'
+            else:
+                return 'Lb'
+            # end if
+        elif limit.lower() == 'end':
+            if ctag:
+                return 'SEND'
+            else:
+                return 'Le'
+            # end if
+        # end if
+
+        return ''
+
+    def get_ctag_inventory(self) -> dict:
+        return self._ctaginventory
+
     def get_input_vector_size(self):
         return self._msdinputsize
 
@@ -166,6 +195,9 @@ class MSD(object):
         else:
             return self._xindex
         # end if
+
+    def get_x_idx(self) -> int:
+        return self._xindex
 
     def ctag_to_idx(self, ctag: str) -> int:
         if ctag in self._ctaginventory:

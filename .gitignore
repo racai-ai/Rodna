@@ -2,7 +2,6 @@ epoch-20-debug.txt
 __pycache__
 .vscode/launch.json
 data/resources/cc.ro.300.vec.gz
-data/resources/morphalt.xml
 papers/
 debug.py
 data/resources/corola.200.5.vec.gz
@@ -13,3 +12,5 @@ debug.txt
 epoch-5-debug2.txt
 epoch-10-debug2.txt
 errors.txt
+tagger-debug.txt
+tagger-errors.txt
