@@ -379,7 +379,7 @@ class RoInflect(object):
 
         return y_pred[0, msd_idx]
 
-    def ambiguity_class(self, word: str, min_msds: int = 3) -> list:
+    def ambiguity_class(self, word: str, min_msds: int = 5) -> list:
         """Returns a list of possible MSDs for the given word.
         The list was learned from the training corpus and the lexicon.
         If no MSD is found at `prob_thr`, this is automatically decreased by 1%

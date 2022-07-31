@@ -1,0 +1,5 @@
+{
+    "lex_input_vector_size": 227,
+    "ctx_input_vector_size": 7,
+    "drop_prob": 0.25
+}
