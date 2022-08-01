@@ -117,7 +117,7 @@ class RoPOSTagger(object):
     _conf_test_percent = 0.0
     _conf_epochs_cls = 10
     _conf_epochs_crf = 5
-    _conf_with_tiered_tagging = True
+    _conf_with_tiered_tagging = False
     # Can be one of the following (see RoPOSTagger._run_sentence()):
     # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
     # - 'max': only keep the MSD with the highest probability at position i, from each rolling window
@@ -1624,6 +1624,33 @@ class RoPOSTagger(object):
 
         return tagged_sentence2
 
+    def test_on_sentence_set(self, sentences):
+        all_count = 0
+        correct_count = 0
+
+        with open('tagger-debug.txt', mode='w', encoding='utf-8') as f:
+            for sentence in tqdm(sentences, desc=f'Eval'):
+                tagged_sentence = tag._eval_sentence(
+                    sentence,
+                    tiered_tagging=RoPOSTagger._conf_with_tiered_tagging,
+                    strategy=RoPOSTagger._conf_run_strategy,
+                    debug_fh=f)
+        
+                for i in range(len(sentence)):
+                    if tagged_sentence[i][1] == sentence[i][1]:
+                        correct_count += 1
+                    # end if
+                # end for
+
+                all_count += len(sentence)
+            # end all sentences
+        # end with
+
+        acc = correct_count / all_count
+        print(f'Acc = {acc:.5f}')
+        self._romorphology.save_cache()
+
+
 if __name__ == '__main__':
     # Use this module to train the sentence splitter.
     lex = Lex()
@@ -1670,29 +1697,6 @@ if __name__ == '__main__':
     #tag.train(train_sentences=training,
     #        dev_sentences=development, test_sentences=testing)
 
+    # Testing section
     tag.load()
-
-    all_count = 0
-    correct_count = 0
-
-    with open('tagger-debug.txt', mode='w', encoding='utf-8') as f:
-        for sentence in tqdm(development, desc=f'Eval'):
-            tagged_sentence = tag._eval_sentence(
-                sentence,
-                tiered_tagging=False,
-                strategy=RoPOSTagger._conf_run_strategy,
-                debug_fh=f)
-    
-            for i in range(len(sentence)):
-                if tagged_sentence[i][1] == sentence[i][1]:
-                    correct_count += 1
-                # end if
-            # end for
-
-            all_count += len(sentence)
-        # end all sentences
-    # end with
-
-    acc = correct_count / all_count
-    print(f'Acc = {acc:.5f}')
-    mor.save_cache()
+    tag.test_on_sentence_set(sentences=development)

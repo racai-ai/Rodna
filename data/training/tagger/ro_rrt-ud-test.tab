@@ -671,7 +671,7 @@ care	care	Pw3--r
 se	sine	Px3--a--------w
 putea	putea	Vmii3s
 uneori	uneori	Rgp
-pierde	pierde	Vmip3s
+pierde	pierde	Vmnp
 și	și	Crssp
 câte	câte	Rgp
 zece	zece	Mc-p-l
@@ -1706,7 +1706,7 @@ să	să	Qs
 închiriez	închiria	Vmip1s
 apartament	apartament	Ncms-n
 (	(	Z1p
-ne	eu	Pp1-pa--------w
+ne	ne	Rp
 )	)	Z2p
 mobilat	mobilat	Afpms-n
 ,	,	Zc
@@ -4801,7 +4801,7 @@ anexă	anexă	Ncfsrn
 
 Notificarea	notificare	Ncfsry
 respectă	respecta	Vmip3
-cerințelor	cerință	Ncfpoy
+cerințele	cerință	Ncfpry
 specificate	specifica	Vmp--pf
 în	în	Spsa
 anexa	anexă	Ncfsry
@@ -6868,7 +6868,7 @@ condiționat	condiționat	Afpms-n
 Aș	avea	Va--1s
 vrea	vrea	Vmnp
 să	să	Qs
-transcriu	transcrie	Vmip3p
+transcriu	transcrie	Vmip1s
 o	un	Tifsr
 pagină	pagină	Ncfsrn
 de	de	Spsa
@@ -13538,7 +13538,7 @@ ferată	ferată	Afpfsrn
 
 poruncește	porunci	Vmip3s
 să	să	Qs
-zdrobesc	zdrobi	Vmip3p
+zdrobesc	zdrobi	Vmip1s
 ,	,	Zc
 în	în	Spsa
 tocul	toc	Ncmsry
@@ -14595,7 +14595,7 @@ retrospectiv	retrospectiv	Rgp
 ,	,	Zc
 Ion	Ion	Np
 Barbu	Barbu	Np
-are	avea	Vmip3s
+are	avea	Vaip3s
 să	să	Qs
 se	sine	Px3--a--------w
 judece	judeca	Vmsp3
@@ -14761,7 +14761,7 @@ m-	eu	Pp1-sa--y-----w
 ai	avea	Va--2s
 învățat	învăța	Vmp--sm
 să	să	Qs
-prețuiesc	prețui	Vmip3p
+prețuiesc	prețui	Vmip1s
 poezia	poezie	Ncfsry
 domnului	domn	Ncmsoy
 Bucuța	Bucuța	Np
@@ -14892,7 +14892,7 @@ visului	vis	Ncmsoy
 .	.	Zp
 
 Dacă	dacă	Csssp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 însușim	însuși	Vmip1p
 definiția	definiție	Ncfsry
 platoniciană	platonician	Afpfsrn
@@ -15560,7 +15560,7 @@ tratament	tratament	Ncms-n
 la	la	Spsa
 care	care	Pw3--r
 adăugăm	adăuga	Vmip1p
-anestezia	anestezia	Vmnp
+anestezia	anestezie	Ncfsry
 peridurală	peridural	Afpfsrn
 ,	,	Zc
 tentativa	tentativă	Ncfsry

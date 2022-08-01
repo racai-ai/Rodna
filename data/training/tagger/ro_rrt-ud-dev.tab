@@ -473,7 +473,7 @@ la	la	Spsa
 urmă	urmă	Ncfsrn
 și	și	Crssp
 punctuația	punctuație	Ncfsry
-:	:	Zl
+.	.	Zp
 
 4	4	Mc-s-d
 aprilie	aprilie	Ncm--n
@@ -1263,10 +1263,10 @@ erau	fi	Vaii3p
 
 Când	când	Rw
 o	un	Tifsr
-urmă	urmă	Ncfsrn
+urmă	urma	Vmis3s
 ,	,	Zc
 Winston	Winston	Np
-descoperi	descoperi	Vmnp
+descoperi	descoperi	Vmis3s
 că	că	Csssp
 se	sine	Px3--a--------w
 găseau	găsi	Vmii3p
@@ -1729,7 +1729,7 @@ să	să	Qs
 înceteze	înceta	Vmsp3
 disputele	dispută	Ncfpry
 asupra	asupra	Spsg
-Kashmirului	Kashmirului	Np
+Kashmirului	Kashmir	Npmsoy
 ,	,	Zc
 după	după	Spsa
 decenii	deceniu	Ncfp-n
@@ -1792,7 +1792,7 @@ Ecumenic	ecumenic	Afpms-n
 Bartolomeu	Bartolomeu	Np
 I	unu	Mo-s-r
 al	al	Tsms
-Constantinopolului	Constantinopolului	Np
+Constantinopolului	Constantinopol	Npmsoy
 .	.	Zp
 
 Din	din	Spsa
@@ -1926,8 +1926,8 @@ cere	cere	Vmip3s
 explicații	explicație	Ncfp-n
 SUA	Statele_Unite_ale_Americii	Yn
 și	și	Crssp
-Marii	mare	Afpmpry
-Britanii	britani	Ncmpry
+Marii	mare	Afpfsoy
+Britanii	Britania	Npfson
 în	în	Spsa
 legătură	legătură	Ncfsrn
 cu	cu	Spsa
@@ -2038,7 +2038,7 @@ indienilor	indian	Ncmpoy
 anul	an	Ncmsry
 1610	1610	Mc-s-d
 ,	,	Zc
-porumbul-boabe	porumb-boabe	Ncms-n
+porumbul-boabe	porumb-boabe	Ncmsry
 se	sine	Px3--a--------w
 vindea	vinde	Vmii3s
 intens	intens	Rgp
@@ -2194,7 +2194,7 @@ privește	privi	Vmip3s
 capacitatea	capacitate	Ncfsry
 de	de	Spsa
 a	a	Qn
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 onora	onora	Vmnp
 cota	cotă	Ncfsry
 alocată	alocat	Afpfsrn
@@ -2275,7 +2275,7 @@ bombei	bombă	Ncfsoy
 atomice	atomic	Afpfson
 aruncate	arunca	Vmp--pf
 asupra	asupra	Spsg
-Hiroshimei	Hiroshimei	Np
+Hiroshimei	Hiroshima	Npfsoy
 .	.	Zp
 
 minorii	minor	Ncmpry
@@ -2807,7 +2807,7 @@ zdrobi	zdrobi	Vmnp
 orice	orice	Di3--r---e
 încercare	încercare	Ncfsrn
 a	al	Tsfs
-Taiwanului	Taiwanului	Np
+Taiwanului	Taiwan	Npmsoy
 de	de	Spsa
 a	a	Qn
 -și	sine	Px3--d--y-----w
@@ -2926,7 +2926,7 @@ față	față	Ncfsrn
 de	de	Spsa
 cel	acela	Pd3msr
 al	al	Tsms
-SPD	Social_Democratic_Party_of_Germany	Np
+SPD	Social_Democratic_Party_of_Germany	Yn
 .	.	Zp
 
 Autoritățile	autoritate	Ncfpry
@@ -3206,7 +3206,7 @@ efectuat	efectua	Vmp--sm
 cercetări	cercetare	Ncfp-n
 ,	,	Zc
 comunicându	comunica	Vmg-------y
--ne	eu	Pp1-pa--y-----w
+-ne	eu	Pp1-pd--y-----w
 că	că	Csssp
 Mădălina	Mădălina	Np
 Constanța	Constanța	Np
@@ -6944,8 +6944,8 @@ trecuse	trece	Vmil3s
 Nicăieri	nicăieri	Rz
 poate	poate	Rgp
 nu	nu	Qz
-l	el	Pp3msa--y-----w
--ar	avea	Va--3-----y
+l-	el	Pp3msa--y-----w
+ar	avea	Va--3
 fi	fi	Vanp
 copleșit	copleși	Vmp--sm
 atâta	atât	Di3-sr
@@ -7433,7 +7433,7 @@ nemulțumire	nemulțumire	Ncfsrn
 
 Intră	intra	Vmis3s
 pe	pe	Spsa
-dindos	dindos	Ncmsrn
+dindos	dindos	Ncms-n
 în	în	Spsa
 sufragerie	sufragerie	Ncfsrn
 ,	,	Zc
@@ -8028,7 +8028,7 @@ cale	cale	Ncfsrn
 secundară	secundar	Afpfsrn
 .	.	Zp
 
-Glimepirida	Glimepirida	Ncfsry
+Glimepirida	glimepiridă	Ncfsry
 este	fi	Vaip3s
 metabolizată	metaboliza	Vmp--sf
 prin	prin	Spsa
@@ -8095,7 +8095,7 @@ Simptomele	simptom	Ncfpry
 pot	putea	Vmip3p
 întârzia	întârzia	Vmnp
 să	să	Qs
-apără	apăra	Vmip3
+apară	apărea	Vmsp3
 până	până	Spsa
 la	la	Spsa
 24	24	Mc-s-d
@@ -8123,8 +8123,8 @@ cu	cu	Spsa
 obezitate	obezitate	Ncfsrn
 .	.	Zp
 
-Glimepiridă	Glimepiridă	Np
-Glimepirida	Glimepirida	Np
+Glimepiridă	glimepiridă	Ncfsrn
+Glimepirida	glimepiridă	Ncfsry
 este	fi	Vaip3s
 o	un	Tifsr
 subtanță	subtanță	Ncfsrn
@@ -8410,7 +8410,7 @@ membrana	membrană	Ncfsry
 celulelor	celulă	Ncfpoy
 .	.	Zp
 
-Glimepirida	Glimepirida	Np
+Glimepirida	glimepiridă	Ncfsry
 crește	crește	Vmip3s
 activitatea	activitate	Ncfsry
 fosfolipazei	fosfolipază	Ncfsoy
@@ -9740,7 +9740,7 @@ pe	pe	Spsa
 Györfi-Deák	Györfi-Deák	Np
 György	György	Np
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 descrie	descrie	Vmsp3
 această	acest	Dd3fsr---e
 operațiune	operațiune	Ncfsrn
@@ -11081,7 +11081,7 @@ un	un	Timsr
 lac	lac	Ncms-n
 .	.	Zp
 
-Patologistul	Patologistul	Np
+Patologistul	patologist	Ncmsry
 dr.	doctor	Yn
 John	John	Np
 McCarthy	McCarthy	Np
@@ -11935,8 +11935,8 @@ a	al	Tsfs
 guvernului	guvern	Ncmsoy
 condus	conduce	Vmp--sm
 de	de	Spsa
-Hun	hun	Ncms-n
-Sen	sen	Ncms-n
+Hun	Hun	Np
+Sen	Sen	Np
 ,	,	Zc
 nu	nu	Qz
 s-	sine	Px3--a--y-----w
@@ -11958,8 +11958,8 @@ nu	nu	Qz
 a	avea	Va--3s
 tratat	trata	Vmp--sm
 cu	cu	Spsa
-Hun	hun	Ncms-n
-Sen	sen	Ncms-n
+Hun	Hun	Np
+Sen	Sen	Np
 eliminarea	eliminare	Ncfsry
 kmerilor	kmer	Ncmpoy
 roșii	roșu	Afp-p-n
@@ -12178,7 +12178,7 @@ am	avea	Va--1
 primit	primi	Vmp--sm
 instrucțiuni	instrucțiune	Ncfp-n
 să	să	Qs
-întrerup	întrerupe	Vmip3p
+întrerup	întrerupe	Vmip1s
 acțiunea	acțiune	Ncfsry
 pe	pe	Spsa
 baza	bază	Ncfsry
@@ -12791,7 +12791,7 @@ mail	mail	Ncms-n
 instalate	instalat	Afpfp-n
 suportă	suporta	Vmip3
 încriptarea	încriptare	Ncfsry
-SSL	SSL	Np
+SSL	Secure_Sockets_Layer	Yn
 pe	pe	Spsa
 128	128	Mc-s-d
 biți	bit	Ncmp-n
@@ -14216,7 +14216,7 @@ M-	eu	Pp1-sa--y-----w
 am	avea	Va--1
 străduit	strădui	Vmp--sm
 să	să	Qs
-fac	face	Vmip3p
+fac	face	Vmip1s
 să	să	Qs
 semene	semăna	Vmsp3
 semnătura	semnătură	Ncfsry
@@ -15030,7 +15030,7 @@ făcea	face	Vmii3s
 spital	spital	Ncms-n
 ,	,	Zc
 că	că	Csssp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 mor	muri	Vmip3p
 copiii	copil	Ncmpry
 de	de	Spsa
@@ -16203,7 +16203,7 @@ ureterului	ureter	Ncmsoy
 Clasificarea	clasificare	Ncfsry
 antalgicelor	antalgic	Ncfpoy
 ,	,	Zc
-obișnuită	obișnui	Vmp--sf
+obișnuită	obișnuit	Afpfsrn
 în	în	Spsa
 practica	practică	Ncfsry
 clinică	clinic	Afpfsrn
@@ -16390,7 +16390,7 @@ fi	fi	Vanp
 conținut	conține	Vmp--sm
 de	de	Spsa
 Cântecul	cântec	Ncmsry
-Nibelungilor	Nibelungilor	Np
+Nibelungilor	Nibelungi	Npmpoy
 :	:	Zl
 
 „	„	Z1q
@@ -16519,7 +16519,7 @@ romani	roman	Afpmp-n
 Mărturii	mărturie	Ncfp-n
 suplimentare	suplimentar	Afpfp-n
 despre	despre	Spsa
-endonimul	endonimul	Ncfpry
+endonimul	endonim	Ncmsry
 de	de	Spsa
 „	„	Z1q
 rumân	rumân	Ncms-n
@@ -16759,16 +16759,16 @@ Cantemir	Cantemir	Np
 Moldova	Moldova	Np
 ,	,	Zc
 Mircea	Mircea	Np
-cel	acela	Pd3msr
+cel	cel	Tdmsr
 Bătrân	bătrân	Afpms-n
 ,	,	Zc
 Vlad	Vlad	Np
-țepeș	țepeș	Np
+Țepeș	Țepeș	Np
 și	și	Crssp
 Constantin	Constantin	Np
 Brâncoveanu	Brâncoveanu	Np
 în	în	Spsa
-țara	țară	Ncfsry
+Țara	țară	Ncfsry
 Românească	românesc	Afpfsrn
 și	și	Crssp
 Ioan	Ioan	Np
@@ -17422,9 +17422,9 @@ iar	iar	Rc
 la	la	Spsa
 echilibru	echilibru	Ncms-n
 energiile	energie	Ncfpry
-emise	emite	Vmp--pf
+emise	emis	Afpfp-n
 și	și	Crssp
-absorbite	absorbi	Vmp--pf
+absorbite	absorbit	Afpfp-n
 sunt	fi	Vaip3p
 egale	egal	Afpfp-n
 .	.	Zp
