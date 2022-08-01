@@ -25,5 +25,5 @@ def test_lemmas():
     lem = lemmatizer.lemmatize('mersese', msd='Vmil3s', use_lex=False)
     assert lem[0][0] == 'merge'
 
-    lem = lemmatizer.lemmatize('petrecea', msd='Vmii3s', use_lex=False)
-    assert lem[0][0] == 'petrece'
+    lem = lemmatizer.lemmatize('fugea', msd='Vmii3s', use_lex=False)
+    assert lem[0][0] == 'fugi'
