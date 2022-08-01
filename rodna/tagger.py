@@ -5,7 +5,7 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, TensorDataset
-from torch.optim import Adam, SGD
+from torch.optim import Adam
 from inspect import stack
 from tqdm import tqdm
 import json
