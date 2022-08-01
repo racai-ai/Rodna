@@ -2557,10 +2557,10 @@ Deci	deci	Ccssp
 cum	cum	Rw
 zici	zice	Vmip2s
 să	să	Qs
-fac	face	Vmip3p
+fac	face	Vmip1s
 ,	,	Zc
 să	să	Qs
-trimit	trimite	Vmip3p
+trimit	trimite	Vmip1s
 pe	pe	Spsa
 cineva	cineva	Pi3-sr
 la	la	Spsa
@@ -4118,7 +4118,7 @@ fi	fi	Vanp
 putut	putea	Vmp--sm
 cu	cu	Spsa
 siguranță	siguranță	Ncfsrn
-trăda	trăda	Vmii3s
+trăda	trăda	Vmnp
 .	.	Zp
 
 Exact	exact	Rgp
@@ -10324,7 +10324,7 @@ capăt	capăt	Ncms-n
 lăsați	lăsa	Vmm-2p
 -mă	eu	Pp1-sa--y-----w
 să	să	Qs
-mor	muri	Vmip3p
+mor	muri	Vmip1s
 .	.	Zp
 
 Împușcați	împușca	Vmm-2p
@@ -11011,7 +11011,7 @@ ar	avea	Va--3
 fi	fi	Vanp
 putut	putea	Vmp--sm
 -o	el	Pp3fsa--y-----w
-dărâma	dărâma	Vmii3s
+dărâma	dărâma	Vmnp
 .	.	Zp
 
 Din	din	Spsa
@@ -11414,7 +11414,7 @@ de	de	Spsa
 cerneală	cerneală	Ncfsrn
 .	.	Zp
 
-Uite	uita	Vmm-2s
+Uite	uite	I
 ,	,	Zc
 ăsta	acesta	Pd3msr
 era	fi	Vaii3s
@@ -15464,7 +15464,7 @@ că	că	Csssp
 nu	nu	Qz
 era	fi	Vaii3s
 numai	numai	Rgp
-joacă	juca	Vmip3
+joacă	joacă	Ncfsrn
 .	.	Zp
 
 Ești	fi	Vaip2s
@@ -21914,7 +21914,7 @@ așa	așa	Rgp
 cum	cum	Rw
 de	de	Spsa
 altfel	altfel	Rgp
-avea	avea	Vmii3s
+avea	avea	Vaii3s
 să	să	Qs
 o	el	Pp3fsa--------w
 facă	face	Vmsp3
@@ -22667,7 +22667,7 @@ rezistenței	rezistență	Ncfsoy
 Conducătorii	conducător	Ncmpry
 răzvrătirii	răzvrătire	Ncfsoy
 ,	,	Zc
-luați	lua	Vmii2p
+luați	lua	Vmp--pm
 prizonieri	prizonier	Ncmp-n
 ,	,	Zc
 fură	fi	Vais3p
@@ -24530,7 +24530,7 @@ Anul	an	Ncmsry
 Nou	nou	Afpms-n
 așa	așa	Rgp
 cum	cum	Rw
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 dorim	dori	Vmip1p
 sau	sau	Ccssp
 cum	cum	Rw
@@ -24872,7 +24872,7 @@ arhitectul	arhitect	Ncmsry
 al	al	Tsms
 Timișoarei	Timișoara	Npfsoy
 ,	,	Zc
-ne-	eu	Pp1-pd--y-----w
+ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 informat	informa	Vmp--sm
 că	că	Csssp
@@ -27483,7 +27483,7 @@ bar	bar	Ncms-n
 de	de	Spsa
 noapte	noapte	Ncfsrn
 în	în	Spsa
-Las	lăsa	Vmip1s
+Las	Las	Np
 Vegas	Vegas	Np
 ,	,	Zc
 "	"	Z1q
@@ -28514,7 +28514,7 @@ sârbesc	sârbesc	Afpms-n
 Vojvodina	Vojvodina	Np
 .	.	Zp
 
-Ne	eu	Pp1-pa--------w
+Ne	eu	Pp1-pd--------w
 pare	părea	Vmip3s
 rău	rău	Rgp
 că	că	Csssp
@@ -28753,7 +28753,7 @@ vicepreședinte	vicepreședinte	Ncms-n
 al	al	Tsms
 C.J.T.	Consiliul_Județean_Timiș	Yn
 ,	,	Zc
-ne-	eu	Pp1-pa--y-----w
+ne-	eu	Pp1-pd--y-----w
 a	avea	Va--3s
 declarat	declara	Vmp--sm
 că	că	Csssp
@@ -29638,7 +29638,7 @@ str.	stradă	Yn
 Baba	babă	Ncfsry
 Dochia	Dochia	Np
 (	(	Z1p
-Fabric	fabrica	Vmip1s
+Fabric	Fabric	Np
 )	)	Z2p
 ,	,	Zc
 preț	preț	Ncms-n
@@ -30717,7 +30717,7 @@ vorbește	vorbi	Vmip3s
 despre	despre	Spsa
 Maramureș	Maramureș	Np
 ,	,	Zc
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 fuge	fugi	Vmip3s
 gândul	gând	Ncmsry
 la	la	Spsa
@@ -30806,7 +30806,7 @@ consilier	consilier	Ncms-n
 al	al	Tsms
 prefectului	prefect	Ncmsoy
 ,	,	Zc
-ne-	eu	Pp1-pa--y-----w
+ne-	eu	Pp1-pd--y-----w
 a	avea	Va--3s
 relatat	relata	Vmp--sm
 că	că	Csssp
@@ -49081,7 +49081,7 @@ sau	sau	Ccssp
 clauzele	clauză	Ncfpry
 care	care	Pw3--r
 pot	putea	Vmip3p
-figura	figură	Ncfsry
+figura	figura	Vmnp
 sau	sau	Ccssp
 nu	nu	Qz
 în	în	Spsa
@@ -50181,7 +50181,7 @@ clauze	clauză	Ncfson
 standard	standard	Afp
 care	care	Pw3--r
 să	să	Qs
-reflecte	reflect	Ncfp-n
+reflecte	reflecta	Vmsp3
 dispozițiile	dispoziție	Ncfpry
 legislative	legislativ	Afpfp-n
 în	în	Spsa
@@ -51502,7 +51502,7 @@ de	de	Spsa
 ani	an	Ncmp-n
 de	de	Spsa
 risc	risc	Ncms-n
-ales	ales	Rgp
+ales	alege	Vmp--sm
 ca	ca	Rc
 perioadă	perioadă	Ncfsrn
 de	de	Spsa
@@ -54275,7 +54275,7 @@ un	un	Timsr
 nivel	nivel	Ncms-n
 care	care	Pw3--r
 să	să	Qs
-reflecte	reflect	Ncfp-n
+reflecte	reflecta	Vmsp3
 proporția	proporție	Ncfsry
 de	de	Spsa
 transporturi	transport	Ncfp-n
@@ -56349,7 +56349,7 @@ Eclectismul	eclectism	Ncmsry
 cel	cel	Tdmsr
 mai	mai	Rp
 desăvârșit	desăvârșit	Afpms-n
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 servește	servi	Vmip3s
 ,	,	Zc
 alături	alături	Rgp
@@ -60448,8 +60448,8 @@ străbat	străbate	Vmip3p
 epoca	epocă	Ncfsry
 ,	,	Zc
 nu	nu	Qz
-și-	sine	Px3--d--y-----w
-l	el	Pp3msa--y-----w
+și	sine	Px3--d--------w
+-l	el	Pp3msa--y-----w
 poate	putea	Vmip3s
 cu	cu	Spsa
 totul	tot	Pi3msr
@@ -61977,7 +61977,7 @@ de	de	Spsa
 care	care	Pw3--r
 neputându	putea	Vmg-------y
 -se	sine	Px3--a--y-----w
-desprinde	desprinde	Vmip3s
+desprinde	desprinde	Vmnp
 ,	,	Zc
 vădește	vădi	Vmip3s
 o	un	Tifsr
@@ -63050,7 +63050,7 @@ scrupulul	scrupul	Ncmsry
 stilistic	stilistic	Afpms-n
 ,	,	Zc
 ce	ce	Pw3--r
-avea	avea	Vmii3s
+avea	avea	Vaii3s
 să	să	Qs
 devină	deveni	Vmsp3
 teribil	teribil	Afpms-n
@@ -63685,7 +63685,7 @@ mari	mare	Afp-p-n
 place	plăcea	Vmip3s
 /	/	Zo
 să	să	Qs
-privesc	privi	Vmip3p
+privesc	privi	Vmip1s
 trecătorii	trecător	Ncmpry
 singuratici	singuratic	Afpmp-n
 /	/	Zo
@@ -73768,7 +73768,7 @@ treci	trece	Vmip2s
 ,	,	Zc
 un	un	Timsr
 vânt	vânt	Ncms-n
-dă	de	Spsa
+dă	da	Vmip3s
 viață	viață	Ncfsrn
 .	.	Zp
 
@@ -74047,7 +74047,7 @@ râu	râu	Ncms-n
 că	că	Csssp
 trebuie	trebui	Vmip3
 să	să	Qs
-iau	lua	Vmip3p
+iau	lua	Vmip1s
 această	acest	Dd3fsr---e
 neclintită	neclintit	Afpfsrn
 hotărâre	hotărâre	Ncfsrn
@@ -75037,7 +75037,7 @@ zid	zid	Ncms-n
 Terminologia	terminologie	Ncfsry
 practicii	practică	Ncfsoy
 magice	magic	Afpfson
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 confirmă	confirma	Vmip3
 faptul	fapt	Ncmsry
 că	că	Csssp
@@ -75163,7 +75163,7 @@ lui	lui	Ds3---s
 mai	mai	Rp
 poate	putea	Vmip3s
 fi	fi	Vanp
-insolent	insolent	Rgp
+insolent	insolent	Afpms-n
 .	.	Zp
 
 Spre	spre	Spsa
@@ -75212,7 +75212,7 @@ Insula	insulă	Ncfsry
 Cailor	cal	Ncmpoy
 .	.	Zp
 
-Urban	urban	Afpms-n
+Urban	Urban	Np
 a	avea	Va--3s
 prins	prinde	Vmp--sm
 dintâi	dintâi	Rgp
@@ -75307,7 +75307,7 @@ Acesta	acesta	Pd3msr
 este	fi	Vaip3s
 știința	știință	Ncfsry
 care	care	Pw3--r
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 dă	da	Vmip3s
 cunoștința	cunoștință	Ncfsry
 plantelor	plantă	Ncfpoy
@@ -77487,7 +77487,7 @@ la	la	Spsa
 școală	școală	Ncfsrn
 și	și	Crssp
 a	a	Qn
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 raporta	raporta	Vmnp
 de	de	Spsa
 urgență	urgență	Ncfsrn
@@ -77601,7 +77601,7 @@ mergem	merge	Vmip1p
 ,	,	Zc
 trebuie	trebui	Vmip3
 să	să	Qs
-merg	merge	Vmip3p
+merg	merge	Vmip1s
 ,	,	Zc
 firește	firește	Rgp
 .	.	Zp
@@ -77721,7 +77721,7 @@ mâini	mână	Ncfp-n
 ,	,	Zc
 răcnind	răcni	Vmg
 să	să	Qs
-merg	merge	Vmip3p
+merg	merge	Vmip1s
 la	la	Spsa
 curtea	curte	Ncfsry
 boerească	boerească	Afpfsrn
@@ -77802,7 +77802,7 @@ esențiale	esențial	Afpfp-n
 .	.	Zp
 
 Istoria	istorie	Ncfsry
-ne	eu	Pp1-pd--------w
+ne	eu	Pp1-pa--------w
 învață	învăța	Vmip3
 anume	anume	Rgp
 că	că	Csssp
@@ -78152,7 +78152,7 @@ am	avea	Va--1
 fost	fi	Vap--sm
 silit	sili	Vmp--sm
 să	să	Qs
-merg	merge	Vmip3p
+merg	merge	Vmip1s
 între	între	Spsa
 doi	doi	Mcmp-l
 turci	turc	Ncmp-n
@@ -78553,7 +78553,7 @@ vise	vis	Ncfp-n
 Un	un	Timsr
 râs	râs	Ncms-n
 verde	verde	Afpms-n
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 strâmba	strâmba	Vmii3s
 figura	figură	Ncfsry
 ,	,	Zc
@@ -79245,7 +79245,7 @@ scutură	scutura	Vmis3s
 din	din	Spsa
 cap	cap	Ncms-n
 și	și	Crssp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 întoarse	întoarce	Vmis3s
 spatele	spate	Ncmsry
 .	.	Zp
@@ -82212,7 +82212,7 @@ am	avea	Va--1
 luat	lua	Vmp--sm
 obiceiul	obicei	Ncmsry
 să	să	Qs
-vorbesc	vorbi	Vmip3p
+vorbesc	vorbi	Vmip1s
 cu	cu	Spsa
 ea	el	Pp3fsr--------s
 în	în	Spsa
@@ -83278,7 +83278,7 @@ mei	mei	Ncms-n
 din	din	Spsa
 porumb	porumb	Ncms-n
 să	să	Qs
-bat	bate	Vmip3p
+bat	bate	Vmip1s
 monedă	monedă	Ncfsrn
 falsă	fals	Afpfsrn
 pentru	pentru	Spsa
@@ -83646,7 +83646,7 @@ corist	corist	Ncms-n
 Dar	dar	Ccssp
 ce	ce	Pw3--r
 să	să	Qs
-fac	face	Vmip3p
+fac	face	Vmip1s
 ?	?	Zq
 
 Mi-	eu	Pp1-sd--y-----w
@@ -84523,7 +84523,7 @@ trecutul	trecut	Ncmsry
 bătrân	bătrân	Afpms-n
 cerșetor	cerșetor	Ncms-n
 ,	,	Zc
-Ne	eu	Pp1-pa--------w
+Ne	eu	Pp1-pd--------w
 cântă	cânta	Vmip3
 umil	umil	Afpms-n
 din	din	Spsa
@@ -84540,7 +84540,7 @@ dreptatea	dreptate	Ncfsry
 .	.	Zp
 
 Ea	el	Pp3fsr--------s
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 poruncește	porunci	Vmip3s
 să	să	Qs
 dăm	da	Vmip1p
@@ -85082,7 +85082,7 @@ epoca	epocă	Ncfsry
 maturității	maturitate	Ncfsoy
 sale	său	Ps3fp-s
 poetice	poetic	Afpfp-n
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 vine	veni	Vmip3s
 spontan	spontan	Rgp
 în	în	Spsa
@@ -85804,7 +85804,7 @@ consonantică	consonantic	Afpfsrn
 .	.	Zp
 
 Adeseori	adeseori	Rgp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 vin	veni	Vmip3p
 înainte	înainte	Rgp
 și	și	Crssp
@@ -85881,7 +85881,7 @@ aliterațiunii	aliterațiune	Ncfsoy
 .	.	Zp
 
 Iată	iată	I
--ne	eu	Pp1-pd--y-----w
+-ne	eu	Pp1-pa--y-----w
 -alături	alătura	Rgp
 ,	,	Zc
 proaspeți	proaspăt	Afpmp-n
@@ -86026,7 +86026,7 @@ fost	fost	Afpms-n
 camarad	camarad	Ncms-n
 de	de	Spsa
 școală	școală	Ncfsrn
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 descrie	descrie	Vmip3s
 impresia	impresie	Ncfsry
 pe	pe	Spsa
@@ -86233,7 +86233,7 @@ sursele	sursă	Ncfpry
 arheologice	arheologic	Afpfp-n
 și	și	Crssp
 documentare	documentar	Afpfp-n
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 revelă	revela	Vmip3
 ,	,	Zc
 venită	veni	Vmp--sf
@@ -100786,7 +100786,7 @@ ore	oră	Ncfp-n
 la	la	Spsa
 temperaturi	temperatură	Ncfp-n
 de	de	Spsa
-2-8ºC	2-8ºc	Ncms-n
+2-8ºC	2-8ºC	Ncms-n
 (	(	Z1p
 în	în	Spsa
 frigider	frigider	Ncms-n
@@ -107320,7 +107320,7 @@ ori	oară	Ncfp-n
 avea	avea	Vmii3s
 obicei	obicei	Ncms-n
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 răpească	răpi	Vmsp3
 din	din	Spsa
 recreație	recreație	Ncfsrn
@@ -107546,7 +107546,7 @@ fi	fi	Vanp
 tocmai	tocmai	Rgp
 nepotrivit	nepotrivit	Afpms-n
 să	să	Qs
-povestesc	povesti	Vmip3p
+povestesc	povesti	Vmip1s
 "	"	Z1q
 Întoarcerea	întoarcere	Ncfsry
 tatii	tată	Ncmsoy
@@ -111665,7 +111665,7 @@ Whiteley	Whiteley	Np
 Au	avea	Va--3p
 eșuat	eșua	Vmp--sm
 să	să	Qs
-reflecte	reflect	Ncfp-n
+reflecte	reflecta	Vmsp3
 spectrul	spectru	Ncmsry
 politic	politic	Afpms-n
 în	în	Spsa
@@ -113020,7 +113020,7 @@ Ce	ce	Pw3--r
 altceva	altceva	Pi3-sr
 pot	putea	Vmip3p
 să	să	Qs
-devin	deveni	Vmip3p
+devin	deveni	Vmip1s
 ?	?	Zq
 "	"	Z1q
 
@@ -117431,7 +117431,7 @@ Normal	normal	Rgp
 am	avea	Va--1
 mers	merge	Vmp--sm
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 împărțim	împărți	Vmip1p
 sandviciurile	sandvici	Ncfpry
 cu	cu	Spsa
@@ -121940,7 +121940,7 @@ cauze	cauză	Ncfp-n
 naturale	natural	Afpfp-n
 înainte	înainte	Rgp
 să	să	Qs
-pot	putea	Vmip3p
+pot	putea	Vmip1s
 face	face	Vmnp
 vreo	vreun	Di3fsr---e
 răutate	răutate	Ncfsrn
@@ -123719,7 +123719,7 @@ etaje	etaj	Ncfp-n
 
 Urma	urma	Vmii3s
 să	să	Qs
-devin	deveni	Vmip3p
+devin	deveni	Vmip1s
 un	un	Timsr
 alergător	alergător	Ncms-n
 profesionist	profesionist	Afpms-n
@@ -128235,7 +128235,7 @@ periferice	periferic	Afpfp-n
 pot	putea	Vmip3p
 de	de	Spsa
 asemenea	asemenea	Afp
-apărea	apărea	Vmii3s
+apărea	apărea	Vmnp
 .	.	Zp
 
 Dacă	dacă	Csssp
@@ -129758,7 +129758,7 @@ pe	pe	Spsa
 mine	eu	Pp1-sa--------s
 ,	,	Zc
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 astupăm	astupa	Vmip1p
 nasurile	nas	Ncfpry
 .	.	Zp
@@ -154756,7 +154756,7 @@ am	avea	Vmip1s
 ,	,	Zc
 pot	putea	Vmip3p
 să	să	Qs
-cer	cere	Vmip3p
+cer	cere	Vmip1s
 .	.	Zp
 
 Exprimați	exprima	Vmm-2p
@@ -155473,7 +155473,7 @@ a	a	Qn
 înțelege	înțelege	Vmnp
 și	și	Crssp
 a	a	Qn
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 comunica	comunica	Vmnp
 ,	,	Zc
 prin	prin	Spsa
@@ -155859,7 +155859,7 @@ face	face	Vmip3s
 experiențe	experiență	Ncfp-n
 ,	,	Zc
 dar	dar	Ccssp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 pretinde	pretinde	Vmip3s
 .	.	Zp
 
@@ -156527,7 +156527,7 @@ admise	admis	Afpfson
 E	fi	Vaip3s
 interesant	interesant	Afpms-n
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 dăm	da	Vmip1p
 seama	seamă	Ncfsry
 prin	prin	Spsa
@@ -156992,7 +156992,7 @@ introduceri	introducere	Ncfp-n
 .	.	Zp
 
 Când	când	Rw
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 cita	cita	Vmii3s
 date	dată	Ncfp-n
 astronomice	astronomic	Afpfp-n
@@ -157481,7 +157481,7 @@ Ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 unificat	unifica	Vmp--sm
 ,	,	Zc
-ne-	eu	Pp1-pd--y-----w
+ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 organizat	organiza	Vmp--sm
 ,	,	Zc
@@ -160077,7 +160077,7 @@ mine	eu	Pp1-sa--------s
 .	.	Zp
 
 Nu	nu	Qz
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 spunea	spune	Vmii3s
 niciodată	niciodată	Rz
 pe	pe	Spsa
@@ -160201,7 +160201,7 @@ oră	oră	Ncfsrn
 .	.	Zp
 
 Liceul	liceu	Ncmsry
-ne-	eu	Pp1-pd--y-----w
+ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 înscris	înscrie	Vmp--sm
 urgent	urgent	Rgp
@@ -160241,7 +160241,7 @@ a	avea	Va--3s
 început	începe	Vmp--sm
 ,	,	Zc
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 dicteze	dicta	Vmsp3
 o	un	Tifsr
 bucată	bucată	Ncfsrn
@@ -160594,7 +160594,7 @@ cum	cum	Rw
 ziceam	zice	Vmii1
 noi	eu	Pp1-pr--------s
 ,	,	Zc
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 făcea	face	Vmii3s
 lecții	lecție	Ncfp-n
 frumoase	frumos	Afpfp-n
@@ -160731,7 +160731,7 @@ rămas	rămâne	Vmp--sm
 picioare	picior	Ncfp-n
 ,	,	Zc
 făcându	face	Vmg-------y
--ne	eu	Pp1-pa--y-----w
+-ne	eu	Pp1-pd--y-----w
 semn	semn	Ncms-n
 să	să	Qs
 ne	eu	Pp1-pa--------w
@@ -161699,7 +161699,7 @@ când	când	Rw
 Dacă	dacă	Csssp
 experiența	experiență	Ncfsry
 nu	nu	Qz
-ne-	eu	Pp1-pa--y-----w
+ne-	eu	Pp1-pd--y-----w
 a	avea	Va--3s
 reușit	reuși	Vmp--sm
 însă	însă	Ccssp
@@ -161842,7 +161842,7 @@ niciodată	niciodată	Rz
 Nu	nu	Qz
 cred	crede	Vmip1s
 să	să	Qs
-greșesc	greși	Vmip3p
+greșesc	greși	Vmip1s
 afirmând	afirma	Vmg
 că	că	Csssp
 dintre	dintre	Spsa
@@ -162332,7 +162332,7 @@ a	avea	Va--3s
 existat	exista	Vmp--sm
 dascăl	dascăl	Ncms-n
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 predea	preda	Vmsp3
 în	în	Spsa
 cursul	curs	Ncmsry
@@ -162565,7 +162565,7 @@ obicei	obicei	Ncms-n
 ne	eu	Pp1-pa--------w
 anunțase	anunța	Vmil3s
 că	că	Csssp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 va	vrea	Va--3s
 da	da	Vmnp
 să	să	Qs
@@ -163086,7 +163086,7 @@ ora	oră	Ncfsry
 când	când	Rw
 trebuie	trebui	Vmip3
 să	să	Qs
-dau	da	Vmip3p
+dau	da	Vmip1s
 ochii	ochi	Ncmpry
 cu	cu	Spsa
 Veturia	Veturia	Np
@@ -163186,7 +163186,7 @@ n	în	Spsay
 anumite	anumit	Di3fp
 cazuri	caz	Ncfp-n
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 permitem	permite	Vmip1p
 să	să	Qs
 -i	el	Pp3-sd--y-----w
@@ -163287,7 +163287,7 @@ să	să	Qs
 renunțăm	renunța	Vmip1p
 ,	,	Zc
 dar	dar	Ccssp
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 era	fi	Vaii3s
 teamă	teamă	Ncfsrn
 să	să	Qs
@@ -163340,7 +163340,7 @@ lecții	lecție	Ncfp-n
 searbăde	searbăd	Afpfp-n
 și	și	Crssp
 nu	nu	Qz
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 acordau	acorda	Vmii3p
 nici	nici	Rz
 un	un	Timsr
@@ -163374,7 +163374,7 @@ bradolină	bradolină	Ncfsrn
 
 De	de	Spsa
 cum	cum	Rw
-ne-	eu	Pp1-pd--y-----w
+ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 repartizat	repartiza	Vmp--sm
 ,	,	Zc
@@ -163564,7 +163564,7 @@ eu	eu	Pp1-sn--------s
 ,	,	Zc
 fără	fără	Csssp
 să	să	Qs
-înțeleg	înțelege	Vmip3p
+înțeleg	înțelege	Vmip1s
 prea	prea	Rp
 mare	mare	Afp-s-n
 lucru	lucru	Ncms-n
@@ -164033,7 +164033,7 @@ că	că	Csssp
 Banciu	Banciu	Np
 reușise	reuși	Vmil3s
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 impună	impune	Vmsp3
 o	un	Tifsr
 trăire	trăire	Ncfsrn
@@ -164127,7 +164127,7 @@ București	București	Np
 timp	timp	Ncms-n
 ,	,	Zc
 să	să	Qs
-primesc	primi	Vmip3p
+primesc	primi	Vmip1s
 locul	loc	Ncmsry
 de	de	Spsa
 asistent	asistent	Ncms-n
@@ -167526,7 +167526,7 @@ când	când	Rw
 o	o	Qf
 încerca	încerca	Vmnp
 să	să	Qs
-fuga	fugă	Ncfsry
+fugă	fugi	Vmsp3
 .	.	Zp
 
 După	după	Spsa
@@ -167575,7 +167575,7 @@ la	la	Spsa
 fel	fel	Ncms-n
 de	de	Spsa
 bine	bine	Rgp
-pregătiți	pregăti	Vmip2p
+pregătiți	pregătit	Afpmp-n
 ca	ca	Rc
 și	și	Crssp
 mine	eu	Pp1-sa--------s
@@ -168659,7 +168659,7 @@ fost	fi	Vap--sm
 desemnat	desemna	Vmp--sm
 colectivul	colectiv	Ncmsry
 care	care	Pw3--r
-avea	avea	Vmii3s
+avea	avea	Vaii3s
 să	să	Qs
 redacteze	redacta	Vmsp3
 un	un	Timsr
@@ -169022,7 +169022,7 @@ viața	viață	Ncfsry
 
 Întâmplarea	întâmplare	Ncfsry
 aceasta	acesta	Dd3fsr---o
-ne-	eu	Pp1-pd--y-----w
+ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 mișcat	mișca	Vmp--sm
 mult	mult	Rgp
@@ -169031,7 +169031,7 @@ ne-	eu	Pp1-pa--y-----w
 a	avea	Va--3s
 făcut	face	Vmp--sm
 să	să	Qs
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 fie	fi	Vasp3
 și	și	Crssp
 mai	mai	Rp
@@ -169117,7 +169117,7 @@ vitalismul	vitalism	Ncmsry
 ,	,	Zc
 în	în	Spsa
 special	special	Rgp
-Fabrice	fabrica	Vmsp3
+Fabrice	Fabrice	Np
 del	del	Ncms-n
 Dongo	Dongo	Np
 .	.	Zp
@@ -169242,7 +169242,7 @@ făcea	face	Vmii3s
 eforturi	efort	Ncfp-n
 de	de	Spsa
 a-	a	Qn
-i	el	Pp3-sd--------w
+i	el	Pp3mpa--------w
 cultiva	cultiva	Vmnp
 ,	,	Zc
 afară	afară	Rgp
@@ -169661,7 +169661,7 @@ universitar	universitar	Afpms-n
 carieră	carieră	Ncfsrn
 către	către	Spsa
 care	care	Pw3--r
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 mărturisise	mărturisi	Vmil3s
 că	că	Csssp
 tinde	tinde	Vmip3s
@@ -169926,7 +169926,7 @@ nemți	neamț	Ncmp-n
 ,	,	Zc
 iar	iar	Rc
 noi	eu	Pp1-pr--------s
-ne	eu	Pp1-pa--------w
+ne	eu	Pp1-pd--------w
 făcuserăm	face	Vmil1p
 socoteala	socoteală	Ncfsry
 că	că	Csssp
@@ -170005,7 +170005,7 @@ făcut	face	Vmp--sm
 acasă	acasă	Rgp
 ,	,	Zc
 Radian	radian	Ncms-n
-ne-	eu	Pp1-pa--y-----w
+ne-	eu	Pp1-pd--y-----w
 a	avea	Va--3s
 spus	spune	Vmp--sm
 să	să	Qs
@@ -172755,7 +172755,7 @@ Pacienții	pacient	Ncmpry
 diagnosticați	diagnosticat	Afpmp-n
 precoce	precoce	Rgp
 și	și	Crssp
-tratați	trata	Vmii2p
+tratați	tratat	Afpmp-n
 corect	corect	Rgp
 beneficiază	beneficia	Vmip3
 de	de	Spsa
@@ -178020,7 +178020,7 @@ Printre	printre	Spsa
 cele	cel	Tdfpr
 mai	mai	Rp
 importante	important	Afpfp-n
-obiectivele	obiectiv	Ncfpry
+obiective	obiectiv	Ncfp-n
 turistice	turistic	Afpfp-n
 ale	al	Tsfp
 municipiului	municipiu	Ncmsoy
@@ -179509,7 +179509,7 @@ vulnerabile	vulnerabil	Afpfp-n
 și	și	Crssp
 1253	1253	Mc-s-d
 sunt	fi	Vaip3p
-considerate	considera	Vmp--pf
+considerate	considerat	Afpfp-n
 rare	rar	Afpfp-n
 .	.	Zp
 
@@ -179847,7 +179847,7 @@ populației	populație	Ncfsoy
 din	din	Spsa
 Transilvania	Transilvania	Np
 era	fi	Vaii3s
-formată	forma	Vmp--sf
+formată	format	Afpfsrn
 din	din	Spsa
 credincioși	credincios	Ncmp-n
 ai	al	Tsmp
@@ -180212,7 +180212,7 @@ mai	mai	Rp
 mari	mare	Afp-p-n
 orașe	oraș	Ncfp-n
 sunt	fi	Vaip3p
-incluse	include	Vmp--pf
+incluse	inclus	Afpfp-n
 într-	întru	Spsay
 o	un	Tifsr
 zonă	zonă	Ncfsrn
@@ -182705,7 +182705,7 @@ Iugoslaviei	Iugoslavia	Npfsoy
 ,	,	Zc
 scorul	scor	Ncmsry
 fiindu	fi	Vag-------y
--ne	eu	Pp1-pa--y-----w
+-ne	eu	Pp1-pd--y-----w
 favorabil	favorabil	Rgp
 cu	cu	Spsa
 2	2	Mc-s-d
