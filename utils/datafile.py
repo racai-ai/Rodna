@@ -136,17 +136,20 @@ def read_conllu_file(input_file: str) -> list:
 
     return corpus
 
-def conllu_corpus_to_tab_file(corpus: list, output_file: str) -> None:
-    """Converts the CoNLL-U corpus into a .tab file for use with RoPOSTagger.py."""
+def conllu_corpus_to_tab_file(corpus: list, output_file: str, for_tool: str) -> None:
+    """Converts the CoNLL-U corpus into a .tab file for use with RoPOSTagger.py or RoDepParser.py."""
 
     punct_rx = re.compile('^\\W+$')
 
     with open(output_file, mode='w', encoding='utf-8') as f:
         for (_, sent) in corpus:
             for parts in sent:
+                wid = int(parts[0])
                 word = parts[1]
                 lemma = parts[2]
                 msd = parts[4]
+                head = int(parts[6])
+                deprel = parts[7]
 
                 if punct_rx.match(word):
                     if word in MSD.punct_msd_inventory:
@@ -156,10 +159,13 @@ def conllu_corpus_to_tab_file(corpus: list, output_file: str) -> None:
                     # end if
                 # end if
 
-                print('{0}\t{1}\t{2}'.format(word, lemma, msd), file=f)
+                if for_tool == 'tagger':
+                    print(f'{word}\t{lemma}\t{msd}', file=f)
+                elif for_tool == 'parser':
+                    print(f'{wid}\t{word}\t{lemma}\t{msd}\t{head}\t{deprel}', file=f)
+                # end if
             # end for parts
 
             print('', file=f, flush=True)
         # end for corpus
     # end with
-
