@@ -1,7 +1,0 @@
-{
-    "lex_input_vector_size": 266,
-    "ctx_input_vector_size": 7,
-    "msd_encoding_vector_size": 129,
-    "output_msd_size": 761,
-    "drop_prob": 0.25
-}
