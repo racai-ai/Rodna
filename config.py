@@ -20,3 +20,6 @@ TAGGER_UNICODE_PROPERTY_FILE = os.path.join('data', 'models', 'tagger_unic_props
 CLS_TAGGER_MODEL_FOLDER = os.path.join('data', 'models', 'tagger', 'cls')
 CRF_TAGGER_MODEL_FOLDER = os.path.join('data', 'models', 'tagger', 'crf')
 PARADIGM_MORPHO_FILE = os.path.join('data', 'resources', 'morphalt.xml')
+PARSER_MODEL_FOLDER = os.path.join('data', 'models', 'parser')
+PARSER_BERT_MODEL_FOLDER = os.path.join('data', 'models', 'parser', 'bert')
+PARSER_TOKEN_MODEL_FOLDER = os.path.join('data', 'models', 'parser', 'tok')

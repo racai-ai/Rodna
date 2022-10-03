@@ -15,13 +15,15 @@ from tqdm import tqdm
 from . import _device
 from utils.MSD import MSD
 from utils.mst import chu_liu_edmonds
+from config import PARSER_MODEL_FOLDER, \
+    PARSER_BERT_MODEL_FOLDER, PARSER_TOKEN_MODEL_FOLDER
+
 
 class RoBERTHeadFinder(nn.Module):
     """This class finds the probability distribution of possible heads
     for the current token. Uses a MLM BERT model for word embeddings
     which is fine-tuned to find head information."""
 
-    _conf_bert = 'dumitrescustefan/bert-base-romanian-cased-v1'
     _conf_lstm_size = 512
     _conf_drop_prob = 0.2
 
@@ -31,16 +33,6 @@ class RoBERTHeadFinder(nn.Module):
         `name_or_path`: the BERT model HF name/saved folder"""
 
         super().__init__()
-
-        if os.path.exists(name_or_path) and \
-                os.path.isdir(name_or_path):
-            self._tokenizer = AutoTokenizer.from_pretrained(name_or_path)
-            self._bertmodel = AutoModel.from_pretrained(name_or_path)
-        else:
-            self._tokenizer = AutoTokenizer.from_pretrained(
-                RoBERTHeadFinder._conf_bert)
-            self._bertmodel = AutoModel.from_pretrained(RoBERTHeadFinder._conf_bert)
-        # end if
 
         self._nonlin_fn = nn.LeakyReLU()
         self._drop = nn.Dropout(p=RoBERTHeadFinder._conf_drop_prob)
@@ -61,12 +53,6 @@ class RoBERTHeadFinder(nn.Module):
             out_features=2 * head_window_size + 1, dtype=torch.float32)
 
         self.to(_device)
-
-    def get_bert_model(self) -> BertModel:
-        return self._bertmodel
-
-    def get_subword_tokenizer(self):
-        return self._tokenizer
 
     def forward(self, x):
         x_b, x_m = x
@@ -131,13 +117,15 @@ class RoDepParser(object):
     """This is the RODNA dependency parser, based on BERT head finding coupled with
     MST parsing tree discovery."""
 
+    _conf_model_file = 'model.pt'
+    _conf_bert = 'dumitrescustefan/bert-base-romanian-cased-v1'
     # Take 2 * head window + 1 for the output vector dimension
     _conf_head_window = 70
     # Initial learning rate
     _conf_lr = 5e-5
     # Multiplying factor between epochs of the LR
     _conf_gamma_lr = 0.75
-    _conf_epochs = 15
+    _conf_epochs = 1
 
     def __init__(self, msd_obj: MSD) -> None:
         super().__init__()
@@ -185,8 +173,6 @@ class RoDepParser(object):
         Format of the token tuple is (word, msd, head, deprel)."""
 
         tokens = []
-        tokenizer = self._headmodel.get_subword_tokenizer()
-        bertmodel = self._headmodel.get_bert_model()
         msd_input_tensor = []
         head_output_tensor = []
 
@@ -236,13 +222,13 @@ class RoDepParser(object):
         # 2. Do the BERT tokenization
         # Shape of outputs is (batch_size == 1, sub-token seq. len., 768)
         # Vector of [CLS] token is thus outputs[0,0,:]
-        inputs = tokenizer(
+        inputs = self._tokenizer(
             tokens,
             is_split_into_words=True,
             truncation=True,
             max_length=512,
             return_tensors='pt').to(_device)
-        outputs = bertmodel(**inputs)
+        outputs = self._bertmodel(**inputs)
 
         # 3. This one maps from subtokens to tokens.
         token_ids = inputs.word_ids(batch_index=0)
@@ -353,6 +339,11 @@ class RoDepParser(object):
 
     def train(self, train_sentences: list, dev_sentences: list, test_sentences: list):
         """Does the head finder training."""
+        self._tokenizer = AutoTokenizer.from_pretrained(
+            RoDepParser._conf_bert)
+        self._bertmodel = AutoModel.from_pretrained(
+            RoDepParser._conf_bert)
+        self._bertmodel.to(_device)
         self._loss_fn = nn.NLLLoss()
         self._optimizer = AdamW(self._headmodel.parameters(), lr=RoDepParser._conf_lr)
         self._lr_scheduler = ExponentialLR(
@@ -370,9 +361,10 @@ class RoDepParser(object):
 
         for ep in range(RoDepParser._conf_epochs):
             self._headmodel.train(True)
+            self._bertmodel.train(True)
             self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
             self._headmodel.eval()
-            self._headmodel.get_bert_model().eval()
+            self._bertmodel.eval()
             self.do_eval(dataloader=dev_dataloader, desc='dev')
             self.do_uas_and_las_eval(sentences=dev_sentences, desc='dev')
             self._lr_scheduler.step()
@@ -381,6 +373,26 @@ class RoDepParser(object):
 
         self.do_eval(dataloader=test_dataloader, desc='test')
         self.do_uas_and_las_eval(sentences=test_sentences, desc='test')
+        self._save()
+
+    def _save(self):
+        torch_model_file = os.path.join(PARSER_MODEL_FOLDER, RoDepParser._conf_model_file)
+        torch.save(self._headmodel.state_dict(), torch_model_file)
+        self._tokenizer.save_pretrained(save_directory=PARSER_TOKEN_MODEL_FOLDER)
+        self._bertmodel.save_pretrained(save_directory=PARSER_BERT_MODEL_FOLDER)
+
+    def load(self):
+        self._tokenizer = AutoTokenizer.from_pretrained(
+            PARSER_TOKEN_MODEL_FOLDER)
+        self._bertmodel = AutoModel.from_pretrained(PARSER_BERT_MODEL_FOLDER)
+        self._bertmodel.to(_device)
+        self._bertmodel.eval()
+        torch_model_file = os.path.join(
+            PARSER_MODEL_FOLDER, RoDepParser._conf_model_file)
+        self._headmodel.load_state_dict(torch.load(
+            torch_model_file, map_location=_device))
+        # Put model into eval mode. It is only used for inferencing.
+        self._headmodel.eval()
 
     def do_eval(self, dataloader: DataLoader, desc: str):
         correct = 0
@@ -530,3 +542,5 @@ if __name__ == '__main__':
     testing = par.read_parsed_file(testing_file)
 
     par.train(train_sentences=training, dev_sentences=development, test_sentences=testing)
+    #par.load()
+    #par.do_uas_and_las_eval(sentences=testing, desc='test')
