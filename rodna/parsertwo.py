@@ -91,7 +91,7 @@ class DPDataset(Dataset):
 
     def reshuffle(self):
         path_lengths = list(self._paths_by_length.keys())
-        path_lengths = sorted(path_lengths, reverse=True)
+        shuffle(path_lengths)
         self._paths = []
 
         for pathlen in path_lengths:
