@@ -285,8 +285,8 @@ class RoDepParserLabel(object):
             f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
 
     def _depth_first_paths(self,
-        sentence: list[tuple], root: int,
-        all_paths: list[list[int]], crt_path: list[int]):
+        sentence: List[Tuple], root: int,
+        all_paths: List[List[int]], crt_path: List[int]):
         """Finds all possible paths from the root to any of its leaves."""
 
         crt_path.append(root)
