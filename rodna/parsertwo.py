@@ -21,8 +21,8 @@ class RoBERTDepRelFinder(nn.Module):
     a sequence of dependency relation labels along a tree path
     from the root to a leaf."""
 
-    _conf_lstm_size = 512
-    _conf_drop_prob = 0.2
+    _conf_gru_size = 512
+    _conf_drop_prob = 0.33
 
     def __init__(self, msd_size: int, deprel_size: int):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
@@ -35,11 +35,11 @@ class RoBERTDepRelFinder(nn.Module):
         self._drop = nn.Dropout(p=RoBERTDepRelFinder._conf_drop_prob)
         self._logsoftmax = nn.LogSoftmax(dim=2)
 
-        self._nn_lstm = nn.LSTM(
-            input_size=768, hidden_size=RoBERTDepRelFinder._conf_lstm_size,
+        self._nn_gru = nn.GRU(
+            input_size=768, hidden_size=RoBERTDepRelFinder._conf_gru_size,
             num_layers=1, batch_first=True, bidirectional=False)
 
-        linear_input_size_0 = msd_size + RoBERTDepRelFinder._conf_lstm_size
+        linear_input_size_0 = msd_size + RoBERTDepRelFinder._conf_gru_size
         linear_input_size_1 = linear_input_size_0 // 2
 
         self._nn_linear_0 = nn.Linear(
@@ -56,12 +56,9 @@ class RoBERTDepRelFinder(nn.Module):
         b_size = x_b.shape[0]
         h_0 = torch.zeros(
             1, b_size,
-            RoBERTDepRelFinder._conf_lstm_size).to(device=_device)
-        c_0 = torch.zeros(
-            1, b_size,
-            RoBERTDepRelFinder._conf_lstm_size).to(device=_device)
+            RoBERTDepRelFinder._conf_gru_size).to(device=_device)
 
-        the_output, (h_n, c_n) = self._nn_lstm(x_b, (h_0, c_0))
+        the_output, h_n = self._nn_gru(x_b, h_0)
         the_output = torch.cat([the_output, x_m], dim=2).to(device=_device)
         the_output = self._nn_linear_0(the_output)
         the_output = self._nonlin_fn(the_output)
