@@ -21,8 +21,8 @@ class RoBERTDepRelFinder(nn.Module):
     a sequence of dependency relation labels along a tree path
     from the root to a leaf."""
 
-    _conf_lstm_size = 1024
-    _conf_drop_prob = 0.33
+    _conf_lstm_size = 512
+    _conf_drop_prob = 0.2
 
     def __init__(self, msd_size: int, deprel_size: int):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
