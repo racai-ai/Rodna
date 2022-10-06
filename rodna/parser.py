@@ -97,7 +97,7 @@ class RoDepParser(object):
         """Performs parser one and parser two training."""
 
         self._rodep2.train(train_sentences, dev_sentences, test_sentences)
-        #self._rodep1.train(train_sentences, dev_sentences, test_sentences)
+        self._rodep1.train(train_sentences, dev_sentences, test_sentences)
         
 
 if __name__ == '__main__':

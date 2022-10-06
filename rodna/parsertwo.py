@@ -325,8 +325,11 @@ class RoDepParserLabel(object):
         test_dataset.reshuffle()
 
         self._loss_fn = nn.NLLLoss()
+        both_models_parameters = []
+        both_models_parameters.extend(self._deprelmodel.parameters())
+        both_models_parameters.extend(self._bertmodel.parameters())
         self._optimizer = AdamW(
-            self._deprelmodel.parameters(), lr=RoDepParserLabel._conf_lr)
+            both_models_parameters, lr=RoDepParserLabel._conf_lr)
         self._lr_scheduler = ExponentialLR(
             optimizer=self._optimizer, gamma=RoDepParserLabel._conf_gamma_lr, verbose=True)
         train_dataloader = DataLoader(

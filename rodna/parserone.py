@@ -17,6 +17,7 @@ from utils.MSD import MSD
 from config import PARSER_MODEL_FOLDER, \
     PARSER1_BERT_MODEL_FOLDER, PARSER1_TOKEN_MODEL_FOLDER
 
+
 class RoBERTHeadFinder(nn.Module):
     """This class finds the probability distribution of possible heads
     for the current token. Uses a MLM BERT model for word embeddings
@@ -310,7 +311,11 @@ class RoDepParserTree(object):
             RoDepParserTree._conf_bert)
         self._bertmodel.to(_device)
         self._loss_fn = nn.NLLLoss()
-        self._optimizer = AdamW(self._headmodel.parameters(), lr=RoDepParserTree._conf_lr)
+        both_models_parameters = []
+        both_models_parameters.extend(list(self._headmodel.parameters()))
+        both_models_parameters.extend(list(self._bertmodel.parameters()))
+        self._optimizer = AdamW(both_models_parameters,
+                                lr=RoDepParserTree._conf_lr)
         self._lr_scheduler = ExponentialLR(
             optimizer=self._optimizer, gamma=RoDepParserTree._conf_gamma_lr, verbose=True)
         train_dataset = DPDataset(sentences=train_sentences)
