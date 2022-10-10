@@ -40,3 +40,8 @@ data/models/tagger/cls/config.json
 data/models/tagger/cls/model.pt
 data/models/tagger/crf/config.json
 data/models/tagger/crf/model.pt
+err2.txt
+err.txt
+.vscode/settings.json
+parser-errors-dev.txt
+parser-errors-test.txt

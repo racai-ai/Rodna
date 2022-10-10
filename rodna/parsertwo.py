@@ -128,7 +128,7 @@ class RoDepParserLabel(object):
             msd_size=self._msd.get_output_vector_size(),
             deprel_size=len(self._deprels))
 
-    def _process_path(self, sentence: List[Tuple], path: List[int], runtime: bool = False) -> Tuple[Union[Tensor, None]]:
+    def _process_path(self, sentence: List[Tuple], path: List[int], runtime: bool = False) -> Tuple[Tensor, Tensor, Union[Tensor, None]]:
         """Takes a path and a sentence and produces tensors for the path
         from the root to the leaf."""
 
@@ -209,12 +209,16 @@ class RoDepParserLabel(object):
         # end if
 
         if not runtime:
+            # Here the collate fn is taking care of moving tensors to cuda:0
             return bert_input_tensor, msd_input_tensor, deprel_output_tensor
         else:
+            bert_input_tensor = bert_input_tensor.to(_device)
+            msd_input_tensor = msd_input_tensor.to(_device)
+
             return bert_input_tensor, msd_input_tensor, None
         # end if
 
-    def _deprel_collate_fn(self, batch) -> Tuple[Tensor]:
+    def _deprel_collate_fn(self, batch) -> Tuple[Tensor, Tensor, Tensor]:
         """This method will group sentence paths of the same length into a batch."""
 
         bert_tensor = []
@@ -238,7 +242,7 @@ class RoDepParserLabel(object):
         msd_tensor = torch.cat(msd_tensor, dim=0).to(_device)
         drel_tensor = torch.cat(drel_tensor, dim=0).to(_device)
 
-        return (bert_tensor, msd_tensor, drel_tensor)
+        return bert_tensor, msd_tensor, drel_tensor
 
     def _do_one_epoch(self, epoch: int, dataloader: DataLoader):
         """Does one epoch of NN training, shuffling the examples first."""
@@ -411,6 +415,24 @@ class RoDepParserLabel(object):
         self._depth_first_paths(sentence, root, root_to_leaf, [])
 
         return root_to_leaf
+
+    def label_path(self, sentence: List[Tuple], path: List[int]) -> List[Tuple]:
+        inputs_bert, inputs_msd, _ = self._process_path(sentence, path, runtime=True)
+        outputs = self._deprelmodel(x=(inputs_bert, inputs_msd))
+        # To get probabilities
+        outputs = torch.exp(outputs)
+        predicted_labels = torch.argmax(outputs, dim=2)
+        result = []
+
+        for i in range(predicted_labels.shape[1]):
+            dri = predicted_labels[0, i].item()
+            dr = self._deprels[dri]
+            drp = outputs[0, i, dri].item()
+
+            result.append((dr, drp))
+        # end for
+
+        return result
 
     def _create_dataset(self, sentences: List[List[Tuple]], desc: str) -> DPDataset:
         dataset = DPDataset()

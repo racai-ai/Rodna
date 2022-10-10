@@ -132,7 +132,7 @@ class RoDepParserTree(object):
             msd_size=self._msd.get_output_vector_size(),
             head_window_size=RoDepParserTree._conf_head_window)
 
-    def _process_sentence(self, sentence: List[Tuple], runtime: bool = False) -> Tuple[Union[Tensor, None]]:
+    def _process_sentence(self, sentence: List[Tuple], runtime: bool = False) -> Tuple[Tensor, Tensor, Union[Tensor, None]]:
         """Gets a sentence and returns a tuple of tensors to be run
         through the neural network, as part of a batch.
         Shape of tuple of inputs is [1, len(sentence), feature_size].
@@ -228,12 +228,15 @@ class RoDepParserTree(object):
             1, len(tokens), -1)
         
         if not runtime:
-            return (bert_input_tensor, msd_input_tensor, head_output_tensor)
+            return bert_input_tensor, msd_input_tensor, head_output_tensor
         else:
-            return (bert_input_tensor, msd_input_tensor, None)
+            bert_input_tensor = bert_input_tensor.to(_device)
+            msd_input_tensor = msd_input_tensor.to(_device)
+            
+            return bert_input_tensor, msd_input_tensor, None
         # end if
 
-    def _head_collate_fn(self, batch) -> Tuple[Tensor]:
+    def _head_collate_fn(self, batch) -> Tuple[Tensor, Tensor, Tensor]:
         """This method will group sentences of the same length into a batch."""
 
         bert_tensor = []
@@ -257,7 +260,7 @@ class RoDepParserTree(object):
         msd_tensor = torch.cat(msd_tensor, dim=0).to(_device)
         head_tensor = torch.cat(head_tensor, dim=0).to(_device)
 
-        return (bert_tensor, msd_tensor, head_tensor)
+        return bert_tensor, msd_tensor, head_tensor
 
     def _do_one_epoch(self, epoch: int, dataloader: DataLoader):
         """Does one epoch of NN training, shuffling the examples first."""
@@ -430,6 +433,7 @@ class RoDepParserTree(object):
         parse_tree = chu_liu_edmonds(graph=parser_predicted_graph, root=best_root_id)
         
         # For each head in the tree
+        # Return the link probability, as well
         for h in parse_tree:
             # For each dependent of the head in the tree
             for d in parse_tree[h]:
@@ -437,7 +441,8 @@ class RoDepParserTree(object):
                     parser_sentence[d - 1][0],
                     parser_sentence[d - 1][1],
                     h,
-                    parser_sentence[d - 1][3]
+                    parser_sentence[d - 1][3],
+                    parse_tree[h][d]
                 )
             # end for
             
@@ -447,7 +452,8 @@ class RoDepParserTree(object):
                     parser_sentence[h - 1][0],
                     parser_sentence[h - 1][1],
                     0,
-                    parser_sentence[h - 1][3]
+                    parser_sentence[h - 1][3],
+                    best_root_prob
                 )
             # end if
         # end for

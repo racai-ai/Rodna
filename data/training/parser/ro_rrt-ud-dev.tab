@@ -499,7 +499,7 @@
 8	de	de	Spsa	9	case
 9	refugiați	refugiat	Ncmp-n	7	obl
 10	,	,	Zc	11	punct
-11	bombardat	bombarda	Vmp--sm	7	acl
+11	bombardat	bombarda	Vmp--sm	6	acl
 12	undeva	undeva	Rgp	11	advmod
 13	în	în	Spsa	14	case
 14	Mediterana	Mediterana	Np	11	obl
@@ -10307,7 +10307,7 @@
 29	căci	căci	Ccssp	32	mark
 30	erau	fi	Vaii3p	32	cop
 31	prea	prea	Rp	32	advmod
-32	mici	mic	Afp-p-n	25	advcl
+32	mici	mic	Afp-p-n	15	advcl
 33	pentru	pentru	Spsa	36	mark
 34	a	a	Qn	36	mark
 35	fi	fi	Vanp	36	aux:pass
