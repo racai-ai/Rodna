@@ -8,22 +8,6 @@ from .parsertwo import RoDepParserLabel
 from utils.MSD import MSD
 
 
-def check_for_wrong_links(sentence: List[Tuple]):
-    pass
-    #for word, msd, head, deprel in sentence:
-        #if msd.startswith('Sp') and deprel == 'obl':
-        #    print(
-        #        f'DR ground truth error: {word} error!', file=sys.stderr, flush=True)
-        #    halt = 1
-        # end if
-
-        #if sentence[head - 1][3].startswith('mark'):
-        #    print(
-        #        f'DR ground truth error: {word} has mark as head!', file=sys.stderr, flush=True)
-        # end if
-    # end for
-
-
 def read_parsed_file(file: str, create_label_set: bool = False) -> Tuple[List[List[Tuple]], Set[str]]:
     """Will read in file and return a sequence of tokens from it
     each token with its assigned MSD and dependency information."""
@@ -42,7 +26,6 @@ def read_parsed_file(file: str, create_label_set: bool = False) -> Tuple[List[Li
             line = line.strip()
 
             if not line:
-                check_for_wrong_links(current_sentence)
                 sentences.append(current_sentence)
                 current_sentence = []
                 continue
@@ -244,6 +227,8 @@ class RoDepParser(object):
 
         self._rodep1.train(train_sentences, dev_sentences, test_sentences)
         self._rodep2.train(train_sentences, dev_sentences, test_sentences)
+        par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=False)
+        par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=False)
         
     def load(self):
         self._rodep1.load()
@@ -265,9 +250,4 @@ if __name__ == '__main__':
         "data", "training", "parser", "ro_rrt-ud-test.tab")
     testing, _ = read_parsed_file(file=testing_file)
 
-    #par.train(train_sentences=training, dev_sentences=development, test_sentences=testing)
-    
-    # Debug testing
-    par.load()
-    par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=True)
-    par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=True)
+    par.train(train_sentences=training, dev_sentences=development, test_sentences=testing)
