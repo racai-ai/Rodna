@@ -3,7 +3,6 @@ import sys
 import os
 from inspect import stack
 import numpy as np
-from numpy.typing import NDArray
 import torch
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
@@ -547,7 +546,7 @@ class RoSentenceSplitter(object):
 
         return (train_samples, dev_samples, test_samples)
 
-    def _build_single_sample_input(self, sample: List[Tuple]) -> Tuple[NDArray, NDArray]:
+    def _build_single_sample_input(self, sample: List[Tuple]) -> Tuple[np.ndarray, np.ndarray]:
         tx = len(sample)
         n = -1
 
