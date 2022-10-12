@@ -1,11 +1,14 @@
+from typing import List, Tuple
 import sys
 import os
 from inspect import stack
 import numpy as np
+from numpy.typing import NDArray
 import torch
 from torch import nn
-from torch.utils.data import TensorDataset, DataLoader
+from torch.utils.data import DataLoader, Dataset
 from torch.optim import Adam
+from torch import Tensor
 from tqdm import tqdm
 from utils.CharUni import CharUni
 from utils.Lex import Lex
@@ -13,10 +16,7 @@ from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from config import SENT_SPLITTER_MODEL_FOLDER, \
     SPLITTER_UNICODE_PROPERTY_FILE, SPLITTER_FEAT_LEN_FILE
-
-
-torch.manual_seed(1234)
-_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+from . import _device
 
 
 class RoSentenceSplitterModule(nn.Module):
@@ -61,6 +61,19 @@ class RoSentenceSplitterModule(nn.Module):
         out = self._layer_logsoftmax(out)
 
         return out
+
+class SSDataset(Dataset):
+    """This is a sentence splitter dataset."""
+
+    def __init__(self, samples: List[Tuple]):
+        super().__init__()
+        self._data_samples = samples
+
+    def __len__(self) -> int:
+        return len(self._data_samples)
+
+    def __getitem__(self, index):
+        return self._data_samples[index]
 
 
 class RoSentenceSplitter(object):
@@ -113,38 +126,14 @@ class RoSentenceSplitter(object):
               file=sys.stderr, flush=True)
         self._build_unicode_props(train_examples)
 
-        # 4. Get train/dev/test numpy tensors
-        print(stack()[0][3] + ": building train tensor",
-              file=sys.stderr, flush=True)
-        (x_train, y_train) = self._build_model_input(train_examples)
-        print(stack()[
-              0][3] + ": X_train.shape is {0!s}".format(x_train.shape), file=sys.stderr, flush=True)
-        print(stack()[
-              0][3] + ": Y_train.shape is {0!s}".format(y_train.shape), file=sys.stderr, flush=True)
-
-        print(stack()[0][3] + ": building dev/test tensors",
-              file=sys.stderr, flush=True)
-        (x_dev, y_dev) = self._build_model_input(dev_examples)
-        (x_test, y_test) = self._build_model_input(test_examples)
-        print(stack()[
-              0][3] + ": X_dev.shape is {0!s}".format(x_dev.shape), file=sys.stderr, flush=True)
-        print(stack()[
-              0][3] + ": Y_dev.shape is {0!s}".format(y_dev.shape), file=sys.stderr, flush=True)
-        print(stack()[
-              0][3] + ": X_test.shape is {0!s}".format(x_test.shape), file=sys.stderr, flush=True)
-        print(stack()[
-              0][3] + ": Y_test.shape is {0!s}".format(y_test.shape), file=sys.stderr, flush=True)
-
-        # We leave out the number of examples in a batch
-        print(stack()[
-              0][3] + ": input shape is {0!s}".format(x_train.shape), file=sys.stderr, flush=True)
-        print(stack()[
-              0][3] + ": output shape is {0!s}".format(y_train.shape), file=sys.stderr, flush=True)
-        self._features_dim = x_train.shape[2]
+        x_check, y_check = self._build_single_sample_input(
+            sample=train_examples[0])
+        self._features_dim = x_check.shape[2]
         self._model = self._build_pt_model()
         
         # Save the model as a class attribute
-        self._train_pt_model(train=(x_train, y_train), dev=(x_dev, y_dev), test=(x_test, y_test))
+        self._train_pt_model(train=train_examples,
+                             dev=dev_examples, test=test_examples)
         self._save_pt_model()
 
     def _build_pt_model(self) -> RoSentenceSplitterModule:
@@ -152,11 +141,32 @@ class RoSentenceSplitter(object):
 
         return RoSentenceSplitterModule(feat_dim=self._features_dim)
 
-    def _train_pt_model(self, train: tuple, dev: tuple, test: tuple) -> None:
-        # NumPy tensors
-        (x_train, y_train) = train
-        (x_dev, y_dev) = dev
-        (x_test, y_test) = test
+    def _split_collate_fn(self, batch) -> Tuple[Tensor, Tensor]:
+        x_tensor = []
+        y_tensor = []
+
+        for s in batch:
+            x, y = self._build_single_sample_input(sample=s)
+            x_tensor.append(torch.tensor(x))
+            y_tensor.append(torch.tensor(y, dtype=torch.long))
+        # end for
+        
+        x_tensor = torch.cat(x_tensor, dim=0).to(_device)
+        y_tensor = torch.cat(y_tensor, dim=0).to(_device)
+
+        return x_tensor, y_tensor
+
+    def _train_pt_model(self, train: List[List[Tuple]], dev: List[List[Tuple]], test: List[List[Tuple]]) -> None:
+        # PyTorch datasets
+        pt_dataset_train = SSDataset(samples=train)
+        train_dataloader = DataLoader(
+            dataset=pt_dataset_train, batch_size=16, shuffle=True, collate_fn=self._split_collate_fn)
+        pt_dataset_dev = SSDataset(samples=dev)
+        dev_dataloader = DataLoader(
+            dataset=pt_dataset_dev, batch_size=16, shuffle=False, collate_fn=self._split_collate_fn)
+        pt_dataset_test = SSDataset(samples=test)
+        test_dataloader = DataLoader(
+            dataset=pt_dataset_test, batch_size=16, shuffle=False, collate_fn=self._split_collate_fn)
 
         # PyTorch tensors
         x_train = torch.tensor(x_train).to(_device)
@@ -166,20 +176,8 @@ class RoSentenceSplitter(object):
         x_test = torch.tensor(x_test).to(_device)
         y_test = torch.tensor(y_test, dtype=torch.long).to(_device)
         
-        # PyTorch datasets
-        pt_dataset_train = TensorDataset(x_train, y_train)
-        pt_dataset_dev = TensorDataset(x_dev, y_dev)
-        pt_dataset_test = TensorDataset(x_test, y_test)
-
         self._loss_fn = nn.NLLLoss()
         self._optimizer = Adam(self._model.parameters(), lr=1e-3)
-
-        train_dataloader = DataLoader(
-            dataset=pt_dataset_train, batch_size=16, shuffle=True)
-        dev_dataloader = DataLoader(
-            dataset=pt_dataset_dev, batch_size=16, shuffle=False)
-        test_dataloader = DataLoader(
-            dataset=pt_dataset_test, batch_size=16, shuffle=False)
 
         for ep in range(1, 11):
             # Fit model for one epoch
@@ -495,7 +493,7 @@ class RoSentenceSplitter(object):
             # end for
         # end all samples
 
-    def _build_samples(self, data_sequence: list) -> tuple:
+    def _build_samples(self, data_sequence: List[Tuple]) -> Tuple[List, List, List]:
         """Builds the ML sets by segmenting the data_sequence into fixed-length chunks.
         Returns the classic ML triad, train, dev and test sets."""
 
@@ -557,52 +555,39 @@ class RoSentenceSplitter(object):
 
         return (train_samples, dev_samples, test_samples)
 
-    def _build_model_input(self, data_samples: list) -> tuple:
-        # No of examples
-        m = len(data_samples)
-        # This should be equal to maxSeqLength
-        tx = len(data_samples[0])
-        # assert Tx == RoSentSplit.maxSeqLength
-        # This is the size of the input vector
+    def _build_single_sample_input(self, sample: List[Tuple]) -> Tuple[NDArray, NDArray]:
+        tx = len(sample)
         n = -1
-        X = None
-        Y = None
 
-        # Sample size is Tx, the number of time steps
-        for i in range(len(data_samples)):
-            sample = data_samples[i]
-            # We must have that len(sample) == tx
+        for j in range(len(sample)):
+            parts = sample[j]
+            word = parts[0]
+            tlabel = parts[1]
+            y = 0
 
-            for j in range(len(sample)):
-                parts = sample[j]
-                word = parts[0]
-                tlabel = parts[1]
-                y = 0
+            if RoSentenceSplitter.is_eos_label(parts):
+                y = 1
+            # end if
 
-                if RoSentenceSplitter.is_eos_label(parts):
-                    y = 1
-                # end if
+            label_features = self._tokenizer.get_label_features(tlabel)
+            uni_features = self._uniprops.get_unicode_features(word)
+            lexical_features = self._lexicon.get_word_features(word)
 
-                label_features = self._tokenizer.get_label_features(tlabel)
-                uni_features = self._uniprops.get_unicode_features(word)
-                lexical_features = self._lexicon.get_word_features(word)
+            # This is the featurized version of a word in the sequence
+            x = np.concatenate(
+                (label_features, uni_features, lexical_features))
 
-                # This is the featurized version of a word in the sequence
-                x = np.concatenate(
-                    (label_features, uni_features, lexical_features))
+            if n == -1:
+                n = x.shape[0]
+                X = np.empty((1, tx, n), dtype=np.float32)
+                Y = np.empty((1, tx), dtype=np.int32)
+            # end if
 
-                if n == -1:
-                    n = x.shape[0]
-                    X = np.empty((m, tx, n), dtype=np.float32)
-                    Y = np.empty((m, tx), dtype=np.int32)
-                # end if
+            X[0, j, :] = x
+            Y[0, j] = y
+        # end for j in a sample
 
-                X[i, j, :] = x
-                Y[i, j] = y
-            # end for j in a sample
-        # end for i with all samples
-
-        return (X, Y)
+        return X, Y
 
 
 if __name__ == '__main__':
