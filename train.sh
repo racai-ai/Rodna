@@ -84,7 +84,7 @@ function train_dep_parser {
 }
 
 if [[ $# -eq 0 ]]; then
-	echo "Usage: train-all.sh [-split|-morph|-postag|-deppar|-all]"
+	echo "Usage: train.sh [-split|-morph|-postag|-deppar|-all]"
 	exit 1
 fi
 
