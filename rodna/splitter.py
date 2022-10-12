@@ -167,14 +167,6 @@ class RoSentenceSplitter(object):
         pt_dataset_test = SSDataset(samples=test)
         test_dataloader = DataLoader(
             dataset=pt_dataset_test, batch_size=16, shuffle=False, collate_fn=self._split_collate_fn)
-
-        # PyTorch tensors
-        x_train = torch.tensor(x_train).to(_device)
-        y_train = torch.tensor(y_train, dtype=torch.long).to(_device)
-        x_dev = torch.tensor(x_dev).to(_device)
-        y_dev = torch.tensor(y_dev, dtype=torch.long).to(_device)
-        x_test = torch.tensor(x_test).to(_device)
-        y_test = torch.tensor(y_test, dtype=torch.long).to(_device)
         
         self._loss_fn = nn.NLLLoss()
         self._optimizer = Adam(self._model.parameters(), lr=1e-3)
