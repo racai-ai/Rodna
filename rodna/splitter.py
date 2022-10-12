@@ -170,7 +170,7 @@ class RoSentenceSplitter(object):
         self._loss_fn = nn.NLLLoss()
         self._optimizer = Adam(self._model.parameters(), lr=1e-3)
 
-        for ep in range(1, 11):
+        for ep in range(1, 2):
             # Fit model for one epoch
             self._model.train(True)
             self._do_one_epoch(epoch=ep, dataloader=train_dataloader)
