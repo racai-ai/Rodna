@@ -6,6 +6,7 @@ from tqdm import tqdm
 from .parserone import RoDepParserTree
 from .parsertwo import RoDepParserLabel
 from utils.MSD import MSD
+from config import PARSER_DEPRELS_FILE
 
 
 def read_parsed_file(file: str, create_label_set: bool = False) -> Tuple[List[List[Tuple]], Set[str]]:
@@ -52,16 +53,29 @@ def read_parsed_file(file: str, create_label_set: bool = False) -> Tuple[List[Li
 
 class RoDepParser(object):
 
-    def __init__(self, msd: MSD, deprels: Set[str]):
+    def __init__(self, msd: MSD, deprels: Set[str] = None):
         self._rodep1 = RoDepParserTree(msd)
-        self._rodep2 = RoDepParserLabel(msd, deprels)
+
+        if not deprels:
+            self._deprels = self._load_deprels()
+        else:
+            self._deprels = deprels
+        # end if
+
+        self._rodep2 = RoDepParserLabel(msd, self._deprels)
 
     def parse_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
         """This is the main entry into the Romanian depencency parser.
         Takes a POS tagged sentence (tokens are tuples of word, MSD, prob)
         and returns its parsed version."""
 
+        # Corner case: sentence with 1 word
+        if len(sentence) == 1:
+            return [(sentence[0][0], sentence[0][1], 0, 'root', {'LINK': 1., 'DREL': 1.})]
+        # end if
+
         tree_sentence = self._rodep1.parse_sentence(sentence)
+
         # Unlabeled parsing returns the link probability as the last element of tuple
         # Remove it for the call to find_sentence_paths()
         tree_sentence_no_probs = [
@@ -227,12 +241,31 @@ class RoDepParser(object):
 
         self._rodep1.train(train_sentences, dev_sentences, test_sentences)
         self._rodep2.train(train_sentences, dev_sentences, test_sentences)
+
+        # Save the dependency relations set
+        with open(PARSER_DEPRELS_FILE, mode='w', encoding='utf-8') as f:
+            for drel in self._deprels:
+                print(drel, file=f)
+            # end for
+        # end with
+
         par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=False)
         par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=False)
         
     def load(self):
         self._rodep1.load()
         self._rodep2.load()
+
+    def _load_deprels(self) -> Set[str]:
+        deprels = set()
+
+        with open(PARSER_DEPRELS_FILE, mode='r', encoding='utf-8') as f:
+            for line in f:
+                deprels.add(line.strip())
+            # end for
+        # end with
+
+        return deprels
 
 
 if __name__ == '__main__':

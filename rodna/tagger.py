@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 from math import isclose
 import numpy as np
 import torch
@@ -1300,7 +1301,11 @@ class RoPOSTagger(object):
         tokenizer and outputs the MSD-tagged list of words, each MSD with its
         confidence score."""
 
-        internal_sentence = [(w, 'X') for w, tt in sentence if tt != 'SPACE']
+        internal_sentence = [
+            (w, 'X') for w, tt in sentence \
+                if tt != 'SPACE' and tt != 'EOL' and \
+                    not re.fullmatch('^\\s*$', w)
+        ]
         self._rofeatures.compute_sentence_wide_features(internal_sentence)
 
         return self._eval_sentence(internal_sentence)

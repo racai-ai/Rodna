@@ -19,8 +19,8 @@ class RoTokenizer(object):
         "-_")
     _romanian_numbers = set("0123456789")
     _romanian_diacs = set("ăîâșşțţ" + "ăîâșşțţ".upper())
-    _romanian_punct_chars = set(",.?!\"’´`‘':;()[]…„”“«»/-_•●·°÷")
-    _romanian_sym_chars = set("<>~@#%^&*+={}$\\|§©")
+    _romanian_punct_chars = set(",.?!\"’´`‘':;()[]{}…„”“«»/-_•●·")
+    _romanian_sym_chars = set("<>~@#%^&*+=÷$\\|§©°")
     # \t is reserved. Replace it with ' '
     _romanian_spc_chars = set(" ")
     _romanian_eol_chars = set("\r\n")

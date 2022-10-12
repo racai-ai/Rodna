@@ -1,6 +1,8 @@
+import sys
+from typing import Dict
 import numpy as np
 import re
-from config import MSD_MAP_FILE
+from config import MSD_MAP_FILE, MORPHO_MAP_FILE
 
 class MSD(object):
     """This class will model a Morpho-Syntactic Descriptor.
@@ -44,6 +46,51 @@ class MSD(object):
         "“": "Z1q",
         "«": "Z1q",
         "»": "Z2q"
+    }
+    # When writing CoNLL-U files, use these
+    # tags instead of the newly defined MSDs above.
+    punct_ctag_inventory = {
+        '-': 'DASH',
+        '−': 'DASH',
+        '–': 'DASH',
+        '—': 'DASH',
+        '―': 'DASH',
+        '\'': 'QUOT',
+        '!': 'EXCL',
+        '!...': 'EXCLHELLIP',
+        '"': 'DBLQ',
+        '%': 'PERCENT',
+        '(': 'LPAR',
+        ')': 'RPAR',
+        '*': 'STAR',
+        ',': 'COMMA',
+        '.': 'PERIOD',
+        '...': 'HELLIP',
+        '/': 'SLASH',
+        ':': 'COLON',
+        ';': 'SCOLON',
+        '?': 'QUEST',
+        '[': 'LSQR',
+        ']': 'RSQR',
+        '_': 'UNDERSC',
+        '{': 'LCURL',
+        '}': 'RCURL',
+        '’': 'QUOT',
+        '‚': 'QUOT',
+        '“': 'DBLQ',
+        '”': 'DBLQ',
+        '„': 'DBLQ',
+        '+': 'PLUS',
+        '<': 'LT',
+        '=': 'EQUAL',
+        '>': 'GT',
+        '±': 'PLUSMINUS',
+        '«': 'DBLQ',
+        '»': 'DBLQ',
+        '≥': 'GE',
+        '→': 'ARROW',
+        '…': 'HELLIP',
+        '•': 'BULLET'
     }
     punct_patt = re.compile("^\\W+$")
     _msd_attributes_categories = [
@@ -127,6 +174,7 @@ class MSD(object):
         self._ctagoutputsize = 0
         self._ctagxindex = -1
         self._create_msd_inventory(MSD_MAP_FILE)
+        self._msdtomorpho = self._create_morpho_feats_inventory(MORPHO_MAP_FILE)
 
     @staticmethod
     def get_msd_pos(msd: str) -> str:
@@ -175,6 +223,13 @@ class MSD(object):
     def get_ctag_output_vector_size(self):
         return self._ctagoutputsize
 
+    def get_punct_ctag(self, punct_token: str) -> str:
+        if punct_token in MSD.punct_ctag_inventory:
+            return MSD.punct_ctag_inventory[punct_token]
+        else:
+            return MSD.punct_ctag
+        # end if
+
     def idx_to_msd(self, index: int) -> str:
         if index < 0 or index >= len(self._msdinverseinv):
             return 'Unk'
@@ -213,6 +268,57 @@ class MSD(object):
             return self._msdtoctag[msd]
         else:
             return 'Unk'
+
+    def msd_to_upos(self, msd: str, tok_tag: str) -> str:
+        """Gets the UD UPOS tag from the MSD. Deterministic mapping.
+        - `tok_tag` is the tokenizer tag
+        - `msd` is the MSD"""
+
+        if tok_tag == 'PUNCT' or tok_tag == 'SYM':
+            return tok_tag
+        # end if
+
+        if msd.startswith('Z'):
+            return 'PUNCT'
+        # end if
+
+        if re.match('^Np', msd):
+            return 'PROPN'
+        elif re.match('^(Nc|Yn|Y)', msd):
+            return 'NOUN'
+        elif re.match('^M', msd):
+            return 'NUM'
+        elif re.match('^(A|Ya)', msd):
+            return 'ADJ'
+        elif re.match('^(R|Yr)', msd):
+            return 'ADV'
+        elif re.match('^I', msd):
+            return "INTJ"
+        elif re.match('^S', msd):
+            return "ADP"
+        elif re.match('^C[cr]', msd):
+            return "CCONJ"
+        elif re.match('^Cs', msd):
+            return "SCONJ"
+        elif re.match('^[DT]', msd):
+            return "DET"
+        elif re.match('^(P|Yp)', msd):
+            return "PRON"
+        elif re.match('^(Vm|Yv)', msd):
+            return "VERB"
+        elif re.match('^Va', msd):
+            return "AUX"
+        elif re.match('^Q', msd):
+            return "PART"
+        # end if
+
+        return 'X'
+
+    def msd_to_morpho_feats(self, msd: str) -> str:
+        if msd in self._msdtomorpho:
+            return self._msdtomorpho[msd]
+        else:
+            return '_'
 
     def ctag_to_possible_msds(self, ctag: str) -> list:
         """This is in a 1:m relationship."""
@@ -312,6 +418,23 @@ class MSD(object):
                 self._msdoutputsize += 1
             # end if
         # end for
+
+    def _create_morpho_feats_inventory(self, morfile: str) -> Dict[str, str]:
+        morpho_feats = {}
+
+        with open(morfile, mode='r', encoding='utf-8') as f:
+            for line in f:
+                msd, mfeats = line.strip().split()
+
+                if msd not in morpho_feats:
+                    morpho_feats[msd] = mfeats
+                else:
+                    print(f'MSD [{msd}] is not unique in the morphological features dict', file=sys.stderr, flush=True)
+                # end if
+            # end for
+        # end with
+
+        return morpho_feats
 
     def get_x_input_vector(self) -> np.ndarray:
         """Returns the input vector for the MSD 'X'."""

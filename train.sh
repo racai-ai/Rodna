@@ -6,7 +6,7 @@ function train_sentence_splitter {
 	echo
 
 	# Delete all model files for the RoSentenceSplitter model
-	rm -fvr data/models/splitter/model.pt
+	rm -fv data/models/splitter/model.pt
 	rm -fv data/models/splitter_feat_len.txt
 	rm -fv data/models/splitter_unic_props.txt
 	# Retrain the sentence splitter model
@@ -23,7 +23,7 @@ function train_morphology {
 	echo
 
 	# Delete all model files for the RoInflect model
-	rm -fvr data/models/morphology/model.pt
+	rm -fv data/models/morphology/model.pt
 	rm -fv data/models/char_ids.txt
 	rm -fv data/models/unknown_aclasses.txt
 	# Retrain the morphology model
@@ -40,10 +40,10 @@ function train_pos_tagger {
 	echo
 
 	# Delete all model files for the RoPOSTagger model
-	rm -fvr data/models/tagger/cls/config.json
-	rm -fvr data/models/tagger/cls/model.pt
-	rm -fvr data/models/tagger/crf/config.json
-	rm -fvr data/models/tagger/crf/model.pt
+	rm -fv data/models/tagger/cls/config.json
+	rm -fv data/models/tagger/cls/model.pt
+	rm -fv data/models/tagger/crf/config.json
+	rm -fv data/models/tagger/crf/model.pt
 	rm -fv data/models/tagger_unic_props.txt
 	rm -fv data/models/word_ids.txt
 	# Retrain the tagger model
@@ -54,8 +54,37 @@ function train_pos_tagger {
 	echo
 }
 
+function train_dep_parser {
+	echo
+	echo ========== Training RoDepParser ==========
+	echo
+
+	# Delete all model files for the RoDepParser models 1 and 2
+	rm -fv data/models/parser/modelone.pt
+	rm -fv data/models/parser/bert1/config.json
+	rm -fv data/models/parser/bert1/pytorch_model.bin
+	rm -fv data/models/parser/tok1/special_tokens_map.json
+	rm -fv data/models/parser/tok1/tokenizer.json
+	rm -fv data/models/parser/tok1/tokenizer_config.json
+	rm -fv data/models/parser/tok1/vocab.txt
+	rm -fv data/models/parser/modeltwo.pt
+	rm -fv data/models/parser/bert2/config.json
+	rm -fv data/models/parser/bert2/pytorch_model.bin
+	rm -fv data/models/parser/tok2/special_tokens_map.json
+	rm -fv data/models/parser/tok2/tokenizer.json
+	rm -fv data/models/parser/tok2/tokenizer_config.json
+	rm -fv data/models/parser/tok2/vocab.txt
+	
+	# Retrain the parser model
+	python3 -m rodna.parser
+
+	echo
+	echo ========== End training RoDepParser ==========
+	echo
+}
+
 if [[ $# -eq 0 ]]; then
-	echo "Usage: train-all.sh [-split|-morph|-postag|-all]"
+	echo "Usage: train-all.sh [-split|-morph|-postag|-deppar|-all]"
 	exit 1
 fi
 
@@ -71,10 +100,14 @@ do
 		-postag)
 			time train_pos_tagger
 			;;
+		-deppar)
+			time train_dep_parser
+			;;
 		-all)
 			time train_sentence_splitter
 			time train_morphology
 			time train_pos_tagger
+			time train_dep_parser
 			;;
 	esac
 done

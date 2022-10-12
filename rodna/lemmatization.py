@@ -1,3 +1,4 @@
+from typing import List, Tuple
 import os
 import re
 import sys
@@ -57,6 +58,8 @@ class RoLemmatizer(object):
         'Rgp',
         'I',
         'Mc-p-l',
+        'Mc-s-d',
+        'Mc-s-b',
         'Vmnp'
     }
 
@@ -1205,6 +1208,32 @@ class RoLemmatizer(object):
 
         return msd
 
+    def lemmatize_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
+        """Takes a sentence from the RoPOSTagger, a list of (wordform, MSD, score), and
+        produces a list of (wordform, MSD, lemma, score)."""
+        
+        result = []
+
+        for word, msd, _ in sentence:
+            lemmas = self.lemmatize(word, msd)
+            lemma_found = False
+
+            for lemma, score, m in lemmas:
+                if m == msd:
+                    result.append((word, msd, lemma, score))
+                    lemma_found = True
+                    break
+                # end if
+            # end for
+
+            if not lemma_found:
+                # If no lemma found, just put the word...
+                result.append((word, msd, word, 0.01))
+            # end if
+        # end for
+
+        return result
+
     def lemmatize(self, word: str, msd: str, use_lex: bool = True) -> list:
         """Main lemmatization method. If `use_lex` is `True`, if word/MSD is in the
         lexicon, return the looked-up lemma. If not, try and find the most probable paradigm
@@ -1215,18 +1244,25 @@ class RoLemmatizer(object):
             lex_lemmas = self._lexicon.get_word_lemma(word, msd)
 
             if lex_lemmas:
-                return [(x, 1.0) for x in lex_lemmas]
+                return [(x, 1.0, msd) for x in lex_lemmas]
             # end if
         # end if
 
         # 2. If MSD is of a word that is already in lemma form,
         # just return the word
         if msd in RoLemmatizer._lemma_msds:
-            if msd.startswith('Np') or msd.startswith('Y'):
-                return [(word, 1.0)]
+            if msd.startswith('Np') or msd.startswith('Y') or \
+                    msd.startswith('Z'):
+                return [(word, 1.0, msd)]
             else:
-                return [(word.lower(), 1.0)]
+                return [(word.lower(), 1.0, msd)]
             # end if
+        # end if
+
+        # 3. If MSD is that of a punctuation mark,
+        # just return the punctuation
+        if msd.startswith('Z'):
+            return [(word, 1.0, msd)]
         # end if
 
         lcword = word.lower()
@@ -1302,7 +1338,7 @@ class RoLemmatizer(object):
         final_lemmas = sorted(lemma_scores3, key=lambda x: x[1], reverse=True)
 
         if not final_lemmas:
-            print(f'\nEmpty response from lemmatizer for {word}/{msd}', file=sys.stderr, flush=True)
+            print(f'Empty response from lemmatizer for {word}/{msd}', file=sys.stderr, flush=True)
         # end if
 
         return final_lemmas
