@@ -398,6 +398,9 @@ class RoPOSTagger(object):
         self._cls_model.eval()
         self._test_cls_model(dataloader=test_dataloader, ml_set='test')
 
+        # 7.4 Test on given sets
+        self.test_on_sentence_set(sentences=dev_sentences)
+
         # 8. Save all models
         self._save()
 
@@ -1699,9 +1702,5 @@ if __name__ == '__main__':
         testing_file), file=sys.stderr, flush=True)
     testing = tag.read_tagged_file(testing_file)
 
-    #tag.train(train_sentences=training,
-    #        dev_sentences=development, test_sentences=testing)
-
-    # Testing section
-    tag.load()
-    tag.test_on_sentence_set(sentences=development)
+    tag.train(train_sentences=training,
+            dev_sentences=development, test_sentences=testing)
