@@ -68,21 +68,7 @@ EXIT /B 0
 
 :Parser
 ECHO Training the dependency parser
-: Delete all model files for the RoDepParser models 1 and 2
-DEL /F /Q data\models\parser\modelone.pt
-DEL /F /Q data\models\parser\bert1\config.json
-DEL /F /Q data\models\parser\bert1\pytorch_model.bin
-DEL /F /Q data\models\parser\tok1\special_tokens_map.json
-DEL /F /Q data\models\parser\tok1\tokenizer.json
-DEL /F /Q data\models\parser\tok1\tokenizer_config.json
-DEL /F /Q data\models\parser\tok1\vocab.txt
-DEL /F /Q data\models\parser\modeltwo.pt
-DEL /F /Q data\models\parser\bert2\config.json
-DEL /F /Q data\models\parser\bert2\pytorch_model.bin
-DEL /F /Q data\models\parser\tok2\special_tokens_map.json
-DEL /F /Q data\models\parser\tok2\tokenizer.json
-DEL /F /Q data\models\parser\tok2\tokenizer_config.json
-DEL /F /Q data\models\parser\tok2\vocab.txt
+: Model files for the RoDepParser models 1 and 2 are automatically deleted now
 : Retrain the parser model
 python -m rodna.parser
 

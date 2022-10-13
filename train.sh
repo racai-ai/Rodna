@@ -59,21 +59,8 @@ function train_dep_parser {
 	echo ========== Training RoDepParser ==========
 	echo
 
-	# Delete all model files for the RoDepParser models 1 and 2
-	rm -fv data/models/parser/modelone.pt
-	rm -fv data/models/parser/bert1/config.json
-	rm -fv data/models/parser/bert1/pytorch_model.bin
-	rm -fv data/models/parser/tok1/special_tokens_map.json
-	rm -fv data/models/parser/tok1/tokenizer.json
-	rm -fv data/models/parser/tok1/tokenizer_config.json
-	rm -fv data/models/parser/tok1/vocab.txt
-	rm -fv data/models/parser/modeltwo.pt
-	rm -fv data/models/parser/bert2/config.json
-	rm -fv data/models/parser/bert2/pytorch_model.bin
-	rm -fv data/models/parser/tok2/special_tokens_map.json
-	rm -fv data/models/parser/tok2/tokenizer.json
-	rm -fv data/models/parser/tok2/tokenizer_config.json
-	rm -fv data/models/parser/tok2/vocab.txt
+	# Model files for the RoDepParser models 1 and 2 are automatically deleted
+	# and the best model is saved
 	
 	# Retrain the parser model
 	python3 -m rodna.parser

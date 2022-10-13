@@ -115,7 +115,16 @@ class RoDepParserLabel(object):
     _conf_lr = 5e-5
     # Multiplying factor between epochs of the LR
     _conf_gamma_lr = 0.9
-    _conf_epochs = 3
+    _conf_epochs = 5
+    _all_parser_model_files = [
+        os.path.join(PARSER_MODEL_FOLDER, _conf_model_file),
+        os.path.join(PARSER2_BERT_MODEL_FOLDER, 'config.json'),
+        os.path.join(PARSER2_BERT_MODEL_FOLDER, 'pytorch_model.bin'),
+        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'special_tokens_map.json'),
+        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'tokenizer.json'),
+        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'tokenizer_config.json'),
+        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'vocab.txt')
+    ]
 
     def __init__(self, msd: MSD, deprels: Set[str]):
         """Takes the MSD description object `msd` and the set of
@@ -346,19 +355,39 @@ class RoDepParserLabel(object):
             dataset=test_dataset,
             batch_size=1, shuffle=False, collate_fn=self._deprel_collate_fn)
 
+        best_acc = 0.
+
         for ep in range(RoDepParserLabel._conf_epochs):
             self._deprelmodel.train(True)
             self._bertmodel.train(True)
             self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
             self._deprelmodel.eval()
             self._bertmodel.eval()
-            self.do_eval(dataloader=dev_dataloader, desc='dev')
+            ep_acc = self.do_eval(dataloader=dev_dataloader, desc='dev')
+
+            if ep_acc > best_acc:
+                print(
+                    f'Saving better RoDepParserLabel model with Acc = {ep_acc:.5f}',
+                    file=sys.stderr, flush=True)
+                best_acc = ep_acc
+                self._delete_parser_files()
+                self._save()
+            # end if
+
             self._lr_scheduler.step()
             train_dataset.reshuffle()
         # end for
 
         self.do_eval(dataloader=test_dataloader, desc='test')
-        self._save()
+
+    def _delete_parser_files(self):
+        for file in RoDepParserLabel._all_parser_model_files:
+            if os.path.isfile(file):
+                print(
+                    f'Removing RoDepParserLabel model file [{file}]', file=sys.stderr, flush=True)
+                os.remove(file)
+            # end if
+        # end for
 
     def _save(self):
         torch_model_file = os.path.join(
@@ -382,7 +411,7 @@ class RoDepParserLabel(object):
         # Put model into eval mode. It is only used for inferencing.
         self._deprelmodel.eval()
 
-    def do_eval(self, dataloader: DataLoader, desc: str):
+    def do_eval(self, dataloader: DataLoader, desc: str) -> float:
         correct = 0
         example_number = 0
 
@@ -396,6 +425,8 @@ class RoDepParserLabel(object):
 
         acc = correct / example_number
         print(f'Acc = {acc:.5f}', file=sys.stderr, flush=True)
+
+        return acc
 
     def find_sentence_paths(self, sentence: List[Tuple]) -> List[List[int]]:
         """Takes a sentence and extracts all paths from root to leaves."""

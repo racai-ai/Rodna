@@ -122,8 +122,17 @@ class RoDepParserTree(object):
     # Initial learning rate
     _conf_lr = 5e-5
     # Multiplying factor between epochs of the LR
-    _conf_gamma_lr = 0.75
+    _conf_gamma_lr = 0.9
     _conf_epochs = 15
+    _all_parser_model_files = [
+        os.path.join(PARSER_MODEL_FOLDER, _conf_model_file),
+        os.path.join(PARSER1_BERT_MODEL_FOLDER, 'config.json'),
+        os.path.join(PARSER1_BERT_MODEL_FOLDER, 'pytorch_model.bin'),
+        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'special_tokens_map.json'),
+        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'tokenizer.json'),
+        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'tokenizer_config.json'),
+        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'vocab.txt')
+    ]
 
     def __init__(self, msd: MSD) -> None:
         super().__init__()
@@ -332,19 +341,32 @@ class RoDepParserTree(object):
             dataset=DPDataset(sentences=test_sentences),
             batch_size=1, shuffle=False, collate_fn=self._head_collate_fn)
 
+        best_acc = 0.
+
         for ep in range(RoDepParserTree._conf_epochs):
             self._headmodel.train(True)
             self._bertmodel.train(True)
             self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
             self._headmodel.eval()
             self._bertmodel.eval()
-            self.do_eval(dataloader=dev_dataloader, desc='dev')
+            ep_acc = self.do_eval(dataloader=dev_dataloader, desc='dev')
+
+            if ep_acc > best_acc:
+                print(file=sys.stderr)
+                print(
+                    f'Saving better RoDepParserTree model with Acc = {ep_acc:.5f}',
+                    file=sys.stderr)
+                best_acc = ep_acc
+                self._delete_parser_files()
+                self._save()
+                print(file=sys.stderr, flush=True)
+            # end if
+
             self._lr_scheduler.step()
             train_dataset.reshuffle()
         # end for
 
         self.do_eval(dataloader=test_dataloader, desc='test')
-        self._save()
 
     def _save(self):
         torch_model_file = os.path.join(PARSER_MODEL_FOLDER, RoDepParserTree._conf_model_file)
@@ -365,7 +387,16 @@ class RoDepParserTree(object):
         # Put model into eval mode. It is only used for inferencing.
         self._headmodel.eval()
 
-    def do_eval(self, dataloader: DataLoader, desc: str):
+    def _delete_parser_files(self):
+        for file in RoDepParserTree._all_parser_model_files:
+            if os.path.isfile(file):
+                print(
+                    f'Removing RoDepParserTree model file [{file}]', file=sys.stderr, flush=True)
+                os.remove(file)
+            # end if
+        # end for
+
+    def do_eval(self, dataloader: DataLoader, desc: str) -> float:
         correct = 0
         example_number = 0
 
@@ -379,6 +410,8 @@ class RoDepParserTree(object):
 
         acc = correct / example_number
         print(f'Acc = {acc:.5f}', file=sys.stderr, flush=True)
+
+        return acc
 
     def parse_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
         """This is the main entry into the Romanian depencency parser.
