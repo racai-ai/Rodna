@@ -93,6 +93,7 @@ class RoSentenceSplitter(object):
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     _conf_test_percent = 0.1
+    _conf_epochs = 10
 
     def __init__(self, lexicon: Lex, tokenizer: RoTokenizer):
         self._tokenizer = tokenizer
@@ -170,10 +171,10 @@ class RoSentenceSplitter(object):
         self._loss_fn = nn.NLLLoss()
         self._optimizer = Adam(self._model.parameters(), lr=1e-3)
 
-        for ep in range(1, 2):
+        for ep in range(RoSentenceSplitter._conf_epochs):
             # Fit model for one epoch
             self._model.train(True)
-            self._do_one_epoch(epoch=ep, dataloader=train_dataloader)
+            self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
 
             # Test model
             # Put model into eval mode first

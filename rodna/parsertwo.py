@@ -22,7 +22,7 @@ class RoBERTDepRelFinder(nn.Module):
     from the root to a leaf."""
 
     _conf_gru_size = 512
-    _conf_drop_prob = 0.2
+    _conf_drop_prob = 0.33
 
     def __init__(self, msd_size: int, deprel_size: int):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
@@ -114,8 +114,8 @@ class RoDepParserLabel(object):
     # Initial learning rate
     _conf_lr = 5e-5
     # Multiplying factor between epochs of the LR
-    _conf_gamma_lr = 0.5
-    _conf_epochs = 2
+    _conf_gamma_lr = 0.9
+    _conf_epochs = 3
 
     def __init__(self, msd: MSD, deprels: Set[str]):
         """Takes the MSD description object `msd` and the set of

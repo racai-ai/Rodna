@@ -24,7 +24,7 @@ class RoBERTHeadFinder(nn.Module):
     which is fine-tuned to find head information."""
 
     _conf_lstm_size = 512
-    _conf_drop_prob = 0.2
+    _conf_drop_prob = 0.33
 
     def __init__(self, msd_size: int, head_window_size: int):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
