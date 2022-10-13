@@ -93,7 +93,7 @@ class RoSentenceSplitter(object):
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     _conf_test_percent = 0.1
-    _conf_epochs = 10
+    _conf_epochs = 3
 
     def __init__(self, lexicon: Lex, tokenizer: RoTokenizer):
         self._tokenizer = tokenizer
