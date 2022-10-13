@@ -416,7 +416,7 @@ class RoInflect(object):
         # end for
 
         if word_amb_class:
-            print_error("unknown word '{0}' has ambiguity class [{1}]".format(
+            print_error("word '{0}' has ambiguity class [{1}]".format(
                 word, ', '.join([x for x in word_amb_class])), stack()[0][3])
 
             self._cache[word_key] = word_amb_class
