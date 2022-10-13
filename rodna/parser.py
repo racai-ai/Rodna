@@ -9,14 +9,13 @@ from utils.MSD import MSD
 from config import PARSER_DEPRELS_FILE
 
 
-def read_parsed_file(file: str, create_label_set: bool = False) -> Tuple[List[List[Tuple]], Set[str]]:
+def read_parsed_file(file: str) -> List[List[Tuple]]:
     """Will read in file and return a sequence of tokens from it
     each token with its assigned MSD and dependency information."""
 
     print(stack()[
             0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
 
-    deprel_set = set()
     sentences = []
     current_sentence = []
     line_count = 0
@@ -40,28 +39,18 @@ def read_parsed_file(file: str, create_label_set: bool = False) -> Tuple[List[Li
             else:
                 current_sentence.append(
                     (parts[1], parts[3], int(parts[4]), parts[5]))
-                
-                if create_label_set:
-                    deprel_set.add(parts[5])
-                # end if
             # end if
         # end all lines
     # end with
 
-    return sentences, deprel_set
+    return sentences
 
 
 class RoDepParser(object):
 
-    def __init__(self, msd: MSD, deprels: Set[str] = None):
+    def __init__(self, msd: MSD):
         self._rodep1 = RoDepParserTree(msd)
-
-        if not deprels:
-            self._deprels = self._load_deprels()
-        else:
-            self._deprels = deprels
-        # end if
-
+        self._deprels = self._load_deprels()
         self._rodep2 = RoDepParserLabel(msd, self._deprels)
 
     def parse_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
@@ -241,14 +230,6 @@ class RoDepParser(object):
 
         self._rodep1.train(train_sentences, dev_sentences, test_sentences)
         self._rodep2.train(train_sentences, dev_sentences, test_sentences)
-
-        # Save the dependency relations set
-        with open(PARSER_DEPRELS_FILE, mode='w', encoding='utf-8') as f:
-            for drel in self._deprels:
-                print(drel, file=f)
-            # end for
-        # end with
-
         par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=False)
         par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=False)
         
@@ -272,15 +253,15 @@ if __name__ == '__main__':
     # For a given split, like in RRT
     training_file = os.path.join(
         "data", "training", "parser", "ro_rrt-ud-train.tab")
-    training, drset = read_parsed_file(file=training_file, create_label_set=True)
-    par = RoDepParser(msd=MSD(), deprels=drset)
+    training = read_parsed_file(file=training_file)
+    par = RoDepParser(msd=MSD())
 
     development_file = os.path.join(
         "data", "training", "parser", "ro_rrt-ud-dev.tab")
-    development, _ = read_parsed_file(file=development_file)
+    development = read_parsed_file(file=development_file)
 
     testing_file = os.path.join(
         "data", "training", "parser", "ro_rrt-ud-test.tab")
-    testing, _ = read_parsed_file(file=testing_file)
+    testing = read_parsed_file(file=testing_file)
 
     par.train(train_sentences=training, dev_sentences=development, test_sentences=testing)
