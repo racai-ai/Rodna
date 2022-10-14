@@ -1285,6 +1285,9 @@ class RoPOSTagger(object):
         result_aclass = list(both_aclass.intersection(mclass))
 
         if result_aclass:
+            print(
+                f"_tiered_tagging[standard]: word '{word}' got MSDs [{', '.join(result_aclass)}] for CTAG [{ctag}]",
+                file=sys.stderr, flush=True)
             return result_aclass
         # end if
 
@@ -1292,11 +1295,18 @@ class RoPOSTagger(object):
         result_aclass = list(amend_aclass.intersection(mclass))
 
         if result_aclass:
+            print(
+                f"_tiered_tagging[extended]: word '{word}' got MSDs [{', '.join(result_aclass)}] for CTAG [{ctag}]",
+                file=sys.stderr, flush=True)
             return result_aclass
         else:
             # If result_aclass is empty, tiered tagging failed:
             # CTAG is very different than ambiguity classes!
-            return list(amend_aclass)
+            list_amend_aclass = list(amend_aclass)
+            print(
+                f"_tiered_tagging[error]: word '{word}' got MSDs [{', '.join(list_amend_aclass)}] for CTAG [{ctag}]",
+                file=sys.stderr, flush=True)
+            return list_amend_aclass
         # end if
 
     def tag_sentence(self, sentence: list) -> list:

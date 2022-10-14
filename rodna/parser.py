@@ -230,8 +230,6 @@ class RoDepParser(object):
 
         self._rodep1.train(train_sentences, dev_sentences, test_sentences)
         self._rodep2.train(train_sentences, dev_sentences, test_sentences)
-        par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=False)
-        par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=False)
         
     def load(self):
         self._rodep1.load()
@@ -265,3 +263,8 @@ if __name__ == '__main__':
     testing = read_parsed_file(file=testing_file)
 
     par.train(train_sentences=training, dev_sentences=development, test_sentences=testing)
+
+    # Debug performance
+    # par.load()
+    # par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=False)
+    # par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=False)

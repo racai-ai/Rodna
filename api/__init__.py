@@ -15,8 +15,18 @@ class ConlluProcessor(object):
 
         sentences = self.process_text(text=all_text_lines)
         txt_file_path = Path(txt_file)
+        processor_name = self.__class__.__name__.lower()
+
+        if processor_name.endswith('processor'):
+            processor_name = processor_name.replace('processor', '')
+        # end if
+
+        if not processor_name:
+            processor_name = 'generic'
+        # end if
+
         cnl_file_path = txt_file_path.parent / \
-            Path(txt_file_path.stem + '.conllu')
+            Path(txt_file_path.stem + '.' + processor_name + '.conllu')
 
         # Print the CoNLL-U file
         with open(cnl_file_path, mode='w', encoding='utf-8') as f:

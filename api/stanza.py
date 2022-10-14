@@ -30,36 +30,42 @@ class StanzaProcessor(ConlluProcessor):
         self._nlp = stanza.Pipeline(**config)
 
     def process_text(self, text: str) -> SentenceList:
-        sentences = self._nlp(doc=text)
+        document = self._nlp(doc=text)
         conllu_sentences = SentenceList()
         sent_id = 1
 
         # Assemble the CoNLL-U sentence
-        for input_sentence in sentences:
+        for input_sentence in document.sentences:
             conllu_sentence = TokenList()
             conllu_text = []
 
-            for i, tdict in enumerate(input_sentence):
-                tdict['form'] = tdict['text']
-                tok = tdict['form']
+            for i, token in enumerate(input_sentence.tokens):
+                # Assume no MWEs here
+                word = token.words[0]
+                tdict = {}
+                tdict['id'] = word.id
+                tdict['form'] = word.text
+                tdict['lemma'] = word.lemma
+                tdict['upos'] = word.upos
+                tdict['xpos'] = word.xpos
+                tdict['feats'] = word.feats
+                tdict['head'] = word.head
+                tdict['deprel'] = word.deprel
                 tdict['deps'] = '_'
                 tdict['misc'] = '_'
 
-                conllu_text.append(tok)
+                conllu_text.append(word.text)
 
-                if i + 1 < len(input_sentence):
-                    next_tdict = input_sentence[i + 1]
+                if i + 1 < len(input_sentence.tokens):
+                    next_token = input_sentence.tokens[i + 1]
+                    next_word = next_token.words[0]
 
-                    if next_tdict['start_char'] == tdict['end_char']:
+                    if next_word.start_char == word.end_char:
                         tdict['misc'] = 'SpaceAfter=No'
                     else:
                         conllu_text.append(' ')
                     # end if
                 # end if
-
-                del tdict['start_char']
-                del tdict['end_char']
-                del tdict['text']
 
                 conllu_sentence.append(Token(tdict))
             # end all tokens

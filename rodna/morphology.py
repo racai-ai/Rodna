@@ -14,9 +14,7 @@ from utils.Lex import Lex
 from config import TBL_WORDFORM_FILE, \
     ROINFLECT_MODEL_FOLDER, ROINFLECT_CHARID_FILE, \
     ROINFLECT_CACHE_FILE
-
-torch.manual_seed(1234)
-_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+from . import _device
 
 
 class RoInflectModule(nn.Module):
