@@ -38,3 +38,5 @@ rodna-models.tar.gz
 *.conllu.old
 *.conllu
 conll18_ud_eval.py
+rodna.dev.tokens
+stanza.dev.tokens

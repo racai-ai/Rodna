@@ -12,9 +12,10 @@ from utils.errors import print_error
 class Lex(object):
     """This class will read in the lexicon (in tbl.wordform format)"""
 
-    # Pronouns, Determiners, Particles, Adpositions, Conjunctions, Abbreviations, Numerals
+    # Pronouns, Determiners, Particles, Adpositions, Conjunctions, Numerals
     # proper nouns, numerals, adverbs, not general.
-    _mwe_pos_pattern = re.compile("^([PDQSCYMI]|Np|R[^g])")
+    _mwe_pos_pattern = re.compile("^([PDQSCMI]|Np|R[^g])")
+    # Abbreviations
     _abbr_pos_pattern = re.compile("^Y")
     content_word_pos_pattern = re.compile("^([YNAM]|Vm|Rg)")
     _comm_pattern = re.compile("^\\s*#")

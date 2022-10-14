@@ -469,7 +469,15 @@ class RoSentenceSplitter(object):
             sentences.append(current_sentence)
         # end if
 
-        return sentences
+        splitter_sentences = []
+
+        # Glue ABBRs and split punctuation that is longer than 1 char
+        for sent in sentences:
+            glued_sent = self._tokenizer.glue_tokens(tokens=sent)
+            splitter_sentences.append(glued_sent)
+        # end for
+
+        return splitter_sentences
 
     @staticmethod
     def is_eos_label(parts):

@@ -1,3 +1,4 @@
+from typing import List, Tuple
 import sys
 import re
 from inspect import stack
@@ -431,8 +432,10 @@ class RoTokenizer(object):
             max_len = 0
 
             if label == "MWE":
+                # max_len is in number of parts, e.g. P.S._Sa => len is 2
                 max_len = self._lexicon._maxmwelen
             elif label == "ABBR":
+                # max_len is in number of parts, e.g. O.N.U. => len is 3
                 max_len = self._lexicon._maxabbrlen
             # end if
 
@@ -453,7 +456,7 @@ class RoTokenizer(object):
                     phrtok.append(word)
 
                     if tag == "RWORD" or tag == "FWORD" or \
-                            tag == "WORD" or tag == "ABBR" or word == ".":
+                            tag == "WORD" or tag == "ABBR":
                         word_count += 1
                     # end if
                 # end if
@@ -558,3 +561,42 @@ class RoTokenizer(object):
             input_file), file=sys.stderr, flush=True)
 
         return self.tokenize(txt_file_to_string(input_file))
+
+    def glue_tokens(self, tokens: List[Tuple], do_mwes: bool = False) -> List[Tuple]:
+        """Glues some tokens such as abbreviations or MWEs in single tokens, for downstream processing.
+        If `do_mwes is True`, multiword expressions are also glued. """
+
+        glued_tokens = []
+        expr_tokens = []
+        expr_label = ''
+
+        for token, tlabel in tokens:
+            if tlabel == 'PUNCT' or tlabel == 'SYM':
+                if len(token) > 1:
+                    glued_tokens.extend([(pstk, tlabel) for pstk in token])
+                else:
+                    glued_tokens.append((token, tlabel))
+                # end if
+            elif tlabel == 'ABBR' or (do_mwes and tlabel == 'MWE'):
+                expr_tokens.append(token)
+                expr_label = tlabel
+            else:
+                if expr_tokens:
+                    expr_token = ''.join(expr_tokens)
+                    expr_token = expr_token.replace(' ', '_')
+                    glued_tokens.append((expr_token, expr_label))
+                    expr_tokens = []
+                    expr_label = ''
+                # end if
+
+                glued_tokens.append((token, tlabel))
+            # end if
+        # end for
+
+        if expr_tokens:
+            expr_token = ''.join(expr_tokens)
+            expr_token = expr_token.replace(' ', '_')
+            glued_tokens.append((expr_token, expr_label))
+        # end if
+
+        return glued_tokens

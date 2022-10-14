@@ -26,3 +26,16 @@ def test_abbrs():
     assert len(tokens) == 25
     assert tokens[22][1] == 'ABBR'
     assert tokens[23][1] == 'ABBR'
+
+def test_long_abbr_bug():
+    tokens = tokenizer.tokenize(
+        "Comitetul O.N.U. împotriva torturii cere explicații " + \
+        "SUA și Marii Britanii în legătură cu tratamentele inumane " + \
+        "aplicate deținuților irakieni.")
+    assert len(tokens) == 41
+    assert tokens[2][1] == 'ABBR'
+    assert tokens[3][1] == 'ABBR'
+    assert tokens[4][1] == 'ABBR'
+    assert tokens[5][1] == 'ABBR'
+    assert tokens[6][1] == 'ABBR'
+    assert tokens[7][1] == 'ABBR'
