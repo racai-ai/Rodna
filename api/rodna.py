@@ -3,51 +3,33 @@ It processes UTF-8 text files and outputs CoNLL-U files."""
 
 import sys
 from typing import List, Tuple
-from pathlib import Path
 from conllu.models import Token, TokenList, SentenceList
-from .tokenizer import RoTokenizer
-from .splitter import RoSentenceSplitter
-from .morphology import RoInflect
-from .lemmatization import RoLemmatizer
-from .tagger import RoPOSTagger
-from .parser import RoDepParser
+from rodna.tokenizer import RoTokenizer
+from rodna.splitter import RoSentenceSplitter
+from rodna.morphology import RoInflect
+from rodna.lemmatization import RoLemmatizer
+from rodna.tagger import RoPOSTagger
+from rodna.parser import RoDepParser
 from utils.Lex import Lex
+from . import ConlluProcessor
 
-
-class Rodna(object):
+class RodnaProcessor(ConlluProcessor):
     """Instantiates all parts needed to process a Romanian text."""
 
-    def __init__(self) -> None:
+    def __init__(self, with_punct_ctags: bool = True) -> None:
+        self._use_punct_ctags = with_punct_ctags
         self.lexicon = Lex()
         self.tokenizer = RoTokenizer(self.lexicon)
         self.splitter = RoSentenceSplitter(self.lexicon, self.tokenizer)
         self.splitter.load()
         self.morphology = RoInflect(self.lexicon)
         self.morphology.load()
-        self.tagger = RoPOSTagger(self.lexicon, self.tokenizer, self.morphology, self.splitter)
+        self.tagger = RoPOSTagger(
+            self.lexicon, self.tokenizer, self.morphology, self.splitter)
         self.tagger.load()
         self.lemmatizer = RoLemmatizer(self.lexicon, self.morphology)
         self.parser = RoDepParser(msd=self.lexicon.get_msd_object())
         self.parser.load()
-
-    def process_text_file(self, txt_file: str):
-        """Takes a UTF-8 Romanian text file, processes it with Rodna and
-        outputs the .conllu file in the same folder."""
-        
-        with open(txt_file, mode='r', encoding='utf-8') as f:
-            all_text_lines = ''.join(f.readlines())
-        # end with
-
-        sentences = self.process_text(text=all_text_lines)
-        txt_file_path = Path(txt_file)
-        cnl_file_path = txt_file_path.parent / Path(txt_file_path.stem + '.conllu')
-        
-        # Print the CoNLL-U file
-        with open(cnl_file_path, mode='w', encoding='utf-8') as f:
-            for token_list in sentences:
-                print(token_list.serialize(), file=f, end='')
-            # end for
-        # end with
 
     def _check_input_sentence(self, sentence: List[Tuple]) -> bool:
         """If it is an empty sentence (only spaces), skip it."""
@@ -60,8 +42,10 @@ class Rodna(object):
 
         return False
 
-    def process_text(self, text: str, use_punct_ctags: bool = True) -> SentenceList:
-        # 1.Sentence splitting does tokenization as well.
+    def process_text(self, text: str) -> SentenceList:
+        """This is Rodna's text processing method."""
+
+        # 1. Sentence splitting does tokenization as well.
         sentences = self.splitter.sentence_split(input_text=text)
         conllu_sentences = SentenceList()
         sent_id = 1
@@ -79,7 +63,7 @@ class Rodna(object):
             # 4. Dependency parsing
             parsed_sentence = self.parser.parse_sentence(
                 sentence=tagged_sentence)
-            
+
             # 4.1 Make sure we get the same processed tokens back
             assert len(tagged_sentence) == len(lemmatized_sentence)
             assert len(lemmatized_sentence) == len(parsed_sentence)
@@ -103,12 +87,13 @@ class Rodna(object):
                     tdict['lemma'] = tlem
                     tdict['upos'] = tupos
 
-                    if use_punct_ctags and tmsd.startswith('Z'):
-                        tdict['xpos'] = self.lexicon.get_msd_object().get_punct_ctag(tok)
+                    if self._use_punct_ctags and tmsd.startswith('Z'):
+                        tdict['xpos'] = self.lexicon.get_msd_object(
+                        ).get_punct_ctag(tok)
                     else:
                         tdict['xpos'] = tmsd
                     # end if
-                    
+
                     tdict['feats'] = tfeats
                     tdict['head'] = thead
                     tdict['deprel'] = tdrel
@@ -141,7 +126,7 @@ class Rodna(object):
 
             # Sanity check
             assert len(tagged_sentence) == len(conllu_sentence)
-            
+
             conllu_sentence.metadata = {
                 'sent_id': sent_id,
                 'text': ''.join(conllu_text)
@@ -155,11 +140,11 @@ class Rodna(object):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print(f'Usage: python -m rodna.api <input .txt file>', file=sys.stderr, flush=True)
+        print(f'Usage: python -m api.rodna <input .txt file>',
+              file=sys.stderr, flush=True)
         exit(1)
     # end if
 
     input_file = sys.argv[1]
-    rodna = Rodna()
+    rodna = RodnaProcessor()
     rodna.process_text_file(txt_file=input_file)
-    
