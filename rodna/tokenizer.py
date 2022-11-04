@@ -48,8 +48,6 @@ class RoTokenizer(object):
         "XXI", "XXII", "XXIII", "XXIV", "XXV",
         "XXVI", "XXVII", "XXVIII", "XXIX", "XXX"])
     _number_pattern = re.compile("^\\d+$")
-    _newline_pattern = re.compile("\\s+$")
-    _tab_pattern = re.compile("\\t+")
     _special_pattern = re.compile("^[_-]+$")
     _unicode_char_sets = [
         # Word chars: letters, numbers, - and _
@@ -444,7 +442,9 @@ class RoTokenizer(object):
                 tag = tokens[j][1]
 
                 # Do not recognize MWEs over new-lines
-                if tag == 'EOL':
+                # Do not recognize ABBRs over spaces
+                if tag == 'EOL' or \
+                        (tag == 'SPACE' and label == 'ABBR'):
                     break
                 # end if
 
@@ -571,13 +571,7 @@ class RoTokenizer(object):
         expr_label = ''
 
         for token, tlabel in tokens:
-            if tlabel == 'PUNCT' or tlabel == 'SYM':
-                if len(token) > 1:
-                    glued_tokens.extend([(pstk, tlabel) for pstk in token])
-                else:
-                    glued_tokens.append((token, tlabel))
-                # end if
-            elif tlabel == 'ABBR' or (do_mwes and tlabel == 'MWE'):
+            if tlabel == 'ABBR' or (do_mwes and tlabel == 'MWE'):
                 expr_tokens.append(token)
                 expr_label = tlabel
             else:
@@ -589,7 +583,12 @@ class RoTokenizer(object):
                     expr_label = ''
                 # end if
 
-                glued_tokens.append((token, tlabel))
+                if (tlabel == 'PUNCT' or tlabel == 'SYM') and \
+                        len(token) > 1:
+                    glued_tokens.extend([(pstk, tlabel) for pstk in token])
+                else:
+                    glued_tokens.append((token, tlabel))
+                # end if
             # end if
         # end for
 

@@ -74,7 +74,19 @@ def tok_file_to_tokens(input_file: str) -> list:
                 print(stack()[0][3] + ": line {0!s} in file {1!s} is not well-formed!".format(
                     line_count, input_file), file=sys.stderr, flush=True)
             else:
-                token_sequence.append(tuple(parts))
+                # In there, EOL tokens are spaces, really.
+                # Move them back to proper EOLs.
+                if parts[1] == 'EOL':
+                    if len(parts) == 3:
+                        wtuple = ('\n', 'EOL', parts[2])
+                    else:
+                        wtuple = ('\n', 'EOL')
+                    # end if
+                else:
+                    wtuple = tuple(parts)
+                # end if
+
+                token_sequence.append(wtuple)
             # end if
         # end for
     # end while

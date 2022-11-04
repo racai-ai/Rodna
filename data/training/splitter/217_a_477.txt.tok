@@ -1055,7 +1055,6 @@ datelor	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Partajarea	RWORD
  	SPACE
@@ -1153,7 +1152,6 @@ acestora	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Redundanță	RWORD
  	SPACE
@@ -1239,7 +1237,6 @@ stocate	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Coerența	RWORD
  	SPACE
@@ -1313,7 +1310,6 @@ actualizărilor	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Independența	RWORD
  	SPACE
@@ -1363,7 +1359,6 @@ acces	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Integritatea	RWORD
  	SPACE
@@ -1450,7 +1445,6 @@ etc	ABBR
 .	ABBR
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Securitatea	RWORD
  	SPACE
@@ -1627,7 +1621,6 @@ reluare	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Gestiunea	RWORD
  	SPACE
@@ -1762,7 +1755,6 @@ date	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Normalizarea	RWORD
  	SPACE
@@ -3261,7 +3253,6 @@ fizic	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Modelul	RWORD
  	SPACE
@@ -3341,7 +3332,6 @@ căi	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Modelul	RWORD
  	SPACE
@@ -3383,7 +3373,6 @@ date	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Modelul	RWORD
  	SPACE
@@ -3590,7 +3579,6 @@ prelucrări	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Din	RWORD
  	SPACE
@@ -4585,7 +4573,6 @@ externe	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Independența	RWORD
  	SPACE
@@ -7377,7 +7364,6 @@ date	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 În	RWORD
  	SPACE
@@ -7482,7 +7468,6 @@ Client	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 În	RWORD
  	SPACE
@@ -8504,7 +8489,6 @@ firmă	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 La	RWORD
  	SPACE
@@ -8814,7 +8798,6 @@ nule	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Anomalii	RWORD
  	SPACE
@@ -9026,7 +9009,6 @@ tabelului	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Anomalii	RWORD
  	SPACE
@@ -9859,7 +9841,6 @@ eronată	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Atribute	RWORD
  	SPACE
@@ -11070,7 +11051,6 @@ următoare	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Operatorii	RWORD
  	SPACE
@@ -11114,7 +11094,6 @@ proiecție	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Proiecția	RWORD
  	SPACE	SENTEND
@@ -11334,7 +11313,9 @@ T	RWORD
 ∏	SYM
  	SPACE
 (	PUNCT
-Marfuri_Vandute	WORD
+Mărfuri	RWORD
+ 	SPACE
+Vândute	RWORD
 ,	PUNCT
  	SPACE
 Denumire	RWORD
@@ -11344,7 +11325,6 @@ Calitate	RWORD
 ).	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Selecția	RWORD
  	SPACE	SENTEND
@@ -11915,7 +11895,6 @@ naturală	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Echicompunerea	WORD
  	SPACE
@@ -12025,11 +12004,19 @@ echicompunerii	WORD
  	SPACE
 tabelele	RWORD
  	SPACE
-Marfuri_Vandute	WORD
+Mărfuri	RWORD
+ 	SPACE
+Vândute	RWORD
  	SPACE
 și	RWORD
  	SPACE
-Cantități_Comandate_Pe_Produs	RWORD
+Cantități	RWORD
+ 	SPACE
+Comandate	RWORD
+ 	SPACE
+Pe	RWORD
+ 	SPACE
+Produs	RWORD
  	SPACE
 este	RWORD
  	SPACE
@@ -12043,7 +12030,6 @@ următoare	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 O	RWORD
  	SPACE
@@ -12146,7 +12132,6 @@ figura	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 În	RWORD
  	SPACE
@@ -12401,7 +12386,6 @@ figura	RWORD
 ).	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Compunerea	RWORD
  	SPACE
@@ -12566,7 +12550,6 @@ figura	RWORD
 ).	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Diviziunea	RWORD
  	SPACE	SENTEND
@@ -12705,7 +12688,6 @@ R1	WORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Observație	RWORD
 :	PUNCT
@@ -12827,7 +12809,6 @@ restul	RWORD
 ”.	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Mulțimea	RWORD
  	SPACE
@@ -12984,7 +12965,6 @@ s	RWORD
 .	PUNCT
  	SPACE
  	EOL
- 	SPACE
  	EOL	SENTEND
 Capitolul	RWORD
  	SPACE

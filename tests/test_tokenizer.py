@@ -39,3 +39,21 @@ def test_long_abbr_bug():
     assert tokens[5][1] == 'ABBR'
     assert tokens[6][1] == 'ABBR'
     assert tokens[7][1] == 'ABBR'
+
+def test_wrong_word_order_bug():
+    tokens = tokenizer.tokenize(
+        "Poliția timișeană a efectuat cercetări, comunicându-ne că Mădălina Constanța B., " + \
+        "de 20 de ani, care conducea un autoturism Škoda, nu a adaptat viteza pe o porțiune de drum cu denivelări."
+    )
+    tokens = tokenizer.glue_tokens(tokens)
+    assert tokens[20][0] == 'B.'
+    assert tokens[21][0] == ','
+
+def test_glued_abbr_bug():
+    tokens = tokenizer.tokenize(
+        "În ianuarie 1879, o cronică dramatică nesemnată ataca spectacolul " + \
+        "de la Teatrul Național cu O noapte furtunoasă de I. L. Caragiale."
+    )
+    tokens = tokenizer.glue_tokens(tokens)
+    assert tokens[-4][0] == 'L.'
+    assert tokens[-6][0] == 'I.'

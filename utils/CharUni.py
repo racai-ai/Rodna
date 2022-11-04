@@ -14,8 +14,18 @@ class CharUni(object):
 
     def add_unicode_props(self, input_string: str) -> None:
         for c in input_string:
-            c_name = uc.name(c)
-            name_words = c_name.split()
+            try:
+                c_name = uc.name(c)
+                name_words = c_name.split()
+            except ValueError:
+                if c == '\r' or c == '\n':
+                    name_words = ['EOL']
+                elif c == '\t':
+                    name_words = ['TAB']
+                else:
+                    name_words = []
+                # end if
+            # end try
 
             for c_cat in name_words:
                 if c_cat not in self._seenunicodeprops:
@@ -69,7 +79,13 @@ class CharUni(object):
                 c_name = uc.name(c)
                 name_words = c_name.split()
             except ValueError:
-                name_words = []
+                if c == '\r' or c == '\n':
+                    name_words = ['EOL']
+                elif c == '\t':
+                    name_words = ['TAB']
+                else:
+                    name_words = []
+                # end if
             # end try
 
             for c_cat in name_words:
@@ -78,6 +94,7 @@ class CharUni(object):
                     found = True
                 # end if
             # end for
+        # end for
 
         # If word has no known properties, set the unknown one.
         if not found:

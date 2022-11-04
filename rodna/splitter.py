@@ -37,7 +37,7 @@ class RoSentenceSplitterModule(nn.Module):
             in_features=2 * RoSentenceSplitterModule._conf_lstm_size,
             out_features=2
         )
-        self._layer_drop = nn.Dropout(p=0.3)
+        self._layer_drop = nn.Dropout(p=0.33)
         self._layer_logsoftmax = nn.LogSoftmax(dim=2)
         self.to(device=_device)
 
@@ -93,7 +93,7 @@ class RoSentenceSplitter(object):
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     _conf_test_percent = 0.1
-    _conf_epochs = 3
+    _conf_epochs = 5
 
     def __init__(self, lexicon: Lex, tokenizer: RoTokenizer):
         self._tokenizer = tokenizer
@@ -134,7 +134,7 @@ class RoSentenceSplitter(object):
         # Save the model as a class attribute
         self._train_pt_model(train=train_examples,
                              dev=dev_examples, test=test_examples)
-        self._save_pt_model()
+        self._save_features()
 
     def _build_pt_model(self) -> RoSentenceSplitterModule:
         """Builds the PyTorch NN for the splitter."""
@@ -169,7 +169,9 @@ class RoSentenceSplitter(object):
             dataset=pt_dataset_test, batch_size=16, shuffle=False, collate_fn=self._split_collate_fn)
         
         self._loss_fn = nn.NLLLoss()
-        self._optimizer = Adam(self._model.parameters(), lr=1e-3)
+        self._optimizer = Adam(self._model.parameters(), lr=1e-4)
+        
+        best_f1 = 0.
 
         for ep in range(RoSentenceSplitter._conf_epochs):
             # Fit model for one epoch
@@ -179,7 +181,12 @@ class RoSentenceSplitter(object):
             # Test model
             # Put model into eval mode first
             self._model.eval()
-            self._test(dataloader=dev_dataloader, ml_set='dev')
+            ep_f1 = self._test(dataloader=dev_dataloader, ml_set='dev')
+
+            if ep_f1 > best_f1:
+                best_f1 = ep_f1
+                self._save_pt_model()
+            # end if
         # end for
 
         self._model.eval()
@@ -257,7 +264,7 @@ class RoSentenceSplitter(object):
 
         return (prec, rec, fm)
 
-    def _test(self, dataloader: DataLoader, ml_set: str):
+    def _test(self, dataloader: DataLoader, ml_set: str) -> float:
         """Tests the model with the dev/test sets."""
 
         correct = 0
@@ -284,6 +291,8 @@ class RoSentenceSplitter(object):
         print(f'R(1) = {rec:.5f} on {ml_set}', file=sys.stderr, flush=True)
         print(f'F1(1) = {f1:.5f} on {ml_set}', file=sys.stderr, flush=True)
 
+        return f1
+
     def load(self):
         with open(SPLITTER_FEAT_LEN_FILE, mode='r', encoding='utf-8') as f:
             self._features_dim = int(f.readline().strip())
@@ -300,7 +309,16 @@ class RoSentenceSplitter(object):
 
     def _save_pt_model(self):
         torchmodelfile = os.path.join(SENT_SPLITTER_MODEL_FOLDER, 'model.pt')
+
+        if os.path.isfile(torchmodelfile):
+            print(
+                f'Removing RoSentenceSplitter model file [{torchmodelfile}]', file=sys.stderr, flush=True)
+            os.remove(torchmodelfile)
+        # end if
+
         torch.save(self._model.state_dict(), torchmodelfile)
+
+    def _save_features(self):
         self._uniprops.save_unicode_props(SPLITTER_UNICODE_PROPERTY_FILE)
 
         with open(SPLITTER_FEAT_LEN_FILE, mode='w', encoding='utf-8') as f:
