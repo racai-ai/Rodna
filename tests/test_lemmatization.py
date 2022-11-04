@@ -22,8 +22,8 @@ def test_lemmas():
     lem = lemmatizer.lemmatize('regionale', msd='Afpfson', use_lex=False)
     assert lem[0][0] == 'regional'
 
-    lem = lemmatizer.lemmatize('mersese', msd='Vmil3s', use_lex=False)
-    assert lem[0][0] == 'merge'
+    lem = lemmatizer.lemmatize('pleznise', msd='Vmil3s', use_lex=False)
+    assert lem[0][0] == 'plezni'
 
     lem = lemmatizer.lemmatize('fugea', msd='Vmii3s', use_lex=False)
     assert lem[0][0] == 'fugi'
