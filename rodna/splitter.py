@@ -271,7 +271,7 @@ class RoSentenceSplitter(object):
         predicted = 0
         existing = 0
 
-        for inputs, target_labels in tqdm(dataloader, desc=f'Eval'):
+        for inputs, target_labels in tqdm(dataloader, desc='Eval'):
             outputs = self._model(x=inputs)
             outputs = torch.exp(outputs)
             predicted_labels = (outputs >= 0.5).to(dtype=torch.int64)[:, :, 1]

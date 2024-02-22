@@ -40,3 +40,4 @@ rodna-models.tar.gz
 conll18_ud_eval.py
 rodna.dev.tokens
 stanza.dev.tokens
+ssplit_txt_files.py
