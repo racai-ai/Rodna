@@ -61,7 +61,6 @@ DEL /F /Q data\models\tagger\cls\model.pt
 DEL /F /Q data\models\tagger\crf\config.json
 DEL /F /Q data\models\tagger\crf\model.pt
 DEL /F /Q data\models\tagger_unic_props.txt
-DEL /F /Q data\models\word_ids.txt
 :: Retrain the tagger
 python -m rodna.tagger
 EXIT /B 0

@@ -1,11 +1,10 @@
 from typing import List, Tuple
-import sys
 import re
-from inspect import stack
 import numpy as np
 import unicodedata as uc
 from utils.Lex import Lex
 from utils.datafile import txt_file_to_string
+from . import logger
 
 
 class RoTokenizer(object):
@@ -306,7 +305,7 @@ class RoTokenizer(object):
 
         return score
 
-    def _decide_dash_split(self, word: str) -> list:
+    def _decide_dash_split(self, word: str) -> List[Tuple[str, str]]:
         tokens_dash = []
         word_parts = word.split('-')
 
@@ -355,7 +354,7 @@ class RoTokenizer(object):
 
         return tokens_dash
 
-    def _tokenize_punctuation(self, tokens: list) -> list:
+    def _tokenize_punctuation(self, tokens: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
         tokens4 = []
 
         for pair in tokens:
@@ -373,7 +372,7 @@ class RoTokenizer(object):
 
         return tokens4
 
-    def _tokenize_dashed_words(self, tokens: list) -> list:
+    def _tokenize_dashed_words(self, tokens: List[Tuple[str, str]]) -> List[Tuple[str, str]]:
         tokens2 = []
 
         for pair in tokens:
@@ -393,7 +392,7 @@ class RoTokenizer(object):
 
         return tokens2
 
-    def _recognize_phrasal_tokens(self, tokens: list, label: str) -> list:
+    def _recognize_phrasal_tokens(self, tokens: List[Tuple[str, str]], label: str) -> List[Tuple[str, str]]:
         """Takes a list of tokens and adds MWE or ABBR labels to adjacent
         tokens that form abbreviations or multi-word expressions."""
 
@@ -496,7 +495,7 @@ class RoTokenizer(object):
 
         return tokens3
 
-    def tokenize(self, input_string: str) -> list:
+    def tokenize(self, input_string: str) -> List[Tuple[str, str]]:
         """Takes a Python input_string representing a Romanian text
         and it splits it in words and non-words. This is the main method
         of this class."""
@@ -552,17 +551,16 @@ class RoTokenizer(object):
 
         return tokens
 
-    def tokenize_file(self, input_file: str) -> list:
+    def tokenize_file(self, input_file: str) -> List[Tuple[str, str]]:
         """Takes the input_file (text file, UTF-8 encoded),
         tokenizes it and writers the output to input_file.tok.
         Also returns the list of tokens to the caller."""
 
-        print(stack()[0][3] + ": tokenizing file {0!s}".format(
-            input_file), file=sys.stderr, flush=True)
+        logger.info(f"Tokenizing file [{input_file}]")
 
         return self.tokenize(txt_file_to_string(input_file))
 
-    def glue_tokens(self, tokens: List[Tuple], do_mwes: bool = False) -> List[Tuple]:
+    def glue_tokens(self, tokens: List[Tuple[str, str]], do_mwes: bool = False) -> List[Tuple[str, str]]:
         """Glues some tokens such as abbreviations or MWEs in single tokens, for downstream processing.
         If `do_mwes is True`, multiword expressions are also glued. """
 

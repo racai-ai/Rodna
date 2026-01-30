@@ -10,7 +10,6 @@ data/models/splitter_feat_len.txt
 data/models/splitter_unic_props.txt
 data/models/tagger_unic_props.txt
 data/models/unknown_aclasses.txt
-data/models/word_ids.txt
 data/models/morphology/model.pt
 data/models/parser/modelone.pt
 data/models/parser/modeltwo.pt

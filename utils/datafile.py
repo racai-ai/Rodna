@@ -1,8 +1,8 @@
 import re
-import sys
 import os
-from inspect import stack
+from typing import List, Tuple
 from utils.MSD import MSD
+from rodna import logger
 
 
 def txt_file_to_string(input_file: str) -> str:
@@ -10,7 +10,7 @@ def txt_file_to_string(input_file: str) -> str:
     return "".join(txt_file_to_lines(input_file))
 
 
-def txt_file_to_lines(input_file: str) -> list:
+def txt_file_to_lines(input_file: str) -> List[str]:
     """Reads in the UTF-8/Latin-2 input_file and returns
     a list of the lines of its contents."""
 
@@ -44,7 +44,7 @@ def txt_file_to_lines(input_file: str) -> list:
     return file_lines
 
 
-def read_all_ext_files_from_dir(input_dir: str, extension: str = '.txt') -> list:
+def read_all_ext_files_from_dir(input_dir: str, extension: str = '.txt') -> List[str]:
     """Reads all the .txt (by default) UTF-8 files from the input_dir.
     If extension is specified, reads all files with that extension."""
 
@@ -59,7 +59,7 @@ def read_all_ext_files_from_dir(input_dir: str, extension: str = '.txt') -> list
     return input_dir_txt_files
 
 
-def tok_file_to_tokens(input_file: str) -> list:
+def tok_file_to_tokens(input_file: str) -> List[Tuple[str, str, str] | Tuple[str, str]]:
     """Will read in a RoTokenizer tokenized file and return a sequence of tokens from it."""
 
     token_sequence = []
@@ -71,8 +71,7 @@ def tok_file_to_tokens(input_file: str) -> list:
             parts = line.rstrip().split('\t')
 
             if len(parts) < 2 or len(parts) > 3:
-                print(stack()[0][3] + ": line {0!s} in file {1!s} is not well-formed!".format(
-                    line_count, input_file), file=sys.stderr, flush=True)
+                logger.info(f"Line [{line_count}] in file [{input_file}] is not well-formed!")
             else:
                 # In there, EOL tokens are spaces, really.
                 # Move them back to proper EOLs.
@@ -110,11 +109,10 @@ fix_str_const = "{0}: {1}/{2} -> {3}"
 fix_str_const2 = "{0}: attributes missing for MSD {1}"
 
 
-def read_conllu_file(input_file: str) -> list:
+def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]]]]:
     """Reads a CoNLL-U format file are returns it."""
 
-    print(stack()[
-          0][3] + ": reading CoNLL-U file {0}".format(input_file), file=sys.stderr, flush=True)
+    logger.info(f"Reading CoNLL-U file [{input_file}]")
     corpus = []
 
     with open(input_file, mode='r', encoding='utf-8') as f:
@@ -133,8 +131,7 @@ def read_conllu_file(input_file: str) -> list:
                     if len(parts) == 10:
                         sentence.append(parts)
                     else:
-                        print(stack()[0][3] + ": CoNLL-U line not well formed at line {0!s} in file {1}".format(
-                            linecounter, input_file), file=sys.stderr, flush=True)
+                        logger.info(f"CoNLL-U line not well formed at line [{linecounter}] in file [{input_file}]")
                 else:
                     comments.append(line)
                 # end if

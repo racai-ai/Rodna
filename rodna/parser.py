@@ -1,7 +1,6 @@
 from typing import List, Tuple, Set
 import os
 import sys
-from inspect import stack
 from tqdm import tqdm
 from .parserone import RoDepParserTree
 from .parsertwo import RoDepParserLabel

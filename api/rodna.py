@@ -140,7 +140,7 @@ class RodnaProcessor(ConlluProcessor):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print(f'Usage: python -m api.rodna <input .txt file>',
+        print('Usage: python -m api.rodna <input .txt file>',
               file=sys.stderr, flush=True)
         exit(1)
     # end if

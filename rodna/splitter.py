@@ -1,7 +1,7 @@
 from typing import List, Tuple
 import sys
 import os
-from inspect import stack
+from random import shuffle
 import numpy as np
 import torch
 from torch import nn
@@ -15,7 +15,8 @@ from rodna.tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from config import SENT_SPLITTER_MODEL_FOLDER, \
     SPLITTER_UNICODE_PROPERTY_FILE, SPLITTER_FEAT_LEN_FILE
-from . import _device
+from . import _device, logger
+from .bert_model import bert_embeddings
 
 
 class RoSentenceSplitterModule(nn.Module):
@@ -61,6 +62,7 @@ class RoSentenceSplitterModule(nn.Module):
 
         return out
 
+
 class SSDataset(Dataset):
     """This is a sentence splitter dataset."""
 
@@ -89,11 +91,11 @@ class RoSentenceSplitter(object):
     _conf_max_seq_length = 50
     # When we do sentence splitting, how many samples to run
     # through the NN at once.
-    _conf_run_batch_length = 4096
+    _conf_run_batch_length = 1024
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     _conf_test_percent = 0.1
-    _conf_epochs = 5
+    _conf_epochs = 1
 
     def __init__(self, lexicon: Lex, tokenizer: RoTokenizer):
         self._tokenizer = tokenizer
@@ -105,29 +107,21 @@ class RoSentenceSplitter(object):
         trains and tests the sentence splitting model and saves it to the SENT_SPLITTER_MODEL_FOLDER folder."""
 
         # 1. Get the full word sequence from the train folder
-        print(stack()[0][3] + ": got a sequence with {0!s} words.".format(
-            len(word_sequence)), file=sys.stderr, flush=True)
+        logger.info(f"Got a sequence with [{len(word_sequence)}] words.")
 
         # 2. Cut the full word sequence into maxSeqLength smaller sequences
         # and assign those randomly to train/dev/test sets
-        print(stack()[0][3] + ": building train/dev/test samples",
-              file=sys.stderr, flush=True)
-        (train_examples, dev_examples,
-         test_examples) = self._build_samples(word_sequence)
-        print(stack()[0][3] + ": got train set with {0!s} examples".format(
-            len(train_examples)), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": got dev set with {0!s} examples".format(
-            len(dev_examples)), file=sys.stderr, flush=True)
-        print(stack()[0][3] + ": got test set with {0!s} examples".format(
-            len(test_examples)), file=sys.stderr, flush=True)
+        train_examples, dev_examples, test_examples = self._build_samples(word_sequence)
+        
+        logger.info(f"Got train set with [{len(train_examples)}] examples")
+        logger.info(f"Got dev set with [{len(dev_examples)}] examples")
+        logger.info(f"Got test set with [{len(test_examples)}] examples")
 
         # 3. Build the Unicode properties on the train set
-        print(stack()[0][3] + ": building Unicode properties on train set",
-              file=sys.stderr, flush=True)
         self._build_unicode_props(train_examples)
 
-        x_check, y_check = self._build_single_sample_input(
-            sample=train_examples[0])
+        x_check, _ = \
+            self._build_single_sample_input(sample=train_examples[0])
         self._features_dim = x_check.shape[2]
         self._model = self._build_pt_model()
         
@@ -330,6 +324,8 @@ class RoSentenceSplitter(object):
         the list of tokenized sentences."""
 
         word_sequence = self._tokenizer.tokenize(input_text)
+        bert_sequence_features = bert_embeddings(tokens=word_sequence)
+        
         # Keeps the number of artificially inserted spaces
         # so that we can remove them at the end.
         tail_extra_count = 0
@@ -369,11 +365,15 @@ class RoSentenceSplitter(object):
 
             # Run the batch through the NN if enough samples
             if len(batch_i) == RoSentenceSplitter._conf_run_batch_length:
-                print(stack()[0][3] + ": running NN batch #{0!s}, size = {1!s}".format(
-                    batch_count, x_batch.shape[0]), file=sys.stderr, flush=True)
+                logger.info(f"Running NN batch [{batch_count}], size [{x_batch.shape[0]}]")
+                
                 # Pass X_batch through the neural net
                 pt_x_batch = torch.tensor(x_batch).to(_device)
-                y_pred = self._model(pt_x_batch)
+
+                with torch.inference_mode():
+                    y_pred = self._model(pt_x_batch)
+                # end with
+
                 y_pred = torch.exp(y_pred)
                 y_pred = y_pred.cpu().detach().numpy()
 
@@ -411,10 +411,11 @@ class RoSentenceSplitter(object):
                 label_features = self._tokenizer.get_label_features(tlabel)
                 uni_features = self._uniprops.get_unicode_features(word)
                 lexical_features = self._lexicon.get_word_features(word)
+                bert_features = bert_sequence_features[j].detach().cpu().numpy()
 
                 # This is the featurized version of a word in the sequence
                 x = np.concatenate(
-                    (label_features, uni_features, lexical_features))
+                    (label_features, uni_features, lexical_features, bert_features))
 
                 if x_batch is None:
                     n = x.shape[0]
@@ -431,8 +432,8 @@ class RoSentenceSplitter(object):
 
         # Run last batch through the NN as well
         if batch_i:
-            print(stack()[0][3] + ": running final NN batch #{0!s}, size = {1!s}".format(
-                batch_count, x_batch.shape[0]), file=sys.stderr, flush=True)
+            logger.info(f"Running final NN batch [{batch_count}], size [{x_batch.shape[0]}]")
+            
             # Pass X_batch through the neural net
             pt_x_batch = torch.tensor(x_batch).to(_device)
             y_pred = self._model(pt_x_batch)
@@ -503,23 +504,22 @@ class RoSentenceSplitter(object):
 
         return len(parts) == 3 and parts[2] == RoSentenceSplitter.eos_label
 
-    def _build_unicode_props(self, data_samples):
-        for sample in data_samples:
+    def _build_unicode_props(self, data_samples: List[Tuple]):
+        for sample in tqdm(data_samples, desc='Unicode props'):
             for parts in sample:
                 word = parts[0]
                 self._uniprops.add_unicode_props(word)
             # end for
         # end all samples
 
-    def _build_samples(self, data_sequence: List[Tuple]) -> Tuple[List, List, List]:
+    def _build_samples(self, data_sequence: List[Tuple[str, str, str] | Tuple[str, str]]) -> Tuple[List, List, List]:
         """Builds the ML sets by segmenting the data_sequence into fixed-length chunks.
         Returns the classic ML triad, train, dev and test sets."""
 
-        negative_samples = []
-        positive_samples = []
+        all_samples = []
 
         # 1. Assemble positive/negative examples
-        for i in range(len(data_sequence)):
+        for i in tqdm(range(len(data_sequence)), desc='Train/dev/test samples'):
             left = i
             right = i + RoSentenceSplitter._conf_max_seq_length
 
@@ -527,55 +527,29 @@ class RoSentenceSplitter(object):
                 break
             # end if
 
-            sample = []
-            sample_is_positive = False
-
-            for j in range(left, right):
-                parts = data_sequence[j]
-                sample.append(parts)
-
-                if not sample_is_positive and \
-                        RoSentenceSplitter.is_eos_label(parts):
-                    sample_is_positive = True
-                # end if
-
-            if sample_is_positive:
-                positive_samples.append(sample)
-            else:
-                negative_samples.append(sample)
-            # end if
+            sample = data_sequence[left:right]
+            all_samples.append(sample)
         # end for i
 
         # 2. Sample train/dev/test sets
-        all_samples = []
-        all_samples.extend(positive_samples)
-        all_samples.extend(negative_samples)
-
-        np.random.shuffle(all_samples)
-
-        train_samples = []
-        dev_samples = []
-        test_samples = []
+        shuffle(all_samples)
+        
         dev_scount = int(
             RoSentenceSplitter._conf_dev_percent * len(all_samples))
         test_scount = int(
             RoSentenceSplitter._conf_test_percent * len(all_samples))
+        dev_samples = all_samples[:dev_scount]
+        del all_samples[:dev_scount]
+        test_samples = all_samples[:test_scount]
+        del all_samples[:test_scount]
+        train_samples = all_samples
 
-        while len(dev_samples) < dev_scount:
-            dev_samples.append(all_samples.pop(0))
-        # end while
-
-        while len(test_samples) < test_scount:
-            test_samples.append(all_samples.pop(0))
-        # end while
-
-        train_samples.extend(all_samples)
-
-        return (train_samples, dev_samples, test_samples)
+        return train_samples, dev_samples, test_samples
 
     def _build_single_sample_input(self, sample: List[Tuple]) -> Tuple[np.ndarray, np.ndarray]:
         tx = len(sample)
         n = -1
+        sample_bert_features = bert_embeddings(tokens=sample)
 
         for j in range(len(sample)):
             parts = sample[j]
@@ -590,10 +564,11 @@ class RoSentenceSplitter(object):
             label_features = self._tokenizer.get_label_features(tlabel)
             uni_features = self._uniprops.get_unicode_features(word)
             lexical_features = self._lexicon.get_word_features(word)
+            bert_features = sample_bert_features[j].detach().cpu().numpy()
 
             # This is the featurized version of a word in the sequence
             x = np.concatenate(
-                (label_features, uni_features, lexical_features))
+                (label_features, uni_features, lexical_features, bert_features))
 
             if n == -1:
                 n = x.shape[0]
@@ -620,8 +595,7 @@ if __name__ == '__main__':
     long_token_sequence = []
 
     for file in tok_files:
-        print(stack()[
-              0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
+        logger.info(f"Reading training file [{file}]")
         file_wsq = tok_file_to_tokens(file)
         long_token_sequence.extend(file_wsq)
     # end all files

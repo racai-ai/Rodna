@@ -1,12 +1,9 @@
-import sys
 import re
-import gzip
-from inspect import stack
-from typing import Pattern
+from typing import Pattern, Set, List, Dict
 import numpy as np
 from .MSD import MSD
-from config import TBL_WORDFORM_FILE, EXTERNAL_WORD_EMBEDDINGS_FILE
-from utils.errors import print_error
+from rodna import logger, log_once, logging
+from config import TBL_WORDFORM_FILE
 
 
 class Lex(object):
@@ -49,29 +46,25 @@ class Lex(object):
 
     def __init__(self):
         # Dictionary lexicon
-        self._lexicon = {}
-        self._lemma_lexicon = {}
+        self._lexicon: Dict[str, Set[str]] = {}
+        self._lemma_lexicon: Dict[str, Dict[str, List[str]]] = {}
         # The MSD representation
         self._msd = MSD()
-        # Word embeddings lexicon
-        self._wdembed = {}
-        # The size of the word embedding vector
-        self._wembdim = 0
         # Possible POSes for each word in the lexicon
-        self._possibletags = {"UNK": 0}
+        self._possibletags: Dict[str, int] = {"UNK": 0}
         self._tagid = 1
         # Maximum length of a multi-word expression (MWE)
         self._maxmwelen = 2
         self._maxabbrlen = 2
-        self._mwefirstword = set()
-        self._abbrfirstword = set()
+        self._mwefirstword: Set[str] = set()
+        self._abbrfirstword: Set[str] = set()
         # The set of 'a fi' word forms, lower-cased
-        self._tobewordforms = set()
-        self._canwordforms = set()
+        self._tobewordforms: Set[str] = set()
+        self._canwordforms: Set[str] = set()
         # 'canioane' has lemma 'canion', so we need to learn
         # to change the word root
         # Also 'băiatul' vs. 'băieții'
-        self._inflectional_class = {
+        self._inflectional_class: Dict[str, Dict[str, List[str]]] = {
             'noun': {},
             'adje_masc': {},
             'adje_fem': {},
@@ -79,59 +72,22 @@ class Lex(object):
         }
         # For abbreviations with 2 tokens, e.g. 'etc.', 'nr.', etc.
         # They have effectively one token
-        self._abbrfirstword1 = set()
+        self._abbrfirstword1: Set[str] = set()
         self.longestwordlen = 20
-        self._prefixes = {}
-        self._suffixes = {}
-        self._read_word_embeddings()
+        self._prefixes: Dict[str, Dict[str, int]] = {}
+        self._suffixes: Dict[str, Dict[str, int]] = {}
         self._read_tbl_wordform()
         self._remove_abbr_first_words_that_are_lex_words()
-        self._add_no_diac_words_to_embeddings()
-
-    def _read_word_embeddings(self):
-        if EXTERNAL_WORD_EMBEDDINGS_FILE.endswith(".gz"):
-            f = gzip.open(EXTERNAL_WORD_EMBEDDINGS_FILE,
-                          mode="rt", encoding="utf-8")
-        else:
-            f = open(EXTERNAL_WORD_EMBEDDINGS_FILE, mode="r", encoding="utf-8")
-        # end if
-
-        line = f.readline()
-        parts = line.strip().split()
-        # Add the unknown word to the size
-        self._wembdim = int(parts[1])
-        counter = 0
-
-        for line in f:
-            counter += 1
-
-            if counter % 100000 == 0:
-                print(stack()[0][3] + ": read {0!s} lines from file {1}".format(counter, EXTERNAL_WORD_EMBEDDINGS_FILE),
-                      file=sys.stderr, flush=True)
-
-            parts = line.strip().split()
-            word = parts.pop(0)
-
-            if self._wembdim != len(parts):
-                print(stack()[0][3] + ": incorrect dimension of {0} vs. {1} in file {2} at line {3}".format(len(parts),
-                                                                                                            self._wembdim, EXTERNAL_WORD_EMBEDDINGS_FILE, counter), file=sys.stderr, flush=True)
-                continue
-            # end if
-
-            self._wdembed[word] = [float(x) for x in parts]
-        # end for
-
-        f.close()
 
     def get_msd_object(self) -> MSD:
         return self._msd
 
-    def get_inflectional_classes(self) -> dict:
+    def get_inflectional_classes(self) -> Dict[str, Dict[str, List[str]]]:
         """Returns the lemma to its possible inflectional forms dictionary."""
 
         return self._inflectional_class
 
-    def get_lemma_lexicon(self) -> dict:
+    def get_lemma_lexicon(self) -> Dict[str, Dict[str, List[str]]]:
         return self._lemma_lexicon
 
     def _remove_abbr_first_words_that_are_lex_words(self) -> None:
@@ -142,21 +98,6 @@ class Lex(object):
                 self.is_msd_rxonly_word(word, Lex._abbr_pos_pattern):
                 self._abbrfirstword.add(word)
             # end if
-        # end for
-
-    def _add_no_diac_words_to_embeddings(self) -> None:
-        nd_embed = {}
-
-        for word in self._wdembed:
-            nd_word = self._get_romanian_word_with_no_diacs(word)
-
-            if word != nd_word and nd_word not in self._wdembed:
-                nd_embed[nd_word] = self._wdembed[word]
-            # end if
-        # end for
-
-        for word in nd_embed:
-            self._wdembed[word] = nd_embed[word]
         # end for
 
     @staticmethod
@@ -178,7 +119,7 @@ class Lex(object):
         counter = 0
         word_lengths = {}
 
-        def _add_to_infl_class(iclass: dict, lemma: str, word: str, msd: str):
+        def _add_to_infl_class(iclass: Dict[str, Dict[str, List[str]]], lemma: str, word: str, msd: str):
             if lemma not in iclass:
                 iclass[lemma] = {}
             # end if
@@ -198,8 +139,8 @@ class Lex(object):
                 counter += 1
 
                 if counter % 100000 == 0:
-                    print(stack()[0][3] + ": read {0!s} lines from file {1!s}".format(
-                        counter, TBL_WORDFORM_FILE), file=sys.stderr, flush=True)
+                    logger.info(f'Read [{counter}] lines from file [{TBL_WORDFORM_FILE}]')
+                # end if
 
                 if Lex._comm_pattern.search(line) != None:
                     continue
@@ -469,8 +410,9 @@ class Lex(object):
 
         return ''
 
-    def amend_ambiguity_class(self, word: str, aclass: set) -> set:
+    def amend_ambiguity_class(self, word: str, aclass: Set[str]) -> Set[str]:
         """Checks for common MSD patterns and completes the ambiguity class."""
+
         result_aclass = set()
 
         for m in aclass:
@@ -482,8 +424,10 @@ class Lex(object):
                 self._aclass_prop_noun_msd(word, m)]:
                 if m2:
                     result_aclass.add(m2)
-                    print_error("added MSD [{0}] to word '{1}'".format(
-                        m2, word), stack()[0][3])
+                    log_once(
+                        f"Added MSD '{m2}' to word '{word}'",
+                        calling_fn='Lex.amend_ambiguity_class()',
+                        log_level=logging.DEBUG)
                 # end if
             # end for
         # end for
@@ -569,11 +513,6 @@ class Lex(object):
         else:    
             return word in self._lexicon or word.lower() in self._lexicon
 
-    def is_wemb_word(self, word: str) -> bool:
-        """Tests if word is in the word embeddings or not."""
-
-        return word in self._wdembed or word.lower() in self._wdembed
-
     def is_mwe_first_word(self, word: str) -> bool:
         """Tests if word can start a multi-word expression."""
 
@@ -620,7 +559,7 @@ class Lex(object):
 
         return phr_ok
 
-    def get_word_ambiguity_class(self, word: str, exact_match: bool = False) -> list:
+    def get_word_ambiguity_class(self, word: str, exact_match: bool = False) -> List[str]:
         all_msds = set()
 
         if word in self._lexicon:
@@ -637,7 +576,7 @@ class Lex(object):
 
         return list(all_msds)
 
-    def get_unknown_ambiguity_class(self, word: str) -> list:
+    def get_unknown_ambiguity_class(self, word: str) -> List[str]:
         """Used as a backup of RoInflect neural network."""
 
         prefix_msds = self._get_possible_msds_from_prefix(word)
@@ -687,12 +626,14 @@ class Lex(object):
 
         word_amb_class = list(affix_msds)
 
-        print_error("unknown word '{0}' has ambiguity class [{1}]".format(
-            word, ', '.join([x for x in word_amb_class])), stack()[0][3])
+        log_once(
+            f"Unknown word [{word}] has ambiguity class [{', '.join([x for x in word_amb_class])}]",
+            calling_fn='Lex.get_unknown_ambiguity_class()',
+            log_level=logging.DEBUG)
 
         return word_amb_class
 
-    def _get_possible_msds_from_prefix(self, word: str, min_pref_len: int = 2) -> set:
+    def _get_possible_msds_from_prefix(self, word: str, min_pref_len: int = 2) -> Set[str]:
         """This method minimizes the entropy of possible MSDs for a given prefix."""
 
         possible_msds = set()
@@ -766,15 +707,6 @@ class Lex(object):
 
         return possible_msds
 
-    def get_word_embeddings_size(self) -> int:
-        return self._wembdim
-
-    def get_word_embeddings_exact(self, word: str) -> list:
-        if word in self._wdembed:
-            return self._wdembed[word]
-        else:
-            return []
-
     def get_word_features(self, word: str) -> np.ndarray:
         """Will get an np.array of lexical features for word."""
 
@@ -820,17 +752,8 @@ class Lex(object):
             # end for
         # end if
 
-        # 3. The embedding vector for word
-        features3 = np.zeros(self._wembdim, dtype=np.float32)
-
-        if word in self._wdembed:
-            features3 = np.array(self._wdembed[word], dtype=np.float32)
-        elif word.lower() in self._wdembed:
-            features3 = np.array(self._wdembed[word.lower()], dtype=np.float32)
-        # end if
-
-        # 4. Concatenate 1, 1.1, 2 and 3
-        return np.concatenate((features1, features11, features2, features3))
+        # 3. Concatenate 1, 1.1, and 2
+        return np.concatenate((features1, features11, features2))
 
     def get_word_lemma(self, word: str, msd: str) -> list:
         if word in self._lemma_lexicon and \

@@ -45,8 +45,7 @@ function train_pos_tagger {
 	rm -fv data/models/tagger/crf/config.json
 	rm -fv data/models/tagger/crf/model.pt
 	rm -fv data/models/tagger_unic_props.txt
-	rm -fv data/models/word_ids.txt
-	# Retrain the tagger model
+		# Retrain the tagger model
 	python3 -m rodna.tagger
 
 	echo

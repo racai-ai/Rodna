@@ -26,9 +26,6 @@ TBL_ROOT2ROOT_FILE = os.path.join(data_folder, 'resources', 'root_rules.ro')
 MSD_MAP_FILE = os.path.join(data_folder, 'resources', 'msdtag.ro.map')
 MORPHO_MAP_FILE = os.path.join(
     data_folder, 'resources', 'conllu-morpho-features.txt')
-EXTERNAL_WORD_EMBEDDINGS_FILE = os.path.join(
-    data_folder, 'resources', 'corola.200.5.vec.gz')
-EMBEDDING_VOCABULARY_FILE = os.path.join(data_folder, 'models', 'word_ids.txt')
 SENT_SPLITTER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'splitter')
 ROINFLECT_MODEL_FOLDER = os.path.join(data_folder, 'models', 'morphology')
 ROINFLECT_CHARID_FILE = os.path.join(data_folder, 'models', 'char_ids.txt')
@@ -39,8 +36,9 @@ SPLITTER_FEAT_LEN_FILE = os.path.join(
     data_folder, 'models', 'splitter_feat_len.txt')
 TAGGER_UNICODE_PROPERTY_FILE = os.path.join(
     data_folder, 'models', 'tagger_unic_props.txt')
-CLS_TAGGER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'tagger', 'cls')
-CRF_TAGGER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'tagger', 'crf')
+TAGGER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'tagger')
+CLS_TAGGER_MODEL_FOLDER = os.path.join(TAGGER_MODEL_FOLDER, 'cls')
+CRF_TAGGER_MODEL_FOLDER = os.path.join(TAGGER_MODEL_FOLDER, 'crf')
 PARADIGM_MORPHO_FILE = os.path.join(data_folder, 'resources', 'morphalt.xml')
 PARSER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser')
 PARSER_DEPRELS_FILE = os.path.join(

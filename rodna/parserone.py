@@ -1,21 +1,21 @@
 from typing import List, Tuple, Union
 import sys
 import os
-from inspect import stack
 from random import shuffle
 import torch
 from torch import nn
 from torch import Tensor
 from torch.utils.data import DataLoader, Dataset
-from transformers import AutoTokenizer, AutoModel
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
+from transformers import AutoTokenizer, AutoModel
 from tqdm import tqdm
 from . import _device
 from utils.mst import chu_liu_edmonds
 from utils.MSD import MSD
 from config import PARSER_MODEL_FOLDER, \
     PARSER1_BERT_MODEL_FOLDER, PARSER1_TOKEN_MODEL_FOLDER
+from .bert_model import ro_bert_tokenizer, ro_bert_model
 
 
 class RoBERTHeadFinder(nn.Module):
@@ -116,7 +116,6 @@ class RoDepParserTree(object):
     MST parsing tree discovery. Only gives the unlabeled parse tree of a sentence."""
 
     _conf_model_file = 'modelone.pt'
-    _conf_bert = 'dumitrescustefan/bert-base-romanian-cased-v1'
     # Take 2 * head window + 1 for the output vector dimension
     _conf_head_window = 70
     # Initial learning rate
@@ -317,11 +316,8 @@ class RoDepParserTree(object):
             dev_sentences: List[List[Tuple]], test_sentences: List[List[Tuple]]):
         """Does the head finder training."""
 
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            RoDepParserTree._conf_bert)
-        self._bertmodel = AutoModel.from_pretrained(
-            RoDepParserTree._conf_bert)
-        self._bertmodel.to(_device)
+        self._tokenizer = ro_bert_tokenizer
+        self._bertmodel = ro_bert_model
         self._loss_fn = nn.NLLLoss()
         both_models_parameters = []
         both_models_parameters.extend(list(self._headmodel.parameters()))

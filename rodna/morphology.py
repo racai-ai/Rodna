@@ -1,5 +1,5 @@
-import sys
 import os
+from typing import List, Dict, Tuple
 import numpy as np
 import torch
 from torch import nn
@@ -7,14 +7,12 @@ from torch.utils.data import Dataset, DataLoader
 from torch.optim import RMSprop
 from torch.nn.utils.rnn import pack_sequence
 from tqdm import tqdm
-from inspect import stack
 from random import shuffle
-from utils.errors import print_error
 from utils.Lex import Lex
 from config import TBL_WORDFORM_FILE, \
     ROINFLECT_MODEL_FOLDER, ROINFLECT_CHARID_FILE, \
     ROINFLECT_CACHE_FILE
-from . import _device
+from . import _device, logger, log_once, logging
 
 
 class RoInflectModule(nn.Module):
@@ -102,18 +100,19 @@ class RoInflect(object):
     adjectives and adverbs."""
 
     _conf_dev_size = 0.1
+    _conf_epochs = 10
 
     def __init__(self, lexicon: Lex) -> None:
         self._lexicon = lexicon
         self._msd = self._lexicon.get_msd_object()
         # Use self._add_word_to_dataset() to update these
-        self._dataset = {}
+        self._dataset: Dict[str, List[str]] = {}
         self._charid = 1
-        self._charmap = {'UNK': 0}
-        self._cache = {}
+        self._charmap: Dict[str, int] = {'UNK': 0}
+        self._cache: Dict[str, List[str]] = {}
         self.load_cache()
 
-    def _add_word_to_dataset(self, word: str, msds: list):
+    def _add_word_to_dataset(self, word: str, msds: List[str]):
         if word not in self._dataset:
             self._dataset[word] = []
         # end if
@@ -131,7 +130,7 @@ class RoInflect(object):
             # end if
         # end for
 
-    def _build_io_vectors(self, word: str, msds: list) -> tuple:
+    def _build_io_vectors(self, word: str, msds: List[str]) -> Tuple[np.ndarray, np.ndarray]:
         x = np.zeros(len(word), dtype=np.int32)
 
         for i in range(len(word)):
@@ -180,16 +179,14 @@ class RoInflect(object):
             if counter % 500 == 0:
                 # Average loss per batch
                 average_running_loss = running_loss / 500
-                print(f'\n  -> batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}',
-                      file=sys.stderr, flush=True)
+                logger.info(f'Batch [{counter}/{len(dataloader)}] loss: [{average_running_loss:.5f}]')
                 epoch_loss.append(average_running_loss)
                 running_loss = 0.
             # end if
         # end for i
 
         average_epoch_loss = sum(epoch_loss) / len(epoch_loss)
-        print(
-            f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'Average epoch [{epoch}] loss: [{average_epoch_loss:.5f}]')
 
     def _test(self, dataloader: DataLoader):
         """Tests the model with the dev set."""
@@ -212,11 +209,11 @@ class RoInflect(object):
         rec = correct / existing
         f1 = 2 * prec * rec / (prec + rec)
 
-        print(f'P(1) = {prec:.5f}', file=sys.stderr, flush=True)
-        print(f'R(1) = {rec:.5f}', file=sys.stderr, flush=True)
-        print(f'F1(1) = {f1:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'P(1) = {prec:.5f}')
+        logger.info(f'R(1) = {rec:.5f}')
+        logger.info(f'F1(1) = {f1:.5f}')
 
-    def _roinfl_collate_fn(self, batch) -> tuple:
+    def _roinfl_collate_fn(self, batch) -> Tuple[List[torch.Tensor], torch.Tensor]:
         batch_sequences = []
         batch_labels = []
 
@@ -245,12 +242,7 @@ class RoInflect(object):
         np_dataset_train = []
         word_list = list(self._dataset.keys())
 
-        for i in range(len(word_list)):
-            if (i + 1) % 100000 == 0:
-                print(stack()[0][3] + f": computed {i + 1}/{len(word_list)} data samples",
-                      file=sys.stderr, flush=True)
-            # end if
-
+        for i in tqdm(range(len(word_list), desc='Build samples')):
             w = word_list[i]
             (x_w, y_w) = self._build_io_vectors(w, self._dataset[w])
             np_dataset_train.append((x_w, y_w))
@@ -273,10 +265,10 @@ class RoInflect(object):
         dev_dataloader = DataLoader(
             dataset=pt_dataset_dev, batch_size=64, shuffle=False, collate_fn=self._roinfl_collate_fn)
 
-        for ep in range(1, 11):
+        for ep in range(RoInflect._conf_epochs):
             # Fit model for one epoch
             self._model.train(True)
-            self._do_one_epoch(epoch=ep, dataloader=train_dataloader)
+            self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
 
             # Test model
             # Put model into eval mode first
@@ -299,24 +291,22 @@ class RoInflect(object):
         self._save_char_map()
 
     def _save_char_map(self):
-        print(stack()[0][3] + ": saving file {0}".format(ROINFLECT_CHARID_FILE),
-              file=sys.stderr, flush=True)
+        logger.info(f"Saving file [{ROINFLECT_CHARID_FILE}]")
 
         with open(ROINFLECT_CHARID_FILE, mode="w", encoding="utf-8") as f:
             # Write the next char ID which is also the length
             # of the char vocabulary
-            print("{0!s}".format(self._charid), file=f, flush=True)
+            print("{0!s}".format(self._charid), file=f)
 
             # Write the Unicode properties dictionary
             for c in self._charmap:
                 print("{0}\t{1!s}".format(
-                    c, self._charmap[c]), file=f, flush=True)
+                    c, self._charmap[c]), file=f)
             # end for
         # end with
 
     def _load_char_map(self):
-        print(stack()[0][3] + ": loading file {0}".format(ROINFLECT_CHARID_FILE),
-              file=sys.stderr, flush=True)
+        logger.info(f"Loading file [{ROINFLECT_CHARID_FILE}]")
 
         first_line = True
 
@@ -377,7 +367,7 @@ class RoInflect(object):
 
         return y_pred[0, msd_idx]
 
-    def ambiguity_class(self, word: str, min_msds: int = 5) -> list:
+    def ambiguity_class(self, word: str, min_msds: int = 5) -> List[str]:
         """Returns a list of possible MSDs for the given word.
         The list was learned from the training corpus and the lexicon.
         If no MSD is found at `prob_thr`, this is automatically decreased by 1%
@@ -414,17 +404,17 @@ class RoInflect(object):
         # end for
 
         if word_amb_class:
-            print_error("word '{0}' has ambiguity class [{1}]".format(
-                word, ', '.join([x for x in word_amb_class])), stack()[0][3])
-
+            log_once(
+                f"Word [{word}] has ambiguity class [{', '.join([x for x in word_amb_class])}]",
+                calling_fn='RoInflect.ambiguity_class()',
+                log_level=logging.DEBUG)
             self._cache[word_key] = word_amb_class
         # end if
 
         return word_amb_class
 
     def _read_training_data(self):
-        print(stack()[0][3] + ": reading training file {0!s}".format(
-            TBL_WORDFORM_FILE), file=sys.stderr, flush=True)
+        logger.info(f"Reading training file [{TBL_WORDFORM_FILE}]")
 
         with open(TBL_WORDFORM_FILE, mode='r', encoding='utf-8') as f:
             for line in f:
@@ -451,8 +441,7 @@ class RoInflect(object):
         rrt_training_file = os.path.join(
             "data", "training", "tagger", "ro_rrt-ud-train.tab")
 
-        print(stack()[0][3] + ": reading training file {0!s}".format(
-            rrt_training_file), file=sys.stderr, flush=True)
+        logger.info(f"Reading training file [{rrt_training_file}]")
 
         with open(rrt_training_file, mode='r', encoding='utf-8') as f:
             for line in f:

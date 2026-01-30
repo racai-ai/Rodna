@@ -1,3 +1,4 @@
+from typing import List, Tuple
 import numpy as np
 from utils.Lex import Lex
 
@@ -26,7 +27,7 @@ class RoFeatures(object):
     def __init__(self, lexicon: Lex) -> None:
         self._lexicon = lexicon
 
-    def compute_sentence_wide_features(self, sentence: list) -> None:
+    def compute_sentence_wide_features(self, sentence: List[Tuple[str, str]]) -> None:
         """Will take a sentence and update it with sentence-wide POS tagging features."""
 
         for i in range(len(sentence)):
@@ -50,11 +51,11 @@ class RoFeatures(object):
 
         return features
 
-    def _set_bos_and_eos(self, sentence: list):
+    def _set_bos_and_eos(self, sentence: List[Tuple[str, str, List[str]]]):
         sentence[0] = (sentence[0][0], sentence[0][1], ["WORD_AT_BOS"])
         sentence[-1] = (sentence[-1][0], sentence[-1][1], ["WORD_AT_EOS"])
 
-    def _set_adjective(self, sentence: list):
+    def _set_adjective(self, sentence: List[Tuple[str, str, List[str]]]):
         """Patterns:
         - cel/cea/cei/cele/celui/celei/celor mai ADJECTIV"""
 
@@ -72,7 +73,7 @@ class RoFeatures(object):
             # end if
         # end for
 
-    def _set_adverb(self, sentence: list):
+    def _set_adverb(self, sentence: List[Tuple[str, str, List[str]]]):
         """Patterns:
         - VERB ADVERB
         - A FI + ADVERB + ADJECTIV"""
@@ -98,7 +99,7 @@ class RoFeatures(object):
                 # end if
         # end for
 
-    def _set_verb_inf(self, sentence: list):
+    def _set_verb_inf(self, sentence: List[Tuple[str, str, List[str]]]):
         """Patterns:
         - a ... <VINF>
         - putea <VINF>"""
@@ -124,7 +125,7 @@ class RoFeatures(object):
             # end if
         # end for
 
-    def _set_to_be_aux(self, sentence: list):
+    def _set_to_be_aux(self, sentence: List[Tuple[str, str, List[str]]]):
         """Patterns:
         - a fi ... ADJECTIV/PARTICIPIU
         - a fi ... NOUN (fara prepozitie)"""
