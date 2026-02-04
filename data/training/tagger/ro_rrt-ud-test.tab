@@ -484,7 +484,7 @@ ori	oară	Ncfp-n
 destul	destul	Rgp
 de	de	Spsa
 strâns	strâns	Rgp
-ca	ca	Rc
+ca	ca	Csssp
 să	să	Qs
 -i	el	Pp3-sd--y-----w
 scoată	scoate	Vmsp3
@@ -591,7 +591,7 @@ o	un	Tifsr
 sensibilitate	sensibilitate	Ncfsrn
 insuportabilă	insuportabil	Afpfsrn
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Spsa
 o	un	Tifsr
 transparență	transparență	Ncfsrn
 ,	,	Zc
@@ -624,7 +624,7 @@ i	el	Pp3-sd--------w
 se	sine	Px3--a--------w
 părea	părea	Vmii3s
 dureros	dureros	Afpms-n
-ca	ca	Rc
+ca	ca	Spsa
 o	un	Tifsr
 agonie	agonie	Ncfsrn
 .	.	Zp
@@ -1075,7 +1075,7 @@ când	când	Rw
 anume	anume	Rgp
 identificase	identifica	Vmil3s
 vocea	voce	Ncfsry
-ca	ca	Rc
+ca	ca	Spsa
 fiind	fi	Vag
 a	al	Tsfs
 lui	lui	Tf-so
@@ -1376,7 +1376,7 @@ Mintea	minte	Ncfsry
 alunecă	aluneca	Vmis3s
 în	în	Spsa
 lumea	lume	Ncfsry
-ca	ca	Rc
+ca	ca	Spsa
 un	un	Timsr
 labirint	labirint	Ncms-n
 a	al	Tsfs
@@ -1725,9 +1725,9 @@ stare	stare	Ncfsrn
 ofer	oferi	Vmm-2s----y
 pe	pe	Spsa
 loc	loc	Ncms-n
-12	12	Mc-s-d
-000	000	Mc-s-d
-000	000	Mc-s-d
+12	12000000	Mc-s-d
+000	_	X
+000	_	X
 de	de	Spsa
 lei	leu	Ncmp-n
 .	.	Zp
@@ -2480,8 +2480,8 @@ materiale	material	Afpfp-n
 valoare	valoare	Ncfsrn
 de	de	Spsa
 cca	circa	Yr
-5	5	Mc-s-d
-000	000	Mc-s-d
+5	5000	Mc-s-d
+000	_	X
 de	de	Spsa
 lei	leu	Ncmp-n
 .	.	Zp
@@ -2619,7 +2619,7 @@ preciza	preciza	Vmii3s
 că	că	Csssp
 se	sine	Px3--a--------w
 așteaptă	aștepta	Vmip3
-ca	ca	Rc
+ca	ca	Csssp
 Rusia	Rusia	Np
 să	să	Qs
 respecte	respecta	Vmsp3
@@ -3082,7 +3082,7 @@ Decizia	decizie	Ncfsry
 a	avea	Va--3s
 fost	fi	Vap--sm
 luată	lua	Vmp--sf
-ca	ca	Rc
+ca	ca	Spsa
 urmare	urmare	Ncfsrn
 a	al	Tsfs
 scandalului	scandal	Ncmsoy
@@ -5754,7 +5754,7 @@ septembrie	septembrie	Ncm--n
 septembrie	septembrie	Ncm--n
 1944	1944	Mc-s-d
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Spsa
 publicație	publicație	Ncfsrn
 care	care	Pw3--r
 exprimă	exprima	Vmip3
@@ -6116,7 +6116,7 @@ După	după	Spsa
 ,	,	Zc
 întreprinde	întreprinde	Vmnp
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Spsa
 bursier	bursier	Ncms-n
 ,	,	Zc
 două	doi	Mcfp-l
@@ -6516,7 +6516,7 @@ numărul	număr	Ncmsry
 în	în	Spsa
 casetă	casetă	Ncfsrn
 apare	apărea	Vmip3s
-ca	ca	Rc
+ca	ca	Spsa
 fondator	fondator	Ncms-n
 Țețe	țețe	Ncf--n
 D.	D.	Yn
@@ -6567,7 +6567,7 @@ format	format	Ncms-n
 de	de	Spsa
 carte	carte	Ncfsrn
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Spsa
 publicație	publicație	Ncfsrn
 a	al	Tsfs
 Editurii	editură	Ncfsoy
@@ -6644,12 +6644,12 @@ fumul	fum	Ncmsry
 lor	lui	Ds3---p
 Se	sine	Px3--a--------w
 -ntinde	întinde	Vmip3s----y
-ca	ca	Rc
+ca	ca	Spsa
 o	un	Tifsr
 apă	apă	Ncfsrn
 ,	,	Zc
 plutește	pluti	Vmip3s
-ca	ca	Rc
+ca	ca	Spsa
 un	un	Timsr
 nor	nor	Ncms-n
 .	.	Zp
@@ -7045,7 +7045,7 @@ cuprinse	cuprinde	Vmp--pf
 ,	,	Zc
 pe	pe	Spsa
 toate	tot	Pi3fpr
-ca	ca	Rc
+ca	ca	Spsa
 pe	pe	Spsa
 niște	niște	Di3
 fii	fiu	Ncmp-n
@@ -7482,7 +7482,7 @@ nu	nu	Qz
 ce	ce	Dw3--r---e
 instanță	instanță	Ncfsrn
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Csssp
 să	să	Qs
 caute	căuta	Vmsp3
 dreptate	dreptate	Ncfsrn
@@ -8429,8 +8429,8 @@ retinoizi	retinoid	Ncmp-n
 selectivi	selectiv	Afpmp-n
 pentru	pentru	Spsa
 receptorii	receptor	Ncmpry
-ne-	ne-	Rp-y
-retinoizi	retinoid	Afpmp-n
+ne-	neretinoid	Afpmp-n
+retinoizi	_	X
 X	X	Ncms-n
 (	(	Z1p
 RXR	RXR	Np
@@ -8447,7 +8447,7 @@ activați	activat	Afpmp-n
 acești	acest	Dd3mpr---e
 receptori	receptor	Ncmp-n
 funcționează	funcționa	Vmip3
-ca	ca	Rc
+ca	ca	Spsa
 factori	factor	Ncmp-n
 de	de	Spsa
 transcriere	transcriere	Ncfsrn
@@ -8619,7 +8619,7 @@ administrat	administra	Vmp--sm
 pe	pe	Spsa
 cale	cale	Ncfsrn
 orală	oral	Afpfsrn
-ca	ca	Rc
+ca	ca	Spsa
 monoterapie	monoterapie	Ncfsrn
 ,	,	Zc
 reduce	reduce	Vmip3s
@@ -8838,8 +8838,8 @@ metabolizarea	metabolizare	Ncfsry
 mediată	media	Vmp--sf
 de	de	Spsa
 către	către	Spsa
-CYP	CYP	Np
-3A4	3A4	Np
+CYP	CYP_3A4	Np
+3A4	_	X
 .	.	Zp
 
 Pacienții	pacient	Ncmpry
@@ -9161,7 +9161,7 @@ suplimentare	suplimentar	Afpfp-n
 pentru	pentru	Spsa
 a	a	Qn
 servi	servi	Vmnp
-ca	ca	Rc
+ca	ca	Spsa
 referință	referință	Ncfsrn
 pentru	pentru	Spsa
 eventuale	eventual	Afpfp-n
@@ -9195,8 +9195,8 @@ dacă	dacă	Csssp
 1997	1997	Mc-s-d
 fuseseră	fi	Vail3p
 înregistrate	înregistra	Vmp--pf
-4	4	Mc-s-d
-112	112	Mc-s-d
+4	4112	Mc-s-d
+112	_	X
 decese	deces	Ncfp-n
 ,	,	Zc
 un	un	Timsr
@@ -9207,15 +9207,15 @@ numărul	număr	Ncmsry
 acestora	acesta	Pd3-po
 scăzuse	scădea	Vmil3s
 la	la	Spsa
-3	3	Mc-s-d
-996	996	Mc-s-d
+3	3996	Mc-s-d
+996	_	X
 ,	,	Zc
 în	în	Spsa
 1999	1999	Mc-s-d
 ajungând	ajunge	Vmg
 la	la	Spsa
-3	3	Mc-s-d
-898	898	Mc-s-d
+3	3898	Mc-s-d
+898	_	X
 .	.	Zp
 
 Firma	firmă	Ncfsry
@@ -9845,7 +9845,7 @@ Este	fi	Vaip3s
 un	un	Timsr
 pic	pic	Ncms-n
 nedrept	nedrept	Afpms-n
-ca	ca	Rc
+ca	ca	Csssp
 membrii	membru	Ncmpry
 opoziției	opoziție	Ncfsoy
 să	să	Qs
@@ -9920,7 +9920,7 @@ cuplu	cuplu	Ncms-n
 neobișnuit	neobișnuit	Afpms-n
 de	de	Spsa
 băieți	băiat	Ncmp-n
-ca	ca	Rc
+ca	ca	Spsa
 noi	eu	Pp1-pr--------s
 cu	cu	Spsa
 un	un	Timsr
@@ -10059,7 +10059,7 @@ apa	apă	Ncfsry
 din	din	Spsa
 pământ	pământ	Ncms-n
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Spsa
 cea	acela	Pd3fsr
 din	din	Spsa
 baraje	baraj	Ncfp-n
@@ -10109,7 +10109,7 @@ la	la	Spsa
 parter	parter	Ncms-n
 din	din	Spsa
 nou	nou	Afpms-n
-ca	ca	Rc
+ca	ca	Csssp
 să	să	Qs
 -și	sine	Px3--d--y-----w
 continue	continua	Vmsp3
@@ -10195,7 +10195,7 @@ observatori	observator	Afpmp-n
 au	avea	Va--3p
 interpretat	interpreta	Vmp--sm
 manevra	manevră	Ncfsry
-ca	ca	Rc
+ca	ca	Spsa
 o	un	Tifsr
 manifestare	manifestare	Ncfsrn
 a	al	Tsfs
@@ -10422,7 +10422,7 @@ folosit	folosi	Vmp--sm
 oarecum	oarecum	Rgp
 bunurile	bun	Ncfpry
 și	și	Crssp
-ca	ca	Rc
+ca	ca	Spsa
 urmare	urmare	Ncfsrn
 ele	el	Pp3fpr--------s
 au	avea	Va--3p
@@ -10627,7 +10627,7 @@ atacuri	atac	Ncfp-n
 cu	cu	Spsa
 bombă	bombă	Ncfsrn
 masive	masiv	Afpfp-n
-ca	ca	Rc
+ca	ca	Spsa
 Teebane	Teebane	Np
 în	în	Spsa
 Co	County	Yn
@@ -10771,7 +10771,7 @@ renumele	renume	Ncmsry
 în	în	Spsa
 anii	an	Ncmpry
 1960	1960	Mc-s-d
-ca	ca	Rc
+ca	ca	Spsa
 un	un	Timsr
 istoric	istoric	Ncms-n
 rătăcitor	rătăcitor	Afpms-n
@@ -10841,7 +10841,7 @@ Richmond	Richmond	Np
 .	.	Zp
 
 Funeraliile	funeralii	Ncfpry
-au	avea	Va--3p
+au	avea	Vmip3p
 loc	loc	Ncms-n
 în	în	Spsa
 fiecare	fiecare	Di3-sr---e
@@ -10894,8 +10894,8 @@ de	de	Spsa
 recuperare	recuperare	Ncfsrn
 în	în	Spsa
 cursul	curs	Ncmsry
-după	după	Spsa
-amiezei	amiază	Ncfsoy
+după	după-amiază	Ncfsoy
+amiezei	_	X
 .	.	Zp
 
 și	și	Crssp
@@ -11189,7 +11189,7 @@ unde	unde	Rw
 ne-	eu	Pp1-pa--y-----w
 am	avea	Va--1
 odihnit	odihni	Vmp--sm
-ca	ca	Rc
+ca	ca	Csssp
 să	să	Qs
 luăm	lua	Vmip1p
 prânzul	prânz	Ncmsry
@@ -11402,7 +11402,7 @@ A	avea	Va--3s
 spus	spune	Vmp--sm
 că	că	Csssp
 (	(	Z1p
-era	fi	Vmii3s
+era	fi	Vaii3s
 de	de	Spsa
 părere	părere	Ncfsrn
 că	că	Csssp
@@ -11518,7 +11518,7 @@ Jarrett	Jarrett	Np
 încheie	încheia	Vmip3
 cu	cu	Spsa
 recomandarea	recomandare	Ncfsry
-ca	ca	Rc
+ca	ca	Csssp
 examinarea	examinare	Ncfsry
 alterării	alterare	Ncfsoy
 toleranței	toleranță	Ncfsoy
@@ -12128,8 +12128,8 @@ membru	membru	Afpms-n
 ,	,	Zc
 majorată	majora	Vmp--sf
 cu	cu	Spsa
-30	30	Mc-s-d
-000	000	Mc-s-d
+30	30000	Mc-s-d
+000	_	X
 EUR	EUR	Np
 .	.	Zp
 
@@ -13356,7 +13356,7 @@ desemnate	desemnat	Afpfp-n
 ,	,	Zc
 recunoscut	recunoaște	Vmp--sm
 oficial	oficial	Rgp
-ca	ca	Rc
+ca	ca	Spsa
 indemn	indemn	Ncms-n
 de	de	Spsa
 leucoză	leucoză	Ncfsrn
@@ -14006,7 +14006,7 @@ literatură	literatură	Ncfsrn
 și	și	Crssp
 de	de	Spsa
 suprarealism	suprarealism	Ncms-n
-ca	ca	Rc
+ca	ca	Csssp
 să	să	Qs
 rezolvi	rezolva	Vmip2s
 problema	problemă	Ncfsry
@@ -14048,7 +14048,7 @@ o	un	Tifsr
 poezie	poezie	Ncfsrn
 lirică	liric	Afpfsrn
 și	și	Crssp
-ca	ca	Rc
+ca	ca	Spsa
 atare	atare	Afp
 nu	nu	Qz
 mă	eu	Pp1-sa--------w
@@ -14353,8 +14353,8 @@ văi	vale	Ncfp-n
 Sau	sau	Ccssp
 ,	,	Zc
 mai	mai	Rp
-de-	de	Spsay
-grabă	grabă	Ncfsrn
+de-	degrabă	Rgp
+grabă	_	X
 ,	,	Zc
 le	el	Pp3-pd--------w
 atribuie	atribui	Vmip3
@@ -14967,7 +14967,7 @@ cunosc	cunoaște	Vmip3p
 alta	altul	Pi3fsr
 mai	mai	Rp
 semnificativă	semnificativ	Afpfsrn
-ca	ca	Rc
+ca	ca	Spsa
 domnul	domn	Ncmsry
 Maniu	Maniu	Np
 ,	,	Zc
@@ -15442,7 +15442,7 @@ inclavat	inclavat	Afpms-n
 Este	fi	Vaip3s
 de	de	Spsa
 admis	admite	Vmp--sm
-ca	ca	Rc
+ca	ca	Csssp
 efectul	efect	Ncmsry
 acestora	acesta	Pd3-po
 să	să	Qs
@@ -15807,7 +15807,7 @@ român	român	Afpms-n
 În	în	Spsa
 1941	1941	Mc-s-d
 ,	,	Zc
-ca	ca	Rc
+ca	ca	Spsa
 aliat	aliat	Ncms-n
 al	al	Tsms
 Germaniei	Germania	Npfsoy
@@ -16455,7 +16455,7 @@ avea	avea	Vmnp
 unde	undă	Ncfp-n
 staționare	staționar	Afpfp-n
 trebuie	trebui	Vmip3
-ca	ca	Rc
+ca	ca	Csssp
 proiecțiile	proiecție	Ncfpry
 laturilor	lat	Ncfpoy
 incintei	incintă	Ncfsoy
@@ -16659,7 +16659,7 @@ densitatea	densitate	Ncfsry
 de	de	Spsa
 probabilitate	probabilitate	Ncfsrn
 pentru	pentru	Spsa
-ca	ca	Rc
+ca	ca	Csssp
 o	un	Tifsr
 particulă	particulă	Ncfsrn
 să	să	Qs

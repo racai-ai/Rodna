@@ -22127,14 +22127,14 @@ de	RWORD
  	SPACE
 cârtiță	RWORD
  	SPACE
-din	MWE
- 	MWE
-loc	MWE
- 	MWE
+din	RWORD
+ 	SPACE
+loc	RWORD
+ 	SPACE
 în	MWE
  	MWE
 loc	MWE
-.	PUNCT
+.	ABBR
  	SPACE	SENTEND
 În	RWORD
  	SPACE
@@ -34164,8 +34164,8 @@ buonoserv	WORD
 @	SYM
 yahoo	WORD
 .	PUNCT
-com	WORD
-.	PUNCT
+com	ABBR
+.	ABBR
  	SPACE	SENTEND
 TÂMPLAR-TAPIȚER	RWORD
 ,	PUNCT
@@ -35110,8 +35110,8 @@ falsificat	RWORD
  	EOL	SENTEND
 Judecătorii	RWORD
  	SPACE
-Î	ABBR
-.	ABBR
+Î	RWORD
+.	PUNCT
 C	ABBR
 .	ABBR
 S	ABBR
@@ -37386,8 +37386,8 @@ lor	RWORD
 sociale	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Z	ABBR
-.	ABBR
+Z	RWORD
+.	PUNCT
 M	ABBR
 .	ABBR
  	SPACE
@@ -37429,8 +37429,8 @@ a	RWORD
 decedat	RWORD
 .	PUNCT
  	SPACE	SENTEND
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
 V	ABBR
 .	ABBR
 P	ABBR
@@ -41161,8 +41161,8 @@ consultați	RWORD
  	SPACE
 și	RWORD
  	SPACE
-Î	ABBR
-.	ABBR
+Î	RWORD
+.	PUNCT
 P	ABBR
 .	ABBR
 S	ABBR
@@ -42061,8 +42061,8 @@ www	WORD
 .	PUNCT
 3edo	WORD
 .	PUNCT
-com	WORD
-.	PUNCT
+com	ABBR
+.	ABBR
  	SPACE	SENTEND
 Pământul	RWORD
  	SPACE
@@ -52606,8 +52606,8 @@ C	ABBR
 .	ABBR
 I	ABBR
 .	ABBR
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
 T	ABBR
 .	ABBR
  	SPACE
@@ -55315,8 +55315,8 @@ C	ABBR
 .	ABBR
 I	ABBR
 .	ABBR
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
 T	ABBR
 .	ABBR
 ,	PUNCT
@@ -60090,8 +60090,8 @@ I	ABBR
 .	ABBR
 B	ABBR
 .	ABBR
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
  	SPACE
 a	RWORD
  	SPACE
@@ -61573,8 +61573,8 @@ F	ABBR
 .	ABBR
 C	ABBR
 .	ABBR
-U	ABBR
-.	ABBR
+U	RWORD
+.	PUNCT
  	EOL
 Politehnica	RWORD
  	SPACE
@@ -61636,8 +61636,8 @@ din	MWE
  	MWE
 partea	MWE
  	SPACE
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
 N	ABBR
 .	ABBR
 V	ABBR
@@ -75689,17 +75689,17 @@ partea	RWORD
  	SPACE
 B	ABBR
 .	ABBR
- 	SPACE	SENTEND
+ 	SPACE
 Referirile	RWORD
  	SPACE
 la	RWORD
  	SPACE
 directivele	RWORD
- 	EOL
+ 	SPACE
 abrogate	RWORD
  	SPACE
 se	RWORD
- 	SPACE
+ 	EOL
 interpretează	RWORD
  	SPACE
 ca	RWORD
@@ -75719,9 +75719,9 @@ sunt	RWORD
 citite	RWORD
  	SPACE
 în	RWORD
- 	EOL
-conformitate	RWORD
  	SPACE
+conformitate	RWORD
+ 	EOL
 cu	RWORD
  	SPACE
 tabelul	RWORD
@@ -75745,13 +75745,13 @@ art	ABBR
 2	NUM
  	SPACE
 din	RWORD
- 	EOL
+ 	SPACE
 Directiva	RWORD
  	SPACE
 2000	NUM
  	SPACE
 /	PUNCT
- 	SPACE
+ 	EOL
 34	NUM
  	SPACE
 /	PUNCT
@@ -75773,12 +75773,12 @@ din	RWORD
 decembrie	RWORD
  	SPACE
 2002	NUM
- 	EOL
+ 	SPACE
 (	PUNCT
 nepublicat	RWORD
  	SPACE
 încă	RWORD
- 	SPACE
+ 	EOL
 în	RWORD
  	SPACE
 Jurnalul	RWORD
@@ -75797,10 +75797,10 @@ din	RWORD
 22	NUM
  	SPACE
 septembrie	RWORD
- 	EOL
+ 	SPACE
 2003	NUM
 .	PUNCT
- 	SPACE	SENTEND
+ 	EOL	SENTEND
 rezultatele	RWORD
  	SPACE
 obținute	RWORD
@@ -75817,9 +75817,9 @@ foarte	RWORD
  	SPACE
 încurajatoare	RWORD
 ;	PUNCT
- 	EOL	SENTEND
+ 	SPACE	SENTEND
 Directiva	RWORD
- 	SPACE
+ 	EOL
 2001	NUM
  	SPACE
 /	PUNCT
@@ -75841,12 +75841,12 @@ criterii	RWORD
 comune	RWORD
  	SPACE
 pentru	RWORD
- 	EOL
+ 	SPACE
 recunoașterea	RWORD
  	SPACE
-de	MWE
- 	MWE
-către	MWE
+de	RWORD
+ 	EOL
+către	RWORD
  	SPACE
 statele	RWORD
  	SPACE
@@ -75864,14 +75864,14 @@ de	RWORD
  	SPACE
 terțe	RWORD
 .	PUNCT
- 	EOL	SENTEND
+ 	SPACE	SENTEND
 (	PUNCT
 6	NUM
 )	PUNCT
  	SPACE
 Respectarea	RWORD
 ,	PUNCT
- 	SPACE
+ 	EOL
 de	MWE
  	MWE
 către	MWE
@@ -75890,13 +75890,13 @@ formări	RWORD
 a	RWORD
  	SPACE
 dispozițiilor	RWORD
- 	EOL
+ 	SPACE
 Convenției	RWORD
  	SPACE
 STCW	WORD
  	SPACE
 poate	RWORD
- 	SPACE
+ 	EOL
 fi	RWORD
  	SPACE
 evaluată	RWORD
@@ -75913,13 +75913,13 @@ această	RWORD
 evaluare	RWORD
  	SPACE
 este	RWORD
- 	EOL
+ 	SPACE
 efectuată	RWORD
  	SPACE
 în	RWORD
  	SPACE
 mod	RWORD
- 	SPACE
+ 	EOL
 armonios	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -75935,14 +75935,14 @@ sarcină	RWORD
 ar	RWORD
  	SPACE
 trebui	RWORD
- 	EOL
+ 	SPACE
 încredințată	RWORD
  	SPACE
 Comisiei	RWORD
  	SPACE
-în	MWE
- 	MWE
-numele	MWE
+în	RWORD
+ 	EOL
+numele	RWORD
  	SPACE
 întregii	RWORD
  	SPACE
@@ -75954,7 +75954,7 @@ Recunoașterea	RWORD
 unei	RWORD
  	SPACE
 țări	RWORD
- 	EOL
+ 	SPACE
 terțe	RWORD
  	SPACE
 care	RWORD
@@ -75962,7 +75962,7 @@ care	RWORD
 nu	RWORD
  	SPACE
 respectă	RWORD
- 	SPACE
+ 	EOL
 dispozițiile	RWORD
  	SPACE
 Convenției	RWORD
@@ -75978,9 +75978,9 @@ revocată	RWORD
 până	MWE
  	MWE
 la	MWE
- 	EOL
-remedierea	RWORD
  	SPACE
+remedierea	RWORD
+ 	EOL
 deficiențelor	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -76003,11 +76003,11 @@ de	RWORD
 a	RWORD
  	SPACE
 revoca	RWORD
- 	EOL
+ 	SPACE
 recunoașterea	RWORD
  	SPACE
 poate	RWORD
- 	SPACE
+ 	EOL
 fi	RWORD
  	SPACE
 adoptată	RWORD
@@ -76028,9 +76028,9 @@ centralizat	RWORD
 ,	PUNCT
  	SPACE
 la	RWORD
- 	EOL
-nivelul	RWORD
  	SPACE
+nivelul	RWORD
+ 	EOL
 Comunității	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -82244,7 +82244,7 @@ p	ABBR
 trebuie	RWORD
  	SPACE
 modificat	RWORD
- 	SPACE	SENTEND
+ 	SPACE
 Limita	RWORD
  	SPACE
 maximă	RWORD
@@ -82258,9 +82258,9 @@ se	RWORD
 stabilește	RWORD
  	SPACE
 numai	RWORD
- 	EOL
-după	RWORD
  	SPACE
+după	RWORD
+ 	EOL
 examinarea	RWORD
  	SPACE
 în	MWE
@@ -82280,9 +82280,9 @@ medicamentelor	RWORD
 de	RWORD
  	SPACE
 uz	RWORD
- 	EOL
-veterinar	RWORD
  	SPACE
+veterinar	RWORD
+ 	EOL
 a	RWORD
  	SPACE
 tuturor	RWORD
@@ -82296,9 +82296,9 @@ privind	RWORD
 siguranța	RWORD
  	SPACE
 reziduurilor	RWORD
- 	EOL
-substanței	RWORD
  	SPACE
+substanței	RWORD
+ 	EOL
 respective	RWORD
  	SPACE
 pentru	RWORD
@@ -82314,13 +82314,13 @@ alimentare	RWORD
 de	RWORD
  	SPACE
 origine	RWORD
- 	EOL
+ 	SPACE
 animală	RWORD
  	SPACE
 și	RWORD
  	SPACE
 a	RWORD
- 	SPACE
+ 	EOL
 impactului	RWORD
  	SPACE
 reziduurilor	RWORD
@@ -87081,8 +87081,8 @@ Europene	RWORD
  	SPACE
 seria	RWORD
  	SPACE
-C	RWORD
-.	PUNCT
+C	ABBR
+.	ABBR
  	SPACE	SENTEND
 Comisia	RWORD
  	SPACE
@@ -100383,8 +100383,8 @@ definită	RWORD
  	SPACE
 anexa	RWORD
  	EOL
-I	NUM
-.	PUNCT
+I	ABBR
+.	ABBR
  	SPACE	SENTEND
 Restituirea	RWORD
  	SPACE
@@ -102497,7 +102497,7 @@ idilică	RWORD
  	SPACE	SENTEND
 A	ABBR
 .	ABBR
-C	ABBR
+c	ABBR
 .	ABBR
  	SPACE
 izbutise	RWORD
@@ -103085,8 +103085,8 @@ activitate	RWORD
 creatoare	RWORD
 ,	PUNCT
  	SPACE
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
 R	ABBR
 .	ABBR
  	SPACE
@@ -104105,7 +104105,7 @@ născuți	RWORD
 familia	RWORD
  	SPACE
 Anei	RWORD
- 	SPACE	SENTEND
+ 	SPACE
 Cu	RWORD
  	SPACE
 indignare	RWORD
@@ -105710,8 +105710,8 @@ de	RWORD
 melodramă	RWORD
 .	PUNCT
  	SPACE	SENTEND
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
 B	ABBR
 .	ABBR
 C	ABBR
@@ -107705,8 +107705,8 @@ din	RWORD
 E	ABBR
 .	ABBR
  	SPACE
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
  	SPACE
 Poe	WORD
  	SPACE
@@ -108673,7 +108673,7 @@ tipărit	RWORD
 I	ABBR
 .	ABBR
  	SPACE
-Fotianu	RWORD
+Fotianu	WORD
 ,	PUNCT
  	EOL
 I	ABBR
@@ -112455,7 +112455,7 @@ La	RWORD
 B	ABBR
 .	ABBR
  	SPACE
-Delavrancea	RWORD
+Delavrancea	WORD
  	SPACE
 a	RWORD
  	SPACE
@@ -113363,7 +113363,7 @@ nimic	RWORD
 D	ABBR
 .	ABBR
  	SPACE
-Isac	RWORD
+Isac	WORD
  	EOL
 recenzează	RWORD
  	SPACE
@@ -113975,7 +113975,7 @@ Al	ABBR
 I	ABBR
 .	ABBR
  	SPACE
-Cuza	RWORD
+Cuza	WORD
  	SPACE
 și	RWORD
  	SPACE
@@ -114275,7 +114275,7 @@ lui	RWORD
 V	ABBR
 .	ABBR
  	SPACE
-Alecsandri	RWORD
+Alecsandri	WORD
 .	PUNCT
  	SPACE	SENTEND
 În	MWE
@@ -114616,13 +114616,13 @@ Ionescu	RWORD
  	SPACE
 cu	RWORD
  	SPACE
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
  	SPACE
 C	ABBR
 .	ABBR
  	SPACE
-Cuza	RWORD
+Cuza	WORD
 .	PUNCT
  	SPACE	SENTEND
 Aici	RWORD
@@ -114832,8 +114832,8 @@ arestată	RWORD
 1959	NUM
 ,	PUNCT
  	SPACE
-A	ABBR
-.	ABBR
+A	RWORD
+.	PUNCT
  	SPACE
 M	ABBR
 .	ABBR
@@ -184061,7 +184061,7 @@ a	RWORD
  	SPACE
 atenționat	RWORD
  	SPACE
-ca	RWORD
+că	RWORD
  	SPACE
 aveți	RWORD
  	SPACE
@@ -191739,9 +191739,9 @@ prevăzute	RWORD
 în	RWORD
  	SPACE
 acest	RWORD
- 	EOL
+ 	SPACE
 sens	RWORD
- 	SPACE	SENTEND
+ 	EOL
 (	PUNCT
 2	NUM
 )	PUNCT
@@ -191761,9 +191761,9 @@ financiare	RWORD
 adoptate	RWORD
  	SPACE
 în	RWORD
- 	EOL
-temeiul	RWORD
  	SPACE
+temeiul	RWORD
+ 	EOL
 articolului	RWORD
  	SPACE
 24	NUM
@@ -191783,12 +191783,12 @@ seama	RWORD
 de	RWORD
  	SPACE
 prezentul	RWORD
- 	EOL
+ 	SPACE
 protocol	RWORD
 ,	PUNCT
  	SPACE
 dacă	RWORD
- 	SPACE
+ 	EOL
 părțile	RWORD
  	SPACE
 nu	RWORD
@@ -191811,11 +191811,11 @@ dispun	RWORD
 de	RWORD
  	SPACE
 un	RWORD
- 	EOL
+ 	SPACE
 număr	RWORD
  	SPACE
 suficient	RWORD
- 	SPACE
+ 	EOL
 de	RWORD
  	SPACE
 medici	RWORD
@@ -191835,14 +191835,14 @@ sarcinile	RWORD
 ce	RWORD
  	SPACE
 le	RWORD
- 	EOL
+ 	SPACE
 revin	RWORD
 .	PUNCT
  	SPACE	SENTEND
 (	PUNCT
 2	NUM
 )	PUNCT
- 	SPACE
+ 	EOL
 Obiectivul	RWORD
  	SPACE
 general	RWORD
@@ -191856,9 +191856,9 @@ programului	RWORD
 reprezintă	RWORD
  	SPACE
 susținerea	RWORD
- 	EOL
-activităților	RWORD
  	SPACE
+activităților	RWORD
+ 	EOL
 întreprinse	RWORD
  	SPACE
 de	RWORD
@@ -191876,9 +191876,9 @@ domeniul	RWORD
 educației	RWORD
  	SPACE
 și	RWORD
- 	EOL
-al	RWORD
  	SPACE
+al	RWORD
+ 	EOL
 formării	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -191903,9 +191903,9 @@ an	RWORD
 de	RWORD
  	SPACE
 ședere	RWORD
- 	EOL
-poate	RWORD
  	SPACE
+poate	RWORD
+ 	EOL
 fi	RWORD
  	SPACE
 restricționat	RWORD
@@ -191930,9 +191930,9 @@ sau	RWORD
  	SPACE
 simpatie	RWORD
 ,	PUNCT
- 	EOL
-îi	RWORD
  	SPACE
+îi	RWORD
+ 	EOL
 lăsam	RWORD
  	SPACE
 să	RWORD
@@ -202292,7 +202292,7 @@ ani	RWORD
 în	RWORD
  	SPACE
 urmă	RWORD
- 	SPACE	SENTEND
+ 	SPACE
 Prin	RWORD
  	SPACE
 urmare	RWORD
@@ -203014,7 +203014,7 @@ ca	RWORD
 un	RWORD
  	SPACE
 ratat	RWORD
- 	SPACE	SENTEND
+ 	SPACE
 A	RWORD
  	SPACE
 tratat	RWORD
@@ -309776,7 +309776,7 @@ o	RWORD
 recurență	RWORD
  	SPACE
 în	RWORD
- 	SPACE	SENTEND
+ 	SPACE
 Infecțiile	RWORD
  	SPACE
 nozocomiale	WORD
@@ -313934,13 +313934,13 @@ Refacerea	RWORD
 concentrațiilor	RWORD
  	SPACE
 ionice	RWORD
- 	SPACE	SENTEND
+ 	SPACE
 Se	RWORD
  	SPACE
 face	RWORD
- 	EOL
-prin	RWORD
  	SPACE
+prin	RWORD
+ 	EOL
 activitatea	RWORD
  	SPACE
 pompelor	RWORD
@@ -313962,9 +313962,9 @@ dependentă	RWORD
 elimină	RWORD
  	SPACE
 din	RWORD
- 	EOL
-celulă	RWORD
  	SPACE
+celulă	RWORD
+ 	EOL
 micile	RWORD
  	SPACE
 cantități	RWORD
@@ -313990,9 +313990,9 @@ de	RWORD
 depolarizare	RWORD
  	SPACE
 rapidă	RWORD
- 	EOL
-și	RWORD
  	SPACE
+și	RWORD
+ 	EOL
 reintroduce	RWORD
  	SPACE
 K	RWORD
@@ -314017,9 +314017,9 @@ Ca	RWORD
 2	NUM
  	SPACE
 se	RWORD
- 	EOL
-face	RWORD
  	SPACE
+face	RWORD
+ 	EOL
 prin	RWORD
  	SPACE
 mecanismul	RWORD
@@ -314072,7 +314072,7 @@ Fazele	RWORD
 excitabilității	RWORD
  	SPACE
 miocardice	RWORD
- 	EOL	SENTEND
+ 	EOL
 Capacitatea	RWORD
  	SPACE
 unei	RWORD
@@ -316862,9 +316862,9 @@ yoga	RWORD
  	SPACE
 etc	ABBR
 .	ABBR
- 	EOL	SENTEND
-Învățarea	RWORD
  	SPACE
+Învățarea	RWORD
+ 	EOL
 și	RWORD
  	SPACE
 controlarea	RWORD
@@ -316884,9 +316884,9 @@ organism	RWORD
 este	RWORD
  	SPACE
 determinată	RWORD
- 	EOL
-de	RWORD
  	SPACE
+de	RWORD
+ 	EOL
 existența	RWORD
  	SPACE
 și	RWORD
@@ -322244,7 +322244,7 @@ urban	RWORD
  	SPACE
 etc	ABBR
 .	ABBR
- 	SPACE	SENTEND
+ 	SPACE
 Conform	RWORD
  	SPACE
 recensământului	RWORD
@@ -322253,9 +322253,9 @@ din	RWORD
  	SPACE
 2002	NUM
 ,	PUNCT
- 	EOL
-România	RWORD
  	SPACE
+România	RWORD
+ 	EOL
 are	RWORD
  	SPACE
 o	RWORD
@@ -324192,7 +324192,7 @@ create	RWORD
 în	RWORD
  	SPACE
 1998	NUM
- 	SPACE	SENTEND
+ 	SPACE
 Împărțirea	RWORD
  	SPACE
 României	RWORD
@@ -337188,7 +337188,7 @@ nume	RWORD
  	EOL
 etc	ABBR
 .	ABBR
- 	SPACE	SENTEND
+ 	SPACE
 Deși	RWORD
  	SPACE
 C	RWORD
@@ -337217,9 +337217,9 @@ cele	RWORD
 două	RWORD
  	SPACE
 limbaje	RWORD
- 	EOL
-se	RWORD
  	SPACE
+se	RWORD
+ 	EOL
 bazează	RWORD
  	SPACE
 pe	RWORD
@@ -337238,9 +337238,9 @@ Limbajul	RWORD
 C	RWORD
  	SPACE
 folosește	RWORD
- 	EOL
-paradigma	RWORD
  	SPACE
+paradigma	RWORD
+ 	EOL
 programării	RWORD
  	SPACE
 procedurale	RWORD
@@ -337256,11 +337256,11 @@ acesteia	RWORD
 ,	PUNCT
  	SPACE
 un	RWORD
- 	EOL
+ 	SPACE
 program	RWORD
  	SPACE
 este	RWORD
- 	SPACE
+ 	EOL
 privit	RWORD
  	SPACE
 ca	RWORD
@@ -337278,7 +337278,7 @@ blocuri	RWORD
 și	RWORD
  	SPACE
 proceduri	RWORD
- 	EOL
+ 	SPACE
 (	PUNCT
 funcții	RWORD
 ).	PUNCT
@@ -337286,7 +337286,7 @@ funcții	RWORD
 Limbajul	RWORD
  	SPACE
 C	RWORD
- 	SPACE
+ 	EOL
 +	SYM
  	SPACE
 +	SYM
@@ -337300,7 +337300,7 @@ programării	RWORD
 orientate	RWORD
  	SPACE
 pe	RWORD
- 	EOL
+ 	SPACE
 obiecte	RWORD
 ,	PUNCT
  	SPACE
@@ -337309,7 +337309,7 @@ potrivit	RWORD
 căreia	RWORD
  	SPACE
 un	RWORD
- 	SPACE
+ 	EOL
 program	RWORD
  	SPACE
 este	RWORD
@@ -337324,12 +337324,12 @@ mulțime	RWORD
 de	RWORD
  	SPACE
 obiecte	RWORD
- 	EOL
+ 	SPACE
 care	RWORD
  	SPACE
 interacționează	RWORD
 .	PUNCT
- 	SPACE	SENTEND
+ 	EOL	SENTEND
 Elementul	RWORD
  	SPACE
 constructiv	RWORD
@@ -337343,7 +337343,7 @@ program	RWORD
 C	RWORD
  	SPACE
 este	RWORD
- 	EOL
+ 	SPACE
 funcția	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -337352,7 +337352,7 @@ Un	RWORD
 program	RWORD
  	SPACE
 este	RWORD
- 	SPACE
+ 	EOL
 constituit	RWORD
  	SPACE
 dintr-	RWORD
@@ -337368,7 +337368,7 @@ funcții	RWORD
 declarate	RWORD
  	SPACE
 pe	RWORD
- 	EOL
+ 	SPACE
 un	RWORD
  	SPACE
 singur	RWORD
@@ -337381,7 +337381,7 @@ fără	RWORD
 a	RWORD
  	SPACE
 se	RWORD
- 	SPACE
+ 	EOL
 imbrica	RWORD
  	SPACE
 unele	RWORD
@@ -337396,7 +337396,7 @@ grupate	RWORD
 în	RWORD
  	SPACE
 module	RWORD
- 	EOL
+ 	SPACE
 program	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -337407,7 +337407,7 @@ funcție	RWORD
 este	RWORD
  	SPACE
 o	RWORD
- 	SPACE
+ 	EOL
 secțiune	RWORD
  	SPACE
 de	RWORD
@@ -337421,14 +337421,14 @@ printr-	RWORD
 un	RWORD
  	SPACE
 nume	RWORD
- 	EOL
+ 	SPACE
 și	RWORD
  	SPACE
 parametrizată	RWORD
 ,	PUNCT
  	SPACE
 construită	RWORD
- 	SPACE
+ 	EOL
 folosind	RWORD
  	SPACE
 declarații	RWORD
@@ -337441,14 +337441,14 @@ definiții	RWORD
 instrucțiuni	RWORD
  	SPACE
 de	RWORD
- 	EOL
+ 	SPACE
 prelucrare	RWORD
 .	PUNCT
  	SPACE	SENTEND
 Atunci	MWE
  	MWE
 când	MWE
- 	SPACE
+ 	EOL
 este	RWORD
  	SPACE
 apelată	RWORD
@@ -337463,7 +337463,7 @@ un	RWORD
 anumit	RWORD
  	SPACE
 rezultat	RWORD
- 	EOL
+ 	SPACE
 sau	RWORD
  	SPACE
 realizează	RWORD
@@ -337471,7 +337471,7 @@ realizează	RWORD
 un	RWORD
  	SPACE
 anumit	RWORD
- 	SPACE
+ 	EOL
 efect	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -337488,14 +337488,14 @@ prezentă	RWORD
 în	RWORD
  	SPACE
 orice	RWORD
- 	EOL
+ 	SPACE
 program	RWORD
  	SPACE
 C	ABBR
 .	ABBR
  	SPACE	SENTEND
 Execuția	RWORD
- 	SPACE
+ 	EOL
 programului	RWORD
  	SPACE
 începe	RWORD
@@ -337513,13 +337513,13 @@ main	WORD
 ()	PUNCT
  	SPACE
 poate	RWORD
- 	EOL
+ 	SPACE
 întoarce	RWORD
  	SPACE
 un	RWORD
  	SPACE
 rezultat	RWORD
- 	SPACE
+ 	EOL
 întreg	RWORD
  	SPACE
 (	PUNCT
@@ -337543,7 +337543,7 @@ Numai	RWORD
 în	RWORD
  	SPACE
 C	RWORD
- 	EOL
+ 	SPACE
 este	RWORD
  	SPACE
 posibil	RWORD
@@ -337551,7 +337551,7 @@ posibil	RWORD
 să	RWORD
  	SPACE
 nu	RWORD
- 	SPACE
+ 	EOL
 specificăm	RWORD
  	SPACE
 tipul	RWORD
@@ -337568,13 +337568,13 @@ funcție	RWORD
 acesta	RWORD
  	SPACE
 fiind	RWORD
- 	EOL
+ 	SPACE
 considerat	RWORD
  	SPACE
 în	RWORD
  	SPACE
 mod	RWORD
- 	SPACE
+ 	EOL
 implicit	RWORD
  	SPACE
 int	ABBR
@@ -337590,7 +337590,7 @@ comentariu	RWORD
 ,	PUNCT
  	SPACE
 delimitat	RWORD
- 	EOL
+ 	SPACE
 prin	RWORD
  	SPACE
 /	PUNCT
@@ -337602,7 +337602,7 @@ prin	RWORD
 *	SYM
  	SPACE
 /	PUNCT
- 	SPACE
+ 	EOL
 care	RWORD
 ,	PUNCT
  	SPACE
@@ -337620,10 +337620,10 @@ natural	RWORD
 crește	RWORD
  	SPACE
 claritatea	RWORD
- 	EOL
+ 	SPACE
 programului	RWORD
 .	PUNCT
- 	SPACE	SENTEND
+ 	EOL	SENTEND
 Comentariul	RWORD
  	SPACE
 este	RWORD
@@ -337643,13 +337643,13 @@ multe	RWORD
  	SPACE
 linii	RWORD
 ,	PUNCT
- 	EOL
+ 	SPACE
 sau	RWORD
  	SPACE
 poate	RWORD
  	SPACE
 apărea	RWORD
- 	SPACE
+ 	EOL
 în	MWE
  	MWE
 interiorul	MWE
@@ -337669,12 +337669,12 @@ include	RWORD
  	SPACE
 comentarii	RWORD
  	SPACE
-în	RWORD
- 	EOL
-interiorul	RWORD
+în	MWE
+ 	MWE
+interiorul	MWE
  	SPACE
 altor	RWORD
- 	SPACE
+ 	EOL
 comentarii	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -337689,13 +337689,13 @@ prototipurile	RWORD
 unei	RWORD
  	SPACE
 serii	RWORD
- 	EOL
+ 	SPACE
 de	RWORD
  	SPACE
 funcții	RWORD
  	SPACE
 de	RWORD
- 	SPACE
+ 	EOL
 intrare	RWORD
  	SPACE
 și	RWORD
@@ -337712,13 +337712,13 @@ programelor	RWORD
  	SPACE
 C	ABBR
 .	ABBR
- 	EOL	SENTEND
+ 	SPACE	SENTEND
 Fișierele	RWORD
  	SPACE
 antet	RWORD
  	SPACE
 au	RWORD
- 	SPACE
+ 	EOL
 prin	RWORD
  	SPACE
 convenție	RWORD
@@ -337737,7 +337737,7 @@ stabilească	RWORD
 dacă	RWORD
  	SPACE
 un	RWORD
- 	EOL
+ 	SPACE
 număr	RWORD
  	SPACE
 este	RWORD
@@ -337745,7 +337745,7 @@ este	RWORD
 sau	RWORD
  	SPACE
 nu	RWORD
- 	SPACE
+ 	EOL
 palindrom	RWORD
  	SPACE
 (	PUNCT
@@ -337765,13 +337765,13 @@ stânga	RWORD
  	SPACE
 sau	RWORD
  	SPACE
-de	RWORD
- 	EOL
-la	RWORD
+de	MWE
+ 	MWE
+la	MWE
  	SPACE
 dreapta	RWORD
 ).	PUNCT
- 	SPACE	SENTEND
+ 	EOL	SENTEND
 Corpul	RWORD
  	SPACE
 buclei	RWORD
@@ -337787,13 +337787,13 @@ singură	RWORD
  	SPACE
 instrucțiune	RWORD
 .	PUNCT
- 	EOL	SENTEND
+ 	SPACE	SENTEND
 Repetarea	RWORD
  	SPACE
 se	RWORD
  	SPACE
 face	RWORD
- 	SPACE
+ 	EOL
 cel	RWORD
  	SPACE
 puțin	RWORD
@@ -337812,7 +337812,7 @@ instrucțiuni	RWORD
 în	RWORD
  	SPACE
 corpul	RWORD
- 	EOL
+ 	SPACE
 unui	RWORD
  	SPACE
 ciclu	RWORD
@@ -337820,7 +337820,7 @@ ciclu	RWORD
 are	RWORD
  	SPACE
 ca	RWORD
- 	SPACE
+ 	EOL
 efect	RWORD
  	SPACE
 terminarea	RWORD
@@ -337836,12 +337836,12 @@ trecerea	RWORD
 la	RWORD
  	SPACE
 iterația	RWORD
- 	EOL
+ 	SPACE
 următoare	RWORD
 .	PUNCT
  	SPACE	SENTEND
 O	RWORD
- 	SPACE
+ 	EOL
 secvență	RWORD
  	SPACE
 de	RWORD
@@ -337862,11 +337862,11 @@ prin	RWORD
 Să	RWORD
  	SPACE
 se	RWORD
- 	EOL
+ 	SPACE
 calculeze	RWORD
  	SPACE
 suma	RWORD
- 	SPACE
+ 	EOL
 termenilor	RWORD
  	SPACE
 pozitivi	RWORD
@@ -337883,12 +337883,12 @@ ca	RWORD
 efect	RWORD
  	SPACE
 ieșirea	RWORD
- 	EOL
+ 	SPACE
 dintr-	RWORD
 o	RWORD
  	SPACE
 instrucțiune	RWORD
- 	SPACE
+ 	EOL
 de	RWORD
  	SPACE
 ciclare	RWORD
@@ -337908,9 +337908,9 @@ pentru	RWORD
 a	RWORD
  	SPACE
 face	RWORD
- 	EOL
-alternativele	RWORD
  	SPACE
+alternativele	RWORD
+ 	EOL
 disjuncte	RWORD
  	SPACE
 (	PUNCT
@@ -337930,10 +337930,10 @@ se	RWORD
 trece	RWORD
  	SPACE
 în	RWORD
- 	EOL
+ 	SPACE
 următoarea	RWORD
 ).	PUNCT
- 	SPACE	SENTEND
+ 	EOL	SENTEND
 Permite	RWORD
  	SPACE
 implementarea	RWORD
@@ -337951,12 +337951,12 @@ multe	RWORD
 ieșiri	RWORD
  	SPACE
 plasate	RWORD
- 	EOL
+ 	SPACE
 oriunde	RWORD
  	SPACE
-în	MWE
- 	MWE
-interiorul	MWE
+în	RWORD
+ 	EOL
+interiorul	RWORD
  	SPACE
 ciclului	RWORD
 .	PUNCT
@@ -337974,11 +337974,11 @@ va	RWORD
 trebui	RWORD
  	SPACE
 să	RWORD
- 	EOL
+ 	SPACE
 întoarcă	RWORD
  	SPACE
 un	RWORD
- 	SPACE
+ 	EOL
 rezultat	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -337995,10 +337995,10 @@ specificat	RWORD
 în	RWORD
  	SPACE
 antetul	RWORD
- 	EOL
+ 	SPACE
 funcției	RWORD
 .	PUNCT
- 	SPACE	SENTEND
+ 	EOL	SENTEND
 Transmiterea	RWORD
  	SPACE
 acestui	RWORD
@@ -338014,13 +338014,13 @@ de	RWORD
 o	RWORD
  	SPACE
 instrucțiune	RWORD
- 	EOL
+ 	SPACE
 return	WORD
  	SPACE
 inclusă	RWORD
  	SPACE
 în	RWORD
- 	SPACE
+ 	EOL
 corpul	RWORD
  	SPACE
 funcției	RWORD
@@ -338041,13 +338041,13 @@ se	RWORD
 citește	RWORD
  	SPACE
 un	RWORD
- 	EOL
+ 	SPACE
 număr	RWORD
  	SPACE
 real	RWORD
  	SPACE
 R	RWORD
- 	SPACE
+ 	EOL
 reprezentând	RWORD
  	SPACE
 un	RWORD
@@ -338066,12 +338066,12 @@ Să	RWORD
 se	RWORD
  	SPACE
 convertească	RWORD
- 	EOL
+ 	SPACE
 în	RWORD
  	SPACE
 grade	RWORD
 ,	PUNCT
- 	SPACE
+ 	EOL
 minute	RWORD
  	SPACE
 și	RWORD
@@ -338090,11 +338090,11 @@ trei	RWORD
 numere	RWORD
  	SPACE
 reale	RWORD
- 	EOL
+ 	SPACE
 pozitive	RWORD
  	SPACE
 ordonate	RWORD
- 	SPACE
+ 	EOL
 crescător	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -338113,11 +338113,11 @@ pot	RWORD
 să	RWORD
  	SPACE
 reprezinte	RWORD
- 	EOL
+ 	SPACE
 laturile	RWORD
  	SPACE
 unui	RWORD
- 	SPACE
+ 	EOL
 triunghi	RWORD
  	SPACE
 și	RWORD
@@ -338135,13 +338135,13 @@ se	RWORD
 stabilească	RWORD
  	SPACE
 natura	RWORD
- 	EOL
+ 	SPACE
 triunghiului	RWORD
 :	PUNCT
  	SPACE
 isoscel	RWORD
 ,	PUNCT
- 	SPACE
+ 	EOL
 echilateral	RWORD
 ,	PUNCT
  	SPACE
@@ -338158,7 +338158,7 @@ să	RWORD
 se	RWORD
  	SPACE
 calculeze	RWORD
- 	EOL
+ 	SPACE
 aria	RWORD
  	SPACE
 sa	RWORD
@@ -338167,7 +338167,7 @@ sa	RWORD
 În	RWORD
  	SPACE
 C	RWORD
- 	SPACE
+ 	EOL
 noțiunea	RWORD
  	SPACE
 de	RWORD
@@ -338184,11 +338184,11 @@ deoarece	RWORD
 asigură	RWORD
  	SPACE
 un	RWORD
- 	EOL
+ 	SPACE
 mecanism	RWORD
  	SPACE
 de	RWORD
- 	SPACE
+ 	EOL
 abstractizare	RWORD
  	SPACE
 a	RWORD
@@ -338205,11 +338205,11 @@ părți	RWORD
 a	RWORD
  	SPACE
 problemei	RWORD
- 	EOL
+ 	SPACE
 poate	RWORD
  	SPACE
 fi	RWORD
- 	SPACE
+ 	EOL
 încredințată	RWORD
  	SPACE
 unei	RWORD
@@ -338232,10 +338232,10 @@ de	MWE
 ce	MWE
  	SPACE
 face	RWORD
- 	EOL
+ 	SPACE
 funcția	RWORD
 ,	PUNCT
- 	SPACE
+ 	EOL
 fără	RWORD
  	SPACE
 a	RWORD
@@ -338258,9 +338258,9 @@ anumite	RWORD
  	SPACE
 operații	RWORD
 .	PUNCT
- 	EOL	SENTEND
+ 	SPACE	SENTEND
 Însăși	RWORD
- 	SPACE
+ 	EOL
 programul	RWORD
  	SPACE
 principal	RWORD
@@ -338284,9 +338284,9 @@ iar	RWORD
 programul	RWORD
  	SPACE
 C	RWORD
- 	EOL
-este	RWORD
  	SPACE
+este	RWORD
+ 	EOL
 reprezentat	RWORD
  	SPACE
 de	RWORD
@@ -339494,13 +339494,13 @@ float	WORD
  	SPACE
 etc	ABBR
 .	ABBR
- 	SPACE	SENTEND
+ 	SPACE
 O	RWORD
  	SPACE
 clasă	RWORD
- 	EOL
-reprezintă	RWORD
  	SPACE
+reprezintă	RWORD
+ 	EOL
 un	RWORD
  	SPACE
 tip	RWORD
@@ -339521,12 +339521,12 @@ clase	RWORD
 se	RWORD
  	SPACE
 face	RWORD
- 	EOL
+ 	SPACE
 într-	RWORD
 o	RWORD
  	SPACE
 manieră	RWORD
- 	SPACE
+ 	EOL
 asemănătoare	RWORD
  	SPACE
 declarării	RWORD
@@ -339544,9 +339544,9 @@ date	RWORD
 cât	RWORD
  	SPACE
 și	RWORD
- 	EOL
-funcții	RWORD
  	SPACE
+funcții	RWORD
+ 	EOL
 (	PUNCT
 metode	RWORD
 )	PUNCT
@@ -339573,9 +339573,9 @@ Un	RWORD
 obiect	RWORD
  	SPACE
 este	RWORD
- 	EOL
-un	RWORD
  	SPACE
+un	RWORD
+ 	EOL
 exemplar	RWORD
  	SPACE
 sau	RWORD
@@ -342320,9 +342320,9 @@ de	RWORD
 -	PUNCT
  	SPACE
 alpha	WORD
- 	EOL	SENTEND
-Spațiile	RWORD
  	SPACE
+Spațiile	RWORD
+ 	EOL
 normate	RWORD
  	SPACE
 complete	RWORD
@@ -342340,9 +342340,9 @@ iar	RWORD
 spațiile	RWORD
  	SPACE
 prehilbertiene	WORD
- 	EOL
-complete	RWORD
  	SPACE
+complete	RWORD
+ 	EOL
 sunt	RWORD
  	SPACE
 numite	RWORD
@@ -342365,9 +342365,9 @@ orice	RWORD
 șir	RWORD
  	SPACE
 Cauchy	WORD
- 	EOL
-este	RWORD
  	SPACE
+este	RWORD
+ 	EOL
 mărginit	RWORD
 .	PUNCT
  	SPACE	SENTEND
@@ -342518,7 +342518,7 @@ corespunzătoare	RWORD
  	SPACE
 etc	ABBR
 .	ABBR
- 	SPACE	SENTEND
+ 	SPACE
 Posibilitatea	RWORD
  	SPACE
 reprezentării	RWORD
@@ -342532,9 +342532,9 @@ ca	RWORD
 sumă	RWORD
  	SPACE
 a	RWORD
- 	EOL
-unei	RWORD
  	SPACE
+unei	RWORD
+ 	EOL
 serii	RWORD
  	SPACE
 trigonometrice	RWORD
@@ -342555,9 +342555,9 @@ anumit	RWORD
  	SPACE
 sens	RWORD
 )	PUNCT
- 	EOL
-cu	RWORD
  	SPACE
+cu	RWORD
+ 	EOL
 polinoame	RWORD
  	SPACE
 trigonometrice	RWORD
@@ -343176,7 +343176,7 @@ este	RWORD
  	SPACE
 etc	ABBR
 .	ABBR
- 	SPACE	SENTEND
+ 	SPACE
 În	RWORD
  	SPACE
 general	RWORD
@@ -343191,9 +343191,9 @@ la	MWE
 care	RWORD
  	SPACE
 se	RWORD
- 	EOL
-pleacă	RWORD
  	SPACE
+pleacă	RWORD
+ 	EOL
 în	RWORD
  	SPACE
 construcția	RWORD
@@ -343214,9 +343214,9 @@ normat	RWORD
 .	PUNCT
  	SPACE	SENTEND
 Orice	RWORD
- 	EOL
-submulțime	RWORD
  	SPACE
+submulțime	RWORD
+ 	EOL
 nevidă	RWORD
  	SPACE
 a	RWORD
@@ -343238,12 +343238,12 @@ naturală	RWORD
 de	RWORD
  	SPACE
 spațiu	RWORD
- 	EOL
+ 	SPACE
 metric	RWORD
 .	PUNCT
  	SPACE	SENTEND
 În	RWORD
- 	SPACE
+ 	EOL
 anumite	RWORD
  	SPACE
 aplicații	RWORD
@@ -343259,11 +343259,11 @@ comportării	RWORD
 unei	RWORD
  	SPACE
 funcții	RWORD
- 	EOL
+ 	SPACE
 f	RWORD
  	SPACE
 în	RWORD
- 	SPACE
+ 	EOL
 vecinătatea	RWORD
  	SPACE
 unui	RWORD
@@ -343291,9 +343291,9 @@ care	RWORD
 o	RWORD
  	SPACE
 ia	RWORD
- 	EOL
-funcția	RWORD
  	SPACE
+funcția	RWORD
+ 	EOL
 în	RWORD
  	SPACE
 punctul	RWORD
@@ -343321,12 +343321,12 @@ a	RWORD
 ).	PUNCT
  	SPACE	SENTEND
 În	RWORD
- 	EOL
+ 	SPACE
 particular	RWORD
 ,	PUNCT
  	SPACE
 este	RWORD
- 	SPACE
+ 	EOL
 util	RWORD
  	SPACE
 să	RWORD
@@ -343354,7 +343354,7 @@ x	NUM
 ale	RWORD
  	SPACE
 funcției	RWORD
- 	EOL
+ 	SPACE
 când	RWORD
  	SPACE
 x	NUM
@@ -343362,7 +343362,7 @@ x	NUM
 se	RWORD
  	SPACE
 apropie	RWORD
- 	SPACE
+ 	EOL
 din	MWE
  	MWE
 ce	MWE
@@ -343389,13 +343389,13 @@ ca	MWE
 problema	RWORD
  	SPACE
 să	RWORD
- 	EOL
+ 	SPACE
 aibă	RWORD
  	SPACE
 sens	RWORD
  	SPACE
 este	RWORD
- 	SPACE
+ 	EOL
 necesar	RWORD
  	SPACE
 ca	RWORD
@@ -343417,13 +343417,13 @@ să	RWORD
 conțină	RWORD
  	SPACE
 puncte	RWORD
- 	EOL
+ 	SPACE
 oricât	RWORD
  	SPACE
 de	RWORD
  	SPACE
 apropiate	RWORD
- 	SPACE
+ 	EOL
 de	RWORD
  	SPACE
 a	RWORD
@@ -343445,13 +343445,13 @@ comportarea	RWORD
 unei	RWORD
  	SPACE
 funcții	RWORD
- 	EOL
+ 	SPACE
 în	RWORD
  	SPACE
 vecinătatea	RWORD
  	SPACE
 unui	RWORD
- 	SPACE
+ 	EOL
 punct	RWORD
  	SPACE
 a	RWORD
@@ -343465,7 +343465,7 @@ de	RWORD
 definiție	RWORD
  	SPACE
 comparând	RWORD
- 	EOL
+ 	SPACE
 valoarea	RWORD
  	SPACE
 funcției	RWORD
@@ -343475,7 +343475,7 @@ funcției	RWORD
 a	RWORD
  	SPACE
 cu	RWORD
- 	SPACE
+ 	EOL
 valorile	RWORD
  	SPACE
 luate	RWORD
@@ -343492,7 +343492,7 @@ a	RWORD
 Punctele	RWORD
  	SPACE
 lui	RWORD
- 	EOL
+ 	SPACE
 D	RWORD
  	SPACE
 care	RWORD
@@ -343504,7 +343504,7 @@ sunt	RWORD
 puncte	RWORD
  	SPACE
 de	RWORD
- 	SPACE
+ 	EOL
 acumulare	RWORD
  	SPACE
 se	RWORD
@@ -343519,14 +343519,14 @@ izolate	RWORD
 Orice	RWORD
  	SPACE
 funcție	RWORD
- 	EOL
+ 	SPACE
 derivabilă	RWORD
  	SPACE
 într-	RWORD
 un	RWORD
  	SPACE
 punct	RWORD
- 	SPACE
+ 	EOL
 este	RWORD
  	SPACE
 continuă	RWORD
@@ -343541,12 +343541,12 @@ punct	RWORD
 Statistica	RWORD
  	SPACE
 este	RWORD
- 	EOL
+ 	SPACE
 știința	RWORD
  	SPACE
 colectării	RWORD
 ,	PUNCT
- 	SPACE
+ 	EOL
 clasificării	RWORD
 ,	PUNCT
  	SPACE
@@ -343560,11 +343560,11 @@ datelor	RWORD
 numerice	RWORD
  	SPACE
 și	RWORD
- 	EOL
+ 	SPACE
 a	RWORD
  	SPACE
 folosirii	RWORD
- 	SPACE
+ 	EOL
 acestora	RWORD
  	SPACE
 pentru	RWORD
@@ -343585,9 +343585,9 @@ decizii	RWORD
 .	PUNCT
  	SPACE	SENTEND
 Statistica	RWORD
- 	EOL
-și	RWORD
  	SPACE
+și	RWORD
+ 	EOL
 probabilitățile	RWORD
  	SPACE
 sunt	RWORD

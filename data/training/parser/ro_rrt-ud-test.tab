@@ -207,7 +207,7 @@
 1	Acum	acum	Rgp	3	advmod
 2	își	sine	Px3--d--------w	3	expl:pv
 3	dădea	da	Vmii3s	0	root
-4	seama	seamă	Ncfsry	3	fixed
+4	seama	seamă	Ncfsry	3	obj
 5	că	că	Csssp	12	mark
 6	tocmai	tocmai	Rgp	10	advmod
 7	din	din	Spsa	10	case
@@ -251,7 +251,7 @@
 19	vag	vag	Afpms-n	16	amod
 20	avusese	avea	Vmil3s	13	ccomp
 21	într-adevăr	într-adevăr	Rgp	20	advmod
-22	loc	loc	Ncms-n	20	fixed
+22	loc	loc	Ncms-n	20	obj
 23	.	.	Zp	2	punct
 
 1	Winston	Winston	Np	2	nsubj
@@ -484,12 +484,12 @@
 29	destul	destul	Rgp	31	advmod
 30	de	de	Spsa	29	case
 31	strâns	strâns	Rgp	23	advmod
-32	ca	ca	Rc	35	mark
+32	ca	ca	Csssp	35	mark
 33	să	să	Qs	35	mark
 34	-i	el	Pp3-sd--y-----w	35	expl:poss
 35	scoată	scoate	Vmsp3	31	advcl
-36	în	în	Spsa	35	fixed
-37	relief	relief	Ncms-n	35	fixed
+36	în	în	Spsa	37	case
+37	relief	relief	Ncms-n	35	obl
 38	frumusețea	frumusețe	Ncfsry	35	obj
 39	șoldurilor	șold	Ncfpoy	38	nmod
 40	.	.	Zp	7	punct
@@ -591,7 +591,7 @@
 12	sensibilitate	sensibilitate	Ncfsrn	9	obl:agent
 13	insuportabilă	insuportabil	Afpfsrn	12	amod
 14	,	,	Zc	17	punct
-15	ca	ca	Rc	17	case
+15	ca	ca	Spsa	17	case
 16	o	un	Tifsr	17	det
 17	transparență	transparență	Ncfsrn	12	nmod
 18	,	,	Zc	46	punct
@@ -624,7 +624,7 @@
 45	se	sine	Px3--a--------w	46	expl:pv
 46	părea	părea	Vmii3s	9	advcl
 47	dureros	dureros	Afpms-n	46	xcomp
-48	ca	ca	Rc	50	case
+48	ca	ca	Spsa	50	case
 49	o	un	Tifsr	50	det
 50	agonie	agonie	Ncfsrn	47	obl
 51	.	.	Zp	9	punct
@@ -649,7 +649,7 @@
 6	nu	nu	Qz	8	advmod
 7	mai	mai	Rp	8	advmod
 8	puse	pune	Vmis3s	0	root
-9	mâna	mână	Ncfsry	8	fixed
+9	mâna	mână	Ncfsry	8	obj
 10	pe	pe	Spsa	11	case
 11	jurnal	jurnal	Ncms-n	8	obl
 12	.	.	Zp	8	punct
@@ -886,8 +886,8 @@
 3	tocul	toc	Ncmsry	2	obj
 4	fără	fără	Spsa	5	case
 5	tragere	tragere	Ncfsrn	2	obl
-6	de	de	Spsa	5	fixed
-7	inimă	inimă	Ncfsrn	5	fixed
+6	de	de	Spsa	7	case
+7	inimă	inimă	Ncfsrn	5	nmod
 8	,	,	Zc	9	punct
 9	întrebându	întreba	Vmg-------y	2	advcl
 10	-se	sine	Px3--a--y-----w	9	expl:pv
@@ -968,8 +968,8 @@
 12	îi	el	Pp3-sd--------w	13	iobj
 13	spusese	spune	Vmil3s	0	root
 14	,	,	Zc	18	punct
-15	pe	pe	Spsa	18	advmod
-16	când	când	Rw	15	fixed
+15	pe	pe	Spsa	16	case
+16	când	când	Rw	18	advmod
 17	el	el	Pp3msr--------s	18	nsubj
 18	trecea	trece	Vmii3s	13	advcl
 19	:	:	Zl	13	punct
@@ -1053,7 +1053,7 @@
 3	-și	sine	Px3--d--y-----w	5	expl:poss
 4	mai	mai	Rp	5	advmod
 5	aducea	aduce	Vmii3s	0	root
-6	aminte	aminte	Rgp	5	fixed
+6	aminte	aminte	Rgp	5	advmod
 7	dacă	dacă	Csssp	16	mark
 8	înainte	înainte	Rgp	16	advmod
 9	sau	sau	Ccssp	12	cc
@@ -1075,7 +1075,7 @@
 25	anume	anume	Rgp	24	advmod
 26	identificase	identifica	Vmil3s	16	conj
 27	vocea	voce	Ncfsry	26	obj
-28	ca	ca	Rc	32	advmod
+28	ca	ca	Spsa	32	mark
 29	fiind	fi	Vag	32	cop
 30	a	al	Tsfs	32	det
 31	lui	lui	Tf-so	32	det
@@ -1182,19 +1182,19 @@
 13	O'Brien	O'Brien	Np	12	nsubj
 14	.	.	Zp	3	punct
 
-1	El	el	Pp3msr--------s	5	nsubj
+1	El	el	Pp3msr--------s	7	nsubj
 2	,	,	Zc	3	punct
 3	Winston	Winston	Np	1	appos
 4	,	,	Zc	3	punct
-5	habar	habar	Ncms-n	0	root
-6	n-	nu	Qz-y	5	fixed
-7	avea	avea	Vmii3s	5	fixed
+5	habar	habar	Ncms-n	7	obj
+6	n-	nu	Qz-y	7	advmod
+7	avea	avea	Vmii3s	0	root
 8	ce	ce	Pw3--r	9	xcomp
-9	însemna	însemna	Vmii3s	5	ccomp
+9	însemna	însemna	Vmii3s	7	ccomp
 10	asta	acesta	Pd3fsr	9	nsubj
 11	,	,	Zc	13	punct
 12	dar	dar	Ccssp	13	cc
-13	știa	ști	Vmii3s	5	conj
+13	știa	ști	Vmii3s	7	conj
 14	că	că	Csssp	24	mark
 15	,	,	Zc	17	punct
 16	într-un	într-un	Spsa	17	case
@@ -1206,7 +1206,7 @@
 22	să	să	Qs	24	mark
 23	se	sine	Px3--a--------w	24	expl:pv
 24	întâmple	întâmpla	Vmsp3	13	ccomp
-25	.	.	Zp	5	punct
+25	.	.	Zp	7	punct
 
 1	Vocea	voce	Ncfsry	6	nsubj
 2	de	de	Spsa	4	case
@@ -1376,7 +1376,7 @@
 3	alunecă	aluneca	Vmis3s	0	root
 4	în	în	Spsa	5	case
 5	lumea	lume	Ncfsry	3	obl
-6	ca	ca	Rc	8	advmod
+6	ca	ca	Spsa	8	case
 7	un	un	Timsr	8	det
 8	labirint	labirint	Ncms-n	5	nmod
 9	a	al	Tsfs	10	det
@@ -1588,8 +1588,8 @@
 5	și	și	Crssp	6	advmod
 6	revelația	revelație	Ncfsry	0	root
 7	American	American	X	6	nmod
-8	Music	Music	X	7	fixed
-9	Awards	Awards	X	7	fixed
+8	Music	Music	X	7	flat
+9	Awards	Awards	X	7	flat
 10	,	,	Zc	12	punct
 11	el	el	Pp3msr--------s	12	nsubj
 12	reușind	reuși	Vmg	6	advcl
@@ -1710,9 +1710,9 @@
 7	)	)	Z2p	6	punct
 8	mobilat	mobilat	Afpms-n	4	amod
 9	,	,	Zc	10	punct
-10	pe	pe	Spsa	3	advmod
-11	termen	termen	Ncms-n	10	fixed
-12	lung	lung	Afpms-n	10	fixed
+10	pe	pe	Spsa	11	case
+11	termen	termen	Ncms-n	3	obl
+12	lung	lung	Afpms-n	11	amod
 13	.	.	Zp	1	punct
 
 1	Cumpăr	cumpăra	Vmip1s	0	root
@@ -1725,9 +1725,9 @@
 8	ofer	oferi	Vmm-2s----y	1	conj
 9	pe	pe	Spsa	8	advmod
 10	loc	loc	Ncms-n	9	fixed
-11	12	12	Mc-s-d	15	nummod
-12	000	000	Mc-s-d	11	goeswith
-13	000	000	Mc-s-d	11	goeswith
+11	12	12000000	Mc-s-d	15	nummod
+12	000	_	X	11	goeswith
+13	000	_	X	11	goeswith
 14	de	de	Spsa	11	case
 15	lei	leu	Ncmp-n	8	obj
 16	.	.	Zp	1	punct
@@ -1968,9 +1968,9 @@
 6	ori	oară	Ncfp-n	3	obl:pmod
 7	pentru	pentru	Spsa	8	case
 8	Premiul	premiu	Ncmsry	3	obl:pmod
-9	Nobel	Nobel	Np	8	fixed
-10	pentru	pentru	Spsa	8	fixed
-11	Literatură	literatură	Ncfsrn	8	fixed
+9	Nobel	Nobel	Np	8	nmod
+10	pentru	pentru	Spsa	11	case
+11	Literatură	literatură	Ncfsrn	8	nmod
 12	.	.	Zp	3	punct
 
 1	Vântul	vânt	Ncmsry	3	nsubj
@@ -2094,7 +2094,7 @@
 5	angajați	angaja	Vmp--pm	1	conj
 6	în	în	Spsa	7	case
 7	lupte	luptă	Ncfp-n	5	obl:pmod
-8	corp	corp	Ncms-n	7	nmod
+8	corp	corp	Ncms-n	7	advmod
 9	la	la	Spsa	8	fixed
 10	corp	corp	Ncms-n	8	fixed
 11	,	,	Zc	1	punct
@@ -2189,7 +2189,7 @@
 15	și	și	Crssp	16	advmod
 16	adulții	adult	Ncmpry	17	nsubj
 17	au	avea	Vmip3p	13	ccomp
-18	nevoie	nevoie	Ncfsrn	17	fixed
+18	nevoie	nevoie	Ncfsrn	17	obj
 19	de	de	Spsa	20	case
 20	povești	poveste	Ncfp-n	17	obl:pmod
 21	.	.	Zp	2	punct
@@ -2318,11 +2318,11 @@
 7	oferă	oferi	Vmip3	4	acl
 8	membrilor	membru	Ncmpoy	7	iobj
 9	Casei	casă	Ncfsoy	8	nmod
-10	de	de	Spsa	9	fixed
-11	Ajutor	ajutor	Ncms-n	9	fixed
-12	Reciproc	reciproc	Afpms-n	9	fixed
-13	a	al	Tsfs	9	fixed
-14	Pensionarilor	pensionar	Ncmpoy	9	fixed
+10	de	de	Spsa	11	case
+11	Ajutor	ajutor	Ncms-n	9	nmod
+12	Reciproc	reciproc	Afpms-n	11	amod
+13	a	al	Tsfs	14	det
+14	Pensionarilor	pensionar	Ncmpoy	9	nmod
 15	o	un	Tifsr	16	det
 16	reducere	reducere	Ncfsrn	7	obj
 17	de	de	Spsa	18	case
@@ -2335,8 +2335,8 @@
 
 1	Oricum	oricum	Rgp	8	advmod
 2	,	,	Zc	1	punct
-3	până	până	Spsa	8	advmod:tmod
-4	acum	acum	Rgp	3	fixed
+3	până	până	Spsa	4	case
+4	acum	acum	Rgp	8	advmod
 5	nu	nu	Qz	8	advmod
 6	am	avea	Va--1	8	aux
 7	mai	mai	Rp	8	advmod
@@ -2480,8 +2480,8 @@
 12	valoare	valoare	Ncfsrn	9	nmod
 13	de	de	Spsa	18	case
 14	cca	circa	Yr	18	advmod
-15	5	5	Mc-s-d	18	nummod
-16	000	000	Mc-s-d	15	goeswith
+15	5	5000	Mc-s-d	18	nummod
+16	000	_	X	15	goeswith
 17	de	de	Spsa	15	case
 18	lei	leu	Ncmp-n	12	nmod
 19	.	.	Zp	8	punct
@@ -2491,13 +2491,13 @@
 3	a	avea	Va--3s	4	aux
 4	constituit	constitui	Vmp--sm	0	root
 5	Asociația	asociație	Ncfsry	4	nsubj:pass
-6	studenților	student	Ncmpoy	5	fixed
-7	din	din	Spsa	5	fixed
-8	Timișoara	Timișoara	Np	5	fixed
-9	și	și	Crssp	5	fixed
-10	din	din	Spsa	5	fixed
-11	comitatul	comitat	Ncmsry	5	fixed
-12	Timiș	Timiș	Np	5	fixed
+6	studenților	student	Ncmpoy	5	nmod
+7	din	din	Spsa	8	case
+8	Timișoara	Timișoara	Np	6	nmod
+9	și	și	Crssp	8	cc
+10	din	din	Spsa	11	case
+11	comitatul	comitat	Ncmsry	8	conj
+12	Timiș	Timiș	Np	11	nmod
 13	"	"	Z1q	4	punct
 14	.	.	Zp	4	punct
 
@@ -2619,7 +2619,7 @@
 18	că	că	Csssp	20	mark
 19	se	sine	Px3--a--------w	20	expl:pv
 20	așteaptă	aștepta	Vmip3	17	ccomp
-21	ca	ca	Rc	24	mark
+21	ca	ca	Csssp	24	mark
 22	Rusia	Rusia	Np	24	nsubj
 23	să	să	Qs	24	mark
 24	respecte	respecta	Vmsp3	20	ccomp:pmod
@@ -3082,7 +3082,7 @@
 2	a	avea	Va--3s	4	aux
 3	fost	fi	Vap--sm	4	aux:pass
 4	luată	lua	Vmp--sf	0	root
-5	ca	ca	Rc	6	advmod
+5	ca	ca	Spsa	6	case
 6	urmare	urmare	Ncfsrn	4	obl
 7	a	al	Tsfs	8	det
 8	scandalului	scandal	Ncmsoy	6	nmod
@@ -3145,7 +3145,7 @@
 29	încerca	încerca	Vmnp	16	advcl
 30	să	să	Qs	31	mark
 31	pună	pune	Vmsp3	29	ccomp
-32	capăt	capăt	Ncms-n	31	fixed
+32	capăt	capăt	Ncms-n	31	obj
 33	confruntărilor	confruntare	Ncfpoy	31	iobj
 34	din	din	Spsa	35	case
 35	orașul	oraș	Ncmsry	33	nmod
@@ -3319,7 +3319,7 @@
 11	redactare	redactare	Ncfsrn	8	nmod
 12	,	,	Zc	13	punct
 13	ținând	ține	Vmg	5	obl
-14	cont	cont	Ncms-n	13	fixed
+14	cont	cont	Ncms-n	13	obj
 15	în	în	Spsa	18	advmod
 16	special	special	Rgp	15	fixed
 17	de	de	Spsa	18	case
@@ -3764,7 +3764,7 @@
 20	și	și	Crssp	22	cc
 21	pentru	pentru	Spsa	22	case
 22	sănătatea	sănătate	Ncfsry	16	conj
-23	publică	public	Afpfsrn	22	fixed
+23	publică	public	Afpfsrn	22	amod
 24	este	fi	Vaip3s	25	cop
 25	vitală	vital	Afpfsrn	0	root
 26	,	,	Zc	33	punct
@@ -4212,7 +4212,7 @@
 11	de	de	Spsa	12	case
 12	pesticide	pesticid	Ncfp-n	10	nmod
 13	deosebit	deosebit	Rgp	15	advmod
-14	de	de	Spsa	13	fixed
+14	de	de	Spsa	13	case
 15	periculoase	periculos	Afpfp-n	12	amod
 16	și	și	Crssp	17	cc
 17	produsele	produs	Ncfpry	6	conj
@@ -4525,7 +4525,7 @@
 21	funcții	funcție	Ncfp-n	19	obj
 22	legate	lega	Vmp--pf	21	amod
 23	de	de	Spsa	24	case
-24	punerea	punere	Ncfsry	22	obl
+24	punerea	punere	Ncfsry	22	obl:pmod
 25	în	în	Spsa	26	case
 26	aplicare	aplicare	Ncfsrn	24	nmod
 27	a	al	Tsfs	28	det
@@ -4568,8 +4568,8 @@
 11	înainte	înainte	Rgp	13	case
 12	de	de	Spsa	11	fixed
 13	intrarea	intrare	Ncfsry	19	nmod
-14	în	în	Spsa	13	fixed
-15	vigoare	vigoare	Ncfsrn	13	fixed
+14	în	în	Spsa	15	case
+15	vigoare	vigoare	Ncfsrn	13	nmod
 16	a	al	Tsfs	17	det
 17	acesteia	acesta	Pd3fso	13	nmod
 18	,	,	Zc	13	punct
@@ -4630,8 +4630,8 @@
 18	de	de	Spsa	20	case
 19	la	la	Spsa	18	fixed
 20	intrarea	intrare	Ncfsry	12	nmod
-21	în	în	Spsa	20	fixed
-22	vigoare	vigoare	Ncfsrn	20	fixed
+21	în	în	Spsa	22	case
+22	vigoare	vigoare	Ncfsrn	20	nmod
 23	a	al	Tsfs	25	det
 24	prezentului	prezent	Afpmsoy	25	amod
 25	regulament	regulament	Ncms-n	20	nmod
@@ -4669,7 +4669,7 @@
 7	,	,	Zc	9	punct
 8	dacă	dacă	Csssp	9	mark
 9	este	fi	Vmip3s	2	advcl
-10	cazul	caz	Ncmsry	9	obj
+10	cazul	caz	Ncmsry	9	nsubj
 11	,	,	Zc	15	punct
 12	care	care	Pw3--r	15	nsubj
 13	să	să	Qs	15	mark
@@ -5476,8 +5476,8 @@
 2	înscrie	înscrie	Vmip3s	0	root
 3	la	la	Spsa	4	case
 4	Facultatea	facultate	Ncfsry	2	obl
-5	de	de	Spsa	4	fixed
-6	Filosofie	filosofie	Ncfsrn	4	fixed
+5	de	de	Spsa	6	case
+6	Filosofie	filosofie	Ncfsrn	4	nmod
 7	,	,	Zc	8	punct
 8	absolvită	absolvi	Vmp--sf	4	acl
 9	în	în	Spsa	10	case
@@ -5525,8 +5525,8 @@
 11	vederea	vedere	Ncfsry	10	fixed
 12	punerii	punere	Ncfsoy	6	obl
 13	lor	lui	Ds3---p	12	det
-14	în	în	Spsa	12	fixed
-15	scenă	scenă	Ncfsrn	12	fixed
+14	în	în	Spsa	15	case
+15	scenă	scenă	Ncfsrn	12	obl
 16	.	.	Zp	2	punct
 
 1	Până	până	Csssp	3	advmod
@@ -5573,8 +5573,8 @@
 8	înscrie	înscrie	Vmip3s	0	root
 9	la	la	Spsa	10	case
 10	Facultatea	facultate	Ncfsry	8	obl:pmod
-11	de	de	Spsa	10	fixed
-12	Drept	drept	Ncms-n	10	fixed
+11	de	de	Spsa	12	case
+12	Drept	drept	Ncms-n	10	nmod
 13	.	.	Zp	8	punct
 
 1	Între	între	Spsa	2	case
@@ -5590,7 +5590,7 @@
 11	împreună	împreună	Rgp	13	case
 12	cu	cu	Spsa	11	fixed
 13	C.	C.	Yn	10	obl
-14	A.	A.	Yn	13	fixed
+14	A.	A.	Yn	13	flat
 15	Donescu	Donescu	Np	13	flat
 16	.	.	Zp	6	punct
 
@@ -5754,7 +5754,7 @@
 12	septembrie	septembrie	Ncm--n	9	conj
 13	1944	1944	Mc-s-d	12	nummod
 14	,	,	Zc	16	punct
-15	ca	ca	Rc	16	advmod
+15	ca	ca	Spsa	16	case
 16	publicație	publicație	Ncfsrn	4	obl
 17	care	care	Pw3--r	18	nsubj
 18	exprimă	exprima	Vmip3	16	acl
@@ -6116,7 +6116,7 @@
 3	,	,	Zc	2	punct
 4	întreprinde	întreprinde	Vmnp	0	root
 5	,	,	Zc	7	punct
-6	ca	ca	Rc	7	case
+6	ca	ca	Spsa	7	case
 7	bursier	bursier	Ncms-n	4	obl
 8	,	,	Zc	7	punct
 9	două	doi	Mcfp-l	11	nummod
@@ -6350,9 +6350,9 @@
 13	dintâi	dintâi	Mo---l	10	nummod
 14	,	,	Zc	15	punct
 15	preocupat	preocupa	Vmp--sm	10	advcl
-16	în	în	Spsa	15	advmod
-17	primul	prim	Momsrly	16	fixed
-18	rând	rând	Ncms-n	16	fixed
+16	în	în	Spsa	18	case
+17	primul	prim	Momsrly	18	nummod
+18	rând	rând	Ncms-n	15	obl
 19	să	să	Qs	21	mark
 20	-și	sine	Px3--d--y-----w	21	expl:poss
 21	informeze	informa	Vmsp3	15	ccomp:pmod
@@ -6516,7 +6516,7 @@
 5	în	în	Spsa	6	case
 6	casetă	casetă	Ncfsrn	7	obl
 7	apare	apărea	Vmip3s	0	root
-8	ca	ca	Rc	9	case
+8	ca	ca	Spsa	9	case
 9	fondator	fondator	Ncms-n	7	xcomp
 10	Țețe	țețe	Ncf--n	7	nsubj
 11	D.	D.	Yn	10	nmod
@@ -6567,7 +6567,7 @@
 24	de	de	Spsa	25	case
 25	carte	carte	Ncfsrn	23	nmod
 26	,	,	Zc	22	punct
-27	ca	ca	Rc	28	case
+27	ca	ca	Spsa	28	case
 28	publicație	publicație	Ncfsrn	9	obl
 29	a	al	Tsfs	30	det
 30	Editurii	editură	Ncfsoy	28	nmod
@@ -6644,12 +6644,12 @@
 11	lor	lui	Ds3---p	10	det
 12	Se	sine	Px3--a--------w	13	expl:pv
 13	-ntinde	întinde	Vmip3s----y	3	conj
-14	ca	ca	Rc	16	advmod
+14	ca	ca	Spsa	16	case
 15	o	un	Tifsr	16	det
 16	apă	apă	Ncfsrn	13	obl
 17	,	,	Zc	18	punct
 18	plutește	pluti	Vmip3s	3	conj
-19	ca	ca	Rc	21	advmod
+19	ca	ca	Spsa	21	case
 20	un	un	Timsr	21	det
 21	nor	nor	Ncms-n	18	obl
 22	.	.	Zp	3	punct
@@ -6681,8 +6681,8 @@
 8	,	,	Zc	10	punct
 9	prea	prea	Rp	10	obl
 10	duios	duios	Afpms-n	4	conj
-11	De	de	Spsa	14	advmod
-12	când	când	Rw	11	fixed
+11	De	de	Spsa	12	case
+12	când	când	Rw	14	advmod
 13	au	avea	Va--3p	14	aux
 14	dat	da	Vmp--sm	2	advcl
 15	cu	cu	Spsa	16	case
@@ -6912,7 +6912,7 @@
 
 1	Departe	departe	Rgp	8	advmod
 2	deci	deci	Ccssp	14	cc
-3	de	de	Spsa	1	fixed
+3	de	de	Spsa	8	mark
 4	a	a	Qn	8	mark
 5	fi	fi	Vanp	8	cop
 6	un	un	Timsr	8	det
@@ -7045,7 +7045,7 @@
 7	,	,	Zc	3	punct
 8	pe	pe	Spsa	9	case
 9	toate	tot	Pi3fpr	15	obj
-10	ca	ca	Rc	13	advmod
+10	ca	ca	Spsa	13	case
 11	pe	pe	Spsa	13	case
 12	niște	niște	Di3	13	det
 13	fii	fiu	Ncmp-n	15	obl
@@ -7145,7 +7145,7 @@
 5	și	și	Crssp	7	cc
 6	se	sine	Px3--a--------w	7	expl:pv
 7	apucă	apuca	Vmip3	1	conj
-8	cu	cu	Spsa	7	mark
+8	cu	cu	Spsa	7	advmod
 9	dinadinsul	dinadinsul	Rgp	8	fixed
 10	să	să	Qs	11	mark
 11	stârpească	stârpi	Vmsp3	7	ccomp:pmod
@@ -7169,7 +7169,7 @@
 13	fiu	fi	Vmsp1s	11	ccomp
 14	cu	cu	Spsa	15	case
 15	desăvârșire	desăvârșire	Ncfsrn	13	obl
-16	pentru	pentru	Spsa	13	fixed
+16	pentru	pentru	Spsa	17	case
 17	nil	nil	Ncms-n	13	obl
 18	admirari	admirari	Afpfp-n	17	flat
 19	;	;	Zs	5	punct
@@ -7477,12 +7477,12 @@
 13	se	sine	Px3--a--------w	14	expl:pv
 14	duceau	duce	Vmii3p	0	root
 15	la	la	Spsa	19	case
-16	nu	nu	Qz	19	amod
+16	nu	nu	Qz	19	det
 17	știu	ști	Vmip1s	16	fixed
 18	ce	ce	Dw3--r---e	16	fixed
 19	instanță	instanță	Ncfsrn	14	obl
 20	,	,	Zc	23	punct
-21	ca	ca	Rc	23	mark
+21	ca	ca	Csssp	23	mark
 22	să	să	Qs	23	mark
 23	caute	căuta	Vmsp3	14	advcl
 24	dreptate	dreptate	Ncfsrn	23	obj
@@ -7678,7 +7678,7 @@
 28	care	care	Pw3--r	30	nsubj
 29	a	avea	Va--3s	30	aux
 30	dat	da	Vmp--sm	27	acl
-31	naștere	naștere	Ncfsrn	30	fixed
+31	naștere	naștere	Ncfsrn	30	obj
 32	ororilor	oroare	Ncfpoy	30	iobj
 33	lui	lui	Tf-so	34	det
 34	Gherea	Gherea	Np	32	nmod
@@ -7911,8 +7911,8 @@
 14	pot	putea	Vmip3p	11	acl
 15	pune	pune	Vmnp	14	ccomp
 16	viața	viață	Ncfsry	15	obj
-17	în	în	Spsa	15	fixed
-18	pericol	pericol	Ncms-n	15	fixed
+17	în	în	Spsa	18	case
+18	pericol	pericol	Ncms-n	15	obl:pmod
 19	.	.	Zp	8	punct
 
 1	În	în	Spsa	2	case
@@ -8429,8 +8429,8 @@
 13	selectivi	selectiv	Afpmp-n	12	amod
 14	pentru	pentru	Spsa	15	case
 15	receptorii	receptor	Ncmpry	13	obl
-16	ne-	ne-	Rp-y	15	amod
-17	retinoizi	retinoid	Afpmp-n	16	goeswith
+16	ne-	neretinoid	Afpmp-n	15	amod
+17	retinoizi	_	X	16	goeswith
 18	X	X	Ncms-n	15	nmod
 19	(	(	Z1p	20	punct
 20	RXR	RXR	Np	15	appos
@@ -8447,7 +8447,7 @@
 4	acești	acest	Dd3mpr---e	5	det
 5	receptori	receptor	Ncmp-n	6	nsubj
 6	funcționează	funcționa	Vmip3	0	root
-7	ca	ca	Rc	8	advmod
+7	ca	ca	Spsa	8	case
 8	factori	factor	Ncmp-n	6	obl
 9	de	de	Spsa	10	case
 10	transcriere	transcriere	Ncfsrn	8	nmod
@@ -8530,7 +8530,7 @@
 12	(	(	Z1p	14	punct
 13	care	care	Pw3--r	14	nsubj
 14	face	face	Vmip3s	9	acl
-15	parte	parte	Ncfsrn	14	fixed
+15	parte	parte	Ncfsrn	14	obj
 16	,	,	Zc	17	punct
 17	de	de	Spsa	14	advmod
 18	asemenea	asemenea	Afp	17	fixed
@@ -8619,7 +8619,7 @@
 15	pe	pe	Spsa	16	case
 16	cale	cale	Ncfsrn	14	obl
 17	orală	oral	Afpfsrn	16	amod
-18	ca	ca	Rc	19	case
+18	ca	ca	Spsa	19	case
 19	monoterapie	monoterapie	Ncfsrn	14	obl
 20	,	,	Zc	12	punct
 21	reduce	reduce	Vmip3s	0	root
@@ -8838,8 +8838,8 @@
 20	mediată	media	Vmp--sf	19	acl
 21	de	de	Spsa	23	case
 22	către	către	Spsa	21	fixed
-23	CYP	CYP	Np	20	obl:agent
-24	3A4	3A4	Np	23	goeswith
+23	CYP	CYP_3A4	Np	20	obl:agent
+24	3A4	_	X	23	goeswith
 25	.	.	Zp	7	punct
 
 1	Pacienții	pacient	Ncmpry	14	nsubj
@@ -9108,20 +9108,20 @@
 2	au	avea	Va--3p	3	aux
 3	urmărit	urmări	Vmp--sm	0	root
 4	eficacitatea	eficacitate	Ncfsry	3	obj
-5	pe	pe	Spsa	4	amod
-6	termen	termen	Ncms-n	5	fixed
-7	scurt	scurt	Afpms-n	5	fixed
-8	și	și	Crssp	9	cc
-9	pe	pe	Spsa	5	conj
-10	termen	termen	Ncms-n	9	fixed
-11	lung	lung	Afpms-n	9	fixed
+5	pe	pe	Spsa	6	case
+6	termen	termen	Ncms-n	4	nmod
+7	scurt	scurt	Afpms-n	6	amod
+8	și	și	Crssp	10	cc
+9	pe	pe	Spsa	10	case
+10	termen	termen	Ncms-n	6	conj
+11	lung	lung	Afpms-n	10	amod
 12	a	al	Tsfs	13	det
 13	medicamentului	medicament	Ncmsoy	4	nmod
 14	(	(	Z1p	20	punct
 15	studiile	studiu	Ncfpry	20	nsubj
-16	pe	pe	Spsa	15	amod
-17	termen	termen	Ncms-n	16	fixed
-18	scurt	scurt	Afpms-n	16	fixed
+16	pe	pe	Spsa	17	case
+17	termen	termen	Ncms-n	15	nmod
+18	scurt	scurt	Afpms-n	17	amod
 19	au	avea	Va--3p	20	aux
 20	durat	dura	Vmp--sm	3	parataxis
 21	6-8	6-8	Mc-p-d	22	nummod
@@ -9129,9 +9129,9 @@
 23	,	,	Zc	20	punct
 24	iar	iar	Rc	25	cc
 25	studiile	studiu	Ncfpry	15	conj
-26	pe	pe	Spsa	25	amod
-27	termen	termen	Ncms-n	26	fixed
-28	lung	lung	Afpms-n	26	fixed
+26	pe	pe	Spsa	27	case
+27	termen	termen	Ncms-n	25	nmod
+28	lung	lung	Afpms-n	27	amod
 29	până	până	Spsa	32	case
 30	la	la	Spsa	29	fixed
 31	un	un	Timsr	32	det
@@ -9161,7 +9161,7 @@
 20	pentru	pentru	Spsa	22	mark
 21	a	a	Qn	22	mark
 22	servi	servi	Vmnp	12	conj
-23	ca	ca	Rc	24	advmod
+23	ca	ca	Spsa	24	case
 24	referință	referință	Ncfsrn	22	obl
 25	pentru	pentru	Spsa	27	case
 26	eventuale	eventual	Afpfp-n	27	amod
@@ -9195,8 +9195,8 @@
 5	1997	1997	Mc-s-d	7	nummod
 6	fuseseră	fi	Vail3p	7	aux:pass
 7	înregistrate	înregistra	Vmp--pf	18	advcl
-8	4	4	Mc-s-d	10	nummod
-9	112	112	Mc-s-d	8	goeswith
+8	4	4112	Mc-s-d	10	nummod
+9	112	_	X	8	goeswith
 10	decese	deces	Ncfp-n	7	nsubj:pass
 11	,	,	Zc	7	punct
 12	un	un	Timsr	13	det
@@ -9207,15 +9207,15 @@
 17	acestora	acesta	Pd3-po	16	nmod
 18	scăzuse	scădea	Vmil3s	0	root
 19	la	la	Spsa	20	case
-20	3	3	Mc-s-d	18	nummod
-21	996	996	Mc-s-d	20	goeswith
+20	3	3996	Mc-s-d	18	nummod
+21	996	_	X	20	goeswith
 22	,	,	Zc	25	punct
 23	în	în	Spsa	24	case
 24	1999	1999	Mc-s-d	25	nummod
 25	ajungând	ajunge	Vmg	18	parataxis
 26	la	la	Spsa	27	case
-27	3	3	Mc-s-d	25	nummod
-28	898	898	Mc-s-d	27	goeswith
+27	3	3898	Mc-s-d	25	nummod
+28	898	_	X	27	goeswith
 29	.	.	Zp	18	punct
 
 1	Firma	firmă	Ncfsry	3	nsubj
@@ -9245,7 +9245,7 @@
 
 1	Magazinul	magazin	Ncmsry	19	nsubj
 2	Societății	societate	Ncfsoy	1	nmod
-3	Comerciale	comercial	Afpfson	2	fixed
+3	Comerciale	comercial	Afpfson	2	amod
 4	"	"	Z1q	5	punct
 5	Torstan	Torstan	Np	2	nmod
 6	"	"	Z1q	5	punct
@@ -9350,7 +9350,7 @@
 11	va	vrea	Va--3s	12	aux
 12	însemna	însemna	Vmnp	9	ccomp
 13	Anul	an	Ncmsry	12	nsubj
-14	Nou	nou	Afpms-n	13	fixed
+14	Nou	nou	Afpms-n	13	amod
 15	pentru	pentru	Spsa	16	case
 16	fiecare	fiecare	Pi3-sr	12	obl
 17	dintre	dintre	Spsa	18	case
@@ -9407,7 +9407,7 @@
 18	lucra	lucra	Vmnp	13	conj
 19	cu	cu	Spsa	20	case
 20	Cvartetul	cvartet	Ncmsry	18	obl
-21	Molinari	Molinari	Np	20	fixed
+21	Molinari	Molinari	Np	20	nmod
 22	.	.	Zp	3	punct
 
 1	În	în	Spsa	3	case
@@ -9827,8 +9827,8 @@
 1	Biserica	biserică	Ncfsry	3	nsubj
 2	Kalvariskii	Kalvariskii	Np	1	nmod
 3	dădea	da	Vmii3s	0	root
-4	pe	pe	Spsa	3	fixed
-5	dinafară	dinafară	Rgp	3	fixed
+4	pe	pe	Spsa	5	case
+5	dinafară	dinafară	Rgp	3	advmod
 6	de	de	Spsa	7	case
 7	oameni	om	Ncmp-n	3	obl
 8	,	,	Zc	10	punct
@@ -9845,7 +9845,7 @@
 2	un	un	Timsr	4	advmod
 3	pic	pic	Ncms-n	2	fixed
 4	nedrept	nedrept	Afpms-n	0	root
-5	ca	ca	Rc	10	advmod
+5	ca	ca	Csssp	10	mark
 6	membrii	membru	Ncmpry	10	nsubj
 7	opoziției	opoziție	Ncfsoy	6	nmod
 8	să	să	Qs	10	mark
@@ -9920,7 +9920,7 @@
 28	neobișnuit	neobișnuit	Afpms-n	27	amod
 29	de	de	Spsa	30	case
 30	băieți	băiat	Ncmp-n	27	nmod
-31	ca	ca	Rc	32	advmod
+31	ca	ca	Spsa	32	case
 32	noi	eu	Pp1-pr--------s	30	nmod
 33	cu	cu	Spsa	35	case
 34	un	un	Timsr	35	det
@@ -9939,7 +9939,7 @@
 8	sezon	sezon	Ncms-n	6	nmod
 9	la	la	Spsa	10	case
 10	Ewood	Ewood	Np	6	nmod
-11	Park	Park	Np	10	fixed
+11	Park	Park	Np	10	flat
 12	,	,	Zc	1	punct
 13	a	avea	Va--3s	15	aux
 14	fost	fi	Vap--sm	15	aux
@@ -9998,7 +9998,7 @@
 8	care	care	Pw3--r	10	nsubj
 9	a	avea	Va--3s	10	aux
 10	dat	da	Vmp--sm	7	acl
-11	buzna	buzna	Rgp	10	fixed
+11	buzna	buzna	Rgp	10	advmod
 12	în	în	Spsa	13	case
 13	bucătărie	bucătărie	Ncfsrn	10	obl
 14	.	.	Zp	5	punct
@@ -10028,7 +10028,7 @@
 23	își	sine	Px3--d--------w	25	nmod
 24	cară	căra	Vmip3	18	conj
 25	corturile	cort	Ncfpry	24	obj
-26	în	în	Spsa	24	obl
+26	în	în	Spsa	24	advmod
 27	spate	spate	Ncms-n	26	fixed
 28	.	.	Zp	2	punct
 
@@ -10059,7 +10059,7 @@
 25	din	din	Spsa	26	case
 26	pământ	pământ	Ncms-n	24	nmod
 27	,	,	Zc	29	punct
-28	ca	ca	Rc	29	advmod
+28	ca	ca	Spsa	29	case
 29	cea	acela	Pd3fsr	24	nmod
 30	din	din	Spsa	31	case
 31	baraje	baraj	Ncfp-n	29	nmod
@@ -10109,7 +10109,7 @@
 5	parter	parter	Ncms-n	3	obl
 6	din	din	Spsa	3	advmod
 7	nou	nou	Afpms-n	6	fixed
-8	ca	ca	Rc	11	advmod
+8	ca	ca	Csssp	11	mark
 9	să	să	Qs	11	mark
 10	-și	sine	Px3--d--y-----w	12	nmod
 11	continue	continua	Vmsp3	3	advcl
@@ -10170,8 +10170,8 @@
 5	realiști	realist	Afpmp-n	4	amod
 6	încap	încăpea	Vmip3p	0	root
 7	treizeci	treizeci	Mc-p-l	11	nummod
-8	și	și	Crssp	7	fixed
-9	trei	trei	Mc-p-l	7	fixed
+8	și	și	Crssp	7	compound
+9	trei	trei	Mc-p-l	7	compound
 10	de	de	Spsa	7	case
 11	hectare	hectar	Ncfp-n	6	nsubj
 12	de	de	Spsa	13	case
@@ -10180,7 +10180,7 @@
 15	în	în	Spsa	16	case
 16	orașul	oraș	Ncmsry	6	obl
 17	New	New	Np	16	nmod
-18	York	york	Ncms-n	17	fixed
+18	York	york	Ncms-n	17	flat
 19	.	.	Zp	6	punct
 
 1	În	în	Spsa	3	case
@@ -10189,13 +10189,13 @@
 4	oficiale	oficial	Afpfp-n	3	amod
 5	,	,	Zc	3	punct
 6	cei	cel	Tdmpr	9	det
-7	mai	mai	Rp	6	fixed
-8	mulți	mult	Pi3mpr	6	fixed
+7	mai	mai	Rp	9	advmod
+8	mulți	mult	Pi3mpr	9	det
 9	observatori	observator	Afpmp-n	11	nsubj
 10	au	avea	Va--3p	11	aux
 11	interpretat	interpreta	Vmp--sm	0	root
 12	manevra	manevră	Ncfsry	11	obj
-13	ca	ca	Rc	15	advmod
+13	ca	ca	Spsa	15	case
 14	o	un	Tifsr	15	det
 15	manifestare	manifestare	Ncfsrn	11	obl
 16	a	al	Tsfs	17	det
@@ -10315,7 +10315,7 @@
 23	ei	lui	Ds3---s	22	det
 24	a	avea	Va--3s	25	aux
 25	trecut	trece	Vmp--sm	19	conj
-26	dincolo	dincolo	Rgp	25	fixed
+26	dincolo	dincolo	Rgp	25	advmod
 27	la	la	Spsa	29	case
 28	scurt	scurt	Afpms-n	29	amod
 29	timp	timp	Ncms-n	25	obl
@@ -10327,7 +10327,7 @@
 2	tău	tău	Ds2ms-s	1	det
 3	a	avea	Va--3s	4	aux
 4	trecut	trece	Vmp--sm	0	root
-5	dincolo	dincolo	Rgp	4	fixed
+5	dincolo	dincolo	Rgp	4	advmod
 6	cam	cam	Rp	8	advmod
 7	acum	acum	Rgp	4	advmod
 8	patru	patru	Mc-p-l	9	nummod
@@ -10339,7 +10339,7 @@
 3	vie	viu	Afpfsrn	2	amod
 4	a	avea	Va--3s	5	aux
 5	trecut	trece	Vmp--sm	0	root
-6	dincolo	dincolo	Rgp	5	fixed
+6	dincolo	dincolo	Rgp	5	advmod
 7	când	când	Rw	11	advmod
 8	Fernando	Fernando	Np	11	nsubj
 9	Keast	Keast	Np	8	flat
@@ -10369,7 +10369,7 @@
 11	el	el	Pp3msr--------s	13	nsubj
 12	a	avea	Va--3s	13	aux
 13	trecut	trece	Vmp--sm	2	conj
-14	dincolo	dincolo	Rgp	13	fixed
+14	dincolo	dincolo	Rgp	13	advmod
 15	liniștit	liniștit	Rgp	13	advmod
 16	în	în	Spsa	17	case
 17	patul	pat	Ncmsry	13	obl
@@ -10381,7 +10381,7 @@
 3	mamă	mamă	Ncfsrn	5	nsubj
 4	a	avea	Va--3s	5	aux
 5	trecut	trece	Vmp--sm	0	root
-6	dincolo	dincolo	Rgp	5	fixed
+6	dincolo	dincolo	Rgp	5	advmod
 7	din	din	Spsa	9	case
 8	cauza	cauză	Ncfsry	7	fixed
 9	tuberculozei	tuberculoză	Ncfsoy	5	obl
@@ -10395,7 +10395,7 @@
 1	El	el	Pp3msr--------s	3	nsubj
 2	a	avea	Va--3s	3	aux
 3	trecut	trece	Vmp--sm	0	root
-4	dincolo	dincolo	Rgp	3	fixed
+4	dincolo	dincolo	Rgp	3	advmod
 5	din	din	Spsa	6	case
 6	nefericire	nefericire	Ncfsrn	3	obl
 7	prematur	prematur	Rgp	3	advmod
@@ -10422,7 +10422,7 @@
 11	oarecum	oarecum	Rgp	10	advmod
 12	bunurile	bun	Ncfpry	10	obj
 13	și	și	Crssp	18	cc
-14	ca	ca	Rc	18	advmod
+14	ca	ca	Spsa	18	advmod
 15	urmare	urmare	Ncfsrn	14	fixed
 16	ele	el	Pp3fpr--------s	18	nsubj
 17	au	avea	Va--3p	18	aux
@@ -10627,7 +10627,7 @@
 12	cu	cu	Spsa	13	case
 13	bombă	bombă	Ncfsrn	11	nmod
 14	masive	masiv	Afpfp-n	11	amod
-15	ca	ca	Rc	16	case
+15	ca	ca	Spsa	16	case
 16	Teebane	Teebane	Np	5	obl
 17	în	în	Spsa	18	case
 18	Co	County	Yn	16	nmod
@@ -10771,7 +10771,7 @@
 9	în	în	Spsa	10	case
 10	anii	an	Ncmpry	7	obl
 11	1960	1960	Mc-s-d	10	nummod
-12	ca	ca	Rc	14	case
+12	ca	ca	Spsa	14	case
 13	un	un	Timsr	14	det
 14	istoric	istoric	Ncms-n	7	obl
 15	rătăcitor	rătăcitor	Afpms-n	14	amod
@@ -10828,7 +10828,7 @@
 
 1	Concertul	concert	Ncmsry	2	nsubj
 2	are	avea	Vmip3s	0	root
-3	loc	loc	Ncms-n	2	fixed
+3	loc	loc	Ncms-n	2	obj
 4	duminica	duminică	Rgp	2	advmod
 5	la	la	Spsa	6	case
 6	7:30	7:30	Mc-p-d	4	nummod
@@ -10841,8 +10841,8 @@
 13	.	.	Zp	2	punct
 
 1	Funeraliile	funeralii	Ncfpry	2	nsubj
-2	au	avea	Va--3p	0	root
-3	loc	loc	Ncms-n	2	fixed
+2	au	avea	Vmip3p	0	root
+3	loc	loc	Ncms-n	2	obj
 4	în	în	Spsa	6	case
 5	fiecare	fiecare	Di3-sr---e	6	det
 6	zi	zi	Ncfsrn	2	obl
@@ -10880,7 +10880,7 @@
 1	Operația	operație	Ncfsry	3	nsubj
 2	a	avea	Va--3s	3	aux
 3	avut	avea	Vmp--sm	0	root
-4	loc	loc	Ncms-n	3	fixed
+4	loc	loc	Ncms-n	3	obj
 5	la	la	Spsa	6	case
 6	miezul	miez	Ncmsry	3	obl
 7	nopții	noapte	Ncfsoy	6	nmod
@@ -10894,8 +10894,8 @@
 15	recuperare	recuperare	Ncfsrn	13	nmod
 16	în	în	Spsa	18	case
 17	cursul	curs	Ncmsry	16	fixed
-18	după	după	Spsa	11	obl
-19	amiezei	amiază	Ncfsoy	18	goeswith
+18	după	după-amiază	Ncfsoy	11	obl
+19	amiezei	_	X	18	goeswith
 20	.	.	Zp	3	punct
 
 1	și	și	Crssp	11	cc
@@ -10909,7 +10909,7 @@
 9	ultima	ultim	Mofsrly	10	nummod
 10	spânzurătoare	spânzurătoare	Ncfsrn	11	nsubj
 11	avusese	avea	Vmil3s	0	root
-12	loc	loc	Ncms-n	11	fixed
+12	loc	loc	Ncms-n	11	obj
 13	aici	aici	Rgp	11	advmod
 14	,	,	Zc	15	punct
 15	aceea	acela	Pd3fsr	10	appos
@@ -10922,7 +10922,7 @@
 1	Negocierile	negociere	Ncfpry	3	nsubj
 2	au	avea	Va--3p	3	aux
 3	avut	avea	Vmp--sm	0	root
-4	loc	loc	Ncms-n	3	fixed
+4	loc	loc	Ncms-n	3	obj
 5	pe	pe	Spsa	9	case
 6	20	20	Mc-s-d	9	nummod
 7	și	și	Crssp	8	cc
@@ -10995,7 +10995,7 @@
 14	Capet	Capet	Np	12	conj
 15	a	avea	Va--3s	16	aux
 16	avut	avea	Vmp--sm	0	root
-17	loc	loc	Ncms-n	16	fixed
+17	loc	loc	Ncms-n	16	obj
 18	între	între	Spsa	19	case
 19	1224	1224	Mc-s-d	16	nummod
 20	și	și	Crssp	21	cc
@@ -11039,7 +11039,7 @@
 7	Blackpool	Blackpool	Np	6	nmod
 8	a	avea	Va--3s	9	aux
 9	avut	avea	Vmp--sm	0	root
-10	loc	loc	Ncms-n	9	fixed
+10	loc	loc	Ncms-n	9	obj
 11	între	între	Spsa	12	case
 12	1933	1933	Mc-s-d	9	nummod
 13	și	și	Crssp	14	cc
@@ -11068,7 +11068,7 @@
 8	așa	așa	Rgp	6	fixed
 9	a	avea	Va--3s	10	aux
 10	avut	avea	Vmp--sm	0	root
-11	loc	loc	Ncms-n	10	fixed
+11	loc	loc	Ncms-n	10	obj
 12	între	între	Spsa	13	case
 13	partide	partid	Ncfp-n	10	obl
 14	interesate	interesat	Afpfp-n	13	amod
@@ -11093,11 +11093,11 @@
 11	Discuții	discuție	Ncfp-n	13	nsubj
 12	au	avea	Va--3p	13	aux
 13	avut	avea	Vmp--sm	8	parataxis
-14	loc	loc	Ncms-n	13	fixed
+14	loc	loc	Ncms-n	13	obj
 15	în	în	Spsa	17	case
 16	această	acest	Dd3fsr---e	17	det
 17	după	după	Spsa	13	obl
-18	amiază	amiază	Ncfsrn	17	fixed
+18	amiază	amiază	Ncfsrn	17	compound
 19	cu	cu	Spsa	20	case
 20	comitetul	comitet	Ncmsry	13	obl
 21	personalului	personal	Ncmsoy	20	nmod
@@ -11170,7 +11170,7 @@
 21	ar	avea	Va--3	23	aux
 22	fi	fi	Vanp	23	aux
 23	avut	avea	Vmp--sm	12	acl
-24	loc	loc	Ncms-n	23	fixed
+24	loc	loc	Ncms-n	23	obj
 25	.	.	Zp	10	punct
 
 1	Un	un	Timsr	2	det
@@ -11178,7 +11178,7 @@
 3	cordial	cordial	Afpms-n	2	amod
 4	a	avea	Va--3s	5	aux
 5	avut	avea	Vmp--sm	0	root
-6	loc	loc	Ncms-n	5	fixed
+6	loc	loc	Ncms-n	5	obj
 7	într-	întru	Spsay	9	case
 8	un	un	Timsr	9	det
 9	oraș	oraș	Ncms-n	5	obl
@@ -11189,7 +11189,7 @@
 14	ne-	eu	Pp1-pa--y-----w	16	expl:pv
 15	am	avea	Va--1	16	aux
 16	odihnit	odihni	Vmp--sm	9	acl
-17	ca	ca	Rc	19	mark
+17	ca	ca	Csssp	19	mark
 18	să	să	Qs	19	mark
 19	luăm	lua	Vmip1p	16	advcl
 20	prânzul	prânz	Ncmsry	19	obj
@@ -11199,7 +11199,7 @@
 2	similare	similar	Afpfp-n	1	amod
 3	au	avea	Va--3p	4	aux
 4	avut	avea	Vmp--sm	0	root
-5	loc	loc	Ncms-n	4	fixed
+5	loc	loc	Ncms-n	4	obj
 6	la	la	Spsa	7	case
 7	Lyon	Lyon	Np	4	obl
 8	,	,	Zc	11	punct
@@ -11219,7 +11219,7 @@
 6	la	la	Spsa	5	fixed
 7	Leeds	Leeds	Np	1	nmod
 8	are	avea	Vmip3s	0	root
-9	loc	loc	Ncms-n	8	fixed
+9	loc	loc	Ncms-n	8	obj
 10	în	în	Spsa	11	case
 11	octombrie	octombrie	Ncm--n	8	obl
 12	.	.	Zp	8	punct
@@ -11231,7 +11231,7 @@
 5	regionale	regional	Afpfp-n	3	amod
 6	au	avea	Va--3p	7	aux
 7	avut	avea	Vmp--sm	15	advcl
-8	loc	loc	Ncms-n	7	fixed
+8	loc	loc	Ncms-n	7	obj
 9	în	în	Spsa	10	case
 10	1976	1976	Mc-s-d	7	nummod
 11	,	,	Zc	7	punct
@@ -11244,8 +11244,8 @@
 18	majoritate	majoritate	Ncfsrn	15	obl:agent
 19	copleșitoare	copleșitor	Afpf--n	18	amod
 20	Democratică	democratic	Afpfsrn	18	amod
-21	Social	social	Afpms-n	20	fixed
-22	Populară	popular	Afpfsrn	20	fixed
+21	Social	social	Afpms-n	18	amod
+22	Populară	popular	Afpfsrn	18	amod
 23	.	.	Zp	15	punct
 
 1	Primele	prim	Mofprly	2	nummod
@@ -11308,14 +11308,14 @@
 24	Diavolul	diavol	Ncmsry	21	nmod
 25	au	avea	Va--3p	26	aux
 26	avut	avea	Vmp--sm	4	conj
-27	loc	loc	Ncms-n	26	fixed
+27	loc	loc	Ncms-n	26	obj
 28	aici	aici	Rgp	26	advmod
 29	.	.	Zp	4	punct
 
 1	Primul	prim	Momsrly	2	nummod
 2	spectacol	spectacol	Ncms-n	3	nsubj
 3	are	avea	Vmip3s	0	root
-4	loc	loc	Ncms-n	3	fixed
+4	loc	loc	Ncms-n	3	obj
 5	aici	aici	Rgp	3	advmod
 6	,	,	Zc	7	punct
 7	mâine	mâine	Rgp	3	advmod
@@ -11336,7 +11336,7 @@
 7	Agrocultural	Agrocultural	Np	6	amod
 8	Malhamdale	Malhamdale	Np	6	nmod
 9	are	avea	Vmip3s	0	root
-10	loc	loc	Ncms-n	9	fixed
+10	loc	loc	Ncms-n	9	obj
 11	aici	aici	Rgp	9	advmod
 12	,	,	Zc	13	punct
 13	unul	unul	Pi3msr	6	appos
@@ -11400,11 +11400,11 @@
 
 1	A	avea	Va--3s	2	aux
 2	spus	spune	Vmp--sm	0	root
-3	că	că	Csssp	5	mark
-4	(	(	Z1p	5	punct
-5	era	fi	Vmii3s	2	ccomp
-6	de	de	Spsa	5	fixed
-7	părere	părere	Ncfsrn	5	fixed
+3	că	că	Csssp	7	mark
+4	(	(	Z1p	7	punct
+5	era	fi	Vaii3s	7	cop
+6	de	de	Spsa	7	case
+7	părere	părere	Ncfsrn	2	ccomp
 8	că	că	Csssp	26	mark
 9	)	)	Z2p	26	punct
 10	întreruperea	întrerupere	Ncfsry	26	nsubj
@@ -11423,7 +11423,7 @@
 23	al	al	Tsms	24	det
 24	noului-născut	noului-născut	Ncms-n	21	nmod
 25	nu	nu	Qz	26	advmod
-26	constituia	constitui	Vmii3s	5	ccomp
+26	constituia	constitui	Vmii3s	7	acl
 27	o	un	Tifsr	28	det
 28	îngrijire	îngrijire	Ncfsrn	26	obj
 29	adecvată	adecvat	Afpfsrn	28	amod
@@ -11518,7 +11518,7 @@
 2	încheie	încheia	Vmip3	0	root
 3	cu	cu	Spsa	4	case
 4	recomandarea	recomandare	Ncfsry	2	obl
-5	ca	ca	Rc	16	mark
+5	ca	ca	Csssp	16	mark
 6	examinarea	examinare	Ncfsry	16	nsubj:pass
 7	alterării	alterare	Ncfsoy	6	nmod
 8	toleranței	toleranță	Ncfsoy	7	nmod
@@ -11611,7 +11611,7 @@
 21	ei	lui	Ds3---s	20	det
 22	,	,	Zc	23	punct
 23	Andy	Andy	Np	20	appos
-24	Mill	Mill	Np	23	fixed
+24	Mill	Mill	Np	23	flat
 25	,	,	Zc	23	punct
 26	performanțele	performanță	Ncfpry	16	obj
 27	unor	un	Ti-po	29	det
@@ -11731,7 +11731,7 @@
 5	că	că	Csssp	7	mark
 6	transportul	transport	Ncmsry	7	nsubj
 7	are	avea	Vmip3s	4	csubj
-8	loc	loc	Ncms-n	7	fixed
+8	loc	loc	Ncms-n	7	obj
 9	la	la	Spsa	10	case
 10	data	dată	Ncfsry	7	obl:tmod
 11	încărcării	încărcare	Ncfsoy	10	nmod
@@ -11997,8 +11997,8 @@
 3	experimentarea	experimentare	Ncfsry	1	conj
 4	și	și	Crssp	5	cc
 5	punerea	punere	Ncfsry	1	conj
-6	în	în	Spsa	5	fixed
-7	aplicare	aplicare	Ncfsrn	5	fixed
+6	în	în	Spsa	7	case
+7	aplicare	aplicare	Ncfsrn	5	nmod
 8	a	al	Tsfs	9	det
 9	programelor	program	Ncfpoy	1	nmod
 10	de	de	Spsa	11	case
@@ -12128,8 +12128,8 @@
 21	,	,	Zc	22	punct
 22	majorată	majora	Vmp--sf	14	acl
 23	cu	cu	Spsa	26	case
-24	30	30	Mc-s-d	26	nummod
-25	000	000	Mc-s-d	24	goeswith
+24	30	30000	Mc-s-d	26	nummod
+25	000	_	X	24	goeswith
 26	EUR	EUR	Np	22	obl
 27	.	.	Zp	10	punct
 
@@ -12207,8 +12207,8 @@
 28	de	de	Spsa	27	fixed
 29	data	dată	Ncfsry	10	obl:tmod
 30	intrării	intrare	Ncfsoy	29	nmod
-31	în	în	Spsa	30	fixed
-32	vigoare	vigoare	Ncfsrn	30	fixed
+31	în	în	Spsa	32	case
+32	vigoare	vigoare	Ncfsrn	30	nmod
 33	în	în	Spsa	34	case
 34	Comunitate	comunitate	Ncfsrn	30	nmod
 35	.	.	Zp	8	punct
@@ -12684,8 +12684,8 @@
 8	propulsie	propulsie	Ncfsrn	6	nmod
 9	se	sine	Px3--a--------w	10	expl:pass
 10	ia	lua	Vmip3s	0	root
-11	în	în	Spsa	10	fixed
-12	considerare	considerare	Ncfsrn	10	fixed
+11	în	în	Spsa	12	case
+12	considerare	considerare	Ncfsrn	10	obl
 13	influența	influență	Ncfsry	10	nsubj:pass
 14	gravitației	gravitație	Ncfsoy	13	nmod
 15	pe	pe	Spsa	16	case
@@ -13071,7 +13071,7 @@
 11	"	"	Z1q	10	punct
 12	nu	nu	Qz	13	advmod
 13	aduce	aduce	Vmip3s	0	root
-14	atingere	atingere	Ncfsrn	13	fixed
+14	atingere	atingere	Ncfsrn	13	obj
 15	autonomiei	autonomie	Ncfsoy	13	iobj
 16	decizionale	decizional	Afpfson	15	amod
 17	a	al	Tsfs	18	det
@@ -13356,7 +13356,7 @@
 5	,	,	Zc	6	punct
 6	recunoscut	recunoaște	Vmp--sm	1	acl
 7	oficial	oficial	Rgp	6	advmod
-8	ca	ca	Rc	9	case
+8	ca	ca	Spsa	9	case
 9	indemn	indemn	Ncms-n	6	obl
 10	de	de	Spsa	11	case
 11	leucoză	leucoză	Ncfsrn	9	obl:pmod
@@ -13466,7 +13466,7 @@
 6	să	să	Qs	8	mark
 7	se	sine	Px3--a--------w	8	expl:impers
 8	țină	ține	Vmsp3	5	csubj
-9	seama	seamă	Ncfsry	8	fixed
+9	seama	seamă	Ncfsry	8	obj
 10	de	de	Spsa	11	case
 11	dificultățile	dificultate	Ncfpry	8	obl:pmod
 12	practice	practic	Afpfp-n	11	amod
@@ -13784,7 +13784,7 @@
 2	-se	sine	Px3--a--y-----w	1	expl:pv
 3	,	,	Zc	1	punct
 4	dădea	da	Vmii3s	0	root
-5	buzna	buzna	Rgp	4	fixed
+5	buzna	buzna	Rgp	4	advmod
 6	să	să	Qs	7	mark
 7	discute	discuta	Vmsp3	4	ccomp
 8	ceva	ceva	Pi3-sr	7	obj
@@ -13815,7 +13815,7 @@
 5	a	a	Qn	7	mark
 6	-și	sine	Px3--d--y-----w	7	expl:poss
 7	da	da	Vmnp	3	acl
-8	duhul	duh	Ncmsry	7	fixed
+8	duhul	duh	Ncmsry	7	obj
 9	,	,	Zc	12	punct
 10	în	în	Spsa	12	case
 11	bună	bun	Afpfsrn	12	amod
@@ -13889,7 +13889,7 @@
 5	patroanei	patroană	Ncfsoy	4	iobj
 6	că	că	Csssp	7	mark
 7	aveau	avea	Vmii3p	4	ccomp
-8	nevoie	nevoie	Ncfsrn	7	fixed
+8	nevoie	nevoie	Ncfsrn	7	obj
 9	să	să	Qs	10	mark
 10	stea	sta	Vmsp3	7	ccomp:pmod
 11	ascunși	ascuns	Afpmp-n	10	xcomp
@@ -13930,8 +13930,8 @@
 3	până	până	Csssp	5	mark
 4	își	sine	Px3--d--------w	5	expl:pv
 5	veneau	veni	Vmii3p	2	advcl
-6	în	în	Spsa	5	fixed
-7	fire	fire	Ncfsrn	5	fixed
+6	în	în	Spsa	7	case
+7	fire	fire	Ncfsrn	5	obl
 8	,	,	Zc	9	punct
 9	trimiteau	trimite	Vmii3p	2	conj
 10	afară	afară	Rgp	9	advmod
@@ -14006,8 +14006,8 @@
 11	și	și	Crssp	13	cc
 12	de	de	Spsa	13	case
 13	suprarealism	suprarealism	Ncms-n	10	conj
-14	ca	ca	Rc	16	mark
-15	să	să	Qs	14	fixed
+14	ca	ca	Csssp	16	mark
+15	să	să	Qs	16	mark
 16	rezolvi	rezolva	Vmip2s	3	advcl
 17	problema	problemă	Ncfsry	16	obj
 18	de	de	Spsa	19	case
@@ -14048,7 +14048,7 @@
 21	poezie	poezie	Ncfsrn	0	root
 22	lirică	liric	Afpfsrn	21	amod
 23	și	și	Crssp	28	cc
-24	ca	ca	Rc	28	advmod
+24	ca	ca	Spsa	28	advmod
 25	atare	atare	Afp	24	fixed
 26	nu	nu	Qz	28	advmod
 27	mă	eu	Pp1-sa--------w	28	obj
@@ -14353,8 +14353,8 @@
 1	Sau	sau	Ccssp	8	cc
 2	,	,	Zc	4	punct
 3	mai	mai	Rp	4	advmod
-4	de-	de	Spsay	8	advmod
-5	grabă	grabă	Ncfsrn	4	goeswith
+4	de-	degrabă	Rgp	8	advmod
+5	grabă	_	X	4	goeswith
 6	,	,	Zc	4	punct
 7	le	el	Pp3-pd--------w	8	iobj
 8	atribuie	atribui	Vmip3	0	root
@@ -14776,12 +14776,12 @@
 
 1	Ai	avea	Va--2s	2	aux
 2	luat	lua	Vmp--sm	0	root
-3	seama	seamă	Ncfsry	2	fixed
+3	seama	seamă	Ncfsry	2	obj
 4	,	,	Zc	9	punct
 5	în	în	Spsa	6	case
 6	Cetatea	cetate	Ncfsry	9	obl
-7	de	de	Spsa	6	fixed
-8	Argint	argint	Ncms-n	6	fixed
+7	de	de	Spsa	8	case
+8	Argint	argint	Ncms-n	6	nmod
 9	tratează	trata	Vmip3	2	ccomp
 10	cu	cu	Spsa	11	case
 11	elemente	element	Ncfp-n	9	obl
@@ -14967,7 +14967,7 @@
 6	alta	altul	Pi3fsr	5	obj
 7	mai	mai	Rp	8	advmod
 8	semnificativă	semnificativ	Afpfsrn	6	amod
-9	ca	ca	Rc	10	case
+9	ca	ca	Spsa	10	case
 10	domnul	domn	Ncmsry	8	obl
 11	Maniu	Maniu	Np	10	nmod
 12	,	,	Zc	15	punct
@@ -14975,11 +14975,11 @@
 14	toți	tot	Pi3mpr	15	amod
 15	aceia	acela	Pd3mpr	10	conj
 16	cari	care	Pw3--r	27	nsubj
-17	,	,	Zc	21	punct
-18	în	în	Spsa	21	case
-19	lipsa	lipsă	Ncfsry	18	fixed
+17	,	,	Zc	19	punct
+18	în	în	Spsa	19	case
+19	lipsa	lipsă	Ncfsry	27	obl
 20	unor	un	Ti-po	21	det
-21	certitudini	certitudine	Ncfp-n	27	obl
+21	certitudini	certitudine	Ncfp-n	19	nmod
 22	atent	atent	Rgp	25	advmod
 23	și	și	Crssp	24	cc
 24	calm	calm	Rgp	22	conj
@@ -15389,7 +15389,7 @@
 4	au	avea	Va--3p	8	aux
 5	fost	fi	Vap--sm	8	cop
 6	deosebit	deosebit	Rgp	8	advmod
-7	de	de	Spsa	6	fixed
+7	de	de	Spsa	6	case
 8	complicate	complicat	Afpfp-n	0	root
 9	:	:	Zl	8	punct
 
@@ -15442,7 +15442,7 @@
 1	Este	fi	Vaip3s	3	cop
 2	de	de	Spsa	3	case
 3	admis	admite	Vmp--sm	0	root
-4	ca	ca	Rc	8	mark
+4	ca	ca	Csssp	8	mark
 5	efectul	efect	Ncmsry	8	nsubj
 6	acestora	acesta	Pd3-po	5	nmod
 7	să	să	Qs	8	mark
@@ -15575,8 +15575,8 @@
 26	percutană	percutană	Ncfsrn	25	nmod
 27	,	,	Zc	28	punct
 28	având	avea	Vmg	37	advcl
-29	în	în	Spsa	28	fixed
-30	vedere	vedere	Ncfsrn	28	fixed
+29	în	în	Spsa	30	case
+30	vedere	vedere	Ncfsrn	28	obl
 31	și	și	Crssp	32	advmod
 32	riscurile	risc	Ncfpry	28	obj
 33	și	și	Crssp	34	cc
@@ -15807,7 +15807,7 @@
 1	În	în	Spsa	2	case
 2	1941	1941	Mc-s-d	10	nummod
 3	,	,	Zc	2	punct
-4	ca	ca	Rc	5	advmod
+4	ca	ca	Spsa	5	case
 5	aliat	aliat	Ncms-n	10	obl
 6	al	al	Tsms	7	det
 7	Germaniei	Germania	Npfsoy	5	nmod
@@ -15927,7 +15927,7 @@
 2	a	avea	Va--3s	3	aux
 3	devenit	deveni	Vmp--sm	0	root
 4	secretar	secretar	Ncms-n	3	xcomp
-5	general	general	Afpms-n	4	fixed
+5	general	general	Afpms-n	4	amod
 6	al	al	Tsms	7	det
 7	Partidului	partid	Ncmsoy	4	nmod
 8	Comunist	comunist	Afpms-n	7	amod
@@ -15953,11 +15953,11 @@
 9	Ceaușescu	Ceaușescu	Np	8	flat
 10	a	avea	Va--3s	11	aux
 11	devenit	deveni	Vmp--sm	0	root
-12	din	din	Spsa	17	obl
+12	din	din	Spsa	17	advmod
 13	ce	ce	Pw3--r	12	fixed
 14	în	în	Spsa	12	fixed
 15	ce	ce	Pw3--r	12	fixed
-16	mai	mai	Rp	12	fixed
+16	mai	mai	Rp	17	advmod
 17	cruntă	crunt	Afpfsrn	11	xcomp
 18	în	în	Spsa	19	case
 19	anii	an	Ncmpry	11	obl:tmod
@@ -16109,7 +16109,7 @@
 13	membră	membră	Ncfsrn	12	xcomp
 14	a	al	Tsfs	15	det
 15	Uniunii	uniune	Ncfsoy	13	nmod
-16	Europene	european	Afpfson	15	fixed
+16	Europene	european	Afpfson	15	amod
 17	.	.	Zp	5	punct
 
 1	Teritoriul	teritoriu	Ncmsry	7	nsubj
@@ -16167,7 +16167,7 @@
 53	est	est	Ncms-n	51	nmod
 54	de	de	Spsa	55	case
 55	Marea	mare	Ncfsry	46	conj
-56	Neagră	negru	Afpfsrn	55	fixed
+56	Neagră	negru	Afpfsrn	55	amod
 57	.	.	Zp	7	punct
 
 1	Pe	pe	Spsa	2	case
@@ -16303,7 +16303,7 @@
 11	,	,	Zc	13	punct
 12	în	în	Spsa	13	case
 13	Câmpia	câmpie	Ncfsry	6	appos
-14	Moldovei	Moldova	Npfsoy	13	fixed
+14	Moldovei	Moldova	Npfsoy	13	nmod
 15	.	.	Zp	4	punct
 
 1	Prin	prin	Spsa	2	case
@@ -16371,8 +16371,8 @@
 17	actualele	actual	Afpfpry	18	amod
 18	străzi	stradă	Ncfp-n	15	obl:agent
 19	Ștefan	Ștefan	Np	18	nmod
-20	cel	cel	Tdmsr	19	fixed
-21	Mare	mare	Afp-s-n	19	fixed
+20	cel	cel	Tdmsr	19	flat
+21	Mare	mare	Afp-s-n	19	flat
 22	(	(	Z1p	23	punct
 23	Ulița	uliță	Ncfsry	19	appos
 24	Mare	mare	Afp-s-n	23	amod
@@ -16455,7 +16455,7 @@
 4	unde	undă	Ncfp-n	3	obj
 5	staționare	staționar	Afpfp-n	4	amod
 6	trebuie	trebui	Vmip3	0	root
-7	ca	ca	Rc	21	mark
+7	ca	ca	Csssp	21	mark
 8	proiecțiile	proiecție	Ncfpry	21	nsubj
 9	laturilor	lat	Ncfpoy	8	nmod
 10	incintei	incintă	Ncfsoy	9	nmod
@@ -16589,7 +16589,7 @@
 26	materie	materie	Ncfsrn	22	nmod
 27	nu	nu	Qz	28	advmod
 28	are	avea	Vmip3s	17	acl
-29	loc	loc	Ncms-n	28	fixed
+29	loc	loc	Ncms-n	28	obj
 30	în	în	Spsa	31	case
 31	mod	mod	Ncms-n	28	obl
 32	continuu	continuu	Afpms-n	31	amod
@@ -16659,7 +16659,7 @@
 9	de	de	Spsa	10	case
 10	probabilitate	probabilitate	Ncfsrn	8	nmod
 11	pentru	pentru	Spsa	16	mark
-12	ca	ca	Rc	11	fixed
+12	ca	ca	Csssp	11	fixed
 13	o	un	Tifsr	14	det
 14	particulă	particulă	Ncfsrn	16	nsubj
 15	să	să	Qs	16	mark
