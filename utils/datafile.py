@@ -105,10 +105,6 @@ def write_tok_file(tokens: list, output_file: str) -> None:
     # end with
 
 
-fix_str_const = "{0}: {1}/{2} -> {3}"
-fix_str_const2 = "{0}: attributes missing for MSD {1}"
-
-
 def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]]]]:
     """Reads a CoNLL-U format file are returns it."""
 
@@ -144,6 +140,7 @@ def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]]]]
     # end with
 
     return corpus
+
 
 def conllu_corpus_to_tab_file(corpus: list, output_file: str, for_tool: str) -> None:
     """Converts the CoNLL-U corpus into a .tab file for use with RoPOSTagger.py or RoDepParser.py."""

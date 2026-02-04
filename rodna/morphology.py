@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import Dataset, DataLoader
-from torch.optim import RMSprop
+from torch.optim import Adam
 from torch.nn.utils.rnn import pack_sequence
 from tqdm import tqdm
 from random import shuffle
@@ -236,13 +236,13 @@ class RoInflect(object):
         # Build model
         self._model = self._build_pt_model()
         self._loss_fn = nn.BCELoss()
-        self._optimizer = RMSprop(self._model.parameters(), lr=1e-3)
+        self._optimizer = Adam(self._model.parameters(), lr=1e-3)
 
         # Build NumPy dataset
         np_dataset_train = []
         word_list = list(self._dataset.keys())
 
-        for i in tqdm(range(len(word_list), desc='Build samples')):
+        for i in tqdm(range(len(word_list)), desc='Build samples'):
             w = word_list[i]
             (x_w, y_w) = self._build_io_vectors(w, self._dataset[w])
             np_dataset_train.append((x_w, y_w))
@@ -261,7 +261,7 @@ class RoInflect(object):
         pt_dataset_dev = RoInflectDataset(dataset=np_dataset_dev)
 
         train_dataloader = DataLoader(
-            dataset=pt_dataset_train, batch_size=256, shuffle=True, collate_fn=self._roinfl_collate_fn)
+            dataset=pt_dataset_train, batch_size=64, shuffle=True, collate_fn=self._roinfl_collate_fn)
         dev_dataloader = DataLoader(
             dataset=pt_dataset_dev, batch_size=64, shuffle=False, collate_fn=self._roinfl_collate_fn)
 

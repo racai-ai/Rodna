@@ -1,44 +1,32 @@
 ## RODNA
-**RO**manian **D**eep **N**eural networks **A**rchitectures (RODNA) is a Python 3/Tensorflow/Keras project with the declared goal of obtaining better results at Romanian text processing through the use of Romanian-specific features than generic, language-independent ML toolkits.
+**RO**manian **D**eep **N**eural networks **A**rchitectures (RODNA) is a Python 3/PyTorch project with the declared goal of obtaining better results at Romanian text processing through the use of Romanian-specific features than generic, language-independent ML toolkits.
 
-**The project is under development.** Check back regularly for a stable version.
+## Training data
+Latest version of the Romanian RRT UD corpus available at [UD_Romanian-RRT](https://github.com/UniversalDependencies/UD_Romanian-RRT.git).
 
-All training is done on a machine with two NVIDIA cards with 10421 MB memory each: name: GeForce GTX 1080 Ti, compute capability: 6.1
+Latest training data is pushed to this repository, but if you want to generate fresh training data, run `python3 rrt_generate.py`. Make sure you read the comments preceding the function `def generate_ssplit_rrt_training(in_file: str, out_file: str):` from `rrt_generate.py` first. Folder `UD_Romanian-RRT` **must** be available at `../UD/UD_Romanian-RRT` relative to the folder containing this file.
 
 ## Sentence splitter
-A RNN neural network that does sentence splitting.
+A Bi-LSTM over a frozen BERT embedding neural network that does sentence splitting (classifies each token as 'end of sentence' or 'not end of sentence').
 
-10 epochs
-
-loss: 3.0740e-04 - categorical_accuracy: 0.9999
-
-on_epoch_end: SENTEND dev precision at epoch 10 is P = 0.9961
-
-on_epoch_end: SENTEND dev recall at epoch 10 is R = 0.99
-
-on_epoch_end: SENTEND dev f-measure at epoch 10 is F1 = 0.993
-
-_train_keras_model: SENTEND test Precision is P = 0.9976
-
-_train_keras_model: SENTEND test Recall is R = 0.9904
-
-_train_keras_model: SENTEND test F-measure is F1 = 0.994
-
-real    2m42.815s
-user    2m51.797s
-sys     0m5.996s
+Precision on 'end of sentence' label is 99.62% on the test split of RRT.\
+Recall on 'end of sentence' label is 99.38% on the test split of RRT.\
+F1 on 'end of sentence' label is 99.5% on the test split of RRT.
 
 ## Romanian morphology
-A RNN neural network than learns the mapping from a word form to its possible morpho-syntactic labels.
+A LSTM neural network than learns the mapping from a word form to its possible [MSDs](https://nl.ijs.si/ME/V6/msd/html/msd-ro.html). It works on character embeddings of the input word, from left to right.
 
-50 epochs
-loss: 2.0031e-04 - true_positives: 1013132.0000 - precision: 0.9798 - recall: 0.9741 
-
-val_loss: 7.8529e-04 - val_true_positives: 107739.0000 - val_precision: 0.9409 - val_recall: 0.9335
-
-real    14m45.532s
-user    21m7.556s
-sys     1m48.665s
+Precision on MSDs that are in the word's ambiguity class is 95.14%.\
+Recall of MSDs that are in the word's ambiguity class is 92.66%.\
+F1 of the above is 93.88%.
 
 ## POS Tagger
-To be continued...
+A Bi-LSTM-CRF head over a BERT embedding to get coarse-grained POS tags coupled with a Bi-LSTM head over another BERT embedding to get the [MSD](https://nl.ijs.si/ME/V6/msd/html/msd-ro.html) of the current word, given its coarse-grained POS tag. The POS tagger uses Romanian-specific features, extracted beforehand from the input sentence.
+
+### With coarse-grained to fine-grained mapping (called "tiered tagging")
+Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.11%.\
+Accuracy on fine-grained POS tags (MSDs) of the test set is 97.64%.
+
+### Without tiered tagging (roughly 10 times faster)
+Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.03%.\
+Accuracy on fine-grained POS tags (MSDs) of the test set is 97.56%.

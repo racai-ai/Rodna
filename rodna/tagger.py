@@ -1,14 +1,15 @@
 import sys
 import os
 import re
-from typing import List, Tuple
+from typing import List, Tuple, Dict, Set
 from math import isclose
 from random import shuffle
 import numpy as np
 import torch
 from torch import nn
-from torch.utils.data import DataLoader, TensorDataset
-from torch.optim import Adam
+from torch.utils.data import DataLoader, Dataset
+from torch.optim import AdamW
+from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
 import json
 from . import _device
@@ -20,84 +21,58 @@ from .splitter import RoSentenceSplitter
 from .tokenizer import RoTokenizer
 from .features import RoFeatures
 from .morphology import RoInflect
-from .crfmodel import CRFModelDataset, CRFModel
+from .crfmodel import CRFModel
+from .clsmodel import CLSModel
 from config import CLS_TAGGER_MODEL_FOLDER, \
-    CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, TAGGER_MODEL_FOLDER
+    CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, TAGGER_MODEL_FOLDER, \
+    BERT_FOR_CLS_TAGGER_FOLDER, BERT_FOR_CRF_TAGGER_FOLDER
 from . import logger, logging, log_once
-from .bert_model import bert_embeddings, get_embedding_size, \
-    zero_word, start_word, end_word
+from .bert_model import RoBERTModel, \
+    zero_word, start_word, end_word, dumitrescu_bert_v1
 
 
-class CLSModel(nn.Module):
-    """This model takes the input tensor, learns a bidirectional RNN
-    MSD encoding scheme and then, a bidirectional RNN MSD classification scheme."""
+class TaggerDataset(Dataset):
+    """This is a dataset for both the CLS and the CRF models."""
 
-    # RNN state size
-    _conf_rnn_size_1 = 256
-    _conf_rnn_size_2 = 128
-
-    def __init__(self,
-                 emb_input_vector_size: int,
-                 lex_input_vector_size: int,
-                 ctx_input_vector_size: int,
-                 msd_encoding_vector_size: int,
-                 output_msd_size: int,
-                 drop_prob: float = 0.33
-        ):
+    def __init__(self, sentences: List[List[Tuple[str, str, List[str]]]]):
         super().__init__()
-        self._layer_rnn_1 = nn.GRU(
-            input_size=lex_input_vector_size + emb_input_vector_size,
-            hidden_size=CLSModel._conf_rnn_size_1,
-            batch_first=True,
-            bidirectional=True
-        )
-        self._layer_linear_enc = nn.Linear(
-            in_features=2 * CLSModel._conf_rnn_size_1,
-            out_features=msd_encoding_vector_size
-        )
-        self._layer_rnn_2 = nn.GRU(
-            input_size=msd_encoding_vector_size,
-            hidden_size=CLSModel._conf_rnn_size_2,
-            batch_first=True,
-            bidirectional=True
-        )
-        self._layer_linear_cls = nn.Linear(
-            in_features=2 * CLSModel._conf_rnn_size_2 + ctx_input_vector_size,
-            out_features=output_msd_size
-        )
-        self._layer_drop = nn.Dropout(p=drop_prob)
-        self._sigmoid = nn.Sigmoid()
-        self._layer_logsoftmax = nn.LogSoftmax(dim=2)
-        self.to(device=_device)
+        self._data = []
+        self._sentences = sentences
+        self.reshuffle()
 
-    def forward(self, x):
-        x_lex, x_emb, x_ctx = x
-        b_size = x_emb.shape[0]
-        h_0 = torch.zeros(
-            2, b_size,
-            CLSModel._conf_rnn_size_1).to(device=_device)
+    def reshuffle(self):
+        self._data.clear()
 
-        # Concatenate along features dimension
-        o_lex_emb_conc = torch.cat([x_lex, x_emb], dim=2)
-        o_bd_rnn, h_n = self._layer_rnn_1(o_lex_emb_conc, h_0)
-        o_drop = self._layer_drop(o_bd_rnn)
-        o_msd_enc = self._layer_linear_enc(o_drop)
-        o_msd_enc = self._sigmoid(o_msd_enc)
-        # End MSD encoding
+        # Group tensors by sentence length, for batch processing.
+        the_data: Dict[int, List[List[Tuple]]] = {}
+        sentence_lengths: Set[int] = set()
 
-        # MSD classification
-        h_0 = torch.zeros(
-            2, b_size,
-            CLSModel._conf_rnn_size_2).to(device=_device)
-        o_drop = self._layer_drop(o_msd_enc)
-        o_bd_rnn, h_n = self._layer_rnn_2(o_drop, h_0)
-        o_drop = self._layer_drop(o_bd_rnn)
-        o_drop = torch.cat([o_drop, x_ctx], dim=2)
-        o_msd_cls = self._layer_linear_cls(o_drop)
-        o_msd_cls = self._layer_logsoftmax(o_msd_cls)
-        # End MSD classification
+        for snt in self._sentences:
+            snt_len = len(snt)
 
-        return o_msd_enc, o_msd_cls
+            if snt_len not in the_data:
+                the_data[snt_len] = []
+            # end if
+
+            the_data[snt_len].append(snt)
+            sentence_lengths.add(snt_len)
+        # end for
+
+        # Get a random order of sentence lenghts order
+        sentence_lengths = list(sentence_lengths)
+        shuffle(sentence_lengths)
+
+        for snt_len in sentence_lengths:
+            for snt in the_data[snt_len]:
+                self._data.append(snt)
+            # end for
+        # end for
+
+    def __len__(self) -> int:
+        return len(self._data)
+
+    def __getitem__(self, index):
+        return self._data[index]
 
 
 class RoPOSTagger(object):
@@ -105,9 +80,6 @@ class RoPOSTagger(object):
     It will train/test the DNN models and also, given a string of Romanian text,
     it will split it in sentences, POS tag each sentence and return the list."""
 
-    # How many words in a window to consider when constructing a sample.
-    # Set to 0 to estimate it as the average sentence length in the training set.
-    _conf_maxseqlen = 50
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
@@ -119,7 +91,6 @@ class RoPOSTagger(object):
     # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
     # - 'max': only keep the MSD with the highest probability at position i, from each rolling window
     # - 'cnt': add 1 to each different MSD that was assigned at position i, in each rolling window (majority voting)
-    _conf_run_strategy = 'cnt'
     _conf_model_file = 'model.pt'
     _conf_config_file = 'config.json'
 
@@ -134,7 +105,6 @@ class RoPOSTagger(object):
         self._msd = self._lexicon.get_msd_object()
         self._rofeatures = RoFeatures(self._lexicon)
         self._romorphology = morphology
-        self._maxseqlen = RoPOSTagger._conf_maxseqlen
 
     def _save(self):
         self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
@@ -150,12 +120,14 @@ class RoPOSTagger(object):
         # end def
 
         _save_all(CLS_TAGGER_MODEL_FOLDER, self._cls_model, self._cls_config)
-        _save_all(CRF_TAGGER_MODEL_FOLDER, self._crf_model, self._crf_config)
+        self._cls_ro_bert.save(destination_folder=BERT_FOR_CLS_TAGGER_FOLDER)
+        
+        if RoPOSTagger._conf_with_tiered_tagging:
+            _save_all(CRF_TAGGER_MODEL_FOLDER, self._crf_model, self._crf_config)
+            self._crf_ro_bert.save(destination_folder=BERT_FOR_CRF_TAGGER_FOLDER)
+        # end if
 
     def load(self):
-        self._uniprops.load_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
-
-        # Load the CLS model
         def _load_conf(folder: str) -> dict:
             conffile = os.path.join(folder, RoPOSTagger._conf_config_file)
             config = {}
@@ -167,24 +139,6 @@ class RoPOSTagger(object):
             return config
         # end def
 
-        self._cls_config = _load_conf(CLS_TAGGER_MODEL_FOLDER)
-        self._crf_config = _load_conf(CRF_TAGGER_MODEL_FOLDER)
-
-        self._cls_model = self._build_cls_model(
-            emb_input_vector_size=get_embedding_size(),
-            lex_input_vector_size=self._cls_config['lex_input_vector_size'],
-            ctx_input_vector_size=self._cls_config['ctx_input_vector_size'],
-            msd_encoding_vector_size=self._cls_config['msd_encoding_vector_size'],
-            output_msd_size=self._cls_config['output_msd_size'],
-            drop_prob=float(self._cls_config['drop_prob'])
-        )
-        self._crf_model = self._build_crf_model(
-            emb_input_vector_size=get_embedding_size(),
-            lex_input_vector_size=self._crf_config['lex_input_vector_size'],
-            ctx_input_vector_size=self._crf_config['ctx_input_vector_size'],
-            drop_prob=float(self._crf_config['drop_prob'])
-        )
-
         def _load_model(folder: str, module: nn.Module):
             torchmodelfile = os.path.join(folder, RoPOSTagger._conf_model_file)
             module.load_state_dict(torch.load(
@@ -193,15 +147,39 @@ class RoPOSTagger(object):
             module.eval()
         # end def
 
+        self._uniprops.load_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
+
+        self._cls_config = _load_conf(CLS_TAGGER_MODEL_FOLDER)
+        self._cls_ro_bert = RoBERTModel(
+            path_or_name=BERT_FOR_CLS_TAGGER_FOLDER)
+        self._cls_model = self._build_cls_model(
+            emb_input_vector_size=self._cls_ro_bert.get_embedding_size(),
+            lex_input_vector_size=self._cls_config['lex_input_vector_size'],
+            ctx_input_vector_size=self._cls_config['ctx_input_vector_size'],
+            msd_encoding_vector_size=self._cls_config['msd_encoding_vector_size'],
+            output_msd_size=self._cls_config['output_msd_size'],
+            drop_prob=float(self._cls_config['drop_prob'])
+        )
         _load_model(CLS_TAGGER_MODEL_FOLDER, self._cls_model)
-        _load_model(CRF_TAGGER_MODEL_FOLDER, self._crf_model)
+
+        if RoPOSTagger._conf_with_tiered_tagging:
+            self._crf_config = _load_conf(CRF_TAGGER_MODEL_FOLDER)
+            self._crf_ro_bert = RoBERTModel(
+                path_or_name=BERT_FOR_CRF_TAGGER_FOLDER)
+            self._crf_model = self._build_crf_model(
+                emb_input_vector_size=self._crf_ro_bert.get_embedding_size(),
+                lex_input_vector_size=self._crf_config['lex_input_vector_size'],
+                ctx_input_vector_size=self._crf_config['ctx_input_vector_size'],
+                drop_prob=float(self._crf_config['drop_prob'])
+            )
+            _load_model(CRF_TAGGER_MODEL_FOLDER, self._crf_model)
+        # end if
 
     def train(self,
-        data_sentences: list = [],
-        train_sentences: list = [],
-        dev_sentences: list = [],
-        test_sentences: list = []):
-
+              data_sentences: List[List[Tuple[str, str, List[str]]]],
+              train_sentences: List[List[Tuple[str, str, List[str]]]],
+              dev_sentences: List[List[Tuple[str, str, List[str]]]],
+              test_sentences: List[List[Tuple[str, str, List[str]]]]):
         # Either data_sentences is not None or
         # train_sentences, dev_sentences and test_sentences are not none
         if data_sentences and \
@@ -233,146 +211,164 @@ class RoPOSTagger(object):
         # 3. Build the Unicode properties on the train set
         self._build_unicode_props(train_examples)
 
-        # 4. Get train/dev/test numpy tensors
-        def _generate_cls_numpy(ml_type: str,
-                                examples: List[List[Tuple[str, str, List[str]]]]) -> tuple:
-            x_lex_m, x_emb, x_ctx, y_enc, y_cls = \
-                self._build_cls_io_tensors(examples, ml_type=ml_type)
+        if RoPOSTagger._conf_with_tiered_tagging:
+            # 4 Load BERT model for fine-tuning
+            self._crf_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
+            crf_emb_input_dim = self._crf_ro_bert.get_embedding_size()
 
-            logger.info(f"[{ml_type}] MSD x_lex.shape is [{x_lex_m.shape}]")
-            logger.info(f"[{ml_type}] x_emb.shape is [{x_emb.shape}]")
-            logger.info(f"[{ml_type}] x_ctx.shape is [{x_ctx.shape}]")
-            logger.info(f"[{ml_type}] ENC y.shape is [{y_enc.shape}]")
-            logger.info(f"[{ml_type}] CLS y.shape is [{y_cls.shape}]")
+            # 5. Build the PyTorch CRF model
+            crf_x_lex_0, _, crf_x_ctx_0, _ = \
+                self._build_crf_io_tensor(sentence=train_examples[0])
+            crf_lex_input_dim = crf_x_lex_0.shape[1]
+            crf_ctx_input_dim = crf_x_ctx_0.shape[1]
 
-            return x_lex_m, x_emb, x_ctx, y_enc, y_cls
-        # end def
+            self._crf_config = {
+                'lex_input_vector_size': crf_lex_input_dim,
+                'ctx_input_vector_size': crf_ctx_input_dim,
+                'drop_prob': 0.25
+            }
+            self._crf_model = self._build_crf_model(
+                crf_emb_input_dim,
+                crf_lex_input_dim,
+                crf_ctx_input_dim,
+                0.25
+            )
 
-        (x_lex_msd_train, x_emb_train, x_ctx_train,
-            y_train_enc, y_train_cls) = _generate_cls_numpy('train', train_examples)
-        (x_lex_msd_dev, x_emb_dev, x_ctx_dev,
-            y_dev_enc, y_dev_cls) = _generate_cls_numpy('dev', dev_examples)
-        (x_lex_msd_test, x_emb_test, x_ctx_test,
-            y_test_enc, y_test_cls) = _generate_cls_numpy('test', dev_examples)
+            # Don’t decay LayerNorm & biases
+            bert_decay_params, bert_no_decay_params = [], []
 
-        (crf_x_lex_train, crf_x_emb_train, crf_x_ctx_train,
-         crf_y_train) = self._build_crf_io_tensors(train_sentences, ml_type='train')
-        (crf_x_lex_dev, crf_x_emb_dev, crf_x_ctx_dev,
-         crf_y_dev) = self._build_crf_io_tensors(dev_sentences, ml_type='dev')
-        (crf_x_lex_test, crf_x_emb_test, crf_x_ctx_test,
-         crf_y_test) = self._build_crf_io_tensors(test_sentences, ml_type='test')
-        crf_lex_input_dim = crf_x_lex_train[0].shape[1]
-        crf_ctx_input_dim = crf_x_ctx_train[0].shape[1]
-        emb_input_dim = get_embedding_size()
+            for name, param in self._crf_ro_bert.bert_model.named_parameters():
+                if param.ndim == 1 or name.endswith(".bias"):
+                    bert_no_decay_params.append(param)
+                else:
+                    bert_decay_params.append(param)
+                # end if
+            # end for
 
-        # 5. Save RoInflect cache file for faster startup next time
-        self._romorphology.save_cache()
+            self._crf_optimizer = AdamW([
+                {"params": bert_decay_params, "weight_decay": 0.01, "lr": 2e-5},
+                {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 2e-5},
+                {"params": self._crf_model.parameters(), "weight_decay": 0.0, "lr": 5e-4}]
+            )
+            self._crf_lr_scheduler = ExponentialLR(optimizer=self._crf_optimizer, gamma=0.95)
 
-        # 6. Build the PyTorch CRF model
-        self._crf_config = {
-            'lex_input_vector_size': crf_lex_input_dim,
-            'ctx_input_vector_size': crf_ctx_input_dim,
-            'drop_prob': 0.25
-        }
-        self._crf_model = self._build_crf_model(
-            emb_input_dim,
-            crf_lex_input_dim,
-            crf_ctx_input_dim,
-            0.25
-        )
-        self._crf_optimizer = Adam(self._crf_model.parameters(), lr=5e-4)
+            snt_dataset_train = TaggerDataset(sentences=train_sentences)
+            snt_dataset_dev = TaggerDataset(sentences=dev_sentences)
+            snt_dataset_test = TaggerDataset(sentences=test_sentences)
 
-        pt_dataset_train = CRFModelDataset(
-            crf_x_lex_train, crf_x_emb_train, crf_x_ctx_train, crf_y_train)
-        pt_dataset_dev = CRFModelDataset(
-            crf_x_lex_dev, crf_x_emb_dev, crf_x_ctx_dev, crf_y_dev)
-        pt_dataset_test = CRFModelDataset(
-            crf_x_lex_test, crf_x_emb_test, crf_x_ctx_test, crf_y_test)
+            # Leave batch_size=1 as sentences cannot be batched by length.
+            # They are, but when a batch contains more than one length, the ones not with
+            # the biggest length are discarded from training.
+            train_dataloader = DataLoader(
+                dataset=snt_dataset_train, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
+            dev_dataloader = DataLoader(
+                dataset=snt_dataset_dev, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
+            test_dataloader = DataLoader(
+                dataset=snt_dataset_test, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
 
-        train_dataloader = DataLoader(
-            dataset=pt_dataset_train, batch_size=4, shuffle=False, collate_fn=self._crf_collate_fn)
-        dev_dataloader = DataLoader(
-            dataset=pt_dataset_dev, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
-        test_dataloader = DataLoader(
-            dataset=pt_dataset_test, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
+            for ep in range(1, RoPOSTagger._conf_epochs_crf + 1):
+                # Fit model for one epoch
+                self._crf_model.train()
+                self._do_one_crf_epoch(epoch=ep, dataloader=train_dataloader)
 
-        for ep in range(1, RoPOSTagger._conf_epochs_crf + 1):
-            # Fit model for one epoch
-            self._crf_model.train(True)
-            self._do_one_crf_epoch(epoch=ep, dataloader=train_dataloader)
+                # Test model
+                # Put model into eval mode first
+                self._crf_model.eval()
+                self._test_crf_model(dataloader=dev_dataloader, ml_set='dev')
 
-            # Test model
-            # Put model into eval mode first
+                self._crf_lr_scheduler.step()
+                bert_lr, _, crf_lr = self._crf_lr_scheduler.get_last_lr()
+                logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
+                logger.info(f'Setting new CRF LR to [{crf_lr:.7f}]')
+
+                # Reshuffle training data
+                snt_dataset_train.reshuffle()
+            # end for
+
             self._crf_model.eval()
-            self._test_crf_model(dataloader=dev_dataloader, ml_set='dev')
-
-            # Reshuffle training data
-            pt_dataset_train.reshuffle()
-        # end for
-
-        self._crf_model.eval()
-        self._test_crf_model(dataloader=test_dataloader, ml_set='test')
+            self._test_crf_model(dataloader=test_dataloader, ml_set='test')
+        # end if
 
         # 7.1 Build the PyTorch CLS model
-        cls_lex_input_dim = x_lex_msd_train.shape[2]
-        cls_ctx_input_dim = x_ctx_train.shape[2]
-        encoding_dim = y_train_enc.shape[2]
+        self._cls_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
+        cls_emb_input_dim = self._cls_ro_bert.get_embedding_size()
+
+        cls_x_lex_0, _, cls_x_ctx_0, cls_x_enc_0, _ = \
+            self._build_cls_io_tensor(sample=train_examples[0])
+        cls_lex_input_dim = cls_x_lex_0.shape[1]
+        cls_ctx_input_dim = cls_x_ctx_0.shape[1]
+        cls_enc_input_dim = cls_x_enc_0.shape[1]
         output_msd_dim = self._msd.get_output_vector_size()
 
         self._cls_model = self._build_cls_model(
-            emb_input_vector_size=emb_input_dim,
+            emb_input_vector_size=cls_emb_input_dim,
             lex_input_vector_size=cls_lex_input_dim,
             ctx_input_vector_size=cls_ctx_input_dim,
-            msd_encoding_vector_size=encoding_dim,
+            msd_encoding_vector_size=cls_enc_input_dim,
             output_msd_size=output_msd_dim,
             drop_prob=0.25
         )
         self._cls_config = {
             'lex_input_vector_size': cls_lex_input_dim,
             'ctx_input_vector_size': cls_ctx_input_dim,
-            'msd_encoding_vector_size': encoding_dim,
+            'msd_encoding_vector_size': cls_enc_input_dim,
             'output_msd_size': output_msd_dim,
-            'drop_prob': 0.25
+            'drop_prob': 0.25,
+            'sequence_length': self._maxseqlen
         }
 
         # MSD encoding loss
         self._loss_fn_enc = nn.BCELoss()
         # MSD classification loss
         self._loss_fn_cls = nn.NLLLoss()
-        self._cls_optimizer = Adam(self._cls_model.parameters(), lr=1e-3)
 
-        # 7.2 Create PyTorch tensors and DataLoaders
-        def _generate_cls_dataloader(x_lex_msd, x_emb, x_ctx, y_enc, y_cls) -> DataLoader:
-            x_lex_msd = torch.tensor(x_lex_msd).to(_device)
-            x_emb = torch.tensor(x_emb, dtype=torch.float32).to(_device)
-            x_ctx = torch.tensor(x_ctx).to(_device)
-            y_enc = torch.tensor(y_enc).to(_device)
-            y_cls = torch.tensor(y_cls, dtype=torch.long).to(_device)
-            pt_dataset = TensorDataset(
-                x_lex_msd, x_emb, x_ctx, y_enc, y_cls)
-            dataloader = DataLoader(
-                dataset=pt_dataset, batch_size=8, shuffle=True)
+        # Don’t decay LayerNorm & biases
+        bert_decay_params, bert_no_decay_params = [], []
 
-            return dataloader
-        # end def
+        for name, param in self._cls_ro_bert.bert_model.named_parameters():
+            if param.ndim == 1 or name.endswith(".bias"):
+                bert_decay_params.append(param)
+            else:
+                bert_no_decay_params.append(param)
+            # end if
+        # end for
 
-        train_dataloader = _generate_cls_dataloader(
-            x_lex_msd_train, x_emb_train, x_ctx_train, y_train_enc, y_train_cls)
-        dev_dataloader =_generate_cls_dataloader(
-            x_lex_msd_dev, x_emb_dev, x_ctx_dev, y_dev_enc, y_dev_cls)
-        test_dataloader = _generate_cls_dataloader(
-            x_lex_msd_test, x_emb_test, x_ctx_test, y_test_enc, y_test_cls)
+        self._cls_optimizer = AdamW([
+            {"params": bert_decay_params, "weight_decay": 0.01, "lr": 2e-5},
+            {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 2e-5},
+            {"params": self._cls_model.parameters(), "weight_decay": 0.0, "lr": 5e-4}]
+        )
+        self._cls_lr_scheduler = ExponentialLR(optimizer=self._cls_optimizer, gamma=0.95)
+
+        smp_dataset_train = TaggerDataset(sentences=train_examples)
+        smp_dataset_dev = TaggerDataset(sentences=dev_examples)
+        smp_dataset_test = TaggerDataset(sentences=test_examples)
+
+        train_dataloader = DataLoader(
+            dataset=smp_dataset_train, batch_size=4, shuffle=False, collate_fn=self._cls_collate_fn)
+        dev_dataloader = DataLoader(
+            dataset=smp_dataset_dev, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
+        test_dataloader = DataLoader(
+            dataset=smp_dataset_test, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
         
         # 7.3 Train the CLS model and test it
         for ep in range(1, RoPOSTagger._conf_epochs_cls + 1):
             # Fit model for one epoch
-            self._cls_model.train(True)
+            self._cls_model.train()
             self._do_one_cls_epoch(epoch=ep, dataloader=train_dataloader)
 
             # Test model
             # Put model into eval mode first
             self._cls_model.eval()
             self._test_cls_model(dataloader=dev_dataloader, ml_set='dev')
+
+            self._cls_lr_scheduler.step()
+            bert_lr, _, cls_lr = self._cls_lr_scheduler.get_last_lr()
+            logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
+            logger.info(f'Setting new CRF LR to [{cls_lr:.7f}]')
+
+            # Reshuffle training data
+            smp_dataset_train.reshuffle()
         # end for
 
         self._cls_model.eval()
@@ -380,19 +376,22 @@ class RoPOSTagger(object):
 
         # 7.4 Save all models
         self._save()
+        # 5. Save RoInflect cache file for faster startup next time
+        self._romorphology.save_cache()
 
-    def _crf_collate_fn(self, batch) -> tuple:
-        """Builds a batch for the CRFModel, taking care that
-        all sentence lengths are the same! Cuts the batch size
-        if next tensor had a different length."""
+
+    def _crf_collate_fn(self, batch: List[List[Tuple[str, str, List[str]]]]) -> Tuple[torch.Tensor, torch.Tensor,
+                                              torch.Tensor, torch.Tensor]:
+        """Builds a batch taking care that all sentence lengths are the same!
+        Cuts the batch size if next tensor had a different length."""
         
         lex_batch = []
         emb_batch = []
         ctx_batch = []
         yct_batch = []
 
-        for inp_lex, inp_emb, inp_ctx, tar_ctg in batch:
-            crt_slen = inp_lex.shape[0]
+        for sentence in batch:
+            crt_slen = len(sentence)
             
             if lex_batch:
                 prv_slen = lex_batch[-1].shape[1]
@@ -402,14 +401,15 @@ class RoPOSTagger(object):
                 # end if
             # end if
 
+            inp_lex, inp_emb, inp_ctx, tar_ctg = \
+                self._build_crf_io_tensor(sentence=sentence)
+
             # Move all tensors to _device
-            inp_lex = inp_lex.view(
-                1, inp_lex.shape[0], inp_lex.shape[1]).to(device=_device)
-            inp_emb = inp_emb.view(
-                1, inp_emb.shape[0], inp_emb.shape[1]).to(device=_device)
-            inp_ctx = inp_ctx.view(
-                1, inp_ctx.shape[0], inp_ctx.shape[1]).to(device=_device)
-            tar_ctg = tar_ctg.view(1, -1).to(device=_device)
+            inp_lex = inp_lex.view(1, inp_lex.shape[0], inp_lex.shape[1])
+            inp_emb = inp_emb.view(1, inp_emb.shape[0], inp_emb.shape[1])
+            inp_ctx = inp_ctx.view(1, inp_ctx.shape[0], inp_ctx.shape[1])
+            tar_ctg = tar_ctg.view(1, -1)
+            
             lex_batch.append(inp_lex)
             emb_batch.append(inp_emb)
             ctx_batch.append(inp_ctx)
@@ -419,6 +419,41 @@ class RoPOSTagger(object):
         return \
             torch.cat(lex_batch, dim=0), torch.cat(emb_batch, dim=0), \
             torch.cat(ctx_batch, dim=0), torch.cat(yct_batch, dim=0)
+    
+    def _cls_collate_fn(self, batch: List[List[Tuple[str, str, List[str]]]]) -> Tuple[torch.Tensor, torch.Tensor,
+                                                                                      torch.Tensor, torch.Tensor,
+                                                                                      torch.Tensor]:
+        lex_batch = []
+        emb_batch = []
+        ctx_batch = []
+        enc_batch = []
+        ycls_batch = []
+        
+        # We know all samples have the same length.
+        # That is, _conf_maxseqlen
+        for sample in batch:
+            inp_lex, inp_emb, inp_ctx, inp_enc, out_cls = \
+                self._build_cls_io_tensor(sample=sample)
+
+            # Move all tensors to _device
+            inp_lex = inp_lex.view(1, inp_lex.shape[0], inp_lex.shape[1])
+            inp_emb = inp_emb.view(1, inp_emb.shape[0], inp_emb.shape[1])
+            inp_ctx = inp_ctx.view(1, inp_ctx.shape[0], inp_ctx.shape[1])
+            inp_enc = inp_enc.view(1, inp_enc.shape[0], inp_enc.shape[1])
+            out_cls = out_cls.view(1, -1)
+
+            lex_batch.append(inp_lex)
+            emb_batch.append(inp_emb)
+            ctx_batch.append(inp_ctx)
+            enc_batch.append(inp_enc)
+            ycls_batch.append(out_cls)
+        # end for
+
+        return torch.cat(lex_batch, dim=0).to(_device), \
+            torch.cat(emb_batch, dim=0).to(_device), \
+            torch.cat(ctx_batch, dim=0).to(_device), \
+            torch.cat(enc_batch, dim=0).to(_device), \
+            torch.cat(ycls_batch, dim=0).to(_device)
 
     def _test_crf_model(self, dataloader: DataLoader, ml_set: str):
         """Tests the CRF model with the dev/test sets."""
@@ -573,177 +608,121 @@ class RoPOSTagger(object):
             lex_input_vector_size, ctx_input_vector_size,
             drop_prob)
 
-    def _build_crf_io_tensors(self,
-                              sentences: List[List[Tuple[str, str, List[str]]]],
-                              ml_type: str,
-                              runtime: bool = False) -> Tuple[List[torch.Tensor], List[torch.Tensor],
-                                                              List[torch.Tensor], List[torch.Tensor]]:
-        """Builds the CRF model input/output tensors."""
+    def _build_crf_io_tensor(self,
+                             sentence: List[Tuple[str, str, List[str]]]) -> \
+                                Tuple[torch.Tensor, torch.Tensor,
+                                      torch.Tensor, torch.Tensor]:
+        """Builds the CRF features tensors for one sentence."""
 
-        xlex_tensor = []
-        xemb_tensor = []
-        xctx_tensor = []
-        y_tensor = []
+        tok_sentence = [(x[0], self._tokenizer.tag_word(x[0]))
+                        for x in sentence]
+        bert_sentence_features = \
+            self._crf_ro_bert.bert_embeddings(tokens=tok_sentence)
 
-        if runtime:
-            iterable = range(len(sentences))
-        else:
-            iterable = tqdm(range(len(sentences)),
-                            desc=f'CRF tensors for [{ml_type}]')
-        # end if
+        sentence_lex_features = []
+        sentence_embeddings = []
+        sentence_context = []
+        sentence_ctags = []
 
-        for i in iterable:
-            # We should have that assert len(sample) == tx
-            sentence = sentences[i]
-            tok_sentence = [(x[0], self._tokenizer.tag_word(x[0]))
-                            for x in sentence]
-            bert_sentence_features = bert_embeddings(tokens=tok_sentence)
+        for j in range(len(sentence)):
+            parts = sentence[j]
+            word = parts[0]
+            msd = parts[1]
+            ctag = self._msd.msd_to_ctag(msd)
 
-            sentence_lex_features = []
-            sentence_embeddings = []
-            sentence_ctags = []
-            sentence_context = []
+            if not self._msd.is_valid_ctag(ctag):
+                logger.warning(f"Unknown CTAG [{ctag}] for MSD [{msd}]")
+            # end if
 
-            for j in range(len(sentence)):
-                parts = sentence[j]
-                word = parts[0]
-                msd = parts[1]
-                ctag = self._msd.msd_to_ctag(msd)
+            feats = parts[2]
+            tlabel = self._tokenizer.tag_word(word)
+            y_out_idx = self._msd.ctag_to_idx(ctag)
 
-                if not self._msd.is_valid_ctag(ctag):
-                    logger.warning(f"Unknown CTAG [{ctag}] for MSD [{msd}]")
-                # end if
+            label_features = self._tokenizer.get_label_features(tlabel)
+            uni_features = self._uniprops.get_unicode_features(word)
+            lexical_features_ctag = self._get_lexical_features_for_pos_tagging(
+                word, with_ctags=True)
 
-                feats = parts[2]
-                tlabel = self._tokenizer.tag_word(word)
+            # This is the featurized version of a word in the sequence
+            x_lex_ctag = np.concatenate(
+                (label_features, uni_features, lexical_features_ctag))
 
-                if not runtime:
-                    y_out_idx = self._msd.ctag_to_idx(ctag)
-                else:
-                    y_out_idx = self._msd.ctag_to_idx('X')
-                # end if
+            if word == zero_word:
+                x_lex_ctag = np.zeros(x_lex_ctag.shape, dtype=np.float32)
+            # end if
 
-                label_features = self._tokenizer.get_label_features(tlabel)
-                uni_features = self._uniprops.get_unicode_features(word)
-                lexical_features_ctag = self._get_lexical_features_for_pos_tagging(
-                    word, with_ctags=True)
+            # Computing id for word
+            x_emb = bert_sentence_features[j]
+            # Computing external features for word
+            x_ctx = self._rofeatures.get_context_feature_vector(feats)
 
-                # This is the featurized version of a word in the sequence
-                x_lex_ctag = np.concatenate(
-                    (label_features, uni_features, lexical_features_ctag))
+            sentence_lex_features.append(torch.tensor(
+                x_lex_ctag, dtype=torch.float32).view(1, -1))
+            sentence_embeddings.append(x_emb.view(1, -1))
+            sentence_context.append(torch.tensor(
+                x_ctx, dtype=torch.float32).view(1, -1))
+            sentence_ctags.append(y_out_idx)
+        # end j
 
-                if word == zero_word:
-                    x_lex_ctag = np.zeros(x_lex_ctag.shape, dtype=np.float32)
-                # end if
+        return torch.cat(sentence_lex_features, dim=0).to(_device), \
+            torch.cat(sentence_embeddings, dim=0).to(_device), \
+            torch.cat(sentence_context, dim=0).to(_device), \
+            torch.tensor(sentence_ctags, dtype=torch.long).to(_device)
 
-                # Computing id for word
-                x_emb = bert_sentence_features[j]
-                # Computing external features for word
-                x_ctx = self._rofeatures.get_context_feature_vector(feats)
+    def _build_cls_io_tensor(self,
+                             sample: List[Tuple[str, str, List[str]]]) -> Tuple[torch.Tensor,
+                                                                                torch.Tensor, torch.Tensor,
+                                                                                torch.Tensor, torch.Tensor]:
+        """Builds the CLS features tensors for one sample."""
 
-                sentence_lex_features.append(torch.tensor(
-                    x_lex_ctag, dtype=torch.float32).view(1, -1))
-                sentence_embeddings.append(x_emb.view(1, -1))
-                sentence_context.append(torch.tensor(
-                    x_ctx, dtype=torch.float32).view(1, -1))
-                sentence_ctags.append(y_out_idx)
-            # end j
+        tok_sample = [(x[0], self._tokenizer.tag_word(x[0]))
+                      for x in sample]
+        bert_sample_features = \
+            self._cls_ro_bert.bert_embeddings(tokens=tok_sample)
+        xlex_msd_tensors = []
+        xemb_tensors = []
+        xctx_tensors = []
+        y_tensors_enc = []
+        y_cls = []
 
-            y_tensor.append(torch.tensor(sentence_ctags, dtype=torch.int32))
-            xemb_tensor.append(torch.cat(sentence_embeddings, dim=0))
-            xlex_tensor.append(torch.cat(sentence_lex_features, dim=0))
-            xctx_tensor.append(torch.cat(sentence_context, dim=0))
-        # end i
+        for j in range(len(sample)):
+            parts = sample[j]
+            word = parts[0]
+            msd = parts[1]
+            feats = parts[2]
+            tlabel = self._tokenizer.tag_word(word)
+            y_in = self._msd.msd_input_vector(msd)
+            y_out = self._msd.msd_to_idx(msd)
+            label_features = self._tokenizer.get_label_features(tlabel)
+            uni_features = self._uniprops.get_unicode_features(word)
+            lexical_features_msd = self._get_lexical_features_for_pos_tagging(
+                word, with_ctags=False)
 
-        return xlex_tensor, xemb_tensor, xctx_tensor, y_tensor
+            # This is the featurized version of a word in the sequence
+            x_lex_msd = np.concatenate(
+                (label_features, uni_features, lexical_features_msd))
 
-    def _build_cls_io_tensors(self,
-                              data_samples: List[List[Tuple[str, str, List[str]]]],
-                              ml_type: str,
-                              runtime: bool = False) -> tuple:
-        # No of examples
-        m = len(data_samples)
-        # This should be equal to self._maxseqlen
-        tx = len(data_samples[0])
-        assert tx == self._maxseqlen
+            if word == zero_word:
+                x_lex_msd = np.zeros(x_lex_msd.shape, dtype=np.float32)
+            # end if
 
-        ### Inputs
-        # Lexical tensor
-        xlex_msd_tensor = None
-        # Word embeddings tensor
-        xemb_tensor = np.empty((m, tx, get_embedding_size()), dtype=np.float32)
-        # Externally computed contextual features
-        xctx_tensor = np.empty(
-            (m, tx, len(RoFeatures.romanian_pos_tagging_features)), dtype=np.float32)
+            # Computing BERT embedding for word
+            x_emb = bert_sample_features[j]
+            # Computing external features for word
+            x_ctx = self._rofeatures.get_context_feature_vector(feats)
 
-        ### Ground truth outputs
-        # Ys for the MSD encoding part
-        y_tensor_enc = np.empty(
-            (m, tx, self._msd.get_input_vector_size()), dtype=np.float32)
-        # Ys for the MSD classification part
-        y_tensor_cls = np.empty((m, tx), dtype=np.int32)
+            xlex_msd_tensors.append(torch.tensor(x_lex_msd, dtype=torch.float32).view(1, -1))
+            xemb_tensors.append(x_emb.view(1, -1))
+            xctx_tensors.append(torch.tensor(x_ctx, dtype=torch.float32).view(1, -1))
+            y_tensors_enc.append(torch.tensor(y_in, dtype=torch.float32).view(1, -1))
+            y_cls.append(y_out)
+        # end j
 
-        if runtime:
-            iterable = range(len(data_samples))
-        else:
-            iterable = tqdm(range(len(data_samples)),
-                            desc=f'CLS tensors for [{ml_type}]')
-        # end if
-
-        # sample size is Tx, the number of time steps
-        for i in iterable:
-            # We should have that assert len(sample) == tx
-            sample = data_samples[i]
-            tok_sample = [(x[0], self._tokenizer.tag_word(x[0])) for x in sample]
-            bert_sample_features = bert_embeddings(tokens=tok_sample)
-
-            for j in range(len(sample)):
-                parts = sample[j]
-                word = parts[0]
-                msd = parts[1]
-                feats = parts[2]
-                tlabel = self._tokenizer.tag_word(word)
-
-                if not runtime:
-                    y_in = self._msd.msd_input_vector(msd)
-                    y_out = self._msd.msd_to_idx(msd)
-                else:
-                    y_in = self._msd.get_x_input_vector()
-                    y_out = self._msd.get_x_idx()
-                # end if
-
-                label_features = self._tokenizer.get_label_features(tlabel)
-                uni_features = self._uniprops.get_unicode_features(word)
-                lexical_features_msd = self._get_lexical_features_for_pos_tagging(
-                    word, with_ctags=False)
-
-                # This is the featurized version of a word in the sequence
-                x_lex_msd = np.concatenate(
-                    (label_features, uni_features, lexical_features_msd))
-
-                if word == zero_word:
-                    x_lex_msd = np.zeros(x_lex_msd.shape, dtype=np.float32)
-                # end if
-
-                if xlex_msd_tensor is None:
-                    xlex_msd_tensor = np.empty(
-                        (m, tx, x_lex_msd.shape[0]), dtype=np.float32)
-                # end if
-
-                # Computing BERT embedding for word
-                x_emb = bert_sample_features[j].detach().cpu().numpy()
-                # Computing external features for word
-                x_ctx = self._rofeatures.get_context_feature_vector(feats)
-
-                xlex_msd_tensor[i, j, :] = x_lex_msd
-                xemb_tensor[i, j, :] = x_emb
-                xctx_tensor[i, j, :] = x_ctx
-                y_tensor_enc[i, j, :] = y_in
-                y_tensor_cls[i, j] = y_out
-            # end j
-        # end i
-
-        return xlex_msd_tensor, xemb_tensor, xctx_tensor, y_tensor_enc, y_tensor_cls
+        return torch.cat(xlex_msd_tensors, dim=0).to(_device), \
+            torch.cat(xemb_tensors, dim=0).to(_device), \
+            torch.cat(xctx_tensors, dim=0).to(_device), \
+            torch.cat(y_tensors_enc, dim=0).to(_device), \
+            torch.tensor(y_cls, dtype=torch.long).to(_device)
 
     def _build_samples(self,
                        sentences: List[List[Tuple[str, str, List[str]]]]) -> List[List[Tuple[str, str, List[str]]]]:
@@ -751,35 +730,45 @@ class RoPOSTagger(object):
 
         # Assemble examples with required, fixed length
         for sentence in sentences:
-            # Make all sentences have RoPOSTag.maxSeqLength at least.
-            p_sentence = self._pad_sentence(sentence)
-
-            for i in range(len(p_sentence)):
-                left = i
-                right = i + self._maxseqlen
-
-                if right > len(p_sentence):
-                    break
-                # end if
-
-                all_samples.append(p_sentence[left:right])
-            # end for i
+            all_samples.extend(self._trim_sentence_to_length(sentence=sentence))
         # end all sentences
 
         return all_samples
 
-    def _pad_sentence(self,
-                      sentence: List[List[Tuple[str, str, List[str]]]]) -> List[List[Tuple[str, str, List[str]]]]:
-        """If the sentence has less tokens than the trained
-        seqence length, pad it with the last word, at the right,
-        to reach RoPOSTag.maxSeqLength."""
-        padded_sentence = sentence[:]
+    def _trim_sentence_to_length(self,
+                                 sentence: List[Tuple[str, str, List[str]]]) -> List[List[Tuple[str, str, List[str]]]]:
+        """If the sentence has less tokens than `self._maxseqlen`, pad it at right.
+        If it has more tokens than `self._maxseqlen`, cut it in `self._maxseqlen` pieces."""
+        
+        if len(sentence) < self._maxseqlen:
+            padded_sentence = list(sentence)
 
-        while len(padded_sentence) < self._maxseqlen:
-            padded_sentence.append((zero_word, 'X', []))
-        # end with
+            while len(padded_sentence) < self._maxseqlen:
+                padded_sentence.append((zero_word, 'X', []))
+            # end with
 
-        return padded_sentence
+            return [padded_sentence]
+        elif len(sentence) > self._maxseqlen:
+            trimmed_sentences = []
+            
+            for i in range(0, len(sentence), self._maxseqlen):
+                if i + self._maxseqlen <= len(sentence):
+                    trimmed_sentences.append(sentence[i: i + self._maxseqlen])
+                else:
+                    last_sentence_piece = sentence[i:]
+
+                    while len(last_sentence_piece) < self._maxseqlen:
+                        last_sentence_piece.append((zero_word, 'X', []))
+                    # end with
+
+                    trimmed_sentences.append(last_sentence_piece)
+                # end if
+            # end for
+
+            return trimmed_sentences
+        else:
+            return [sentence]
+        # end if
 
     def _add_sentence_boundaries(self, sentence: List[List[Tuple[str, str, List[str]]]]):
         """Add sentences START/END words for CRF modeling."""
@@ -797,7 +786,7 @@ class RoPOSTagger(object):
                                            train_sentences: List[List[Tuple[str, str, List[str]]]],
                                            dev_sentences: List[List[Tuple[str, str, List[str]]]],
                                            test_sentences: List[List[Tuple[str, str, List[str]]]]):
-        """Builds the from the predefined, offered split."""
+        """Builds the from the predefined split."""
 
         def count_words(sentences: List[List[Tuple[str, str, List[str]]]]) -> int:
             word_count = 0
@@ -842,15 +831,16 @@ class RoPOSTagger(object):
         sl_mean = np.mean(slarr)
         sl_stddev = np.std(slarr)
 
-        if self._maxseqlen == 0:
-            # Mean plus 2 standard deviations
-            self._maxseqlen = int(sl_mean) + 2 * int(sl_stddev)
+        # Mean plus 2 standard deviations
+        self._maxseqlen = int(sl_mean) + 2 * int(sl_stddev)
 
-            logger.info(f"Determined [{self._maxseqlen}] as the maximum sentence length "
-                        f"[mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
-        else:
-            logger.info(f"Determined sentence length [mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
-        # end if
+        # Round to tens
+        while self._maxseqlen % 10 != 0:
+            self._maxseqlen += 1
+        # end while
+
+        logger.info(f"Determined [{self._maxseqlen}] as the maximum sentence length "
+                    f"[mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
 
         train_samples = self._build_samples(train_sentences)
         dev_samples = self._build_samples(dev_sentences)
@@ -928,16 +918,16 @@ class RoPOSTagger(object):
         sl_mean = np.mean(slarr)
         sl_stddev = np.std(slarr)
 
-        if self._maxseqlen == 0:
-            # Mean plus 2 standard deviations
-            self._maxseqlen = int(sl_mean) + 2 * int(sl_stddev)
+        # Mean plus 2 standard deviations
+        self._maxseqlen = int(sl_mean) + 2 * int(sl_stddev)
 
-            logger.info(f"Determined [{self._maxseqlen}] as the maximum sentence length "
-                        f"[mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
-        else:
-            logger.info(
-                f"Determined sentence length [mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
-        # end if
+        # Round to tens
+        while self._maxseqlen % 10 != 0:
+            self._maxseqlen += 1
+        # end while
+
+        logger.info(f"Determined [{self._maxseqlen}] as the maximum sentence length "
+                    f"[mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
 
         train_samples = self._build_samples(train_sentences)
         dev_samples = self._build_samples(dev_sentences)
@@ -1135,16 +1125,30 @@ class RoPOSTagger(object):
 
         return ''
 
-    def _most_prob_msd(self, word: str, y_pred: np.ndarray) -> Tuple[str, float]:
+    def _most_prob_msd(self, word: str, y_pred: np.ndarray, tt_msds: List[str]) -> Tuple[str, float, bool, List[str]]:
         # 0. Get fixed tag assignment, if any
         fixed_msd = self._fixed_tag_assignments(word)
 
         if fixed_msd:
-            return (fixed_msd, 1.)
+            return fixed_msd, 1., True, []
         # end if
 
         # 1. Get the model predicted MSDs
         msd_predictions = self._get_predicted_msd(y_pred)
+        cls_only_pred_msds = [m for m, _ in msd_predictions]
+        crf_cls_agree = False
+
+        # 1.1 Update MSD predictions with tiered tagging MSDs
+        for ttm in tt_msds:
+            if ttm not in cls_only_pred_msds:
+                idx = self._msd.msd_to_idx(ttm)
+                msd_p = y_pred[idx]
+                msd_predictions.append((ttm, msd_p))
+            else:
+                crf_cls_agree = True
+            # end if
+        # end for
+
         best_pred_msds = [m for m, _ in msd_predictions]
 
         # 2. Get the extended word ambiguity class, as the predicted MSD may
@@ -1185,7 +1189,7 @@ class RoPOSTagger(object):
         # end if
 
         if computed_word_msds:
-            # 3. Model predicted MSD is in the extended ambiguity class. Hurray!
+            # 4. Model predicted MSD is in the extended ambiguity class. Hurray!
             best_pred_msd = ''
             best_pred_msd_p = 0.
 
@@ -1198,14 +1202,14 @@ class RoPOSTagger(object):
                 # end for
             # end for
 
-            return (best_pred_msd, best_pred_msd_p)
+            return best_pred_msd, best_pred_msd_p, crf_cls_agree, cls_only_pred_msds
         elif known_word_msds:
             computed_word_msds = list(known_word_msds)
         else:
             computed_word_msds = best_pred_msds
         # end if
 
-        # 4. Model predicted MSD is not in the extended ambiguity class.
+        # 5. Model predicted MSD is not in the extended ambiguity class.
         # Choose the highest probability MSD from the computed MSD list.
         best_acls_msd_p = 0.
         best_acls_msd = ''
@@ -1223,7 +1227,7 @@ class RoPOSTagger(object):
         log_once(f"Word [{word}] -> got suboptimal MSD [{best_acls_msd}/{best_acls_msd_p:.2f}]",
                  calling_fn='RoPOSTagger._most_prob_msd', log_level=logging.DEBUG)
 
-        return best_acls_msd, best_acls_msd_p
+        return best_acls_msd, best_acls_msd_p, crf_cls_agree, cls_only_pred_msds
 
     def _tiered_tagging(self, word: str, ctag: str) -> List[str]:
         """This implements Tufiș and Dragomirescu's (2004) tiered tagging concept that
@@ -1303,24 +1307,13 @@ class RoPOSTagger(object):
 
     def _eval_sentence(self, sentence: List[Tuple[str, str, List[str]]],
                        debug_fh = None) -> List[Tuple[str, str, float]]:
-        """Strategy can be `'add'` or `'max'`. When `'add'`ing contributions from the LM and CRF layers,
-        a dict of predicted MSDs is kept at each position in the sentence and we add the probabilities
-        coming from each rolling window, at position `i`. The best MSD wins at position `i`.
+        """Only works on a single sentence. Main method that calls both the
+        `self._cls_model` and `self._crf_model` to do the heavy lifting."""
 
-        We can also keep the winning, predicted MSD (by its `'max'` probability) at each position `i` in the sentence,
-        with each rolling window."""
-        # 1. Build the fixed-length samples from the input sentence
-        sent_samples = self._build_samples([sentence])
-
-        # 2.1 Get the input tensors for CLS
+        # 1 Get the input tensor for CLS, for the whole sentence.
         # y_pred_cls is the POS tagger sequence with RNNs, one-hot
-        (cls_x_lex, cls_x_emb, cls_x_ctx, y_enc, y_cls) = \
-            self._build_cls_io_tensors(sent_samples, ml_type='eval', runtime=True)
-        cls_x_lex = torch.tensor(cls_x_lex).to(_device)
-        cls_x_emb = torch.tensor(cls_x_emb, dtype=torch.float32).to(_device)
-        cls_x_ctx = torch.tensor(cls_x_ctx).to(_device)
-        y_enc = torch.tensor(y_enc).to(_device)
-        y_cls = torch.tensor(y_cls, dtype=torch.long).to(_device)
+        cls_x_lex, cls_x_emb, cls_x_ctx, y_enc, y_cls = \
+            self._cls_collate_fn(batch=[sentence])
 
         with torch.inference_mode():
             out_enc, out_cls = \
@@ -1328,31 +1321,13 @@ class RoPOSTagger(object):
         # end with
 
         y_pred_cls = torch.exp(out_cls).cpu().detach().numpy()
-
-        # This is how many samples in the sentence
-        assert y_pred_cls.shape[0] == len(sent_samples)
-        # This is the configured length of the sequence
-        assert y_pred_cls.shape[1] == len(sent_samples[0])
-
         viterbi_sequence = []
 
         if RoPOSTagger._conf_with_tiered_tagging:
-            # 2.2 Get the input tensors for CRF
-            # Viterbi_sequence is the POS tagger sequence with CRFs, CTAG index
-            (crf_x_lex_l, crf_x_emb_l, crf_x_ctx_l, y_crf_l) = \
-                self._build_crf_io_tensors([sentence], ml_type='eval', runtime=True)
-            # We only have 1 sentence
-            crf_x_lex = crf_x_lex_l[0]
-            crf_x_emb = crf_x_emb_l[0]
-            crf_x_ctx = crf_x_ctx_l[0]
-            y_crf = y_crf_l[0]
-            crf_x_lex = crf_x_lex.view(
-                1, crf_x_lex.shape[0], crf_x_lex.shape[1]).to(device=_device)
-            crf_x_emb = crf_x_emb.view(
-                1, crf_x_emb.shape[0], crf_x_emb.shape[1]).to(device=_device)
-            crf_x_ctx = crf_x_ctx.view(
-                1, crf_x_ctx.shape[0], crf_x_ctx.shape[1]).to(device=_device)
-            y_crf = y_crf.view(1, -1).to(device=_device)
+            # 2 Get the input tensors for CRF, for the whole sentence.
+            # viterbi_sequence is the CTAG index sequence with CRFs
+            crf_x_lex, crf_x_emb, crf_x_ctx, y_crf = \
+                self._crf_collate_fn(batch=[sentence])
 
             with torch.inference_mode():
                 scores, batch_labels_list = self._crf_model(
@@ -1364,271 +1339,56 @@ class RoPOSTagger(object):
         # end if
 
         tagged_sentence = []
-        debug_info = []
 
-        def _add_debug_info(info: dict, msd: str, msd_p: float):
-            if msd not in info:
-                info[msd] = {
-                    'cnt': 1, 'pm': msd_p, 'max': msd_p}
-            else:
-                info[msd]['cnt'] += 1
-                info[msd]['pm'] += msd_p
+        for i in range(len(sentence)):
+            word = sentence[i][0]
+            gold_msd = sentence[i][1]
+            y1 = y_pred_cls[0, i, :]
+            crf_msds = []
 
-                if msd_p > info[msd]['max']:
-                    info[msd]['max'] = msd_p
-                # end if
-            # end if
-        # end def
+            if RoPOSTagger._conf_with_tiered_tagging:
+                y2 = viterbi_sequence[i]
+                ctag = self._msd.idx_to_ctag(y2)
+                crf_msds = self._tiered_tagging(word, ctag)
+            # end if with tiered tagging
 
-        def _find_debug_highlights(info):
-            max_cnt = 0
-            max_cnt_msd = []
-            max_pmass = 0.
-            max_pmass_msd = []
-            max_maxp = 0.
-            max_maxp_msd = []
+            best_msd, msd_p, both_agree, cls_msds = \
+                self._most_prob_msd(word, y1, tt_msds=crf_msds)
 
-            for msd in info:
-                minfo = info[msd]
-
-                if minfo['cnt'] > max_cnt:
-                    max_cnt = minfo['cnt']
-                    max_cnt_msd = [msd]
-                elif minfo['cnt'] == max_cnt:
-                    max_cnt_msd.append(msd)
+            if debug_fh:
+                if not crf_msds:
+                    crf_msds = ['n/a']
                 # end if
 
-                if minfo['pm'] > max_pmass:
-                    max_pmass = minfo['pm']
-                    max_pmass_msd = [msd]
-                elif isclose(minfo['pm'], max_pmass):
-                    max_pmass_msd.append(msd)
-                # end if
-
-                if minfo['max'] > max_maxp:
-                    max_maxp = minfo['max']
-                    max_maxp_msd = [msd]
-                elif isclose(minfo['max'], max_maxp):
-                    max_maxp_msd.append(msd)
-                # end if
-            # end all MSDs
-
-            return (max_cnt_msd, max_pmass_msd, max_maxp_msd)
-        # end def
-
-        for i in range(len(sent_samples)):
-            sample = sent_samples[i]
-            sentence_done = False
-
-            for j in range(len(sample)):
-                if (i + j < len(sentence)):
-                    word = sentence[i + j][0]
-
-                    if len(tagged_sentence) <= i + j:
-                        if RoPOSTagger._conf_run_strategy == 'add' or \
-                                RoPOSTagger._conf_run_strategy == 'cnt':
-                            tagged_sentence.append((word, {}))
-                        elif RoPOSTagger._conf_run_strategy == 'max':
-                            tagged_sentence.append((word, []))
-                        # end if
-                        debug_info.append({'CRF': {}, 'RNN': {}})
-                    # end if
-
-                    j_debug_info = debug_info[i + j]
-                    y1 = y_pred_cls[i, j, :]
-                    (msd_rnn, msd_rnn_p) = self._most_prob_msd(word, y1)
-                    current_msd_options = [(msd_rnn, msd_rnn_p)]
-
-                    _add_debug_info(j_debug_info['RNN'], msd_rnn, msd_rnn_p)
-                    
-                    if RoPOSTagger._conf_with_tiered_tagging:
-                        # Index of the most probable CTAG
-                        y2 = viterbi_sequence[i + j]
-                        ctag = self._msd.idx_to_ctag(y2)
-                        ctag_msds = self._tiered_tagging(word, ctag)
-
-                        if not ctag_msds:
-                            _add_debug_info(j_debug_info['CRF'], ctag, 1.)
-                        else:
-                            for m in ctag_msds:
-                                mp = 1. / len(ctag_msds)
-                                _add_debug_info(j_debug_info['CRF'], m, mp)
-                                current_msd_options.append((m, mp))
-                            # end for
-                        # end if
-                    # end if with tiered tagging
-
-                    ij_msd_best = tagged_sentence[i + j][1]
-
-                    if RoPOSTagger._conf_run_strategy == 'add':
-                        for msd, msd_p in current_msd_options:
-                            if msd in ij_msd_best:
-                                ij_msd_best[msd] += msd_p
-                            else:
-                                ij_msd_best[msd] = msd_p
-                            # end if
-                        # end for
-                    elif RoPOSTagger._conf_run_strategy == 'cnt':
-                        for msd, msd_p in current_msd_options:
-                            if msd in ij_msd_best:
-                                ij_msd_best[msd] += 1
-                            else:
-                                ij_msd_best[msd] = 1
-                            # end if
-                        # end for
-                    elif RoPOSTagger._conf_run_strategy == 'max':
-                        for msd, msd_p in current_msd_options:
-                            if ij_msd_best:
-                                if msd_p > ij_msd_best[1]:
-                                    ij_msd_best[0] = msd
-                                    ij_msd_best[1] = msd_p
-                                # end if
-                            else:
-                                ij_msd_best.append(msd)
-                                ij_msd_best.append(msd_p)
-                            # end if
-                        # end for
-                    # end if strategy
+                if gold_msd == best_msd:
+                    print(
+                        f"{word}\t{gold_msd}\tp={msd_p:.5f}", file=debug_fh)
                 else:
-                    sentence_done = True
-                    break
-                # end if
-            # end for j
-
-            if sentence_done:
-                break
-            # end if
-        # end for i
-
-        assert len(tagged_sentence) == len(sentence)
-
-        if debug_fh:
-            counts  = {
-                'rnn_cnt_correct': 0,
-                'rnn_pmass_correct': 0,
-                'rnn_maxp_correct': 0,
-                'crf_cnt_correct': 0,
-                'crf_pmass_correct': 0,
-                'crf_maxp_correct': 0
-            }
-
-            for i in range(len(debug_info)):
-                word = sentence[i][0]
-                gold_msd = sentence[i][1]
-                rnn_info = debug_info[i]['RNN']
-                (rnn_msd_cnt, rnn_msd_pmass, rnn_msd_maxp) = _find_debug_highlights(rnn_info)
-                crf_info = debug_info[i]['CRF']
-                (crf_msd_cnt, crf_msd_pmass, crf_msd_maxp) = _find_debug_highlights(crf_info)
-                rnn_correct = 0
-                crf_correct = 0
-
-                if gold_msd in rnn_msd_cnt:
-                    counts['rnn_cnt_correct'] += 1
-                    rnn_correct += 1
-                # end if
-
-                if gold_msd in rnn_msd_pmass:
-                    counts['rnn_pmass_correct'] += 1
-                    rnn_correct += 1
-                # end if
-
-                if gold_msd in rnn_msd_maxp:
-                    counts['rnn_maxp_correct'] += 1
-                    rnn_correct += 1
-                # end if
-
-                if gold_msd in crf_msd_cnt:
-                    counts['crf_cnt_correct'] += 1
-                    crf_correct += 1
-                # end if
-
-                if gold_msd in crf_msd_pmass:
-                    counts['crf_pmass_correct'] += 1
-                    crf_correct += 1
-                # end if
-
-                if gold_msd in crf_msd_maxp:
-                    counts['crf_maxp_correct'] += 1
-                    crf_correct += 1
-                # end if
-
-                print("{0}\t{1}".format(word, gold_msd), file=debug_fh, flush=True, end='\t')
-
-                if rnn_correct == 3:
-                    print("RNN=", file=debug_fh, flush=True, end='\t')
-                elif rnn_correct > 0:
-                    print("RNN~ c={0};pm={1};mx={2}".format(
-                        ','.join(rnn_msd_cnt), ','.join(rnn_msd_pmass), ','.join(rnn_msd_maxp)), file=debug_fh, flush=True, end='\t')
-                else:
-                    print("RNN! c={0};pm={1};mx={2}".format(
-                        ','.join(rnn_msd_cnt), ','.join(rnn_msd_pmass), ','.join(rnn_msd_maxp)), file=debug_fh, flush=True, end='\t')
-                # end if
-
-                if RoPOSTagger._conf_with_tiered_tagging:
-                    if crf_correct == 3:
-                        print("CRF=", file=debug_fh, flush=True)
-                    elif crf_correct > 0:
-                        print("CRF~ c={0};pm={1};mx={2}".format(
-                            ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                    if both_agree:
+                        print(
+                            f"{word}\t{gold_msd}\tBEST:{best_msd}\tp={msd_p:.5f}\t"
+                            f"CRF:{','.join(crf_msds)} == CLS:{','.join(cls_msds)}", file=debug_fh)
                     else:
-                        print("CRF! c={0};pm={1};mx={2}".format(
-                            ','.join(crf_msd_cnt), ','.join(crf_msd_pmass), ','.join(crf_msd_maxp)), file=debug_fh, flush=True)
+                        print(
+                            f"{word}\t{gold_msd}\tBEST:{best_msd}\tp={msd_p:.5f}\t"
+                            f"CRF:{','.join(crf_msds)} != CLS:{','.join(cls_msds)}", file=debug_fh)
                     # end if
-                else:
-                    print("", file=debug_fh, flush=True)
                 # end if
-            # end for i
-
-            best_performance = 0
-            best_methods = []
-
-            for pm in counts:
-                if counts[pm] > best_performance:
-                    best_performance = counts[pm]
-                    best_methods = [pm]
-                elif counts[pm] == best_performance:
-                    best_methods.append(pm)
-                # end if
-            # end for
-
-            acc = float(best_performance) / len(debug_info)
-
-            print("Best performances (Acc = {0:.5f}): {1}".format(acc,
-                ', '.join(best_methods)), file=debug_fh, flush=True)
-            print(file=debug_fh, flush=True)
-        # end if debug
-
-        tagged_sentence2 = []
-
-        for i in range(len(tagged_sentence)):
-            word, choice = tagged_sentence[i]
-            best_msd = '?'
-            # Not a probability but an additive score
-            # The larger, the better
-            best_msd_score = 0.
-
-            if RoPOSTagger._conf_run_strategy == 'add' or \
-                    RoPOSTagger._conf_run_strategy == 'cnt':
-                for m in choice:
-                    if choice[m] > best_msd_score:
-                        best_msd_score = choice[m]
-                        best_msd = m
-                    # end if
-                # end for
-            elif RoPOSTagger._conf_run_strategy == 'max':
-                best_msd = choice[0]
-                best_msd_score = choice[1]
             # end if
 
-            tagged_sentence2.append((word, best_msd, best_msd_score))
+            tagged_sentence.append((word, best_msd, msd_p))
         # end for
 
-        return tagged_sentence2
+        if debug_fh:
+            print(file=debug_fh, flush=True)
+        # end if
+
+        return tagged_sentence
 
     def test_on_sentence_set(self, sentences: List[List[Tuple[str, str, List[str]]]], ml_type: str):
         all_count = 0
         correct_count = 0
-        debug_output_file = os.path.join(TAGGER_MODEL_FOLDER, 'tagger-debug.txt')
+        debug_output_file = os.path.join(TAGGER_MODEL_FOLDER, f'tagger-debug-{ml_type}.txt')
 
         with open(debug_output_file, mode='w', encoding='utf-8') as f:
             for sentence in tqdm(sentences, desc=f'Eval'):
@@ -1660,7 +1420,7 @@ if __name__ == '__main__':
     mor.load()
     tag = RoPOSTagger(lex, tok, mor, spl)
     tag.load()
-
+    
     # When we have multiple files
     #data_sentences = []
     #tab_files = read_all_ext_files_from_dir(os.path.join(
@@ -1691,7 +1451,7 @@ if __name__ == '__main__':
     logger.info(f"Reading testing file [{testing_file}]")
     testing = tag.read_tagged_file(testing_file)
 
-    tag.train(train_sentences=training,
-              dev_sentences=development, test_sentences=testing)
+    #tag.train(data_sentences=[], train_sentences=training,
+    #          dev_sentences=development, test_sentences=testing)
     tag.test_on_sentence_set(sentences=development, ml_type='dev')
     tag.test_on_sentence_set(sentences=testing, ml_type='test')

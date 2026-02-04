@@ -1,8 +1,11 @@
+__version__ = "1.0.0"
+
 from typing import Set
 import torch
 import logging
 from random import seed
 
+# Get same results from the random number generator
 seed(1234)
 torch.manual_seed(1234)
 

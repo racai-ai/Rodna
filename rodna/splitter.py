@@ -1,5 +1,4 @@
 from typing import List, Tuple
-import sys
 import os
 from random import shuffle
 import numpy as np
@@ -16,7 +15,7 @@ from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from config import SENT_SPLITTER_MODEL_FOLDER, \
     SPLITTER_UNICODE_PROPERTY_FILE, SPLITTER_FEAT_LEN_FILE
 from . import _device, logger
-from .bert_model import bert_embeddings
+from .bert_model import RoBERTModel, dumitrescu_bert_v1
 
 
 class RoSentenceSplitterModule(nn.Module):
@@ -101,6 +100,7 @@ class RoSentenceSplitter(object):
         self._tokenizer = tokenizer
         self._uniprops = CharUni()
         self._lexicon = lexicon
+        self._ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1)
 
     def train(self, word_sequence: list):
         """Takes a long word sequence (RoTokenizer tokenized text with 'SENTEND' annotations),
@@ -216,16 +216,14 @@ class RoSentenceSplitter(object):
             if counter % 200 == 0:
                 # Average loss per batch
                 average_running_loss = running_loss / 500
-                print(f'\n  -> batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}',
-                      file=sys.stderr, flush=True)
+                logger.info(f'Batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}')
                 epoch_loss.append(average_running_loss)
                 running_loss = 0.
             # end if
         # end for i
 
         average_epoch_loss = sum(epoch_loss) / len(epoch_loss)
-        print(
-            f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'Average epoch {epoch} loss: {average_epoch_loss:.5f}')
 
     def _compute_metric(self, x, y):
         y_pred = self._model(x)
@@ -281,9 +279,9 @@ class RoSentenceSplitter(object):
         rec = correct / existing
         f1 = 2 * prec * rec / (prec + rec)
 
-        print(f'P(1) = {prec:.5f} on {ml_set}', file=sys.stderr, flush=True)
-        print(f'R(1) = {rec:.5f} on {ml_set}', file=sys.stderr, flush=True)
-        print(f'F1(1) = {f1:.5f} on {ml_set}', file=sys.stderr, flush=True)
+        logger.info(f'P(1) = {prec:.5f} on {ml_set}')
+        logger.info(f'R(1) = {rec:.5f} on {ml_set}')
+        logger.info(f'F1(1) = {f1:.5f} on {ml_set}')
 
         return f1
 
@@ -305,8 +303,7 @@ class RoSentenceSplitter(object):
         torchmodelfile = os.path.join(SENT_SPLITTER_MODEL_FOLDER, 'model.pt')
 
         if os.path.isfile(torchmodelfile):
-            print(
-                f'Removing RoSentenceSplitter model file [{torchmodelfile}]', file=sys.stderr, flush=True)
+            logger.info(f'Removing RoSentenceSplitter model file [{torchmodelfile}]')
             os.remove(torchmodelfile)
         # end if
 
@@ -324,7 +321,7 @@ class RoSentenceSplitter(object):
         the list of tokenized sentences."""
 
         word_sequence = self._tokenizer.tokenize(input_text)
-        bert_sequence_features = bert_embeddings(tokens=word_sequence)
+        bert_sequence_features = self._ro_bert.bert_embeddings(tokens=word_sequence)
         
         # Keeps the number of artificially inserted spaces
         # so that we can remove them at the end.
@@ -549,7 +546,7 @@ class RoSentenceSplitter(object):
     def _build_single_sample_input(self, sample: List[Tuple]) -> Tuple[np.ndarray, np.ndarray]:
         tx = len(sample)
         n = -1
-        sample_bert_features = bert_embeddings(tokens=sample)
+        sample_bert_features = self._ro_bert.bert_embeddings(tokens=sample)
 
         for j in range(len(sample)):
             parts = sample[j]

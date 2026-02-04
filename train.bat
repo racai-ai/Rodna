@@ -60,6 +60,12 @@ DEL /F /Q data\models\tagger\cls\config.json
 DEL /F /Q data\models\tagger\cls\model.pt
 DEL /F /Q data\models\tagger\crf\config.json
 DEL /F /Q data\models\tagger\crf\model.pt
+DEL /F /Q data\models\tagger\cls_bert\*.json
+DEL /F /Q data\models\tagger\cls_bert\model.safetensors
+DEL /F /Q data\models\tagger\cls_bert\vocab.txt
+DEL /F /Q data\models\tagger\crf_bert\*.json
+DEL /F /Q data\models\tagger\crf_bert\model.safetensors
+DEL /F /Q data\models\tagger\crf_bert\vocab.txt
 DEL /F /Q data\models\tagger_unic_props.txt
 :: Retrain the tagger
 python -m rodna.tagger

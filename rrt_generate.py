@@ -12,6 +12,15 @@ from utils.Lex import Lex
 # 5	.#SE#	.	PUNCT	PERIOD	_	1	punct	_	_
 # Then UD/tools/conllu_to_text.pl is used to get the text out from this file.
 # We generate EOS labels using the automatically generated #SE# annotation.
+#
+# 1. Replace
+# ^([0-9]+)\t(\W+)\t\2\t(PUNCT.+)\n\n
+# with
+# \1\t\2#SE#\t\2\t\3\n\n
+# in notepad++. Make sure EOL convention is set to Unix.
+#
+# 2. Run:
+# E:\RACAI\UD\tools>perl conllu_to_text.pl < ..\UD_Romanian-RRT\ro_rrt-ud-train2.conllu > ..\UD_Romanian-RRT\ro_rrt_train2.txt
 def generate_ssplit_rrt_training(in_file: str, out_file: str):
     with open(in_file, mode='r', encoding='utf-8') as fi:
         rrt_text = ''.join(fi.readlines())

@@ -3,12 +3,10 @@
 # Adapted by Radu Ion for RODNA
 # Implementation adapted from https://pytorch.org/tutorials/beginner/nlp/advanced_tutorial.html
 
-from typing import List, Dict, Set
-from random import shuffle
+from typing import Dict
 import torch
 from torch import Tensor
 import torch.nn as nn
-from torch.utils.data import Dataset
 from utils.MSD import MSD
 from . import _device
 
@@ -33,71 +31,6 @@ def log_sum_exp(vec: Tensor):
 
     return max_score + \
         torch.log(torch.sum(torch.exp(vec - max_score_broadcast))).to(device=_device)
-
-
-class CRFModelDataset(Dataset):
-    """This is a dataset for the BiGRUCRF model below."""
-
-    def __init__(self, lex_feats: List[torch.Tensor],
-                 emb_feats: List[torch.Tensor], ctx_feats: List[torch.Tensor],
-                 y_ctags: List[torch.Tensor]):
-        super().__init__()
-
-        # len(emb_feats) is the number of sentences in this data set
-        assert len(lex_feats) == len(emb_feats)
-        assert len(emb_feats) == len(ctx_feats)
-        assert len(ctx_feats) == len(y_ctags)
-
-        self._lex_feats = lex_feats
-        self._emb_feats = emb_feats
-        self._ctx_feats = ctx_feats
-        self._y_ctags = y_ctags
-        self._data = []
-        self.reshuffle()
-
-    def reshuffle(self):
-        self._data.clear()
-
-        # Group tensors by sentence length, for batch processing.
-        the_data = {}
-        sentence_lengths: Set[int] = set()
-
-        for i in range(len(self._lex_feats)):
-            i_len = self._lex_feats[i].shape[0]
-            i_len = int(i_len)
-
-            if i_len not in the_data:
-                the_data[i_len] = {'lex': [], 'emb': [],
-                                   'ctx': [], 'yct': []}
-                sentence_lengths.add(i_len)
-            # end if
-
-            the_data[i_len]['lex'].append(self._lex_feats[i])
-            the_data[i_len]['emb'].append(self._emb_feats[i])
-            the_data[i_len]['ctx'].append(self._ctx_feats[i])
-            the_data[i_len]['yct'].append(self._y_ctags[i])
-        # end for
-
-        # Get a random order of sentence lenghts order
-        sentence_lengths = list(sentence_lengths)
-        shuffle(sentence_lengths)
-        
-        for i_len in sentence_lengths:
-            for i in range(len(the_data[i_len]['lex'])):
-                self._data.append((
-                    the_data[i_len]['lex'][i],
-                    the_data[i_len]['emb'][i],
-                    the_data[i_len]['ctx'][i],
-                    the_data[i_len]['yct'][i]
-                ))
-            # end for
-        # end for
-
-    def __len__(self) -> int:
-        return len(self._data)
-
-    def __getitem__(self, index):
-        return self._data[index]
 
 
 class CRFModel(nn.Module):

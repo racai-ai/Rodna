@@ -39,11 +39,11 @@ TAGGER_UNICODE_PROPERTY_FILE = os.path.join(
 TAGGER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'tagger')
 CLS_TAGGER_MODEL_FOLDER = os.path.join(TAGGER_MODEL_FOLDER, 'cls')
 CRF_TAGGER_MODEL_FOLDER = os.path.join(TAGGER_MODEL_FOLDER, 'crf')
+BERT_FOR_CLS_TAGGER_FOLDER = os.path.join(TAGGER_MODEL_FOLDER, 'cls_bert')
+BERT_FOR_CRF_TAGGER_FOLDER = os.path.join(TAGGER_MODEL_FOLDER, 'crf_bert')
 PARADIGM_MORPHO_FILE = os.path.join(data_folder, 'resources', 'morphalt.xml')
 PARSER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser')
 PARSER_DEPRELS_FILE = os.path.join(
     data_folder, 'resources', 'conllu-deprels.txt')
 PARSER1_BERT_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser', 'bert1')
-PARSER1_TOKEN_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser', 'tok1')
 PARSER2_BERT_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser', 'bert2')
-PARSER2_TOKEN_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser', 'tok2')
