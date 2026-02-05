@@ -8,8 +8,8 @@ class CLSModel(nn.Module):
     MSD encoding scheme and then, a bidirectional RNN MSD classification scheme."""
 
     # RNN state size
-    _conf_rnn_size_1 = 512
-    _conf_rnn_size_2 = 512
+    _conf_rnn_size_1 = 1024
+    _conf_rnn_size_2 = 1024
 
     def __init__(self,
                  emb_input_vector_size: int,

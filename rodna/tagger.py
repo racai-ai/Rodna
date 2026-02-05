@@ -37,33 +37,34 @@ class TaggerDataset(Dataset):
     def __init__(self, sentences: List[List[Tuple[str, str, List[str]]]]):
         super().__init__()
         self._data = []
-        self._sentences = sentences
+        self._fill_data_by_len(sentences=sentences)
         self.reshuffle()
+
+    def _fill_data_by_len(self, sentences: List[List[Tuple[str, str, List[str]]]]):
+        # Group tensors by sentence length, for batch processing.
+        self._data_by_len: Dict[int, List[List[Tuple]]] = {}
+
+        for snt in sentences:
+            snt_len = len(snt)
+
+            if snt_len not in self._data_by_len:
+                self._data_by_len[snt_len] = []
+            # end if
+
+            self._data_by_len[snt_len].append(snt)
+        # end for
+
+        # Sort sentences by length from high to low
+        self._sentence_lengths = list(self._data_by_len.keys())
+        self._sentence_lengths.sort(reverse=True)
 
     def reshuffle(self):
         self._data.clear()
 
-        # Group tensors by sentence length, for batch processing.
-        the_data: Dict[int, List[List[Tuple]]] = {}
-        sentence_lengths: Set[int] = set()
+        for snt_len in self._sentence_lengths:
+            shuffle(self._data_by_len[snt_len])
 
-        for snt in self._sentences:
-            snt_len = len(snt)
-
-            if snt_len not in the_data:
-                the_data[snt_len] = []
-            # end if
-
-            the_data[snt_len].append(snt)
-            sentence_lengths.add(snt_len)
-        # end for
-
-        # Get a random order of sentence lenghts order
-        sentence_lengths = list(sentence_lengths)
-        shuffle(sentence_lengths)
-
-        for snt_len in sentence_lengths:
-            for snt in the_data[snt_len]:
+            for snt in self._data_by_len[snt_len]:
                 self._data.append(snt)
             # end for
         # end for
@@ -86,11 +87,7 @@ class RoPOSTagger(object):
     _conf_test_percent = 0.1
     _conf_epochs_cls = 10
     _conf_epochs_crf = 2
-    _conf_with_tiered_tagging = False
-    # Can be one of the following (see RoPOSTagger._run_sentence()):
-    # - 'add': add the probabilities for each MSD that was assigned at position i, in each rolling window
-    # - 'max': only keep the MSD with the highest probability at position i, from each rolling window
-    # - 'cnt': add 1 to each different MSD that was assigned at position i, in each rolling window (majority voting)
+    _conf_with_tiered_tagging = True
     _conf_model_file = 'model.pt'
     _conf_config_file = 'config.json'
 
@@ -121,11 +118,8 @@ class RoPOSTagger(object):
 
         _save_all(CLS_TAGGER_MODEL_FOLDER, self._cls_model, self._cls_config)
         self._cls_ro_bert.save(destination_folder=BERT_FOR_CLS_TAGGER_FOLDER)
-        
-        if RoPOSTagger._conf_with_tiered_tagging:
-            _save_all(CRF_TAGGER_MODEL_FOLDER, self._crf_model, self._crf_config)
-            self._crf_ro_bert.save(destination_folder=BERT_FOR_CRF_TAGGER_FOLDER)
-        # end if
+        _save_all(CRF_TAGGER_MODEL_FOLDER, self._crf_model, self._crf_config)
+        self._crf_ro_bert.save(destination_folder=BERT_FOR_CRF_TAGGER_FOLDER)
 
     def load(self):
         def _load_conf(folder: str) -> dict:
@@ -162,139 +156,109 @@ class RoPOSTagger(object):
         )
         _load_model(CLS_TAGGER_MODEL_FOLDER, self._cls_model)
 
-        if RoPOSTagger._conf_with_tiered_tagging:
-            self._crf_config = _load_conf(CRF_TAGGER_MODEL_FOLDER)
-            self._crf_ro_bert = RoBERTModel(
-                path_or_name=BERT_FOR_CRF_TAGGER_FOLDER)
-            self._crf_model = self._build_crf_model(
-                emb_input_vector_size=self._crf_ro_bert.get_embedding_size(),
-                lex_input_vector_size=self._crf_config['lex_input_vector_size'],
-                ctx_input_vector_size=self._crf_config['ctx_input_vector_size'],
-                drop_prob=float(self._crf_config['drop_prob'])
-            )
-            _load_model(CRF_TAGGER_MODEL_FOLDER, self._crf_model)
-        # end if
+        self._crf_config = _load_conf(CRF_TAGGER_MODEL_FOLDER)
+        self._crf_ro_bert = RoBERTModel(
+            path_or_name=BERT_FOR_CRF_TAGGER_FOLDER)
+        self._crf_model = self._build_crf_model(
+            emb_input_vector_size=self._crf_ro_bert.get_embedding_size(),
+            lex_input_vector_size=self._crf_config['lex_input_vector_size'],
+            ctx_input_vector_size=self._crf_config['ctx_input_vector_size'],
+            drop_prob=float(self._crf_config['drop_prob'])
+        )
+        _load_model(CRF_TAGGER_MODEL_FOLDER, self._crf_model)
 
     def train(self,
-              data_sentences: List[List[Tuple[str, str, List[str]]]],
               train_sentences: List[List[Tuple[str, str, List[str]]]],
               dev_sentences: List[List[Tuple[str, str, List[str]]]],
               test_sentences: List[List[Tuple[str, str, List[str]]]]):
-        # Either data_sentences is not None or
-        # train_sentences, dev_sentences and test_sentences are not none
-        if data_sentences and \
-                not train_sentences and not dev_sentences and not test_sentences:
-            # 1. Get the full word sequence from the train folder
-            logger.info(f"Got [{len(data_sentences)}] sentences.")
-
-            # 2. Cut the full word sequence into maxSeqLength smaller sequences
-            # and assign those randomly to train/dev/test sets
-            logger.info(f"Building train/dev/test samples",
-                  file=sys.stderr, flush=True)
-
-            (train_sentences, train_examples, dev_sentences, dev_examples, test_sentences,
-             test_examples) = self._build_train_samples(data_sentences)
-        elif not data_sentences and \
-                train_sentences and dev_sentences and test_sentences:
-            train_examples, dev_examples, test_examples = \
-                self._build_train_samples_already_split(train_sentences,
-                                                        dev_sentences, test_sentences)
-        # end if
-
-        logger.info(f"Got train set with [{len(train_examples)}] samples")
         logger.info(f"Got train set with [{len(train_sentences)}] sentences")
-        logger.info(f"Got dev set with [{len(dev_examples)}] samples")
         logger.info(f"Got dev set with [{len(dev_sentences)}] sentences")
-        logger.info(f"Got test set with [{len(test_examples)}] samples")
         logger.info(f"Got test set with [{len(test_sentences)}] sentences")
 
         # 3. Build the Unicode properties on the train set
-        self._build_unicode_props(train_examples)
+        self._build_unicode_props(train_sentences)
 
-        if RoPOSTagger._conf_with_tiered_tagging:
-            # 4 Load BERT model for fine-tuning
-            self._crf_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
-            crf_emb_input_dim = self._crf_ro_bert.get_embedding_size()
+        # 4 Load BERT model for fine-tuning
+        self._crf_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
+        crf_emb_input_dim = self._crf_ro_bert.get_embedding_size()
 
-            # 5. Build the PyTorch CRF model
-            crf_x_lex_0, _, crf_x_ctx_0, _ = \
-                self._build_crf_io_tensor(sentence=train_examples[0])
-            crf_lex_input_dim = crf_x_lex_0.shape[1]
-            crf_ctx_input_dim = crf_x_ctx_0.shape[1]
+        # 5. Build the PyTorch CRF model
+        crf_x_lex_0, _, crf_x_ctx_0, _ = \
+            self._build_crf_io_tensor(sentence=train_sentences[0])
+        crf_lex_input_dim = crf_x_lex_0.shape[1]
+        crf_ctx_input_dim = crf_x_ctx_0.shape[1]
 
-            self._crf_config = {
-                'lex_input_vector_size': crf_lex_input_dim,
-                'ctx_input_vector_size': crf_ctx_input_dim,
-                'drop_prob': 0.25
-            }
-            self._crf_model = self._build_crf_model(
-                crf_emb_input_dim,
-                crf_lex_input_dim,
-                crf_ctx_input_dim,
-                0.25
-            )
+        self._crf_config = {
+            'lex_input_vector_size': crf_lex_input_dim,
+            'ctx_input_vector_size': crf_ctx_input_dim,
+            'drop_prob': 0.25
+        }
+        self._crf_model = self._build_crf_model(
+            crf_emb_input_dim,
+            crf_lex_input_dim,
+            crf_ctx_input_dim,
+            0.25
+        )
 
-            # Don’t decay LayerNorm & biases
-            bert_decay_params, bert_no_decay_params = [], []
+        # Don’t decay LayerNorm & biases
+        bert_decay_params, bert_no_decay_params = [], []
 
-            for name, param in self._crf_ro_bert.bert_model.named_parameters():
-                if param.ndim == 1 or name.endswith(".bias"):
-                    bert_no_decay_params.append(param)
-                else:
-                    bert_decay_params.append(param)
-                # end if
-            # end for
+        for name, param in self._crf_ro_bert.bert_model.named_parameters():
+            if param.ndim == 1 or name.endswith(".bias"):
+                bert_no_decay_params.append(param)
+            else:
+                bert_decay_params.append(param)
+            # end if
+        # end for
 
-            self._crf_optimizer = AdamW([
-                {"params": bert_decay_params, "weight_decay": 0.01, "lr": 2e-5},
-                {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 2e-5},
-                {"params": self._crf_model.parameters(), "weight_decay": 0.0, "lr": 5e-4}]
-            )
-            self._crf_lr_scheduler = ExponentialLR(optimizer=self._crf_optimizer, gamma=0.95)
+        self._crf_optimizer = AdamW([
+            {"params": bert_decay_params, "weight_decay": 0.01, "lr": 2e-5},
+            {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 2e-5},
+            {"params": self._crf_model.parameters(), "weight_decay": 0.0, "lr": 1e-3}]
+        )
+        self._crf_lr_scheduler = ExponentialLR(optimizer=self._crf_optimizer, gamma=0.95)
 
-            snt_dataset_train = TaggerDataset(sentences=train_sentences)
-            snt_dataset_dev = TaggerDataset(sentences=dev_sentences)
-            snt_dataset_test = TaggerDataset(sentences=test_sentences)
+        dataset_train = TaggerDataset(sentences=train_sentences)
+        dataset_dev = TaggerDataset(sentences=dev_sentences)
+        dataset_test = TaggerDataset(sentences=test_sentences)
 
-            # Leave batch_size=1 as sentences cannot be batched by length.
-            # They are, but when a batch contains more than one length, the ones not with
-            # the biggest length are discarded from training.
-            train_dataloader = DataLoader(
-                dataset=snt_dataset_train, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
-            dev_dataloader = DataLoader(
-                dataset=snt_dataset_dev, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
-            test_dataloader = DataLoader(
-                dataset=snt_dataset_test, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
+        train_dataloader = DataLoader(
+            dataset=dataset_train, batch_size=4, shuffle=False, collate_fn=self._crf_collate_fn)
+        # batch_size=1 is mandatory so that the evaluation function
+        # is considering all examples correctly.
+        dev_dataloader = DataLoader(
+            dataset=dataset_dev, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
+        test_dataloader = DataLoader(
+            dataset=dataset_test, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
 
-            for ep in range(1, RoPOSTagger._conf_epochs_crf + 1):
-                # Fit model for one epoch
-                self._crf_model.train()
-                self._do_one_crf_epoch(epoch=ep, dataloader=train_dataloader)
+        for ep in range(1, RoPOSTagger._conf_epochs_crf + 1):
+            # Fit model for one epoch
+            self._crf_model.train()
+            self._do_one_crf_epoch(epoch=ep, dataloader=train_dataloader)
 
-                # Test model
-                # Put model into eval mode first
-                self._crf_model.eval()
-                self._test_crf_model(dataloader=dev_dataloader, ml_set='dev')
-
-                self._crf_lr_scheduler.step()
-                bert_lr, _, crf_lr = self._crf_lr_scheduler.get_last_lr()
-                logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
-                logger.info(f'Setting new CRF LR to [{crf_lr:.7f}]')
-
-                # Reshuffle training data
-                snt_dataset_train.reshuffle()
-            # end for
-
+            # Test model
+            # Put model into eval mode first
             self._crf_model.eval()
-            self._test_crf_model(dataloader=test_dataloader, ml_set='test')
-        # end if
+            self._test_crf_model(dataloader=dev_dataloader, ml_set='dev')
+
+            self._crf_lr_scheduler.step()
+            bert_lr, _, crf_lr = self._crf_lr_scheduler.get_last_lr()
+            logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
+            logger.info(f'Setting new CRF LR to [{crf_lr:.7f}]')
+
+            # Reshuffle the train set
+            dataset_train.reshuffle()
+        # end for
+
+        self._crf_model.eval()
+        self._test_crf_model(dataloader=test_dataloader, ml_set='test')
 
         # 7.1 Build the PyTorch CLS model
         self._cls_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
         cls_emb_input_dim = self._cls_ro_bert.get_embedding_size()
 
         cls_x_lex_0, _, cls_x_ctx_0, cls_x_enc_0, _ = \
-            self._build_cls_io_tensor(sample=train_examples[0])
+            self._build_cls_io_tensor(sample=train_sentences[0])
         cls_lex_input_dim = cls_x_lex_0.shape[1]
         cls_ctx_input_dim = cls_x_ctx_0.shape[1]
         cls_enc_input_dim = cls_x_enc_0.shape[1]
@@ -313,8 +277,7 @@ class RoPOSTagger(object):
             'ctx_input_vector_size': cls_ctx_input_dim,
             'msd_encoding_vector_size': cls_enc_input_dim,
             'output_msd_size': output_msd_dim,
-            'drop_prob': 0.25,
-            'sequence_length': self._maxseqlen
+            'drop_prob': 0.25
         }
 
         # MSD encoding loss
@@ -336,20 +299,18 @@ class RoPOSTagger(object):
         self._cls_optimizer = AdamW([
             {"params": bert_decay_params, "weight_decay": 0.01, "lr": 2e-5},
             {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 2e-5},
-            {"params": self._cls_model.parameters(), "weight_decay": 0.0, "lr": 5e-4}]
+            {"params": self._cls_model.parameters(), "weight_decay": 0.0, "lr": 1e-3}]
         )
         self._cls_lr_scheduler = ExponentialLR(optimizer=self._cls_optimizer, gamma=0.95)
 
-        smp_dataset_train = TaggerDataset(sentences=train_examples)
-        smp_dataset_dev = TaggerDataset(sentences=dev_examples)
-        smp_dataset_test = TaggerDataset(sentences=test_examples)
-
         train_dataloader = DataLoader(
-            dataset=smp_dataset_train, batch_size=4, shuffle=False, collate_fn=self._cls_collate_fn)
+            dataset=dataset_train, batch_size=4, shuffle=False, collate_fn=self._cls_collate_fn)
+        # batch_size=1 is mandatory so that the evaluation function
+        # is considering all examples correctly.
         dev_dataloader = DataLoader(
-            dataset=smp_dataset_dev, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
+            dataset=dataset_dev, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
         test_dataloader = DataLoader(
-            dataset=smp_dataset_test, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
+            dataset=dataset_test, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
         
         # 7.3 Train the CLS model and test it
         for ep in range(1, RoPOSTagger._conf_epochs_cls + 1):
@@ -367,8 +328,8 @@ class RoPOSTagger(object):
             logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
             logger.info(f'Setting new CRF LR to [{cls_lr:.7f}]')
 
-            # Reshuffle training data
-            smp_dataset_train.reshuffle()
+            # Reshuffle the train set
+            dataset_train.reshuffle()
         # end for
 
         self._cls_model.eval()
@@ -379,11 +340,29 @@ class RoPOSTagger(object):
         # 5. Save RoInflect cache file for faster startup next time
         self._romorphology.save_cache()
 
+    def _trim_batch(self, batch: List[List[Tuple[str, str, List[str]]]]) -> List[List[Tuple[str, str, List[str]]]]:
+        lowest_dim = 1_000_000
+
+        for snt in batch:
+            if len(snt) < lowest_dim:
+                lowest_dim = len(snt)
+            # end if
+        # end for
+
+        trimmed_batch = []
+
+        for b in batch:
+            trimmed_batch.append(b[:lowest_dim])
+        # end for
+
+        return trimmed_batch
 
     def _crf_collate_fn(self, batch: List[List[Tuple[str, str, List[str]]]]) -> Tuple[torch.Tensor, torch.Tensor,
                                               torch.Tensor, torch.Tensor]:
         """Builds a batch taking care that all sentence lengths are the same!
         Cuts the batch size if next tensor had a different length."""
+
+        batch = self._trim_batch(batch=batch)
         
         lex_batch = []
         emb_batch = []
@@ -391,16 +370,6 @@ class RoPOSTagger(object):
         yct_batch = []
 
         for sentence in batch:
-            crt_slen = len(sentence)
-            
-            if lex_batch:
-                prv_slen = lex_batch[-1].shape[1]
-
-                if crt_slen != prv_slen:
-                    break
-                # end if
-            # end if
-
             inp_lex, inp_emb, inp_ctx, tar_ctg = \
                 self._build_crf_io_tensor(sentence=sentence)
 
@@ -423,6 +392,8 @@ class RoPOSTagger(object):
     def _cls_collate_fn(self, batch: List[List[Tuple[str, str, List[str]]]]) -> Tuple[torch.Tensor, torch.Tensor,
                                                                                       torch.Tensor, torch.Tensor,
                                                                                       torch.Tensor]:
+        batch = self._trim_batch(batch=batch)
+
         lex_batch = []
         emb_batch = []
         ctx_batch = []
@@ -723,217 +694,6 @@ class RoPOSTagger(object):
             torch.cat(xctx_tensors, dim=0).to(_device), \
             torch.cat(y_tensors_enc, dim=0).to(_device), \
             torch.tensor(y_cls, dtype=torch.long).to(_device)
-
-    def _build_samples(self,
-                       sentences: List[List[Tuple[str, str, List[str]]]]) -> List[List[Tuple[str, str, List[str]]]]:
-        all_samples = []
-
-        # Assemble examples with required, fixed length
-        for sentence in sentences:
-            all_samples.extend(self._trim_sentence_to_length(sentence=sentence))
-        # end all sentences
-
-        return all_samples
-
-    def _trim_sentence_to_length(self,
-                                 sentence: List[Tuple[str, str, List[str]]]) -> List[List[Tuple[str, str, List[str]]]]:
-        """If the sentence has less tokens than `self._maxseqlen`, pad it at right.
-        If it has more tokens than `self._maxseqlen`, cut it in `self._maxseqlen` pieces."""
-        
-        if len(sentence) < self._maxseqlen:
-            padded_sentence = list(sentence)
-
-            while len(padded_sentence) < self._maxseqlen:
-                padded_sentence.append((zero_word, 'X', []))
-            # end with
-
-            return [padded_sentence]
-        elif len(sentence) > self._maxseqlen:
-            trimmed_sentences = []
-            
-            for i in range(0, len(sentence), self._maxseqlen):
-                if i + self._maxseqlen <= len(sentence):
-                    trimmed_sentences.append(sentence[i: i + self._maxseqlen])
-                else:
-                    last_sentence_piece = sentence[i:]
-
-                    while len(last_sentence_piece) < self._maxseqlen:
-                        last_sentence_piece.append((zero_word, 'X', []))
-                    # end with
-
-                    trimmed_sentences.append(last_sentence_piece)
-                # end if
-            # end for
-
-            return trimmed_sentences
-        else:
-            return [sentence]
-        # end if
-
-    def _add_sentence_boundaries(self, sentence: List[List[Tuple[str, str, List[str]]]]):
-        """Add sentences START/END words for CRF modeling."""
-        if sentence[0][0] != start_word:
-            sentence.insert(0,
-                (start_word, self._msd.get_start_end_tags('start', ctag=False), []))
-        # end if
-
-        if sentence[-1][0] != end_word:
-            sentence.append(
-                (end_word, self._msd.get_start_end_tags('end', ctag=False), []))
-        # end if
-
-    def _build_train_samples_already_split(self,
-                                           train_sentences: List[List[Tuple[str, str, List[str]]]],
-                                           dev_sentences: List[List[Tuple[str, str, List[str]]]],
-                                           test_sentences: List[List[Tuple[str, str, List[str]]]]):
-        """Builds the from the predefined split."""
-
-        def count_words(sentences: List[List[Tuple[str, str, List[str]]]]) -> int:
-            word_count = 0
-
-            for sentence in sentences:
-                word_count += len(sentence)
-            # end for
-
-            return word_count
-        # end def
-
-        logger.info(f"There are [{count_words(train_sentences)}] words in the train set")
-        logger.info(f"There are [{count_words(dev_sentences)}] words in the dev set")
-        logger.info(f"There are [{count_words(test_sentences)}] words in the test set")
-
-        self._train_words = set()
-
-        # Add diagnostic info
-        for sentence in train_sentences:
-            for parts in sentence:
-                word = parts[0].lower()
-
-                if word not in self._train_words:
-                    self._train_words.add(word)
-                # end if
-            # end for
-        # end for
-
-        sentence_lengths = []
-
-        # Find the maximum sentence length in train
-        for sentence in train_sentences:
-            sentence_lengths.append(len(sentence))
-        # end for
-
-        slarr = np.asarray(sentence_lengths, dtype=np.float32)
-        sl_max = np.max(slarr, keepdims=False)
-        sl_max = int(sl_max)
-
-        logger.info(f"Maximum sentence length in training set is [{sl_max}]")
-
-        sl_mean = np.mean(slarr)
-        sl_stddev = np.std(slarr)
-
-        # Mean plus 2 standard deviations
-        self._maxseqlen = int(sl_mean) + 2 * int(sl_stddev)
-
-        # Round to tens
-        while self._maxseqlen % 10 != 0:
-            self._maxseqlen += 1
-        # end while
-
-        logger.info(f"Determined [{self._maxseqlen}] as the maximum sentence length "
-                    f"[mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
-
-        train_samples = self._build_samples(train_sentences)
-        dev_samples = self._build_samples(dev_sentences)
-        test_samples = self._build_samples(test_sentences)
-
-        return train_samples, dev_samples, test_samples
-
-    def _build_train_samples(self, sentences: List[List[Tuple[str, str, List[str]]]]):
-        """Builds the ML sets by segmenting the data_sequence into fixed-length chunks."""
-
-        total_word_count = 0
-
-        for sentence in sentences:
-            total_word_count += len(sentence)
-        # end for
-
-        shuffle(sentences)
-
-        train_sentences = []
-        dev_sentences = []
-        test_sentences = []
-        dev_scount = int(
-            RoPOSTagger._conf_dev_percent * total_word_count)
-        test_scount = int(
-            RoPOSTagger._conf_test_percent * total_word_count)
-
-        logger.info(f"There are [{total_word_count}] words in the training data")
-        logger.info(f"There will be approximately [{dev_scount}] words in the dev set")
-        logger.info(f"There will be approximately [{test_scount}] words in the test set")
-
-        current_word_count = 0
-
-        while current_word_count < dev_scount:
-            dev_sentences.append(sentences.pop(0))
-            current_word_count += len(dev_sentences[-1])
-        # end while
-
-        logger.info(f"Ended up with [{current_word_count}] words in the dev set")
-        current_word_count = 0
-
-        while current_word_count < test_scount:
-            test_sentences.append(sentences.pop(0))
-            current_word_count += len(test_sentences[-1])
-        # end while
-
-        logger.info(f"Ended up with [{current_word_count}] words in the test set")
-        
-        train_sentences.extend(sentences)
-        self._train_words = set()
-
-        # Add diagnostic info
-        for sentence in train_sentences:
-            for parts in sentence:
-                word = parts[0].lower()
-
-                if word not in self._train_words:
-                    self._train_words.add(word)
-                # end if
-            # end for
-        # end for
-
-        sentence_lengths = []
-
-        # Find the maximum sentence length in train
-        for sentence in train_sentences:
-            sentence_lengths.append(len(sentence))
-        # end for
-
-        slarr = np.asarray(sentence_lengths, dtype=np.float32)
-        sl_max = np.max(slarr, keepdims=False)
-        sl_max = int(sl_max)
-
-        logger.info(f"Maximum sentence length in training set is [{sl_max}]")
-
-        sl_mean = np.mean(slarr)
-        sl_stddev = np.std(slarr)
-
-        # Mean plus 2 standard deviations
-        self._maxseqlen = int(sl_mean) + 2 * int(sl_stddev)
-
-        # Round to tens
-        while self._maxseqlen % 10 != 0:
-            self._maxseqlen += 1
-        # end while
-
-        logger.info(f"Determined [{self._maxseqlen}] as the maximum sentence length "
-                    f"[mean = {sl_mean:.2f}, stddev = {sl_stddev:.2f}]")
-
-        train_samples = self._build_samples(train_sentences)
-        dev_samples = self._build_samples(dev_sentences)
-        test_samples = self._build_samples(test_sentences)
-
-        return train_sentences, train_samples, dev_sentences, dev_samples, test_sentences, test_samples
 
     def _build_unicode_props(self, data_samples: List[List[Tuple[str, str, List[str]]]]):
         for sample in tqdm(data_samples, desc='Unicode props'):
@@ -1419,23 +1179,8 @@ if __name__ == '__main__':
     mor = RoInflect(lex)
     mor.load()
     tag = RoPOSTagger(lex, tok, mor, spl)
-    tag.load()
-    
-    # When we have multiple files
-    #data_sentences = []
-    #tab_files = read_all_ext_files_from_dir(os.path.join(
-    #    "data", "training", "tagger"), extension='.tab')
-    #
-    #for file in tab_files:
-    #    print(stack()[
-    #        0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
-    #    sentences = tg.read_tagged_file(file)
-    #    data_sentences.extend(sentences)
-    # end for
-    #
-    #tg.train(data_sentences)
+    #tag.load()
 
-    # For a given split, like in RRT
     training_file = os.path.join(
         "data", "training", "tagger", "ro_rrt-ud-train.tab")
     logger.info(f"Reading training file [{training_file}]")
@@ -1451,7 +1196,7 @@ if __name__ == '__main__':
     logger.info(f"Reading testing file [{testing_file}]")
     testing = tag.read_tagged_file(testing_file)
 
-    #tag.train(data_sentences=[], train_sentences=training,
-    #          dev_sentences=development, test_sentences=testing)
+    tag.train(train_sentences=training,
+              dev_sentences=development, test_sentences=testing)
     tag.test_on_sentence_set(sentences=development, ml_type='dev')
     tag.test_on_sentence_set(sentences=testing, ml_type='test')

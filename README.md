@@ -24,9 +24,9 @@ F1 of the above is 93.88%.
 A Bi-LSTM-CRF head over a BERT embedding to get coarse-grained POS tags coupled with a Bi-LSTM head over another BERT embedding to get the [MSD](https://nl.ijs.si/ME/V6/msd/html/msd-ro.html) of the current word, given its coarse-grained POS tag. The POS tagger uses Romanian-specific features, extracted beforehand from the input sentence.
 
 ### With coarse-grained to fine-grained mapping (called "tiered tagging")
-Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.11%.\
-Accuracy on fine-grained POS tags (MSDs) of the test set is 97.64%.
+Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.15%.\
+Accuracy on fine-grained POS tags (MSDs) of the test set is 97.75%.
 
 ### Without tiered tagging (roughly 10 times faster)
-Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.03%.\
-Accuracy on fine-grained POS tags (MSDs) of the test set is 97.56%.
+Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.05%.\
+Accuracy on fine-grained POS tags (MSDs) of the test set is 97.59%.

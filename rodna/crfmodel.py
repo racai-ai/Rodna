@@ -34,28 +34,28 @@ def log_sum_exp(vec: Tensor):
 
 
 class CRFModel(nn.Module):
-    """This implements a POS tagger based on a BiGRU network
+    """This implements a POS tagger based on a Bi-LSTM network
     supplying the emmision features and a CRF layer to choose
     the optimal tag."""
 
-    _conf_rnn_size = 256
+    _conf_rnn_size = 1024
 
     def __init__(self,
                  embed_size: int, tag_to_ix: Dict,
                  lex_input_vector_size: int, ctx_input_vector_size: int,
-                 drop_prob: float = 0.33):
+                 drop_prob: float = 0.25):
         super().__init__()
         # START_TAG and STOP_TAG are assumed to be in tag_to_ix
         self.tag_to_ix = tag_to_ix
         self.tagset_size = len(tag_to_ix)
-        self.gru = nn.GRU(
-            embed_size + lex_input_vector_size,
-            CRFModel._conf_rnn_size,
+        self.lstm = nn.LSTM(
+            input_size=embed_size + lex_input_vector_size,
+            hidden_size=CRFModel._conf_rnn_size,
             batch_first=True,
             bidirectional=True)
         self.drop = nn.Dropout(p=drop_prob)
 
-        # Maps the output of the GRU into tag space.
+        # Maps the output of the LSTM into tag space.
         self.hidden2tag = nn.Linear(
             2 * CRFModel._conf_rnn_size + ctx_input_vector_size, self.tagset_size)
 
@@ -109,15 +109,16 @@ class CRFModel(nn.Module):
 
         return alpha
 
-    def _get_gru_features(self, x):
+    def _get_lstm_features(self, x):
         """This is the batched version."""
 
         x_lex, x_emb, x_ctx = x
         bs = x_lex.shape[0]
-        self.hidden = self._init_hidden(bsize=bs)
+        h_0 = self._init_hidden(bsize=bs)
+        c_0 = self._init_hidden(bsize=bs)
 
         out = torch.cat([x_emb, x_lex], dim=2)
-        out, self.hidden = self.gru(out, self.hidden)
+        out, (h_n, c_n) = self.lstm(out, (h_0, c_0))
         out = self.drop(out)
         out = torch.cat([out, x_ctx], dim=2)
         feats = self.hidden2tag(out)
@@ -194,7 +195,7 @@ class CRFModel(nn.Module):
         """`x` are the input features and `tags` are the gold
         standard tags for the sentence."""
 
-        batch_feats = self._get_gru_features(x)
+        batch_feats = self._get_lstm_features(x)
         batch_forward_score = torch.zeros(
             1, dtype=torch.float32).to(device=_device)
         batch_gold_score = torch.zeros(
@@ -212,8 +213,8 @@ class CRFModel(nn.Module):
         return batch_forward_score - batch_gold_score
 
     def forward(self, x):
-        # 1. Get the emission scores from the BiGRU
-        batch_feats = self._get_gru_features(x)
+        # 1. Get the emission scores from the Bi-LSTM
+        batch_feats = self._get_lstm_features(x)
 
         # 2. Find the best path, given the features.
         scores = []
