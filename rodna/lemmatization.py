@@ -1,9 +1,10 @@
-from typing import List, Tuple
 import os
 import re
 import sys
+from typing import List, Tuple, \
+    Union, Dict, Set, Any
 from math import log10
-from random import shuffle, seed
+from random import shuffle
 from tqdm import tqdm
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
@@ -11,11 +12,13 @@ from .morphology import RoInflect
 from utils.Lex import Lex
 from config import PARADIGM_MORPHO_FILE, \
     TBL_WORDROOT_FILE, TBL_ROOT2ROOT_FILE, ROOT_EXTRACT_LOG_FILE
+from . import logger
+
 
 class RoLemmatizer(object):
     """This is the Romanian lemmatizer, using the Romanian Paradigmatic Morphology."""
 
-    _fix_msd_map = {
+    _fix_msd_map: Dict[str, str] = {
         'Npmsrn': 'Npms-n',
         'Ncmsrn': 'Ncms-n',
         'Npmson': 'Npms-n',
@@ -34,7 +37,7 @@ class RoLemmatizer(object):
         'Npfpvn': 'Npfp-n'
     }
 
-    _lemma_msds = {
+    _lemma_msds: Set[str] = {
         'Af',
         'Afp',
         'Afpm--n',
@@ -64,7 +67,7 @@ class RoLemmatizer(object):
     }
 
     # For the following 3, nom. sg. and nom. pl. MSDs are at 0 and 1!
-    _nom_masc_inflect_class_msds = [
+    _nom_masc_inflect_class_msds: List[str] = [
         # băiat
         'Ncms-n',
         # băieț-i
@@ -83,7 +86,7 @@ class RoLemmatizer(object):
         'Ncmpvy'
     ]
 
-    _nom_fem_inflect_class_msds = [
+    _nom_fem_inflect_class_msds: List[str] = [
         # fat-ă
         'Ncfsrn',
         # fet-e
@@ -104,7 +107,7 @@ class RoLemmatizer(object):
         'Ncfpvy'
     ]
 
-    _nom_neu_inflect_class_msds = [
+    _nom_neu_inflect_class_msds: List[str] = [
         # canion
         'Ncms-n',
         # canioan-e
@@ -123,7 +126,7 @@ class RoLemmatizer(object):
         'Ncfpvy'
     ]
 
-    _verb_inflect_class_msds = [
+    _verb_inflect_class_msds: List[str] = [
         # infinitive
         'Vmnp',
         # indicative, present
@@ -188,8 +191,7 @@ class RoLemmatizer(object):
             self._root_rules = self._build_root_to_lemma_rules()
         # end if
 
-    # Done
-    def _s2s_rule(self, left: str, right: str) -> tuple:
+    def _s2s_rule(self, left: str, right: str) -> Union[Tuple[str], Tuple[str, str], Tuple[str, str, str]]:
         """String to string changing rule. Change `left` string
         into the `right` string."""
 
@@ -223,8 +225,7 @@ class RoLemmatizer(object):
             # end if
         # end if
 
-    # Done
-    def _build_roots(self, infl_class: dict, infl_msds: list, para_type: str) -> list:
+    def _build_roots(self, infl_class: dict, infl_msds: list, para_type: str) -> List[Tuple]:
         """Builds the nouns, adjectives and verbs root lexicon from tbl.wordform.ro and morphalt.xml."""
 
         found_roots = []
@@ -346,11 +347,10 @@ class RoLemmatizer(object):
 
         return found_roots
 
-    # Done
-    def _read_root_lexicon(self) -> dict:
+    def _read_root_lexicon(self) -> Dict[str, Dict[str, List[Tuple]]]:
         roots = {}
 
-        print(f'Reading word root lexicon from [{TBL_WORDROOT_FILE}]', file=sys.stderr, flush=True)
+        logger.info(f'Reading word root lexicon from [{TBL_WORDROOT_FILE}]')
 
         with open(TBL_WORDROOT_FILE, mode='r', encoding='utf-8') as f:
             for line in f:
@@ -379,8 +379,7 @@ class RoLemmatizer(object):
 
         return roots
 
-    # Done
-    def _build_root_lexicon(self) -> dict:
+    def _build_root_lexicon(self) -> Dict[str, Dict[str, List[Tuple]]]:
         infl_classes = self._lexicon.get_inflectional_classes()
         
         with open(ROOT_EXTRACT_LOG_FILE, mode='w', encoding='utf-8') as ff:
@@ -440,12 +439,10 @@ class RoLemmatizer(object):
 
         return self._read_root_lexicon()
 
-    # Done
-    def _read_root_to_lemma_rules(self) -> dict:
+    def _read_root_to_lemma_rules(self) -> Dict[str, Dict[str, Dict[Tuple, int]]]:
         rules = {}
 
-        print(
-            f'Reading lemmatization rules from [{TBL_ROOT2ROOT_FILE}]', file=sys.stderr, flush=True)
+        logger.info(f'Reading lemmatization rules from [{TBL_ROOT2ROOT_FILE}]')
 
         with open(TBL_ROOT2ROOT_FILE, mode='r', encoding='utf-8') as f:
             for line in f:
@@ -515,8 +512,7 @@ class RoLemmatizer(object):
 
         return rules
 
-    # Done
-    def _parse_attr_values(self, attr_value: str) -> list:
+    def _parse_attr_values(self, attr_value: str) -> List[str]:
         if attr_value.startswith('{') and attr_value.endswith('}'):
             attr_values = attr_value[1:-1].split()
         else:
@@ -525,7 +521,6 @@ class RoLemmatizer(object):
 
         return attr_values
 
-    # Done
     def _map_noun_msd_to_endings(self,
             type_values: list, gender: str,
             num_values: list, case_values: list, encl_values: list,
@@ -744,7 +739,6 @@ class RoLemmatizer(object):
 
         return msd_to_endings
 
-    # Done
     def _edit_verb_endings(self, msd_to_endings: dict):
         if msd_to_endings['Vmsp1s'] == msd_to_endings['Vmip1s']:
             del msd_to_endings['Vmsp1s']
@@ -775,7 +769,6 @@ class RoLemmatizer(object):
         vmp_end, vmp_alt = list(msd_to_endings['Vmp--sm'])[0]
         msd_to_endings['Vmg-------y'].add((vmp_end + 'u', vmp_alt))
 
-    # Done
     def _parse_verb_paradigm(self, paradigm: Element) -> dict:
         """Parses a verbal paradigm. Returns the MSD to endigs dictionary."""
         voice_elem = paradigm.find('VOICE')
@@ -958,8 +951,7 @@ class RoLemmatizer(object):
         self._edit_verb_endings(msd_to_endings)
         return msd_to_endings
 
-    # Done
-    def _read_paradigm_morph(self) -> tuple:
+    def _read_paradigm_morph(self) -> Tuple[Dict[str, Any]]:
         parser = ET.XMLParser()
         document = ET.parse(PARADIGM_MORPHO_FILE, parser)
         root = document.getroot()
@@ -976,20 +968,17 @@ class RoLemmatizer(object):
             # end if
 
             if pname.startswith('nomsuf'):
-                print(f'Parsing paradigm [{pname}]',
-                      file=sys.stderr, flush=True)
+                logger.info(f'Parsing paradigm [{pname}]')
                 gender = paradigm.get('GEN')
                 m2e = self._parse_nom_paradigm(paradigm, gender, nomsuff=True)
                 paradigms[pname] = m2e
             elif pname.startswith('nom') or pname.startswith('voc'):
-                print(f'Parsing paradigm [{pname}]',
-                      file=sys.stderr, flush=True)
+                logger.info(f'Parsing paradigm [{pname}]')
                 gender = paradigm.get('GEN')
                 m2e = self._parse_nom_paradigm(paradigm, gender)
                 paradigms[pname] = m2e
             elif pname.startswith('verb'):
-                print(f'Parsing paradigm [{pname}]',
-                      file=sys.stderr, flush=True)
+                logger.info(f'Parsing paradigm [{pname}]')
                 m2e = self._parse_verb_paradigm(paradigm)
                 paradigms[pname] = m2e
             # end if
@@ -1009,7 +998,7 @@ class RoLemmatizer(object):
 
         return paradigms, term_to_paradigms
 
-    def _transform_root_to_lemma(self, root: str, paradigm: str, altno: str) -> list:
+    def _transform_root_to_lemma(self, root: str, paradigm: str, altno: str) -> List[Tuple[str, int]]:
         """This method takes the root of the word, after the inflexional
         ending has been removed and transforms it into the lemma, given paradigm and
         alternative number. For instance `canioanele` has root `canioan` -> `canion`."""
@@ -1105,7 +1094,7 @@ class RoLemmatizer(object):
 
         return ''
 
-    def _correct_wordform(self, word: str, msd: str) -> tuple:
+    def _correct_wordform(self, word: str, msd: str) -> Tuple[str, str]:
         """Some wordforms are incorrect. Attempt to fix them here
         so that we can lemmatize them."""
 
@@ -1113,32 +1102,31 @@ class RoLemmatizer(object):
             # e.g. 'curentu', 'băiatu', etc.
             word += 'l'
             msd = msd[0:-1]
-            print(f'Correct word [{word}] and MSD [{msd}]', file=sys.stderr, flush=True)
+            logger.debug(f'Correct word [{word}] and MSD [{msd}]')
             return (word, msd)
         # end if
 
         if msd == 'Vmil2p' and word.endswith('seți'):
             word = re.sub('seți$', 'serăți', word)
-            print(f'Correct word [{word}] and MSD [{msd}]', file=sys.stderr, flush=True)
+            logger.debug(f'Correct word [{word}] and MSD [{msd}]')
             return (word, msd)
         # end if
 
         if msd == 'Vmil1p' and word.endswith('sem'):
             word = re.sub('sem$', 'serăm', word)
-            print(f'Correct word [{word}] and MSD [{msd}]', file=sys.stderr, flush=True)
+            logger.debug(f'Correct word [{word}] and MSD [{msd}]')
             return (word, msd)
         # end if
 
         if msd.startswith('Vm') and msd.endswith('-y') and word.endswith('u'):
             msd = re.sub('-+y$', '', msd)
             word = word[0:-1]
-            print(f'Correct word [{word}] and MSD [{msd}]', file=sys.stderr, flush=True)
+            logger.debug(f'Correct word [{word}] and MSD [{msd}]')
             return (word, msd)
         # end if
 
         return (word, msd)
 
-    # Done
     def _generate_possible_paradigms(self, word: str, msd: str) -> list:
         """Word is already lower cased."""
         paradigm_candidates = []
@@ -1208,7 +1196,7 @@ class RoLemmatizer(object):
 
         return msd
 
-    def lemmatize_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
+    def lemmatize_sentence(self, sentence: List[Tuple]) -> List[Tuple[str, str, str, float]]:
         """Takes a sentence from the RoPOSTagger, a list of (wordform, MSD, score), and
         produces a list of (wordform, MSD, lemma, score)."""
         
@@ -1234,7 +1222,7 @@ class RoLemmatizer(object):
 
         return result
 
-    def lemmatize(self, word: str, msd: str, use_lex: bool = True) -> list:
+    def lemmatize(self, word: str, msd: str, use_lex: bool = True) -> List[Tuple[str, float, str]]:
         """Main lemmatization method. If `use_lex` is `True`, if word/MSD is in the
         lexicon, return the looked-up lemma. If not, try and find the most probable paradigm
         based on the supplied word form and MSD and get the lemma from there."""
@@ -1348,9 +1336,6 @@ class RoLemmatizer(object):
         without using the lexicon for lemmatization.
         Computes accuracy and MRR for the returned lemmas."""
 
-        # Get same results from the random number generator
-        seed(1234)
-
         infl_classes = self._lexicon.get_inflectional_classes()
         samples_per_pos = int(sample_size / len(infl_classes))
         test_set = []
@@ -1419,10 +1404,10 @@ class RoLemmatizer(object):
         mrr /= len(test_set)
 
         # Print results
-        print(f'Accuracy@1: {accuracy1:.5f}')
-        print(f'Accuracy@2: {accuracy2:.5f}')
-        print(f'MRR: {mrr:.5f}')
-        print(f'Recall: {recall:.5f}')
+        logger.info(f'Accuracy@1: {accuracy1:.5f}')
+        logger.info(f'Accuracy@2: {accuracy2:.5f}')
+        logger.info(f'MRR: {mrr:.5f}')
+        logger.info(f'Recall: {recall:.5f}')
 
 
 if __name__ == '__main__':
