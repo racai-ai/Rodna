@@ -23,10 +23,10 @@ from .features import RoFeatures
 from .morphology import RoInflect
 from .crfmodel import CRFModel
 from .clsmodel import CLSModel
-from config import CLS_TAGGER_MODEL_FOLDER, \
-    CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, TAGGER_MODEL_FOLDER, \
-    BERT_FOR_CLS_TAGGER_FOLDER, BERT_FOR_CRF_TAGGER_FOLDER
-from . import logger, logging, log_once
+from . import CLS_TAGGER_MODEL_FOLDER, \
+    CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, \
+    TAGGER_MODEL_FOLDER, BERT_FOR_CLS_TAGGER_FOLDER, \
+    BERT_FOR_CRF_TAGGER_FOLDER, logger, logging, log_once
 from .bert_model import RoBERTModel, \
     zero_word, start_word, end_word, dumitrescu_bert_v1
 
@@ -290,9 +290,9 @@ class RoPOSTagger(object):
 
         for name, param in self._cls_ro_bert.bert_model.named_parameters():
             if param.ndim == 1 or name.endswith(".bias"):
-                bert_decay_params.append(param)
-            else:
                 bert_no_decay_params.append(param)
+            else:
+                bert_decay_params.append(param)
             # end if
         # end for
 
@@ -1179,7 +1179,6 @@ if __name__ == '__main__':
     mor = RoInflect(lex)
     mor.load()
     tag = RoPOSTagger(lex, tok, mor, spl)
-    #tag.load()
 
     training_file = os.path.join(
         "data", "training", "tagger", "ro_rrt-ud-train.tab")

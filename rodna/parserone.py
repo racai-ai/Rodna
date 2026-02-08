@@ -9,13 +9,12 @@ from torch.utils.data import DataLoader, Dataset
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
-from . import _device
 from utils.mst import chu_liu_edmonds
 from utils.MSD import MSD
-from config import PARSER_MODEL_FOLDER, PARSER1_BERT_MODEL_FOLDER
 from .bert_model import RoBERTModel, _device, dumitrescu_bert_v1
 from .tokenizer import RoTokenizer
-from . import logger
+from . import PARSER_MODEL_FOLDER, PARSER1_BERT_MODEL_FOLDER, \
+    _device, logger
 
 
 class RoBERTHeadFinder(nn.Module):

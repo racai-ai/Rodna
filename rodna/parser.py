@@ -7,8 +7,8 @@ from utils.Lex import Lex
 from .parserone import RoDepParserTree
 from .parsertwo import RoDepParserLabel
 from utils.MSD import MSD
-from config import PARSER_DEPRELS_FILE, PARSER_MODEL_FOLDER
-from . import logger
+from . import PARSER_DEPRELS_FILE, \
+    PARSER_MODEL_FOLDER, logger
 
 
 def read_parsed_file(file: str) -> List[List[Tuple[str, str, int, str]]]:
