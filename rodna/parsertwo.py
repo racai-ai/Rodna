@@ -1,6 +1,6 @@
 from typing import List, Tuple, Set, Union
 import os
-import sys
+from glob import glob
 from random import shuffle
 from tqdm import tqdm
 import torch
@@ -10,10 +10,11 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
 from utils.MSD import MSD
 from torch.utils.data import DataLoader, Dataset
-from transformers import AutoTokenizer, AutoModel
-from . import _device
+from .bert_model import RoBERTModel, dumitrescu_bert_v1
+from .tokenizer import RoTokenizer
+from . import _device, logger
 from config import PARSER_MODEL_FOLDER, \
-    PARSER2_BERT_MODEL_FOLDER, PARSER2_TOKEN_MODEL_FOLDER
+    PARSER2_BERT_MODEL_FOLDER
 
 
 class RoBERTDepRelFinder(nn.Module):
@@ -21,13 +22,13 @@ class RoBERTDepRelFinder(nn.Module):
     a sequence of dependency relation labels along a tree path
     from the root to a leaf."""
 
-    _conf_gru_size = 512
-    _conf_drop_prob = 0.33
+    _conf_rnn_size = 1024
+    _conf_drop_prob = 0.25
 
-    def __init__(self, msd_size: int, deprel_size: int):
+    def __init__(self, msd_size: int, deprel_size: int, embed_size: int):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
-        `head_window_size`: how much to go left/right from current token to search for its head
-        `name_or_path`: the BERT model HF name/saved folder"""
+        `deprel_size`: the size of the dependency relation set
+        `embed_size`: the size of the BERT hidden state"""
 
         super().__init__()
 
@@ -35,18 +36,14 @@ class RoBERTDepRelFinder(nn.Module):
         self._drop = nn.Dropout(p=RoBERTDepRelFinder._conf_drop_prob)
         self._logsoftmax = nn.LogSoftmax(dim=2)
 
-        self._nn_gru = nn.GRU(
-            input_size=768, hidden_size=RoBERTDepRelFinder._conf_gru_size,
+        self._nn_rnn = nn.GRU(
+            input_size=embed_size, hidden_size=RoBERTDepRelFinder._conf_rnn_size,
             num_layers=1, batch_first=True, bidirectional=False)
 
-        linear_input_size_0 = msd_size + RoBERTDepRelFinder._conf_gru_size
-        linear_input_size_1 = linear_input_size_0 // 2
+        linear_input_size = msd_size + RoBERTDepRelFinder._conf_rnn_size
 
-        self._nn_linear_0 = nn.Linear(
-            in_features=linear_input_size_0,
-            out_features=linear_input_size_1, dtype=torch.float32)
-        self._nn_linear_1 = nn.Linear(
-            in_features=linear_input_size_1,
+        self._nn_linear = nn.Linear(
+            in_features=linear_input_size,
             out_features=deprel_size, dtype=torch.float32)
 
         self.to(_device)
@@ -56,20 +53,18 @@ class RoBERTDepRelFinder(nn.Module):
         b_size = x_b.shape[0]
         h_0 = torch.zeros(
             1, b_size,
-            RoBERTDepRelFinder._conf_gru_size).to(device=_device)
+            RoBERTDepRelFinder._conf_rnn_size).to(device=_device)
 
-        the_output, h_n = self._nn_gru(x_b, h_0)
+        the_output, h_n = self._nn_rnn(x_b, h_0)
         the_output = torch.cat([the_output, x_m], dim=2).to(device=_device)
-        the_output = self._nn_linear_0(the_output)
-        the_output = self._nonlin_fn(the_output)
         the_output = self._drop(the_output)
-        the_output = self._nn_linear_1(the_output)
+        the_output = self._nn_linear(the_output)
         the_output = self._logsoftmax(the_output)
 
         return the_output
 
 
-class DPDataset(Dataset):
+class PathDataset(Dataset):
     def __init__(self):
         super().__init__()
         self._paths_by_length = {}
@@ -88,7 +83,7 @@ class DPDataset(Dataset):
 
     def reshuffle(self):
         path_lengths = list(self._paths_by_length.keys())
-        shuffle(path_lengths)
+        path_lengths.sort(reverse=True)
         self._paths = []
 
         for pathlen in path_lengths:
@@ -110,85 +105,44 @@ class RoDepParserLabel(object):
     are described by their BERT embeddings and MSDs in context."""
 
     _conf_model_file = 'modeltwo.pt'
-    _conf_bert = 'dumitrescustefan/bert-base-romanian-cased-v1'
-    # Initial learning rate
-    _conf_lr = 5e-5
-    # Multiplying factor between epochs of the LR
-    _conf_gamma_lr = 0.9
-    _conf_epochs = 5
+    _conf_epochs = 10
     _all_parser_model_files = [
         os.path.join(PARSER_MODEL_FOLDER, _conf_model_file),
-        os.path.join(PARSER2_BERT_MODEL_FOLDER, 'config.json'),
-        os.path.join(PARSER2_BERT_MODEL_FOLDER, 'pytorch_model.bin'),
-        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'special_tokens_map.json'),
-        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'tokenizer.json'),
-        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'tokenizer_config.json'),
-        os.path.join(PARSER2_TOKEN_MODEL_FOLDER, 'vocab.txt')
+        os.path.join(PARSER2_BERT_MODEL_FOLDER, '*.json'),
+        os.path.join(PARSER2_BERT_MODEL_FOLDER, 'model.safetensors'),
+        os.path.join(PARSER2_BERT_MODEL_FOLDER, 'vocab.txt')
     ]
 
-    def __init__(self, msd: MSD, deprels: Set[str]):
+    def __init__(self, msd: MSD, tok: RoTokenizer, deprels: Set[str]):
         """Takes the MSD description object `msd` and the set of
         all possible dependency relations `deprels`."""
 
         self._msd = msd
         # This is the set of all possible dependency relations
         self._deprels = sorted(list(deprels))
-        self._deprelmodel = RoBERTDepRelFinder(
-            msd_size=self._msd.get_output_vector_size(),
-            deprel_size=len(self._deprels))
+        self._tokenizer = tok
 
-    def _process_path(self, sentence: List[Tuple], path: List[int], runtime: bool = False) -> Tuple[Tensor, Tensor, Union[Tensor, None]]:
+    def _process_path(self, sentence: List[Tuple], path: List[int],
+                      runtime: bool = False) -> Tuple[Tensor, Tensor, Union[Tensor, None]]:
         """Takes a path and a sentence and produces tensors for the path
         from the root to the leaf."""
 
         tokens = []
+        bert_tokens = []
 
         # 1. Find the root of the sentence
         for i, (word, msd, head, deprel) in enumerate(sentence):
             tokens.append(word)
+            bert_tokens.append((word, self._tokenizer.tag_word(word)))
         # end for
 
         # 2. Do the BERT tokenization
         # Shape of outputs is (batch_size == 1, sub-token seq. len., 768)
         # Vector of [CLS] token is thus outputs[0,0,:]
-        inputs = self._tokenizer(
-            tokens,
-            is_split_into_words=True,
-            truncation=True,
-            max_length=512,
-            return_tensors='pt').to(_device)
-        outputs = self._bertmodel(**inputs)
+        sentence_embeddings = [t.view(1, -1)
+                               for t in self._ro_model.bert_embeddings(tokens=bert_tokens)]
 
-        # 3. This one maps from subtokens to tokens.
-        token_ids = inputs.word_ids(batch_index=0)
-        token_id_vectors = []
-        token_vectors = []
-        prev_tid = -1
-
-        # 3.1 Skipping [CLS] and [SEP] subtokens
-        # Doing averages of subtokens tensors for the given token
-        for i in range(1, len(token_ids) - 1):
-            tid = token_ids[i]
-            tns = outputs.last_hidden_state[0, i, :]
-
-            if prev_tid == -1 or tid == prev_tid:
-                token_id_vectors.append(tns)
-            else:
-                # The average of the BERT outputs for
-                # the subtokens of this token
-                avg_tns = sum(token_id_vectors) / len(token_id_vectors)
-                # Shape of (1, 768)
-                token_vectors.append(avg_tns.view(1, -1))
-                token_id_vectors = [tns]
-            # end if
-
-            prev_tid = tid
-        # end for
-
-        avg_tns = sum(token_id_vectors) / len(token_id_vectors)
-        token_vectors.append(avg_tns.view(1, -1))
-
-        # 4. Create input/output tensors for root-to-leaf path
+        # 3. Create input/output tensors for root-to-leaf path
         bert_input_tensor = []
         msd_input_tensor = []
         deprel_output_tensor = []
@@ -198,7 +152,7 @@ class RoDepParserLabel(object):
             msdv = self._msd.msd_reference_vector(msd)
             msdt = torch.tensor(msdv, dtype=torch.float32).view(1, -1)
             msd_input_tensor.append(msdt)
-            bert_input_tensor.append(token_vectors[i])
+            bert_input_tensor.append(sentence_embeddings[i])
 
             if not runtime:
                 dr = sentence[i][3]
@@ -221,30 +175,40 @@ class RoDepParserLabel(object):
             # Here the collate fn is taking care of moving tensors to cuda:0
             return bert_input_tensor, msd_input_tensor, deprel_output_tensor
         else:
-            bert_input_tensor = bert_input_tensor.to(_device)
-            msd_input_tensor = msd_input_tensor.to(_device)
-
-            return bert_input_tensor, msd_input_tensor, None
+            return bert_input_tensor.to(_device), msd_input_tensor.to(_device), None
         # end if
 
-    def _deprel_collate_fn(self, batch) -> Tuple[Tensor, Tensor, Tensor]:
+    def _trim_batch(self, batch: List[Tuple[List[int], List[Tuple]]]) -> List[Tuple[List[int], List[Tuple]]]:
+        lowest_dim = 1_000_000
+
+        for pth, snt in batch:
+            if len(pth) < lowest_dim:
+                lowest_dim = len(pth)
+            # end if
+        # end for
+
+        trimmed_batch = []
+
+        for pth, snt in batch:
+            trimmed_batch.append((pth[:lowest_dim], snt))
+        # end for
+
+        return trimmed_batch
+
+    def _deprel_collate_fn(self, batch: List[Tuple[List[int], List[Tuple]]]) -> Tuple[Tensor, Tensor, Tensor]:
         """This method will group sentence paths of the same length into a batch."""
+
+        batch = self._trim_batch(batch=batch)
 
         bert_tensor = []
         msd_tensor = []
         drel_tensor = []
-        prev_len = -1
 
         for pth, snt in batch:
-            if prev_len != -1 and prev_len != len(pth):
-                break
-            # end if
-
             btns, mtns, drtns = self._process_path(sentence=snt, path=pth)
             bert_tensor.append(btns)
             msd_tensor.append(mtns)
             drel_tensor.append(drtns.view(1, -1))
-            prev_len = len(pth)
         # end for
 
         bert_tensor = torch.cat(bert_tensor, dim=0).to(_device)
@@ -280,19 +244,17 @@ class RoDepParserLabel(object):
             # Gather data and report
             running_loss += loss.item()
 
-            if counter % 200 == 0:
+            if counter % 100 == 0:
                 # Average loss per batch
-                average_running_loss = running_loss / 200
-                print(f'\n  -> batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}',
-                      file=sys.stderr, flush=True)
+                average_running_loss = running_loss / 100
+                logger.info(f'Batch {counter}/{len(dataloader)} loss: {average_running_loss:.7f}')
                 epoch_loss.append(average_running_loss)
                 running_loss = 0.
             # end if
         # end for i
 
         average_epoch_loss = sum(epoch_loss) / len(epoch_loss)
-        print(
-            f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'Average epoch {epoch} loss: {average_epoch_loss:.7f}')
 
     def _depth_first_paths(self,
         sentence: List[Tuple], root: int,
@@ -324,11 +286,12 @@ class RoDepParserLabel(object):
               dev_sentences: List[List[Tuple]], test_sentences: List[List[Tuple]]):
         """Does the dependency relation labeling training."""
 
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            RoDepParserLabel._conf_bert)
-        self._bertmodel = AutoModel.from_pretrained(
-            RoDepParserLabel._conf_bert)
-        self._bertmodel.to(_device)
+        self._ro_model = RoBERTModel(path_or_name=dumitrescu_bert_v1,
+                                     fine_tune=True)
+        self._deprelmodel = RoBERTDepRelFinder(
+            msd_size=self._msd.get_output_vector_size(),
+            deprel_size=len(self._deprels),
+            embed_size=self._ro_model.get_embedding_size())
 
         train_dataset = self._create_dataset(sentences=train_sentences, desc='train')
         train_dataset.reshuffle()
@@ -338,16 +301,29 @@ class RoDepParserLabel(object):
         test_dataset.reshuffle()
 
         self._loss_fn = nn.NLLLoss()
-        both_models_parameters = []
-        both_models_parameters.extend(self._deprelmodel.parameters())
-        both_models_parameters.extend(self._bertmodel.parameters())
-        self._optimizer = AdamW(
-            both_models_parameters, lr=RoDepParserLabel._conf_lr)
+
+        # Don’t decay LayerNorm & biases
+        bert_decay_params, bert_no_decay_params = [], []
+
+        for name, param in self._ro_model.bert_model.named_parameters():
+            if param.ndim == 1 or name.endswith(".bias"):
+                bert_no_decay_params.append(param)
+            else:
+                bert_decay_params.append(param)
+            # end if
+        # end for
+
+        self._optimizer = AdamW([
+            {"params": bert_decay_params, "weight_decay": 0.01, "lr": 2e-5},
+            {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 2e-5},
+            {"params": self._deprelmodel.parameters(), "weight_decay": 0.0, "lr": 1e-3}]
+        )
         self._lr_scheduler = ExponentialLR(
-            optimizer=self._optimizer, gamma=RoDepParserLabel._conf_gamma_lr, verbose=True)
+            optimizer=self._optimizer, gamma=0.95)
+        
         train_dataloader = DataLoader(
             dataset=train_dataset,
-            batch_size=16, shuffle=False, collate_fn=self._deprel_collate_fn)
+            batch_size=32, shuffle=False, collate_fn=self._deprel_collate_fn)
         dev_dataloader = DataLoader(
             dataset=dev_dataset,
             batch_size=1, shuffle=False, collate_fn=self._deprel_collate_fn)
@@ -358,34 +334,42 @@ class RoDepParserLabel(object):
         best_acc = 0.
 
         for ep in range(RoDepParserLabel._conf_epochs):
-            self._deprelmodel.train(True)
-            self._bertmodel.train(True)
+            self._deprelmodel.train()
+            self._ro_model.bert_model.train()
             self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
             self._deprelmodel.eval()
-            self._bertmodel.eval()
-            ep_acc = self.do_eval(dataloader=dev_dataloader, desc='dev')
+            self._ro_model.bert_model.eval()
+            ep_acc = self.do_eval(dataloader=dev_dataloader, ml_type='dev')
 
             if ep_acc > best_acc:
-                print(
-                    f'Saving better RoDepParserLabel model with Acc = {ep_acc:.5f}',
-                    file=sys.stderr, flush=True)
+                logger.info(f'Saving better RoDepParserLabel model with Acc = {ep_acc:.5f}')
                 best_acc = ep_acc
                 self._delete_parser_files()
                 self._save()
             # end if
 
             self._lr_scheduler.step()
+            bert_lr, _, deprel_lr = self._lr_scheduler.get_last_lr()
+            logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
+            logger.info(f'Setting new dependency relations model LR to [{deprel_lr:.7f}]')
+
             train_dataset.reshuffle()
         # end for
 
-        self.do_eval(dataloader=test_dataloader, desc='test')
+        self.do_eval(dataloader=test_dataloader, ml_type='test')
 
     def _delete_parser_files(self):
         for file in RoDepParserLabel._all_parser_model_files:
             if os.path.isfile(file):
-                print(
-                    f'Removing RoDepParserLabel model file [{file}]', file=sys.stderr, flush=True)
+                logger.info(f'Removing RoDepParserLabel model file [{file}]')
                 os.remove(file)
+            else:
+                # Wildcard file spec
+                for path in glob(file):
+                    logger.info(
+                        f'Removing RoDepParserLabel model file [{path}]')
+                    os.remove(path)
+                # end for
             # end if
         # end for
 
@@ -393,17 +377,15 @@ class RoDepParserLabel(object):
         torch_model_file = os.path.join(
             PARSER_MODEL_FOLDER, RoDepParserLabel._conf_model_file)
         torch.save(self._deprelmodel.state_dict(), torch_model_file)
-        self._tokenizer.save_pretrained(
-            save_directory=PARSER2_TOKEN_MODEL_FOLDER)
-        self._bertmodel.save_pretrained(
-            save_directory=PARSER2_BERT_MODEL_FOLDER)
+        self._ro_model.save(destination_folder=PARSER2_BERT_MODEL_FOLDER)
 
     def load(self):
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            PARSER2_TOKEN_MODEL_FOLDER)
-        self._bertmodel = AutoModel.from_pretrained(PARSER2_BERT_MODEL_FOLDER)
-        self._bertmodel.to(_device)
-        self._bertmodel.eval()
+        self._ro_model = RoBERTModel(path_or_name=PARSER2_BERT_MODEL_FOLDER)
+        self._ro_model.bert_model.eval()
+        self._deprelmodel = RoBERTDepRelFinder(
+            msd_size=self._msd.get_output_vector_size(),
+            deprel_size=len(self._deprels),
+            embed_size=self._ro_model.get_embedding_size())
         torch_model_file = os.path.join(
             PARSER_MODEL_FOLDER, RoDepParserLabel._conf_model_file)
         self._deprelmodel.load_state_dict(torch.load(
@@ -411,11 +393,11 @@ class RoDepParserLabel(object):
         # Put model into eval mode. It is only used for inferencing.
         self._deprelmodel.eval()
 
-    def do_eval(self, dataloader: DataLoader, desc: str) -> float:
+    def do_eval(self, dataloader: DataLoader, ml_type: str) -> float:
         correct = 0
         example_number = 0
 
-        for inputs_bert, inputs_msd, target_labels in tqdm(dataloader, desc=f'Eval on {desc}set'):
+        for inputs_bert, inputs_msd, target_labels in tqdm(dataloader, desc=f'Eval on [{ml_type}] set'):
             outputs = self._deprelmodel(x=(inputs_bert, inputs_msd))
             predicted_labels = torch.argmax(outputs, dim=2)
             found = (predicted_labels == target_labels)
@@ -424,7 +406,7 @@ class RoDepParserLabel(object):
         # end for
 
         acc = correct / example_number
-        print(f'Acc = {acc:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'Acc = {acc:.5f}')
 
         return acc
 
@@ -449,7 +431,11 @@ class RoDepParserLabel(object):
 
     def label_path(self, sentence: List[Tuple], path: List[int]) -> List[Tuple]:
         inputs_bert, inputs_msd, _ = self._process_path(sentence, path, runtime=True)
-        outputs = self._deprelmodel(x=(inputs_bert, inputs_msd))
+
+        with torch.inference_mode():
+            outputs = self._deprelmodel(x=(inputs_bert, inputs_msd))
+        # end with
+
         # To get probabilities
         outputs = torch.exp(outputs)
         predicted_labels = torch.argmax(outputs, dim=2)
@@ -465,10 +451,10 @@ class RoDepParserLabel(object):
 
         return result
 
-    def _create_dataset(self, sentences: List[List[Tuple]], desc: str) -> DPDataset:
-        dataset = DPDataset()
+    def _create_dataset(self, sentences: List[List[Tuple]], desc: str) -> PathDataset:
+        dataset = PathDataset()
 
-        for snt in tqdm(sentences, desc=f'Creating {desc}set for DR'):
+        for snt in tqdm(sentences, desc=f'RoDepParserLabel [{desc}] set'):
             r2l = self.find_sentence_paths(sentence=snt)
             dataset.add_sentence_paths(sentence=snt, paths=r2l)
         # end for

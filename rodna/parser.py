@@ -2,18 +2,20 @@ from typing import List, Tuple, Set
 import os
 import sys
 from tqdm import tqdm
+from .tokenizer import RoTokenizer
+from utils.Lex import Lex
 from .parserone import RoDepParserTree
 from .parsertwo import RoDepParserLabel
 from utils.MSD import MSD
-from config import PARSER_DEPRELS_FILE
+from config import PARSER_DEPRELS_FILE, PARSER_MODEL_FOLDER
+from . import logger
 
 
-def read_parsed_file(file: str) -> List[List[Tuple]]:
+def read_parsed_file(file: str) -> List[List[Tuple[str, str, int, str]]]:
     """Will read in file and return a sequence of tokens from it
     each token with its assigned MSD and dependency information."""
 
-    print(stack()[
-            0][3] + ": reading training file {0!s}".format(file), file=sys.stderr, flush=True)
+    logger.info(f"Reading training file [{file}]")
 
     sentences = []
     current_sentence = []
@@ -33,8 +35,7 @@ def read_parsed_file(file: str) -> List[List[Tuple]]:
             parts = line.split()
 
             if len(parts) != 6:
-                print(stack()[0][3] + ": line {0!s} in file {1!s} is not well-formed!".format(
-                    line_count, file), file=sys.stderr, flush=True)
+                logger.warning(f"Line [{line_count}] in file [{file}] is not well-formed!")
             else:
                 current_sentence.append(
                     (parts[1], parts[3], int(parts[4]), parts[5]))
@@ -47,10 +48,11 @@ def read_parsed_file(file: str) -> List[List[Tuple]]:
 
 class RoDepParser(object):
 
-    def __init__(self, msd: MSD):
-        self._rodep1 = RoDepParserTree(msd)
+    def __init__(self, msd: MSD, tok: RoTokenizer):
+        self._tokenizer = tok
+        self._rodep1 = RoDepParserTree(msd, tok)
         self._deprels = self._load_deprels()
-        self._rodep2 = RoDepParserLabel(msd, self._deprels)
+        self._rodep2 = RoDepParserLabel(msd, tok, self._deprels)
 
     def parse_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
         """This is the main entry into the Romanian depencency parser.
@@ -152,7 +154,7 @@ class RoDepParser(object):
 
         return False
 
-    def do_uas_and_las_eval(self, sentences: List[List[Tuple]], desc: str, relaxed: bool = False):
+    def do_uas_and_las_eval(self, sentences: List[List[Tuple]], ml_type: str, relaxed: bool = False):
         """Does the Unlabeled/Labeled Attachment Score calculation, given a dev/test set.
         If `relaxed is True`, some more relaxed approach is taken for dependency labels comparison.
         See the equal_deprels() method for details."""
@@ -160,9 +162,10 @@ class RoDepParser(object):
         correct_uas = 0
         correct_las = 0
         all_links = 0
+        debug_file = os.path.join(PARSER_MODEL_FOLDER, f'parser-debug-{ml_type}.txt')
 
-        with open(f'parser-errors-{desc}.txt', mode='w', encoding='utf-8') as f:
-            for gold_snt in tqdm(sentences, desc=f'UAS/LAS on {desc}set'):
+        with open(debug_file, mode='w', encoding='utf-8') as f:
+            for gold_snt in tqdm(sentences, desc=f'UAS/LAS on [{ml_type}] set'):
                 tag_snt = [(word, msd, 1.0)
                         for (word, msd, head, deprel) in gold_snt]
                 par_snt = self.parse_sentence(sentence=tag_snt)
@@ -219,17 +222,16 @@ class RoDepParser(object):
         uas = correct_uas / all_links
         las = correct_las / all_links
 
-        print(f'UAS = {uas:.5f}, LAS = {las:.5f} on {desc}set',
-              file=sys.stderr, flush=True)
+        logger.info(f'UAS = [{uas:.5f}], LAS = [{las:.5f}] on [{ml_type}] set')
 
     def train(self,
             train_sentences: List[List[Tuple]],
             dev_sentences: List[List[Tuple]], test_sentences: List[List[Tuple]]):
-        """Performs parser one and parser two training."""
+        """Performs RoDepParserTree and RoDepParserLabel training."""
 
         self._rodep1.train(train_sentences, dev_sentences, test_sentences)
         self._rodep2.train(train_sentences, dev_sentences, test_sentences)
-        
+
     def load(self):
         self._rodep1.load()
         self._rodep2.load()
@@ -247,11 +249,15 @@ class RoDepParser(object):
 
 
 if __name__ == '__main__':
+    lex = Lex()
+    tok = RoTokenizer(lex)
+    msd = MSD()
+    par = RoDepParser(msd=msd, tok=tok)
+
     # For a given split, like in RRT
     training_file = os.path.join(
         "data", "training", "parser", "ro_rrt-ud-train.tab")
     training = read_parsed_file(file=training_file)
-    par = RoDepParser(msd=MSD())
 
     development_file = os.path.join(
         "data", "training", "parser", "ro_rrt-ud-dev.tab")
@@ -263,7 +269,7 @@ if __name__ == '__main__':
 
     par.train(train_sentences=training, dev_sentences=development, test_sentences=testing)
 
-    # Debug performance
-    # par.load()
-    # par.do_uas_and_las_eval(sentences=development, desc='dev', relaxed=False)
-    # par.do_uas_and_las_eval(sentences=testing, desc='test', relaxed=False)
+    # Performance
+    par.load()
+    par.do_uas_and_las_eval(sentences=development, ml_type='dev')
+    par.do_uas_and_las_eval(sentences=testing, ml_type='test')

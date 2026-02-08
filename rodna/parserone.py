@@ -1,6 +1,6 @@
 from typing import List, Tuple, Union
-import sys
 import os
+from glob import glob
 from random import shuffle
 import torch
 from torch import nn
@@ -8,14 +8,14 @@ from torch import Tensor
 from torch.utils.data import DataLoader, Dataset
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
-from transformers import AutoTokenizer, AutoModel
 from tqdm import tqdm
 from . import _device
 from utils.mst import chu_liu_edmonds
 from utils.MSD import MSD
-from config import PARSER_MODEL_FOLDER, \
-    PARSER1_BERT_MODEL_FOLDER, PARSER1_TOKEN_MODEL_FOLDER
-from .bert_model import ro_bert_tokenizer, ro_bert_model
+from config import PARSER_MODEL_FOLDER, PARSER1_BERT_MODEL_FOLDER
+from .bert_model import RoBERTModel, _device, dumitrescu_bert_v1
+from .tokenizer import RoTokenizer
+from . import logger
 
 
 class RoBERTHeadFinder(nn.Module):
@@ -23,12 +23,13 @@ class RoBERTHeadFinder(nn.Module):
     for the current token. Uses a MLM BERT model for word embeddings
     which is fine-tuned to find head information."""
 
-    _conf_lstm_size = 512
-    _conf_drop_prob = 0.33
+    _conf_lstm_size = 1024
+    _conf_drop_prob = 0.25
 
-    def __init__(self, msd_size: int, head_window_size: int):
+    def __init__(self, msd_size: int, head_window_size: int, embed_size: int):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
-        `head_window_size`: how much to go left/right from current token to search for its head"""
+        `head_window_size`: how much to go left/right from current token to search for its head
+        `embed_size`: the size of the BERT hidden state"""
 
         super().__init__()
 
@@ -37,17 +38,13 @@ class RoBERTHeadFinder(nn.Module):
         self._logsoftmax = nn.LogSoftmax(dim=2)
 
         self._nn_lstm = nn.LSTM(
-            input_size=768, hidden_size=RoBERTHeadFinder._conf_lstm_size,
+            input_size=embed_size, hidden_size=RoBERTHeadFinder._conf_lstm_size,
             num_layers=1, batch_first=True, bidirectional=True)
 
-        linear_input_size_0 = msd_size + 2 * RoBERTHeadFinder._conf_lstm_size
-        linear_input_size_1 = linear_input_size_0 // 2
+        linear_io_size = msd_size + 2 * RoBERTHeadFinder._conf_lstm_size
 
-        self._nn_linear_0 = nn.Linear(
-            in_features=linear_input_size_0,
-            out_features=linear_input_size_1, dtype=torch.float32)
-        self._nn_linear_1 = nn.Linear(
-            in_features=linear_input_size_1,
+        self._nn_linear = nn.Linear(
+            in_features=linear_io_size,
             out_features=2 * head_window_size + 1, dtype=torch.float32)
 
         self.to(_device)
@@ -64,21 +61,19 @@ class RoBERTHeadFinder(nn.Module):
 
         the_output, (h_n, c_n) = self._nn_lstm(x_b, (h_0, c_0))
         the_output = torch.cat([the_output, x_m], dim=2).to(device=_device)
-        the_output = self._nn_linear_0(the_output)
-        the_output = self._nonlin_fn(the_output)
         the_output = self._drop(the_output)
-        the_output = self._nn_linear_1(the_output)
+        the_output = self._nn_linear(the_output)
         the_output = self._logsoftmax(the_output)
 
         return the_output
 
 
-class DPDataset(Dataset):
+class HeadDataset(Dataset):
     """This is a dependency parser dataset. Sorts the sentences by length
     so that they can form batches for LSTMs/GRUs. Shuffles the lengths so that
     we have a shuffled dataset."""
 
-    def __init__(self, sentences: List[List[Tuple]]):
+    def __init__(self, sentences: List[List[Tuple[str, str, int, str]]]):
         super().__init__()
         self._sentences_by_length = {}
 
@@ -96,7 +91,7 @@ class DPDataset(Dataset):
 
     def reshuffle(self):
         sentence_lengths = list(self._sentences_by_length.keys())
-        shuffle(sentence_lengths)
+        sentence_lengths.sort(reverse=True)
         self._sentences = []
 
         for sntlen in sentence_lengths:
@@ -118,27 +113,18 @@ class RoDepParserTree(object):
     _conf_model_file = 'modelone.pt'
     # Take 2 * head window + 1 for the output vector dimension
     _conf_head_window = 70
-    # Initial learning rate
-    _conf_lr = 5e-5
-    # Multiplying factor between epochs of the LR
-    _conf_gamma_lr = 0.9
-    _conf_epochs = 15
+    _conf_epochs = 20
     _all_parser_model_files = [
         os.path.join(PARSER_MODEL_FOLDER, _conf_model_file),
-        os.path.join(PARSER1_BERT_MODEL_FOLDER, 'config.json'),
-        os.path.join(PARSER1_BERT_MODEL_FOLDER, 'pytorch_model.bin'),
-        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'special_tokens_map.json'),
-        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'tokenizer.json'),
-        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'tokenizer_config.json'),
-        os.path.join(PARSER1_TOKEN_MODEL_FOLDER, 'vocab.txt')
+        os.path.join(PARSER1_BERT_MODEL_FOLDER, '*.json'),
+        os.path.join(PARSER1_BERT_MODEL_FOLDER, 'model.safetensors'),
+        os.path.join(PARSER1_BERT_MODEL_FOLDER, 'vocab.txt')
     ]
 
-    def __init__(self, msd: MSD) -> None:
+    def __init__(self, msd: MSD, tok: RoTokenizer) -> None:
         super().__init__()
         self._msd = msd
-        self._headmodel = RoBERTHeadFinder(
-            msd_size=self._msd.get_output_vector_size(),
-            head_window_size=RoDepParserTree._conf_head_window)
+        self._tokenizer = tok
 
     def _process_sentence(self, sentence: List[Tuple], runtime: bool = False) -> Tuple[Tensor, Tensor, Union[Tensor, None]]:
         """Gets a sentence and returns a tuple of tensors to be run
@@ -150,10 +136,12 @@ class RoDepParserTree(object):
         tokens = []
         msd_input_tensor = []
         head_output_tensor = []
+        bert_tokens = []
 
         # 1. Create the list of tokens and the MSD input vectors
         for i, (word, msd, head, deprel) in enumerate(sentence):
             tokens.append(word)
+            bert_tokens.append((word, self._tokenizer.tag_word(word)))
             msdv = self._msd.msd_reference_vector(msd)
             msdt = torch.tensor(msdv, dtype=torch.float32).view(1, -1)
             msd_input_tensor.append(msdt)
@@ -163,20 +151,18 @@ class RoDepParserTree(object):
                 # head_vector will be 1 on the relative position of the head for token i
                 # For PyTorch NLLLoss, we will keep the index of the correct (1) position
                 # in the target (ground truth) vector
-                center_index = RoDepParserTree._conf_head_window
-
                 if head == 0:
-                    head_output_tensor.append(center_index)
+                    head_output_tensor.append(
+                        RoDepParserTree._conf_head_window)
                 else:
-                    head_index = center_index + (head - (i + 1))
+                    head_index = RoDepParserTree._conf_head_window + \
+                        (head - (i + 1))
 
                     # If head index does not fit inside target vector, put
                     # 1 on the 0 index
                     if head_index < 0 or \
                         head_index >= 2 * RoDepParserTree._conf_head_window + 1:
-                        print(stack()[
-                              0][3] + f": found a head index out of limits at [{head_index}]!",
-                              file=sys.stderr, flush=True)
+                        logger.debug(f"Found a head index out of limits at [{head_index}]!")
                         head_index = 0
                     # end if
 
@@ -194,74 +180,51 @@ class RoDepParserTree(object):
                 head_output_tensor, dtype=torch.long).view(1, -1)
         # end if
 
-        # 2. Do the BERT tokenization
+        # 2. Do the BERT embeddings computation
         # Shape of outputs is (batch_size == 1, sub-token seq. len., 768)
-        # Vector of [CLS] token is thus outputs[0,0,:]
-        inputs = self._tokenizer(
-            tokens,
-            is_split_into_words=True,
-            truncation=True,
-            max_length=512,
-            return_tensors='pt').to(_device)
-        outputs = self._bertmodel(**inputs)
-
-        # 3. This one maps from subtokens to tokens.
-        token_ids = inputs.word_ids(batch_index=0)
-        token_id_vectors = []
-        token_vectors = []
-        prev_tid = -1
-
-        # 3.1 Skipping [CLS] and [SEP] subtokens
-        # Doing averages of subtokens tensors for the given token
-        for i in range(1, len(token_ids) - 1):
-            tid = token_ids[i]
-            tns = outputs.last_hidden_state[0, i, :]
-
-            if prev_tid == -1 or tid == prev_tid:
-                token_id_vectors.append(tns)
-            else:
-                # The average of the BERT outputs for
-                # the subtokens of this token
-                avg_tns = sum(token_id_vectors) / len(token_id_vectors)
-                token_vectors.append(avg_tns.view(1, -1))
-                token_id_vectors = [tns]
-            # end if
-
-            prev_tid = tid
-        # end for
-
-        avg_tns = sum(token_id_vectors) / len(token_id_vectors)
-        token_vectors.append(avg_tns.view(1, -1))
-        bert_input_tensor = torch.cat(token_vectors, dim=0).view(
-            1, len(tokens), -1)
+        sentence_embeddings = [t.view(1, -1)
+                               for t in self._ro_model.bert_embeddings(tokens=bert_tokens)]
+        bert_input_tensor = torch.cat(sentence_embeddings, dim=0)
+        bert_input_tensor = bert_input_tensor.view(
+            1, bert_input_tensor.shape[0], bert_input_tensor.shape[1])
         
         if not runtime:
             return bert_input_tensor, msd_input_tensor, head_output_tensor
         else:
-            bert_input_tensor = bert_input_tensor.to(_device)
-            msd_input_tensor = msd_input_tensor.to(_device)
-            
-            return bert_input_tensor, msd_input_tensor, None
+            return bert_input_tensor.to(_device), msd_input_tensor.to(_device), None
         # end if
 
-    def _head_collate_fn(self, batch) -> Tuple[Tensor, Tensor, Tensor]:
+    def _trim_batch(self, batch: List[List[Tuple[str, str, int, str]]]) -> List[List[Tuple[str, str, int, str]]]:
+        lowest_dim = 1_000_000
+
+        for snt in batch:
+            if len(snt) < lowest_dim:
+                lowest_dim = len(snt)
+            # end if
+        # end for
+
+        trimmed_batch = []
+
+        for b in batch:
+            trimmed_batch.append(b[:lowest_dim])
+        # end for
+
+        return trimmed_batch
+
+    def _head_collate_fn(self, batch: List[List[Tuple[str, str, int, str]]]) -> Tuple[Tensor, Tensor, Tensor]:
         """This method will group sentences of the same length into a batch."""
+
+        batch = self._trim_batch(batch=batch)
 
         bert_tensor = []
         msd_tensor = []
         head_tensor = []
-        prev_len = -1
 
         for snt in batch:
-            if prev_len != -1 and prev_len != len(snt):
-                break
-            # end if
-
             btns, mtns, htns = self._process_sentence(sentence=snt)
             bert_tensor.append(btns)
             msd_tensor.append(mtns)
             head_tensor.append(htns)
-            prev_len = len(snt)
         # end for
 
         bert_tensor = torch.cat(bert_tensor, dim=0).to(_device)
@@ -272,6 +235,7 @@ class RoDepParserTree(object):
 
     def _do_one_epoch(self, epoch: int, dataloader: DataLoader):
         """Does one epoch of NN training, shuffling the examples first."""
+        
         running_loss = 0.
         epoch_loss = []
         counter = 0
@@ -300,82 +264,98 @@ class RoDepParserTree(object):
             if counter % 100 == 0:
                 # Average loss per batch
                 average_running_loss = running_loss / 100
-                print(f'\n  -> batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}',
-                      file=sys.stderr, flush=True)
+                logger.info(f'Batch {counter}/{len(dataloader)} loss: {average_running_loss:.5f}')
                 epoch_loss.append(average_running_loss)
                 running_loss = 0.
             # end if
         # end for i
 
         average_epoch_loss = sum(epoch_loss) / len(epoch_loss)
-        print(
-            f'  -> average epoch {epoch} loss: {average_epoch_loss:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'Average epoch {epoch} loss: {average_epoch_loss:.5f}')
 
     def train(self,
             train_sentences: List[List[Tuple]],
             dev_sentences: List[List[Tuple]], test_sentences: List[List[Tuple]]):
         """Does the head finder training."""
 
-        self._tokenizer = ro_bert_tokenizer
-        self._bertmodel = ro_bert_model
+        self._ro_model = RoBERTModel(path_or_name=dumitrescu_bert_v1,
+                                     fine_tune=True)
+        self._headmodel = RoBERTHeadFinder(
+            msd_size=self._msd.get_output_vector_size(),
+            head_window_size=RoDepParserTree._conf_head_window,
+            embed_size=self._ro_model.get_embedding_size())
+
         self._loss_fn = nn.NLLLoss()
-        both_models_parameters = []
-        both_models_parameters.extend(list(self._headmodel.parameters()))
-        both_models_parameters.extend(list(self._bertmodel.parameters()))
-        self._optimizer = AdamW(both_models_parameters,
-                                lr=RoDepParserTree._conf_lr)
+
+        # Don’t decay LayerNorm & biases
+        bert_decay_params, bert_no_decay_params = [], []
+
+        for name, param in self._ro_model.bert_model.named_parameters():
+            if param.ndim == 1 or name.endswith(".bias"):
+                bert_no_decay_params.append(param)
+            else:
+                bert_decay_params.append(param)
+            # end if
+        # end for
+
+        self._optimizer = AdamW([
+            {"params": bert_decay_params, "weight_decay": 0.01, "lr": 5e-5},
+            {"params": bert_no_decay_params, "weight_decay": 0.0, "lr": 5e-5},
+            {"params": self._headmodel.parameters(), "weight_decay": 0.0, "lr": 1e-3}]
+        )
         self._lr_scheduler = ExponentialLR(
-            optimizer=self._optimizer, gamma=RoDepParserTree._conf_gamma_lr, verbose=True)
-        train_dataset = DPDataset(sentences=train_sentences)
+            optimizer=self._optimizer, gamma=0.98)
+
+        train_dataset = HeadDataset(sentences=train_sentences)
         train_dataloader = DataLoader(
             dataset=train_dataset,
-            batch_size=4, shuffle=False, collate_fn=self._head_collate_fn)
+            batch_size=8, shuffle=False, collate_fn=self._head_collate_fn)
         dev_dataloader = DataLoader(
-            dataset=DPDataset(sentences=dev_sentences),
+            dataset=HeadDataset(sentences=dev_sentences),
             batch_size=1, shuffle=False, collate_fn=self._head_collate_fn)
         test_dataloader = DataLoader(
-            dataset=DPDataset(sentences=test_sentences),
+            dataset=HeadDataset(sentences=test_sentences),
             batch_size=1, shuffle=False, collate_fn=self._head_collate_fn)
 
         best_acc = 0.
 
         for ep in range(RoDepParserTree._conf_epochs):
-            self._headmodel.train(True)
-            self._bertmodel.train(True)
+            self._headmodel.train()
+            self._ro_model.bert_model.train()
             self._do_one_epoch(epoch=ep + 1, dataloader=train_dataloader)
             self._headmodel.eval()
-            self._bertmodel.eval()
-            ep_acc = self.do_eval(dataloader=dev_dataloader, desc='dev')
+            self._ro_model.bert_model.eval()
+            ep_acc = self.do_eval(dataloader=dev_dataloader, ml_type='dev')
 
             if ep_acc > best_acc:
-                print(file=sys.stderr)
-                print(
-                    f'Saving better RoDepParserTree model with Acc = {ep_acc:.5f}',
-                    file=sys.stderr)
+                logger.info(f'Saving better RoDepParserTree model with Acc = {ep_acc:.5f}')
                 best_acc = ep_acc
                 self._delete_parser_files()
                 self._save()
-                print(file=sys.stderr, flush=True)
             # end if
 
             self._lr_scheduler.step()
+            bert_lr, _, head_lr = self._lr_scheduler.get_last_lr()
+            logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
+            logger.info(f'Setting new head model LR to [{head_lr:.7f}]')
+
             train_dataset.reshuffle()
         # end for
 
-        self.do_eval(dataloader=test_dataloader, desc='test')
+        self.do_eval(dataloader=test_dataloader, ml_type='test')
 
     def _save(self):
         torch_model_file = os.path.join(PARSER_MODEL_FOLDER, RoDepParserTree._conf_model_file)
         torch.save(self._headmodel.state_dict(), torch_model_file)
-        self._tokenizer.save_pretrained(save_directory=PARSER1_TOKEN_MODEL_FOLDER)
-        self._bertmodel.save_pretrained(save_directory=PARSER1_BERT_MODEL_FOLDER)
+        self._ro_model.save(destination_folder=PARSER1_BERT_MODEL_FOLDER)
 
     def load(self):
-        self._tokenizer = AutoTokenizer.from_pretrained(
-            PARSER1_TOKEN_MODEL_FOLDER)
-        self._bertmodel = AutoModel.from_pretrained(PARSER1_BERT_MODEL_FOLDER)
-        self._bertmodel.to(_device)
-        self._bertmodel.eval()
+        self._ro_model = RoBERTModel(path_or_name=PARSER1_BERT_MODEL_FOLDER)
+        self._ro_model.bert_model.eval()
+        self._headmodel = RoBERTHeadFinder(
+            msd_size=self._msd.get_output_vector_size(),
+            head_window_size=RoDepParserTree._conf_head_window,
+            embed_size=self._ro_model.get_embedding_size())
         torch_model_file = os.path.join(
             PARSER_MODEL_FOLDER, RoDepParserTree._conf_model_file)
         self._headmodel.load_state_dict(torch.load(
@@ -386,17 +366,23 @@ class RoDepParserTree(object):
     def _delete_parser_files(self):
         for file in RoDepParserTree._all_parser_model_files:
             if os.path.isfile(file):
-                print(
-                    f'Removing RoDepParserTree model file [{file}]', file=sys.stderr, flush=True)
+                logger.info(f'Removing RoDepParserTree model file [{file}]')
                 os.remove(file)
+            else:
+                # Wildcard file spec
+                for path in glob(file):
+                    logger.info(
+                        f'Removing RoDepParserTree model file [{path}]')
+                    os.remove(path)
+                # end for
             # end if
         # end for
 
-    def do_eval(self, dataloader: DataLoader, desc: str) -> float:
+    def do_eval(self, dataloader: DataLoader, ml_type: str) -> float:
         correct = 0
         example_number = 0
 
-        for inputs_bert, inputs_msd, target_labels in tqdm(dataloader, desc=f'Eval on {desc}set'):
+        for inputs_bert, inputs_msd, target_labels in tqdm(dataloader, desc=f'Eval on [{ml_type}] set'):
             outputs = self._headmodel(x=(inputs_bert, inputs_msd))
             predicted_labels = torch.argmax(outputs, dim=2)
             found = (predicted_labels == target_labels)
@@ -405,7 +391,7 @@ class RoDepParserTree(object):
         # end for
 
         acc = correct / example_number
-        print(f'Acc = {acc:.5f}', file=sys.stderr, flush=True)
+        logger.info(f'Acc = {acc:.5f}')
 
         return acc
 

@@ -20,7 +20,7 @@ Precision on MSDs that are in the word's ambiguity class is 95.14%.\
 Recall of MSDs that are in the word's ambiguity class is 92.66%.\
 F1 of the above is 93.88%.
 
-## POS Tagger
+## POS tagger
 A Bi-LSTM-CRF head over a BERT embedding to get coarse-grained POS tags coupled with a Bi-LSTM head over another BERT embedding to get the [MSD](https://nl.ijs.si/ME/V6/msd/html/msd-ro.html) of the current word, given its coarse-grained POS tag. The POS tagger uses Romanian-specific features, extracted beforehand from the input sentence.
 
 ### With coarse-grained to fine-grained mapping (called "tiered tagging")
@@ -30,3 +30,13 @@ Accuracy on fine-grained POS tags (MSDs) of the test set is 97.75%.
 ### Without tiered tagging (roughly 10 times faster)
 Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.05%.\
 Accuracy on fine-grained POS tags (MSDs) of the test set is 97.59%.
+
+## UD dependency parser
+A LSTM head finder over BERT embeddings and a GRU dependency labeler over BERT embeddings, labeling root-to-leaf paths in the unlabeled tree.
+
+UAS/LAS on the dev set: 92.45%/88.11%
+UAS/LAS on the test set: 92.35%/87.74%
+
+Accuracy on finding the correct head of a token: 92.45%
+Accuracy on correctly labeling a dependency relation: 93.16%
+
