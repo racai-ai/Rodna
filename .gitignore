@@ -2,6 +2,7 @@ __pycache__
 .vscode/launch.json
 .vscode/settings.json
 papers/
+pypi/
 debug.py
 test.py
 data/other/stanza

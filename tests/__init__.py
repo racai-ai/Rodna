@@ -1,10 +1,10 @@
-from rodna.tokenizer import RoTokenizer
-from rodna.splitter import RoSentenceSplitter
-from rodna.morphology import RoInflect
-from rodna.lemmatization import RoLemmatizer
-from rodna.tagger import RoPOSTagger
-from rodna.parser import RoDepParser
-from rodna.lexicon import Lex
+from processor.tokenizer import RoTokenizer
+from processor.splitter import RoSentenceSplitter
+from processor.morphology import RoInflect
+from processor.lemmatization import RoLemmatizer
+from processor.tagger import RoPOSTagger
+from processor.parser import RoDepParser
+from processor.lexicon import Lex
 
 lexicon = Lex()
 tokenizer = RoTokenizer(lexicon=lexicon)

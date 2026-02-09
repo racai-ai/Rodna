@@ -1,7 +1,7 @@
-import os
-from pathlib import Path
 __version__ = "1.0.0"
 
+import os
+from pathlib import Path
 from typing import Set
 import torch
 import logging

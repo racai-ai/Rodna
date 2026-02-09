@@ -1,8 +1,8 @@
 import re
 from typing import Pattern, Set, List, Dict
 import numpy as np
-from rodna import logger, log_once, logging
-from . import TBL_WORDFORM_FILE, MSD_MAP_FILE, MORPHO_MAP_FILE
+from . import logger, log_once, logging, \
+    TBL_WORDFORM_FILE, MSD_MAP_FILE, MORPHO_MAP_FILE
 
 
 class MSD(object):

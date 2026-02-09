@@ -10,7 +10,8 @@ from xml.etree.ElementTree import Element
 from .morphology import RoInflect
 from .lexicon import Lex
 from . import PARADIGM_MORPHO_FILE, \
-    TBL_WORDROOT_FILE, TBL_ROOT2ROOT_FILE, ROOT_EXTRACT_LOG_FILE, logger
+    TBL_WORDROOT_FILE, TBL_ROOT2ROOT_FILE, \
+    ROOT_EXTRACT_LOG_FILE, logger
 
 
 class RoLemmatizer(object):

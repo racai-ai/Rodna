@@ -1,7 +1,8 @@
 import os
 from utils.datafile import read_conllu_file, conllu_corpus_to_tab_file
-from rodna.tokenizer import RoTokenizer
-from utils.Lex import Lex
+from processor.tokenizer import RoTokenizer
+from processor.lexicon import Lex
+
 
 # In the ro_rrt-ud-train2.conllu file all sentence final
 # tokens have been replaced with <token>#SE#, like so:

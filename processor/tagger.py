@@ -1,8 +1,6 @@
-import sys
 import os
 import re
-from typing import List, Tuple, Dict, Set
-from math import isclose
+from typing import List, Tuple, Dict
 from random import shuffle
 import numpy as np
 import torch
@@ -12,8 +10,6 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
 import json
-from . import _device
-from utils.datafile import read_all_ext_files_from_dir
 from .lexicon import Lex, MSD
 from .splitter import RoSentenceSplitter
 from .tokenizer import RoTokenizer
@@ -24,7 +20,7 @@ from .clsmodel import CLSModel
 from . import CLS_TAGGER_MODEL_FOLDER, \
     CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, \
     TAGGER_MODEL_FOLDER, BERT_FOR_CLS_TAGGER_FOLDER, \
-    BERT_FOR_CRF_TAGGER_FOLDER, logger, logging, log_once
+    BERT_FOR_CRF_TAGGER_FOLDER, logger, logging, log_once, _device
 from .bert_model import RoBERTModel, \
     zero_word, start_word, end_word, dumitrescu_bert_v1
 

@@ -40,7 +40,7 @@ DEL /F /Q data\models\splitter\model.pt
 DEL /F /Q data\models\splitter_feat_len.txt
 DEL /F /Q data\models\splitter_unic_props.txt
 :: Retrain the sentence splitting model
-python -m rodna.splitter
+python -m processor.splitter
 EXIT /B 0
 
 :Morpho
@@ -50,7 +50,7 @@ DEL /F /Q data\models\morphology\model.pt
 DEL /F /Q data\models\char_ids.txt
 DEL /F /Q data\models\unknown_aclasses.txt
 :: Retrain the morphology model
-python -m rodna.morphology
+python -m processor.morphology
 EXIT /B 0
 
 :Tagger
@@ -68,13 +68,13 @@ DEL /F /Q data\models\tagger\crf_bert\model.safetensors
 DEL /F /Q data\models\tagger\crf_bert\vocab.txt
 DEL /F /Q data\models\tagger_unic_props.txt
 :: Retrain the tagger
-python -m rodna.tagger
+python -m processor.tagger
 EXIT /B 0
 
 :Parser
 ECHO Training the dependency parser
 : Model files for the RoDepParser models 1 and 2 are automatically deleted now
 : Retrain the parser model
-python -m rodna.parser
+python -m processor.parser
 
 ENDLOCAL
