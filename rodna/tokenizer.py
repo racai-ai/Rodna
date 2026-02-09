@@ -2,7 +2,7 @@ from typing import List, Tuple
 import re
 import numpy as np
 import unicodedata as uc
-from utils.Lex import Lex
+from rodna.lexicon import Lex
 from utils.datafile import txt_file_to_string
 from . import logger
 

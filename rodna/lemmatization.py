@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 from typing import List, Tuple, \
     Union, Dict, Set, Any
 from math import log10
@@ -9,7 +8,7 @@ from tqdm import tqdm
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element
 from .morphology import RoInflect
-from utils.Lex import Lex
+from .lexicon import Lex
 from . import PARADIGM_MORPHO_FILE, \
     TBL_WORDROOT_FILE, TBL_ROOT2ROOT_FILE, ROOT_EXTRACT_LOG_FILE, logger
 
@@ -1325,7 +1324,7 @@ class RoLemmatizer(object):
         final_lemmas = sorted(lemma_scores3, key=lambda x: x[1], reverse=True)
 
         if not final_lemmas:
-            print(f'Empty response from lemmatizer for {word}/{msd}', file=sys.stderr, flush=True)
+            logger.warning(f'Empty response from lemmatizer for [{word}/{msd}]')
         # end if
 
         return final_lemmas

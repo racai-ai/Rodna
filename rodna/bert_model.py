@@ -109,7 +109,7 @@ class RoBERTModel(object):
             # end if
 
             bert_words = [x[0] for x in chunk
-                        if x[1] not in ['SPACE', 'EOL', 'JUNK'] and x[0] != ' ']
+                          if x[1] not in ['SPACE', 'EOL', 'JUNK'] and x[0] not in ['', ' ', '\t']]
             embeddings = self._tokenized_bert_embeddings(tokens=bert_words)
             
             for j in range(len(chunk)):
@@ -119,7 +119,7 @@ class RoBERTModel(object):
                 if word in ['', ' ', '\t']:
                     bert_features = torch.tensor(self._get_space_vector(),
                                                  dtype=torch.float32).to(_device)
-                elif word == '\n':
+                elif word == '\n' or tlabel == 'EOL':
                     bert_features = torch.tensor(self._get_newline_vector(),
                                                  dtype=torch.float32).to(_device)
                 elif tlabel == 'JUNK':

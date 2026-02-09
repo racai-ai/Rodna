@@ -13,13 +13,11 @@ from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
 import json
 from . import _device
-from utils.CharUni import CharUni
-from utils.Lex import Lex
-from utils.MSD import MSD
 from utils.datafile import read_all_ext_files_from_dir
+from .lexicon import Lex, MSD
 from .splitter import RoSentenceSplitter
 from .tokenizer import RoTokenizer
-from .features import RoFeatures
+from .features import RoFeatures, CharUni
 from .morphology import RoInflect
 from .crfmodel import CRFModel
 from .clsmodel import CLSModel

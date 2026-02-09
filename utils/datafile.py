@@ -1,7 +1,7 @@
 import re
 import os
 from typing import List, Tuple
-from utils.MSD import MSD
+from rodna.lexicon import MSD
 from rodna import logger
 
 

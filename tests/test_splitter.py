@@ -2,7 +2,7 @@ from . import splitter
 
 def test_simple():
     sentences = splitter.sentence_split("Acesta este un text simplu. Urmează, bine-înțeles, o a doua propoziție. "
-                                     "Iar textul se termină cu ultima propoziție.")
+                                        "Iar textul se termină cu ultima propoziție.")
     assert len(sentences) == 3
     assert sentences[0][0][0] == 'Acesta'
     assert sentences[1][0][0] == 'Urmează'

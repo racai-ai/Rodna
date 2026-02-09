@@ -17,6 +17,6 @@ def test_parsing():
     parsed_sentence_2 = parser.parse_sentence(sentence=tagged_sentence_2)
 
     assert parsed_sentence_2[0][2] == 0 and parsed_sentence_2[0][3] == 'root'
-    assert parsed_sentence_2[2][2] == 1 and parsed_sentence_2[2][3] == 'parataxis'
+    assert parsed_sentence_2[2][2] == 1 and parsed_sentence_2[2][3] == 'advmod'
     assert parsed_sentence_2[4][2] == 8 and parsed_sentence_2[4][3] == 'det'
-    assert parsed_sentence_2[7][2] == 1 and parsed_sentence_2[7][3] == 'obj'
+    assert parsed_sentence_2[7][2] == 1 and parsed_sentence_2[7][3] == 'nsubj'

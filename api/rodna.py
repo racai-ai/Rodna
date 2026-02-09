@@ -10,7 +10,7 @@ from rodna.morphology import RoInflect
 from rodna.lemmatization import RoLemmatizer
 from rodna.tagger import RoPOSTagger
 from rodna.parser import RoDepParser
-from utils.Lex import Lex
+from rodna.lexicon import Lex
 from . import ConlluProcessor
 
 class RodnaProcessor(ConlluProcessor):
@@ -28,7 +28,8 @@ class RodnaProcessor(ConlluProcessor):
             self.lexicon, self.tokenizer, self.morphology, self.splitter)
         self.tagger.load()
         self.lemmatizer = RoLemmatizer(self.lexicon, self.morphology)
-        self.parser = RoDepParser(msd=self.lexicon.get_msd_object())
+        self.parser = RoDepParser(msd_desc=self.lexicon.get_msd_object(),
+                                  tokenizer=self.tokenizer)
         self.parser.load()
 
     def _check_input_sentence(self, sentence: List[Tuple]) -> bool:

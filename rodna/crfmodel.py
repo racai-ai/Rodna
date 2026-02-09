@@ -7,7 +7,7 @@ from typing import Dict
 import torch
 from torch import Tensor
 import torch.nn as nn
-from utils.MSD import MSD
+from .lexicon import MSD
 from . import _device
 
 # The tag in front of the sentence

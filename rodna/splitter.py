@@ -8,14 +8,14 @@ from torch.utils.data import DataLoader, Dataset
 from torch.optim import Adam
 from torch import Tensor
 from tqdm import tqdm
-from utils.CharUni import CharUni
-from utils.Lex import Lex
-from rodna.tokenizer import RoTokenizer
+from .features import CharUni
+from .lexicon import Lex
+from .tokenizer import RoTokenizer
 from utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from . import SENT_SPLITTER_MODEL_FOLDER, \
     SPLITTER_UNICODE_PROPERTY_FILE, \
     SPLITTER_FEAT_LEN_FILE, _device, logger
-from .bert_model import RoBERTModel, dumitrescu_bert_v1
+from .bert_model import RoBERTModel, dumitrescu_bert_v1, zero_word
 
 
 class RoSentenceSplitterModule(nn.Module):
@@ -321,8 +321,7 @@ class RoSentenceSplitter(object):
         the list of tokenized sentences."""
 
         word_sequence = self._tokenizer.tokenize(input_text)
-        bert_sequence_features = self._ro_bert.bert_embeddings(tokens=word_sequence)
-        
+                
         # Keeps the number of artificially inserted spaces
         # so that we can remove them at the end.
         tail_extra_count = 0
@@ -330,9 +329,12 @@ class RoSentenceSplitter(object):
         while len(word_sequence) < RoSentenceSplitter._conf_max_seq_length:
             # We have too few tokens to do sentence splitting.
             # Pad the sequence with spaces.
-            word_sequence.append((' ', 'SPACE'))
+            word_sequence.append((zero_word, self._tokenizer.tag_word(zero_word)))
             tail_extra_count += 1
         # end while
+
+        bert_sequence_features = self._ro_bert.bert_embeddings(
+            tokens=word_sequence)
 
         # Add a list of floats P(EOS) to each token in word_sequence initially empty.
         for i in range(len(word_sequence)):

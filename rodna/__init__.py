@@ -83,7 +83,3 @@ PARSER_DEPRELS_FILE = os.path.join(
 PARSER_MODEL_FOLDER = os.path.join(data_folder, 'models', 'parser')
 PARSER1_BERT_MODEL_FOLDER = os.path.join(PARSER_MODEL_FOLDER, 'bert1')
 PARSER2_BERT_MODEL_FOLDER = os.path.join(PARSER_MODEL_FOLDER, 'bert2')
-
-
-def load_rodna() -> None:
-    pass

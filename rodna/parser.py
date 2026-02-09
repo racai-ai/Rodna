@@ -1,12 +1,10 @@
 from typing import List, Tuple, Set
 import os
-import sys
 from tqdm import tqdm
 from .tokenizer import RoTokenizer
-from utils.Lex import Lex
+from .lexicon import Lex, MSD
 from .parserone import RoDepParserTree
 from .parsertwo import RoDepParserLabel
-from utils.MSD import MSD
 from . import PARSER_DEPRELS_FILE, \
     PARSER_MODEL_FOLDER, logger
 
@@ -48,11 +46,11 @@ def read_parsed_file(file: str) -> List[List[Tuple[str, str, int, str]]]:
 
 class RoDepParser(object):
 
-    def __init__(self, msd: MSD, tok: RoTokenizer):
-        self._tokenizer = tok
-        self._rodep1 = RoDepParserTree(msd, tok)
+    def __init__(self, msd_desc: MSD, tokenizer: RoTokenizer):
+        self._tokenizer = tokenizer
+        self._rodep1 = RoDepParserTree(msd_desc, tokenizer)
         self._deprels = self._load_deprels()
-        self._rodep2 = RoDepParserLabel(msd, tok, self._deprels)
+        self._rodep2 = RoDepParserLabel(msd_desc, tokenizer, self._deprels)
 
     def parse_sentence(self, sentence: List[Tuple]) -> List[Tuple]:
         """This is the main entry into the Romanian depencency parser.
@@ -251,8 +249,7 @@ class RoDepParser(object):
 if __name__ == '__main__':
     lex = Lex()
     tok = RoTokenizer(lex)
-    msd = MSD()
-    par = RoDepParser(msd=msd, tok=tok)
+    par = RoDepParser(msd_desc=lex.get_msd_object(), tokenizer=tok)
 
     # For a given split, like in RRT
     training_file = os.path.join(

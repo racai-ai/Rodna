@@ -4,16 +4,17 @@ from rodna.morphology import RoInflect
 from rodna.lemmatization import RoLemmatizer
 from rodna.tagger import RoPOSTagger
 from rodna.parser import RoDepParser
-from utils.Lex import Lex
+from rodna.lexicon import Lex
 
 lexicon = Lex()
-tokenizer = RoTokenizer(lexicon)
-splitter = RoSentenceSplitter(lexicon, tokenizer)
+tokenizer = RoTokenizer(lexicon=lexicon)
+splitter = RoSentenceSplitter(lexicon=lexicon, tokenizer=tokenizer)
 splitter.load()
-morphology = RoInflect(lexicon)
+morphology = RoInflect(lexicon=lexicon)
 morphology.load()
-tagger = RoPOSTagger(lexicon, tokenizer, morphology, splitter)
+tagger = RoPOSTagger(lexicon=lexicon, tokenizer=tokenizer,
+                     morphology=morphology, splitter=splitter)
 tagger.load()
-lemmatizer = RoLemmatizer(lexicon, morphology)
-parser = RoDepParser(msd=lexicon.get_msd_object())
+lemmatizer = RoLemmatizer(lexicon=lexicon, inflector=morphology)
+parser = RoDepParser(msd_desc=lexicon.get_msd_object(), tokenizer=tokenizer)
 parser.load()

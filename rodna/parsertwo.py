@@ -8,8 +8,8 @@ from torch import nn
 from torch import Tensor
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
-from utils.MSD import MSD
 from torch.utils.data import DataLoader, Dataset
+from .lexicon import MSD
 from .bert_model import RoBERTModel, dumitrescu_bert_v1
 from .tokenizer import RoTokenizer
 from . import PARSER_MODEL_FOLDER, \
