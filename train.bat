@@ -73,8 +73,8 @@ EXIT /B 0
 
 :Parser
 ECHO Training the dependency parser
-: Model files for the RoDepParser models 1 and 2 are automatically deleted now
-: Retrain the parser model
+:: Model files for the RoDepParser models 1 and 2 are automatically deleted now
+:: Retrain the parser model
 python -m processor.parser
 
 ENDLOCAL
