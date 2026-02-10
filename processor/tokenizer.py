@@ -3,7 +3,7 @@ import re
 import numpy as np
 import unicodedata as uc
 from .lexicon import Lex
-from ..utils.datafile import txt_file_to_string
+from utils.datafile import txt_file_to_string
 from . import logger
 
 

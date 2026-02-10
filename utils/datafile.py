@@ -1,8 +1,8 @@
 import re
 import os
 from typing import List, Tuple
-from ..processor.lexicon import MSD
-from ..processor import logger
+from processor.lexicon import MSD
+from processor import logger
 
 
 def txt_file_to_string(input_file: str) -> str:
