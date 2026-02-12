@@ -13,9 +13,13 @@ Latest training data is pushed to this repository, but if you want to generate f
 ### Sentence splitter
 A Bi-LSTM over a frozen BERT embedding neural network that does sentence splitting (classifies each token as 'end of sentence' or 'not end of sentence').
 
-Precision on 'end of sentence' label is 99.62% on the test split of RRT.\
+Precision on 'end of sentence' label is 99.62% on the dev split of RRT.\
+Recall on 'end of sentence' label is 99.41% on the dev split of RRT.\
+F1 on 'end of sentence' label is 99.52% on the dev split of RRT.
+
+Precision on 'end of sentence' label is 99.65% on the test split of RRT.\
 Recall on 'end of sentence' label is 99.38% on the test split of RRT.\
-F1 on 'end of sentence' label is 99.5% on the test split of RRT.
+F1 on 'end of sentence' label is 99.52% on the test split of RRT.
 
 ### Romanian morphology
 A LSTM neural network than learns the mapping from a word form to its possible [MSDs](https://nl.ijs.si/ME/V6/msd/html/msd-ro.html). It works on character embeddings of the input word, from left to right.
@@ -28,21 +32,21 @@ F1 of the above is 93.88%.
 A Bi-LSTM-CRF head over a BERT embedding to get coarse-grained POS tags coupled with a Bi-LSTM head over another BERT embedding to get the [MSD](https://nl.ijs.si/ME/V6/msd/html/msd-ro.html) of the current word, given its coarse-grained POS tag. The POS tagger uses Romanian-specific features, extracted beforehand from the input sentence.
 
 **With coarse-grained to fine-grained mapping (called "tiered tagging")**
-Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.15%.\
-Accuracy on fine-grained POS tags (MSDs) of the test set is 97.75%.
+Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.10%.\
+Accuracy on fine-grained POS tags (MSDs) of the test set is 97.39%.
 
 **Without tiered tagging (roughly 10 times faster)**
-Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.05%.\
-Accuracy on fine-grained POS tags (MSDs) of the test set is 97.59%.
+Accuracy on fine-grained POS tags (MSDs) of the dev set is 98.06%.\
+Accuracy on fine-grained POS tags (MSDs) of the test set is 97.54%.
 
 ### UD dependency parser
 A LSTM head finder over BERT embeddings and a GRU dependency labeler over BERT embeddings, labeling root-to-leaf paths in the unlabeled tree.
 
-UAS/LAS on the dev set: 92.45%/88.11%.\
-UAS/LAS on the test set: 92.35%/87.74%.
+UAS/LAS on the dev set: 92.45%/88.07%.\
+UAS/LAS on the test set: 92.35%/87.65%.
 
 Accuracy on finding the correct head of a token: 92.45%
-Accuracy on correctly labeling a dependency relation: 93.16%
+Accuracy on correctly labeling a dependency relation: 92.92%
 
 ## HOWTO
 
@@ -57,8 +61,18 @@ from rodna.api import RodnaProcessor
 from conllu.models import SentenceList
 
 rodna = RodnaProcessor()
-# Output is written to path/to/file.conllu
+# Output is written to path/to/file.rodna.conllu
+# So .txt is replaced by .rodna.conllu
 rodna.process_text_file(txt_file='path/to/file.txt')
 # Returns a list of sentences in the CoNLL-U format
 list_of_sentences: SentenceList = rodna.process_text(text='Aceasta este o propoziție.')
+```
+
+Rodna resources will be downloaded once, with the first call to `RodnaProcessor()`.
+If you want to pre-download the resources, do this:
+
+```python
+from rodna import processor
+
+processor.download_resources()
 ```

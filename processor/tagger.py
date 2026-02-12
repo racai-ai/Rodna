@@ -81,7 +81,7 @@ class RoPOSTagger(object):
     _conf_test_percent = 0.1
     _conf_epochs_cls = 10
     _conf_epochs_crf = 2
-    _conf_with_tiered_tagging = True
+    _conf_with_tiered_tagging = False
     _conf_model_file = 'model.pt'
     _conf_config_file = 'config.json'
 
@@ -889,23 +889,31 @@ class RoPOSTagger(object):
 
         # 1. Get the model predicted MSDs
         msd_predictions = self._get_predicted_msd(y_pred)
-        cls_only_pred_msds = [m for m, _ in msd_predictions]
-        crf_cls_agree = False
+        cls_msds = [m for m, _ in msd_predictions]
+        crf_cls_agree = (len(set(tt_msds).intersection(cls_msds)) > 0)
 
-        # 1.1 Update MSD predictions with tiered tagging MSDs
-        for ttm in tt_msds:
-            if ttm not in cls_only_pred_msds:
+        # 2. If tt_msds is not empty, get the best MSD
+        # out of that list only and return
+        if tt_msds:
+            best_tt_msd_p = 0.
+            best_tt_msd = ''
+
+            for ttm in tt_msds:
                 idx = self._msd.msd_to_idx(ttm)
                 msd_p = y_pred[idx]
-                msd_predictions.append((ttm, msd_p))
-            else:
-                crf_cls_agree = True
-            # end if
-        # end for
+
+                if msd_p > best_tt_msd_p:
+                    best_tt_msd_p = msd_p
+                    best_tt_msd = ttm
+                # end if
+            # end for
+
+            return best_tt_msd, best_tt_msd_p, crf_cls_agree, cls_msds
+        # end if
 
         best_pred_msds = [m for m, _ in msd_predictions]
 
-        # 2. Get the extended word ambiguity class, as the predicted MSD may
+        # 3. Get the extended word ambiguity class, as the predicted MSD may
         # be outside this set.
         known_word_msds = set()
 
@@ -956,7 +964,7 @@ class RoPOSTagger(object):
                 # end for
             # end for
 
-            return best_pred_msd, best_pred_msd_p, crf_cls_agree, cls_only_pred_msds
+            return best_pred_msd, best_pred_msd_p, crf_cls_agree, cls_msds
         elif known_word_msds:
             computed_word_msds = list(known_word_msds)
         else:
@@ -981,7 +989,7 @@ class RoPOSTagger(object):
         log_once(f"Word [{word}] -> got suboptimal MSD [{best_acls_msd}/{best_acls_msd_p:.2f}]",
                  calling_fn='RoPOSTagger._most_prob_msd', log_level=logging.DEBUG)
 
-        return best_acls_msd, best_acls_msd_p, crf_cls_agree, cls_only_pred_msds
+        return best_acls_msd, best_acls_msd_p, crf_cls_agree, cls_msds
 
     def _tiered_tagging(self, word: str, ctag: str) -> List[str]:
         """This implements Tufiș and Dragomirescu's (2004) tiered tagging concept that
@@ -997,7 +1005,7 @@ class RoPOSTagger(object):
         # end if
 
         # Mapped class of MSDs
-        mclass = self._msd.ctag_to_possible_msds(ctag)
+        tt_aclass = self._msd.ctag_to_possible_msds(ctag)
         lex_aclass = []
 
         if self._lexicon.is_lex_word(word):
@@ -1018,7 +1026,7 @@ class RoPOSTagger(object):
         # end if
 
         both_aclass = set(lex_aclass).union(infl_aclass)
-        result_aclass = list(both_aclass.intersection(mclass))
+        result_aclass = list(both_aclass.intersection(tt_aclass))
 
         if result_aclass:
             log_once(
@@ -1028,7 +1036,7 @@ class RoPOSTagger(object):
         # end if
 
         amend_aclass = self._lexicon.amend_ambiguity_class(word, both_aclass)
-        result_aclass = list(amend_aclass.intersection(mclass))
+        result_aclass = list(amend_aclass.intersection(tt_aclass))
 
         if result_aclass:
             log_once(
@@ -1036,13 +1044,13 @@ class RoPOSTagger(object):
                 'RoPOSTagger._tiered_tagging', logging.DEBUG)
             return result_aclass
         else:
-            # If result_aclass is empty, tiered tagging failed:
-            # CTAG is very different than ambiguity classes!
-            list_amend_aclass = list(amend_aclass)
+            # If result_aclass is empty, CTAG is very different than ambiguity classes
+            # Prefer CTAG output
+            list_tt_aclass = list(tt_aclass)
             log_once(
-                f"_tiered_tagging[error]: word '{word}' got MSDs [{', '.join(list_amend_aclass)}] for CTAG [{ctag}]",
+                f"_tiered_tagging[preferred]: word '{word}' got MSDs [{', '.join(tt_aclass)}] for CTAG [{ctag}]",
                 'RoPOSTagger._tiered_tagging', logging.DEBUG)
-            return list_amend_aclass
+            return list_tt_aclass
         # end if
 
     def tag_sentence(self, sentence: List[Tuple[str, str]]) -> List[Tuple[str, str, float]]:
@@ -1189,7 +1197,8 @@ if __name__ == '__main__':
     logger.info(f"Reading testing file [{testing_file}]")
     testing = tag.read_tagged_file(testing_file)
 
-    tag.train(train_sentences=training,
-              dev_sentences=development, test_sentences=testing)
+    #tag.train(train_sentences=training,
+    #          dev_sentences=development, test_sentences=testing)
+    tag.load()
     tag.test_on_sentence_set(sentences=development, ml_type='dev')
     tag.test_on_sentence_set(sentences=testing, ml_type='test')

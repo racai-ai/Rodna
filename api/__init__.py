@@ -2,14 +2,15 @@ import sys
 from typing import List, Tuple, override
 from pathlib import Path
 from abc import ABC, abstractmethod
-from ..processor.lexicon import Lex
-from ..processor.parser import RoDepParser
-from ..processor.tagger import RoPOSTagger
-from ..processor.lemmatization import RoLemmatizer
-from ..processor.morphology import RoInflect
-from ..processor.splitter import RoSentenceSplitter
-from ..processor.tokenizer import RoTokenizer
+from processor.lexicon import Lex
+from processor.parser import RoDepParser
+from processor.tagger import RoPOSTagger
+from processor.lemmatization import RoLemmatizer
+from processor.morphology import RoInflect
+from processor.splitter import RoSentenceSplitter
+from processor.tokenizer import RoTokenizer
 from conllu.models import Token, TokenList, SentenceList
+from processor import download_resources
 
 
 class ConlluProcessor(ABC):
@@ -58,6 +59,9 @@ class RodnaProcessor(ConlluProcessor):
     It processes UTF-8 text files and outputs CoNLL-U files."""
 
     def __init__(self, with_punct_ctags: bool = True) -> None:
+        # Download resources once, if needed
+        download_resources()
+        
         self._use_punct_ctags = with_punct_ctags
         self.lexicon = Lex()
         self.tokenizer = RoTokenizer(self.lexicon)
