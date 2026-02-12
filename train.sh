@@ -10,7 +10,7 @@ function train_sentence_splitter {
 	rm -fv data/models/splitter_feat_len.txt
 	rm -fv data/models/splitter_unic_props.txt
 	# Retrain the sentence splitter model
-	python3 -m processor.splitter
+	python3 -m rodna.processor.splitter
 
 	echo
 	echo ========== End training RoSentenceSplitter ==========
@@ -27,7 +27,7 @@ function train_morphology {
 	rm -fv data/models/char_ids.txt
 	rm -fv data/models/unknown_aclasses.txt
 	# Retrain the morphology model
-	python3 -m processor.morphology
+	python3 -m rodna.processor.morphology
 
 	echo
 	echo ========== End training RoInflect ==========
@@ -52,7 +52,7 @@ function train_pos_tagger {
 	rm -fv data/models/tagger/crf_bert/vocab.txt
 	rm -fv data/models/tagger_unic_props.txt
 	# Retrain the tagger model
-	python3 -m processor.tagger
+	python3 -m rodna.processor.tagger
 
 	echo
 	echo ========== End training RoPOSTagger ==========
@@ -68,7 +68,7 @@ function train_dep_parser {
 	# and the best model is saved
 	
 	# Retrain the parser model
-	python3 -m processor.parser
+	python3 -m rodna.processor.parser
 
 	echo
 	echo ========== End training RoDepParser ==========

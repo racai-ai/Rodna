@@ -1,7 +1,7 @@
 import os
-from utils.datafile import read_conllu_file, conllu_corpus_to_tab_file
-from processor.tokenizer import RoTokenizer
-from processor.lexicon import Lex
+from rodna.utils.datafile import read_conllu_file, conllu_corpus_to_tab_file
+from rodna.processor.tokenizer import RoTokenizer
+from rodna.processor.lexicon import Lex
 
 
 # In the ro_rrt-ud-train2.conllu file all sentence final

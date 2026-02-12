@@ -2,7 +2,8 @@ import os
 from typing import List, Tuple
 import torch
 from transformers import BertTokenizerFast, BertModel
-from . import _device, logger
+from . import _device
+from .. import logger
 
 
 dumitrescu_bert_v1 = 'dumitrescustefan/bert-base-romanian-cased-v1'

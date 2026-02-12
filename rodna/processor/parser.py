@@ -5,8 +5,9 @@ from .tokenizer import RoTokenizer
 from .lexicon import Lex, MSD
 from .parserone import RoDepParserTree
 from .parsertwo import RoDepParserLabel
-from . import PARSER_DEPRELS_FILE, \
-    PARSER_MODEL_FOLDER, logger
+from ..config import PARSER_DEPRELS_FILE, \
+    PARSER_MODEL_FOLDER
+from .. import logger
 
 
 def read_parsed_file(file: str) -> List[List[Tuple[str, str, int, str]]]:

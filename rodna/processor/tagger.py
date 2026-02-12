@@ -10,6 +10,8 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
 import json
+from . import _device
+from .. import logger, logging, log_once
 from .lexicon import Lex, MSD
 from .splitter import RoSentenceSplitter
 from .tokenizer import RoTokenizer
@@ -17,10 +19,10 @@ from .features import RoFeatures, CharUni
 from .morphology import RoInflect
 from .crfmodel import CRFModel
 from .clsmodel import CLSModel
-from . import CLS_TAGGER_MODEL_FOLDER, \
+from ..config import CLS_TAGGER_MODEL_FOLDER, \
     CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, \
     TAGGER_MODEL_FOLDER, BERT_FOR_CLS_TAGGER_FOLDER, \
-    BERT_FOR_CRF_TAGGER_FOLDER, logger, logging, log_once, _device
+    BERT_FOR_CRF_TAGGER_FOLDER
 from .bert_model import RoBERTModel, \
     zero_word, start_word, end_word, dumitrescu_bert_v1
 

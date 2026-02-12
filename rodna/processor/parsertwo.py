@@ -12,8 +12,10 @@ from torch.utils.data import DataLoader, Dataset
 from .lexicon import MSD
 from .bert_model import RoBERTModel, dumitrescu_bert_v1
 from .tokenizer import RoTokenizer
-from . import PARSER_MODEL_FOLDER, \
-    PARSER2_BERT_MODEL_FOLDER, _device, logger
+from . import _device
+from .. import logger
+from ..config import PARSER_MODEL_FOLDER, \
+    PARSER2_BERT_MODEL_FOLDER
 
 
 class RoBERTDepRelFinder(nn.Module):

@@ -12,9 +12,10 @@ from tqdm import tqdm
 from .lexicon import MSD
 from .bert_model import RoBERTModel, _device, dumitrescu_bert_v1
 from .tokenizer import RoTokenizer
-from utils.mst import chu_liu_edmonds
-from . import PARSER_MODEL_FOLDER, PARSER1_BERT_MODEL_FOLDER, \
-    _device, logger
+from ..utils.mst import chu_liu_edmonds
+from . import _device
+from .. import logger
+from ..config import PARSER_MODEL_FOLDER, PARSER1_BERT_MODEL_FOLDER
 
 
 class RoBERTHeadFinder(nn.Module):

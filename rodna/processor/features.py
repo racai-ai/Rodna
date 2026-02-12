@@ -2,7 +2,7 @@ from typing import List, Tuple
 import numpy as np
 import unicodedata as uc
 from .lexicon import Lex
-from . import logger
+from .. import logger
 
 
 class RoFeatures(object):

@@ -2,15 +2,15 @@ import sys
 from typing import List, Tuple, override
 from pathlib import Path
 from abc import ABC, abstractmethod
-from processor.lexicon import Lex
-from processor.parser import RoDepParser
-from processor.tagger import RoPOSTagger
-from processor.lemmatization import RoLemmatizer
-from processor.morphology import RoInflect
-from processor.splitter import RoSentenceSplitter
-from processor.tokenizer import RoTokenizer
 from conllu.models import Token, TokenList, SentenceList
-from processor import download_resources
+from ..processor.lexicon import Lex
+from ..processor.parser import RoDepParser
+from ..processor.tagger import RoPOSTagger
+from ..processor.lemmatization import RoLemmatizer
+from ..processor.morphology import RoInflect
+from ..processor.splitter import RoSentenceSplitter
+from ..processor.tokenizer import RoTokenizer
+from .. import download_resources
 
 
 class ConlluProcessor(ABC):

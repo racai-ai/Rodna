@@ -9,9 +9,11 @@ from torch.nn.utils.rnn import pack_sequence
 from tqdm import tqdm
 from random import shuffle
 from .lexicon import Lex
-from . import TBL_WORDFORM_FILE, \
+from . import _device
+from .. import logger, log_once, logging
+from ..config import TBL_WORDFORM_FILE, \
     ROINFLECT_MODEL_FOLDER, ROINFLECT_CHARID_FILE, \
-    ROINFLECT_CACHE_FILE, _device, logger, log_once, logging
+    ROINFLECT_CACHE_FILE
 
 
 class RoInflectModule(nn.Module):

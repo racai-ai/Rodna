@@ -4,7 +4,7 @@ import os
 import sys
 import stanza
 from conllu.models import Token, TokenList, SentenceList
-from api import ConlluProcessor
+from rodna.api import ConlluProcessor
 
 
 class StanzaProcessor(ConlluProcessor):
