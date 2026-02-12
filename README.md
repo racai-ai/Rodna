@@ -72,7 +72,7 @@ Rodna resources will be downloaded once, with the first call to `RodnaProcessor(
 If you want to pre-download the resources, do this:
 
 ```python
-from rodna import processor
+import rodna
 
-processor.download_resources()
+rodna.download_resources()
 ```
