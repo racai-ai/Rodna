@@ -58,14 +58,25 @@ Use class `RodnaProcessor` to process raw texts and output them in the CoNLL-U f
 
 ```python
 from rodna.api import RodnaProcessor
+from rodna.api.multiprocess import process_text_mp
 from conllu.models import SentenceList
 
 rodna = RodnaProcessor()
 # Output is written to path/to/file.rodna.conllu
 # So .txt is replaced by .rodna.conllu
+#
 rodna.process_text_file(txt_file='path/to/file.txt')
 # Returns a list of sentences in the CoNLL-U format
+#
 list_of_sentences: SentenceList = rodna.process_text(text='Aceasta este o propoziție.')
+# If you want to process a folder with text files
+# in multi-tasking fashion, Rodna auto-determines the optimal
+# number of processes and adnotates the whole folder faster.
+#
+# Note: at least one GPU is required, with at least 8GB of RAM.
+# Each Rodna process also needs about 2.5GB of system RAM.
+#
+process_text_mp(folder='path/to/folder')
 ```
 
 Rodna resources will be downloaded once, with the first call to `RodnaProcessor()`.
