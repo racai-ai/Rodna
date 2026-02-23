@@ -10,10 +10,9 @@ from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
 from .lexicon import MSD
-from .bert_model import RoBERTModel, _device, dumitrescu_bert_v1
+from .bert_model import RoBERTModel, dumitrescu_bert_v1
 from .tokenizer import RoTokenizer
 from ..utils.mst import chu_liu_edmonds
-from . import _device
 from .. import logger
 from ..config import PARSER_MODEL_FOLDER, PARSER1_BERT_MODEL_FOLDER
 
@@ -26,13 +25,15 @@ class RoBERTHeadFinder(nn.Module):
     _conf_lstm_size = 1024
     _conf_drop_prob = 0.25
 
-    def __init__(self, msd_size: int, head_window_size: int, embed_size: int):
+    def __init__(self, msd_size: int, head_window_size: int, embed_size: int,
+                 device: torch.device):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
         `head_window_size`: how much to go left/right from current token to search for its head
         `embed_size`: the size of the BERT hidden state"""
 
         super().__init__()
 
+        self._device = device
         self._nonlin_fn = nn.LeakyReLU()
         self._drop = nn.Dropout(p=RoBERTHeadFinder._conf_drop_prob)
         self._logsoftmax = nn.LogSoftmax(dim=2)
@@ -47,20 +48,21 @@ class RoBERTHeadFinder(nn.Module):
             in_features=linear_io_size,
             out_features=2 * head_window_size + 1, dtype=torch.float32)
 
-        self.to(_device)
+        self.to(self._device)
 
     def forward(self, x):
         x_b, x_m = x
         b_size = x_b.shape[0]
         h_0 = torch.zeros(
             2, b_size,
-            RoBERTHeadFinder._conf_lstm_size).to(device=_device)
+            RoBERTHeadFinder._conf_lstm_size).to(device=self._device)
         c_0 = torch.zeros(
             2, b_size,
-            RoBERTHeadFinder._conf_lstm_size).to(device=_device)
+            RoBERTHeadFinder._conf_lstm_size).to(device=self._device)
 
         the_output, (h_n, c_n) = self._nn_lstm(x_b, (h_0, c_0))
-        the_output = torch.cat([the_output, x_m], dim=2).to(device=_device)
+        the_output = torch.cat([the_output, x_m], dim=2).to(
+            device=self._device)
         the_output = self._drop(the_output)
         the_output = self._nn_linear(the_output)
         the_output = self._logsoftmax(the_output)
@@ -121,8 +123,9 @@ class RoDepParserTree(object):
         os.path.join(PARSER1_BERT_MODEL_FOLDER, 'vocab.txt')
     ]
 
-    def __init__(self, msd: MSD, tok: RoTokenizer) -> None:
+    def __init__(self, msd: MSD, tok: RoTokenizer, device: torch.device) -> None:
         super().__init__()
+        self._device = device
         self._msd = msd
         self._tokenizer = tok
 
@@ -191,7 +194,7 @@ class RoDepParserTree(object):
         if not runtime:
             return bert_input_tensor, msd_input_tensor, head_output_tensor
         else:
-            return bert_input_tensor.to(_device), msd_input_tensor.to(_device), None
+            return bert_input_tensor.to(self._device), msd_input_tensor.to(self._device), None
         # end if
 
     def _trim_batch(self, batch: List[List[Tuple[str, str, int, str]]]) -> List[List[Tuple[str, str, int, str]]]:
@@ -227,9 +230,9 @@ class RoDepParserTree(object):
             head_tensor.append(htns)
         # end for
 
-        bert_tensor = torch.cat(bert_tensor, dim=0).to(_device)
-        msd_tensor = torch.cat(msd_tensor, dim=0).to(_device)
-        head_tensor = torch.cat(head_tensor, dim=0).to(_device)
+        bert_tensor = torch.cat(bert_tensor, dim=0).to(self._device)
+        msd_tensor = torch.cat(msd_tensor, dim=0).to(self._device)
+        head_tensor = torch.cat(head_tensor, dim=0).to(self._device)
 
         return bert_tensor, msd_tensor, head_tensor
 
@@ -279,11 +282,13 @@ class RoDepParserTree(object):
         """Does the head finder training."""
 
         self._ro_model = RoBERTModel(path_or_name=dumitrescu_bert_v1,
+                                     device=self._device,
                                      fine_tune=True)
         self._headmodel = RoBERTHeadFinder(
             msd_size=self._msd.get_output_vector_size(),
             head_window_size=RoDepParserTree._conf_head_window,
-            embed_size=self._ro_model.get_embedding_size())
+            embed_size=self._ro_model.get_embedding_size(),
+            device=self._device)
 
         self._loss_fn = nn.NLLLoss()
 
@@ -350,16 +355,18 @@ class RoDepParserTree(object):
         self._ro_model.save(destination_folder=PARSER1_BERT_MODEL_FOLDER)
 
     def load(self):
-        self._ro_model = RoBERTModel(path_or_name=PARSER1_BERT_MODEL_FOLDER)
+        self._ro_model = RoBERTModel(path_or_name=PARSER1_BERT_MODEL_FOLDER,
+                                     device=self._device)
         self._ro_model.bert_model.eval()
         self._headmodel = RoBERTHeadFinder(
             msd_size=self._msd.get_output_vector_size(),
             head_window_size=RoDepParserTree._conf_head_window,
-            embed_size=self._ro_model.get_embedding_size())
+            embed_size=self._ro_model.get_embedding_size(),
+            device=self._device)
         torch_model_file = os.path.join(
             PARSER_MODEL_FOLDER, RoDepParserTree._conf_model_file)
         self._headmodel.load_state_dict(torch.load(
-            torch_model_file, map_location=_device))
+            torch_model_file, map_location=self._device))
         # Put model into eval mode. It is only used for inferencing.
         self._headmodel.eval()
 

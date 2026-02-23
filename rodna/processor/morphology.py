@@ -24,8 +24,10 @@ class RoInflectModule(nn.Module):
     _conf_lstm_size = 256
     _conf_dense_size = 512
 
-    def __init__(self, char_vocab_dim: int, msd_vector_dim: int):
+    def __init__(self, char_vocab_dim: int, msd_vector_dim: int,
+                 device: torch.device):
         super().__init__()
+        self._device = device
         self._layer_embed = nn.Embedding(
             num_embeddings=char_vocab_dim,
             embedding_dim=RoInflectModule._conf_char_embed_size
@@ -45,7 +47,7 @@ class RoInflectModule(nn.Module):
         self._layer_drop = nn.Dropout(p=0.3)
         self._tanh = nn.Tanh()
         self._sigmoid = nn.Sigmoid()
-        self.to(device=_device)
+        self.to(device=self._device)
 
     def forward(self, x):
         b_size = len(x)
@@ -60,10 +62,10 @@ class RoInflectModule(nn.Module):
 
         # Hidden state initialization
         h_0 = torch.zeros(1, b_size, RoInflectModule._conf_lstm_size)
-        h_0 = h_0.to(device=_device)
+        h_0 = h_0.to(device=self._device)
         # Internal state initialization
         c_0 = torch.zeros(1, b_size, RoInflectModule._conf_lstm_size)
-        c_0 = c_0.to(device=_device)
+        c_0 = c_0.to(device=self._device)
 
         # Propagate input through LSTM, get output and state information
         lstm_outputs, (h_n, c_n) = self._layer_lstm(
@@ -103,7 +105,8 @@ class RoInflect(object):
     _conf_dev_size = 0.1
     _conf_epochs = 10
 
-    def __init__(self, lexicon: Lex) -> None:
+    def __init__(self, lexicon: Lex, device: torch.device = _device) -> None:
+        self._device = device
         self._lexicon = lexicon
         self._msd = self._lexicon.get_msd_object()
         # Use self._add_word_to_dataset() to update these
@@ -220,7 +223,7 @@ class RoInflect(object):
 
         for x, y in batch:
             batch_sequences.append(torch.tensor(
-                x, dtype=torch.long).to(device=_device))
+                x, dtype=torch.long).to(device=self._device))
             batch_labels.append(y)
         # end for
 
@@ -228,7 +231,7 @@ class RoInflect(object):
 
         return \
             batch_sequences, \
-            torch.tensor(y_array, dtype=torch.float32).to(device=_device)
+            torch.tensor(y_array, dtype=torch.float32).to(device=self._device)
 
     def train(self):
         # Read training data
@@ -283,7 +286,8 @@ class RoInflect(object):
     def _build_pt_model(self) -> RoInflectModule:
         return RoInflectModule(
             char_vocab_dim=self._charid,
-            msd_vector_dim=self._msd.get_output_vector_size()
+            msd_vector_dim=self._msd.get_output_vector_size(),
+            device=self._device
         )
 
     def _save_pt_model(self):
@@ -330,7 +334,7 @@ class RoInflect(object):
         self._model = self._build_pt_model()
         torchmodelfile = os.path.join(ROINFLECT_MODEL_FOLDER, 'model.pt')
         self._model.load_state_dict(torch.load(
-            torchmodelfile, map_location=_device))
+            torchmodelfile, map_location=self._device))
         # Put model into eval mode.
         # It is only used for inferencing.
         self._model.eval()

@@ -2,7 +2,6 @@ import os
 from typing import List, Tuple
 import torch
 from transformers import BertTokenizerFast, BertModel
-from . import _device
 from .. import logger
 
 
@@ -14,11 +13,13 @@ end_word = '_END_'
 
 
 class RoBERTModel(object):
-    def __init__(self, path_or_name: str, fine_tune: bool = False):
+    def __init__(self, path_or_name: str, device: torch.device,
+                 fine_tune: bool = False):
+        self._device = device
         self._ro_bert_tokenizer: BertTokenizerFast = \
             BertTokenizerFast.from_pretrained(path_or_name)
         self._ro_bert_model: BertModel = BertModel.from_pretrained(path_or_name)
-        self._ro_bert_model.to(_device)
+        self._ro_bert_model.to(self._device)
 
         if os.path.isdir(path_or_name):
             # Loading from saved folder, for runtime use.
@@ -53,7 +54,7 @@ class RoBERTModel(object):
         )
         
         word_ids = encoding.word_ids()
-        encoding = {k: v.to(_device) for k, v in encoding.items()}
+        encoding = {k: v.to(self._device) for k, v in encoding.items()}
 
         if self._fine_tune:
             outputs = self._ro_bert_model(**encoding,
@@ -119,25 +120,25 @@ class RoBERTModel(object):
 
                 if word in ['', ' ', '\t']:
                     bert_features = torch.tensor(self._get_space_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 elif word == '\n' or tlabel == 'EOL':
                     bert_features = torch.tensor(self._get_newline_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 elif tlabel == 'JUNK':
                     bert_features = torch.tensor(self._get_unk_word_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 elif word == zero_word:
                     bert_features = torch.tensor(self._get_zero_word_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 elif word == unk_word:
                     bert_features = torch.tensor(self._get_unk_word_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 elif word == start_word:
                     bert_features = torch.tensor(self._get_start_word_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 elif word == end_word:
                     bert_features = torch.tensor(self._get_end_word_vector(),
-                                                 dtype=torch.float32).to(_device)
+                                                 dtype=torch.float32).to(self._device)
                 else:
                     if bert_words and word == bert_words[0]:
                         bert_features = embeddings[0]
@@ -147,7 +148,7 @@ class RoBERTModel(object):
                         logger.error(
                             f'Out of sync at index [{j}] with word [{word}] and BERT word [{bert_words[0]}]')
                         bert_features = torch.tensor(self._get_unk_word_vector(),
-                                                     dtype=torch.float32).to(_device)
+                                                     dtype=torch.float32).to(self._device)
                     # end if
                 # end if
 

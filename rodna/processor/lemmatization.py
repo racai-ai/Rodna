@@ -1326,7 +1326,7 @@ class RoLemmatizer(object):
         final_lemmas = sorted(lemma_scores3, key=lambda x: x[1], reverse=True)
 
         if not final_lemmas:
-            logger.warning(f'Empty response from lemmatizer for [{word}/{msd}]')
+            logger.debug(f'Empty response from lemmatizer for [{word}/{msd}]')
         # end if
 
         return final_lemmas

@@ -8,7 +8,6 @@ import torch
 from torch import Tensor
 import torch.nn as nn
 from .lexicon import MSD
-from . import _device
 
 # The tag in front of the sentence
 START_TAG = MSD.get_start_end_tags('start')
@@ -30,7 +29,7 @@ def log_sum_exp(vec: Tensor):
     max_score_broadcast = max_score.view(1, -1).expand(1, vec.size()[1])
 
     return max_score + \
-        torch.log(torch.sum(torch.exp(vec - max_score_broadcast))).to(device=_device)
+        torch.log(torch.sum(torch.exp(vec - max_score_broadcast)))
 
 
 class CRFModel(nn.Module):
@@ -43,8 +42,10 @@ class CRFModel(nn.Module):
     def __init__(self,
                  embed_size: int, tag_to_ix: Dict,
                  lex_input_vector_size: int, ctx_input_vector_size: int,
+                 device: torch.device,
                  drop_prob: float = 0.25):
         super().__init__()
+        self._device = device
         # START_TAG and STOP_TAG are assumed to be in tag_to_ix
         self.tag_to_ix = tag_to_ix
         self.tagset_size = len(tag_to_ix)
@@ -68,14 +69,14 @@ class CRFModel(nn.Module):
         # to the start tag and we never transfer from the stop tag
         self.transitions.data[tag_to_ix[START_TAG], :] = -10000
         self.transitions.data[:, tag_to_ix[STOP_TAG]] = -10000
-        self.to(device=_device)
+        self.to(device=self._device)
 
     def _init_hidden(self, bsize: int):
-        return torch.randn(2, bsize, CRFModel._conf_rnn_size).to(device=_device)
+        return torch.randn(2, bsize, CRFModel._conf_rnn_size).to(device=self._device)
 
     def _forward_alg(self, feats):
         # Do the forward algorithm to compute the partition function
-        init_alphas = torch.full((1, self.tagset_size), -10000.).to(device=_device)
+        init_alphas = torch.full((1, self.tagset_size), -10000.).to(device=self._device)
         # START_TAG has all of the score.
         init_alphas[0][self.tag_to_ix[START_TAG]] = 0.
 
@@ -99,13 +100,13 @@ class CRFModel(nn.Module):
                 next_tag_var = forward_var + trans_score + emit_score
                 # The forward variable for this tag is log-sum-exp of all the
                 # scores.
-                alphas_t.append(log_sum_exp(next_tag_var).view(1))
+                alphas_t.append(log_sum_exp(next_tag_var).view(1).to(self._device))
             # end for
             forward_var = torch.cat(alphas_t).view(1, -1)
         # end for
 
         terminal_var = forward_var + self.transitions[self.tag_to_ix[STOP_TAG]]
-        alpha = log_sum_exp(terminal_var)
+        alpha = log_sum_exp(terminal_var.to(self._device))
 
         return alpha
 
@@ -127,10 +128,10 @@ class CRFModel(nn.Module):
 
     def _score_sentence(self, feats, tags):
         # Gives the score of a provided tag sequence
-        score = torch.zeros(1).to(device=_device)
+        score = torch.zeros(1).to(device=self._device)
         tags = torch.cat([
-            torch.tensor([self.tag_to_ix[START_TAG]], dtype=torch.long).to(device=_device),
-            tags]).to(device=_device)
+            torch.tensor([self.tag_to_ix[START_TAG]], dtype=torch.long).to(device=self._device),
+            tags]).to(device=self._device)
 
         for i, feat in enumerate(feats):
             score = score + \
@@ -144,7 +145,7 @@ class CRFModel(nn.Module):
         backpointers = []
 
         # Initialize the Viterbi variables in log space
-        init_vvars = torch.full((1, self.tagset_size), -10000.).to(device=_device)
+        init_vvars = torch.full((1, self.tagset_size), -10000.).to(device=self._device)
         init_vvars[0][self.tag_to_ix[START_TAG]] = 0
 
         # forward_var at step i holds the viterbi variables for step i-1
@@ -197,9 +198,9 @@ class CRFModel(nn.Module):
 
         batch_feats = self._get_lstm_features(x)
         batch_forward_score = torch.zeros(
-            1, dtype=torch.float32).to(device=_device)
+            1, dtype=torch.float32).to(device=self._device)
         batch_gold_score = torch.zeros(
-            1, dtype=torch.float32).to(device=_device)
+            1, dtype=torch.float32).to(device=self._device)
 
         for i in range(batch_feats.shape[0]):
             feats = batch_feats[i, :, :]

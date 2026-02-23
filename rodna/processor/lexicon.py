@@ -431,7 +431,7 @@ class MSD(object):
                 if msd not in morpho_feats:
                     morpho_feats[msd] = mfeats
                 else:
-                    logger.warning(f'MSD [{msd}] is not unique in the morphological features dict')
+                    logger.error(f'MSD [{msd}] is not unique in the morphological features dict')
                 # end if
             # end for
         # end with

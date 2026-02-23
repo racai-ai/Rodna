@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-from . import _device
 
 
 class CLSModel(nn.Module):
@@ -17,9 +16,11 @@ class CLSModel(nn.Module):
                  ctx_input_vector_size: int,
                  msd_encoding_vector_size: int,
                  output_msd_size: int,
+                 device: torch.device,
                  drop_prob: float = 0.25
                  ):
         super().__init__()
+        self._device = device
         self._layer_rnn_1 = nn.LSTM(
             input_size=lex_input_vector_size + emb_input_vector_size,
             hidden_size=CLSModel._conf_rnn_size_1,
@@ -43,16 +44,16 @@ class CLSModel(nn.Module):
         self._layer_drop = nn.Dropout(p=drop_prob)
         self._sigmoid = nn.Sigmoid()
         self._layer_logsoftmax = nn.LogSoftmax(dim=2)
-        self.to(device=_device)
+        self.to(device=self._device)
 
     def forward(self, x):
         x_lex, x_emb, x_ctx = x
         b_size = x_emb.shape[0]
         h_0 = torch.zeros(
             2, b_size,
-            CLSModel._conf_rnn_size_1).to(device=_device)
+            CLSModel._conf_rnn_size_1).to(device=self._device)
         c_0 = torch.zeros(2, b_size, CLSModel._conf_rnn_size_1).to(
-            device=_device)
+            device=self._device)
 
         # Concatenate along features dimension
         o_lex_emb_conc = torch.cat([x_lex, x_emb], dim=2)
@@ -65,10 +66,10 @@ class CLSModel(nn.Module):
         # MSD classification
         h_0 = torch.zeros(
             2, b_size,
-            CLSModel._conf_rnn_size_2).to(device=_device)
+            CLSModel._conf_rnn_size_2).to(device=self._device)
         c_0 = torch.zeros(
             2, b_size,
-            CLSModel._conf_rnn_size_2).to(device=_device)
+            CLSModel._conf_rnn_size_2).to(device=self._device)
         o_drop = self._layer_drop(o_msd_enc)
         o_bd_rnn, (h_n, c_n) = self._layer_rnn_2(o_drop, (h_0, c_0))
         o_drop = self._layer_drop(o_bd_rnn)

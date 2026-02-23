@@ -1,8 +1,12 @@
 import sys
+import os
 from typing import List, Tuple, override
+import multiprocessing as mp
+import torch
 from pathlib import Path
 from abc import ABC, abstractmethod
 from conllu.models import Token, TokenList, SentenceList
+from ..processor import _device, normalize_text
 from ..processor.lexicon import Lex
 from ..processor.parser import RoDepParser
 from ..processor.tagger import RoPOSTagger
@@ -10,7 +14,7 @@ from ..processor.lemmatization import RoLemmatizer
 from ..processor.morphology import RoInflect
 from ..processor.splitter import RoSentenceSplitter
 from ..processor.tokenizer import RoTokenizer
-from .. import download_resources
+from .. import download_resources, logger
 
 
 class ConlluProcessor(ABC):
@@ -58,23 +62,27 @@ class RodnaProcessor(ConlluProcessor):
     """This is the main entry into the Rodna module.
     It processes UTF-8 text files and outputs CoNLL-U files."""
 
-    def __init__(self, with_punct_ctags: bool = True) -> None:
+    def __init__(self, with_punct_ctags: bool = True, device: torch.device = _device) -> None:
         # Download resources once, if needed
         download_resources()
         
+        logger.info(f'Loading Rodna processor on device [{device}], in process [{mp.current_process().name}]')
+
+        self._device = device
         self._use_punct_ctags = with_punct_ctags
         self.lexicon = Lex()
         self.tokenizer = RoTokenizer(self.lexicon)
-        self.splitter = RoSentenceSplitter(self.lexicon, self.tokenizer)
+        self.splitter = RoSentenceSplitter(
+            self.lexicon, self.tokenizer, device=self._device)
         self.splitter.load()
-        self.morphology = RoInflect(self.lexicon)
+        self.morphology = RoInflect(self.lexicon, device=self._device)
         self.morphology.load()
         self.tagger = RoPOSTagger(
-            self.lexicon, self.tokenizer, self.morphology, self.splitter)
+            self.lexicon, self.tokenizer, self.morphology, self.splitter, device=self._device)
         self.tagger.load()
         self.lemmatizer = RoLemmatizer(self.lexicon, self.morphology)
         self.parser = RoDepParser(msd_desc=self.lexicon.get_msd_object(),
-                                  tokenizer=self.tokenizer)
+                                  tokenizer=self.tokenizer, device=self._device)
         self.parser.load()
 
     def _check_input_sentence(self, sentence: List[Tuple]) -> bool:
@@ -91,6 +99,8 @@ class RodnaProcessor(ConlluProcessor):
     @override
     def process_text(self, text: str) -> SentenceList:
         """This is Rodna's text processing method."""
+        # 0. Normalize text
+        text = normalize_text(text=text)
 
         # 1. Sentence splitting does tokenization as well.
         sentences = self.splitter.sentence_split(input_text=text)
@@ -183,15 +193,23 @@ class RodnaProcessor(ConlluProcessor):
         # end all sentences
 
         return conllu_sentences
+# end class
 
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print('Usage: python -m api <input .txt file>',
+        print('Usage: python -m rodna.api <input .txt file>',
               file=sys.stderr, flush=True)
-        exit(1)
+        sys.exit(1)
     # end if
 
-    input_file = sys.argv[1]
-    rodna = RodnaProcessor()
-    rodna.process_text_file(txt_file=input_file)
+    input_path = sys.argv[1]
+
+    if os.path.isfile(input_path):
+        rodna = RodnaProcessor()
+        rodna.process_text_file(txt_file=input_path)
+    else:
+        print('Usage: python -m rodna.api <input .txt file>',
+              file=sys.stderr, flush=True)
+        sys.exit(1)
+    # end if

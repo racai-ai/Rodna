@@ -26,7 +26,7 @@ class RoSentenceSplitterModule(nn.Module):
     # LSTM state size
     _conf_lstm_size = 64
 
-    def __init__(self, feat_dim: int):
+    def __init__(self, feat_dim: int, device: torch.device):
         super().__init__()
         self._layer_lstm = nn.LSTM(
             input_size=feat_dim,
@@ -41,18 +41,19 @@ class RoSentenceSplitterModule(nn.Module):
         )
         self._layer_drop = nn.Dropout(p=0.33)
         self._layer_logsoftmax = nn.LogSoftmax(dim=2)
-        self.to(device=_device)
+        self._device = device
+        self.to(device=self._device)
 
     def forward(self, x):
         b_size = x.shape[0]
         # Hidden state initialization
         h_0 = torch.zeros(
             2, b_size,
-            RoSentenceSplitterModule._conf_lstm_size).to(device=_device)
+            RoSentenceSplitterModule._conf_lstm_size).to(device=self._device)
         # Internal state initialization
         c_0 = torch.zeros(
             2, b_size,
-            RoSentenceSplitterModule._conf_lstm_size).to(device=_device)
+            RoSentenceSplitterModule._conf_lstm_size).to(device=self._device)
 
         # Propagate input through LSTM, get output and state information
         lstm_outputs, (h_n, c_n) = self._layer_lstm(x, (h_0, c_0))
@@ -98,11 +99,14 @@ class RoSentenceSplitter(object):
     _conf_test_percent = 0.1
     _conf_epochs = 1
 
-    def __init__(self, lexicon: Lex, tokenizer: RoTokenizer):
+    def __init__(self, lexicon: Lex, tokenizer: RoTokenizer,
+                 device: torch.device = _device):
+        self._device = device
         self._tokenizer = tokenizer
         self._uniprops = CharUni()
         self._lexicon = lexicon
-        self._ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1)
+        self._ro_bert = RoBERTModel(
+            path_or_name=dumitrescu_bert_v1, device=self._device)
 
     def train(self, word_sequence: list):
         """Takes a long word sequence (RoTokenizer tokenized text with 'SENTEND' annotations),
@@ -135,7 +139,8 @@ class RoSentenceSplitter(object):
     def _build_pt_model(self) -> RoSentenceSplitterModule:
         """Builds the PyTorch NN for the splitter."""
 
-        return RoSentenceSplitterModule(feat_dim=self._features_dim)
+        return RoSentenceSplitterModule(feat_dim=self._features_dim,
+                                        device=self._device)
 
     def _split_collate_fn(self, batch) -> Tuple[Tensor, Tensor]:
         x_tensor = []
@@ -147,8 +152,8 @@ class RoSentenceSplitter(object):
             y_tensor.append(torch.tensor(y, dtype=torch.long))
         # end for
         
-        x_tensor = torch.cat(x_tensor, dim=0).to(_device)
-        y_tensor = torch.cat(y_tensor, dim=0).to(_device)
+        x_tensor = torch.cat(x_tensor, dim=0).to(self._device)
+        y_tensor = torch.cat(y_tensor, dim=0).to(self._device)
 
         return x_tensor, y_tensor
 
@@ -296,7 +301,7 @@ class RoSentenceSplitter(object):
         self._model = self._build_pt_model()
         torchmodelfile = os.path.join(SENT_SPLITTER_MODEL_FOLDER, 'model.pt')
         self._model.load_state_dict(torch.load(
-            torchmodelfile, map_location=_device))
+            torchmodelfile, map_location=self._device))
         # Put model into eval mode.
         # It is only used for inferencing.
         self._model.eval()
@@ -366,10 +371,10 @@ class RoSentenceSplitter(object):
 
             # Run the batch through the NN if enough samples
             if len(batch_i) == RoSentenceSplitter._conf_run_batch_length:
-                logger.info(f"Running NN batch [{batch_count}], size [{x_batch.shape[0]}]")
+                logger.debug(f"Running NN batch [{batch_count}], size [{x_batch.shape[0]}]")
                 
                 # Pass X_batch through the neural net
-                pt_x_batch = torch.tensor(x_batch).to(_device)
+                pt_x_batch = torch.tensor(x_batch).to(self._device)
 
                 with torch.inference_mode():
                     y_pred = self._model(pt_x_batch)
@@ -433,10 +438,10 @@ class RoSentenceSplitter(object):
 
         # Run last batch through the NN as well
         if batch_i:
-            logger.info(f"Running final NN batch [{batch_count}], size [{x_batch.shape[0]}]")
+            logger.debug(f"Running final NN batch [{batch_count}], size [{x_batch.shape[0]}]")
             
             # Pass X_batch through the neural net
-            pt_x_batch = torch.tensor(x_batch).to(_device)
+            pt_x_batch = torch.tensor(x_batch).to(self._device)
             y_pred = self._model(pt_x_batch)
             y_pred = torch.exp(y_pred)
             y_pred = y_pred.cpu().detach().numpy()

@@ -1,5 +1,6 @@
 import os
 import re
+import json
 from typing import List, Tuple, Dict
 from random import shuffle
 import numpy as np
@@ -9,7 +10,6 @@ from torch.utils.data import DataLoader, Dataset
 from torch.optim import AdamW
 from torch.optim.lr_scheduler import ExponentialLR
 from tqdm import tqdm
-import json
 from . import _device
 from .. import logger, logging, log_once
 from .lexicon import Lex, MSD
@@ -89,8 +89,9 @@ class RoPOSTagger(object):
 
     def __init__(self, lexicon: Lex,
             tokenizer:RoTokenizer, morphology: RoInflect,
-            splitter: RoSentenceSplitter):
+            splitter: RoSentenceSplitter, device: torch.device = _device):
         """Takes loaded instances of various objects."""
+        self._device = device
         self._splitter = splitter
         self._tokenizer = tokenizer
         self._uniprops = CharUni()
@@ -132,7 +133,7 @@ class RoPOSTagger(object):
         def _load_model(folder: str, module: nn.Module):
             torchmodelfile = os.path.join(folder, RoPOSTagger._conf_model_file)
             module.load_state_dict(torch.load(
-                torchmodelfile, map_location=_device))
+                torchmodelfile, map_location=self._device))
             # Put model into eval mode. It is only used for inferencing.
             module.eval()
         # end def
@@ -141,7 +142,7 @@ class RoPOSTagger(object):
 
         self._cls_config = _load_conf(CLS_TAGGER_MODEL_FOLDER)
         self._cls_ro_bert = RoBERTModel(
-            path_or_name=BERT_FOR_CLS_TAGGER_FOLDER)
+            path_or_name=BERT_FOR_CLS_TAGGER_FOLDER, device=self._device)
         self._cls_model = self._build_cls_model(
             emb_input_vector_size=self._cls_ro_bert.get_embedding_size(),
             lex_input_vector_size=self._cls_config['lex_input_vector_size'],
@@ -154,7 +155,7 @@ class RoPOSTagger(object):
 
         self._crf_config = _load_conf(CRF_TAGGER_MODEL_FOLDER)
         self._crf_ro_bert = RoBERTModel(
-            path_or_name=BERT_FOR_CRF_TAGGER_FOLDER)
+            path_or_name=BERT_FOR_CRF_TAGGER_FOLDER, device=self._device)
         self._crf_model = self._build_crf_model(
             emb_input_vector_size=self._crf_ro_bert.get_embedding_size(),
             lex_input_vector_size=self._crf_config['lex_input_vector_size'],
@@ -175,7 +176,8 @@ class RoPOSTagger(object):
         self._build_unicode_props(train_sentences)
 
         # 4 Load BERT model for fine-tuning
-        self._crf_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
+        self._crf_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, device=self._device,
+                                        fine_tune=True)
         crf_emb_input_dim = self._crf_ro_bert.get_embedding_size()
 
         # 5. Build the PyTorch CRF model
@@ -250,7 +252,8 @@ class RoPOSTagger(object):
         self._test_crf_model(dataloader=test_dataloader, ml_set='test')
 
         # 7.1 Build the PyTorch CLS model
-        self._cls_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, fine_tune=True)
+        self._cls_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, device=self._device,
+                                        fine_tune=True)
         cls_emb_input_dim = self._cls_ro_bert.get_embedding_size()
 
         cls_x_lex_0, _, cls_x_ctx_0, cls_x_enc_0, _ = \
@@ -382,7 +385,8 @@ class RoPOSTagger(object):
         # end for
 
         return \
-            torch.cat(lex_batch, dim=0), torch.cat(emb_batch, dim=0), \
+            torch.cat(lex_batch, dim=0).to(self._device), \
+            torch.cat(emb_batch, dim=0).to(self._device), \
             torch.cat(ctx_batch, dim=0), torch.cat(yct_batch, dim=0)
     
     def _cls_collate_fn(self, batch: List[List[Tuple[str, str, List[str]]]]) -> Tuple[torch.Tensor, torch.Tensor,
@@ -416,11 +420,11 @@ class RoPOSTagger(object):
             ycls_batch.append(out_cls)
         # end for
 
-        return torch.cat(lex_batch, dim=0).to(_device), \
-            torch.cat(emb_batch, dim=0).to(_device), \
-            torch.cat(ctx_batch, dim=0).to(_device), \
-            torch.cat(enc_batch, dim=0).to(_device), \
-            torch.cat(ycls_batch, dim=0).to(_device)
+        return torch.cat(lex_batch, dim=0).to(self._device), \
+            torch.cat(emb_batch, dim=0).to(self._device), \
+            torch.cat(ctx_batch, dim=0).to(self._device), \
+            torch.cat(enc_batch, dim=0).to(self._device), \
+            torch.cat(ycls_batch, dim=0).to(self._device)
 
     def _test_crf_model(self, dataloader: DataLoader, ml_set: str):
         """Tests the CRF model with the dev/test sets."""
@@ -438,10 +442,10 @@ class RoPOSTagger(object):
             # len(batch_labels_list) is the batch size, tar_ctg.shape[0]
             for ll in batch_labels_list:
                 predicted_labels.append(
-                    torch.tensor(ll, dtype=torch.int32).view(1, -1).to(device=_device))
+                    torch.tensor(ll, dtype=torch.int32).view(1, -1).to(device=self._device))
             # end for
 
-            predicted_labels = torch.cat(predicted_labels, dim=0).to(device=_device)
+            predicted_labels = torch.cat(predicted_labels, dim=0).to(device=self._device)
             correct_labels = \
                 (predicted_labels == tar_ctg).to(dtype=torch.int32)
             
@@ -562,7 +566,7 @@ class RoPOSTagger(object):
         return CLSModel(emb_input_vector_size,
                         lex_input_vector_size, ctx_input_vector_size,
                         msd_encoding_vector_size, output_msd_size,
-                        drop_prob)
+                        self._device, drop_prob)
 
     def _build_crf_model(self,
                          emb_input_vector_size: int,
@@ -573,7 +577,7 @@ class RoPOSTagger(object):
             emb_input_vector_size,
             self._msd.get_ctag_inventory(),
             lex_input_vector_size, ctx_input_vector_size,
-            drop_prob)
+            self._device, drop_prob)
 
     def _build_crf_io_tensor(self,
                              sentence: List[Tuple[str, str, List[str]]]) -> \
@@ -598,7 +602,7 @@ class RoPOSTagger(object):
             ctag = self._msd.msd_to_ctag(msd)
 
             if not self._msd.is_valid_ctag(ctag):
-                logger.warning(f"Unknown CTAG [{ctag}] for MSD [{msd}]")
+                logger.error(f"Unknown CTAG [{ctag}] for MSD [{msd}]")
             # end if
 
             feats = parts[2]
@@ -631,10 +635,10 @@ class RoPOSTagger(object):
             sentence_ctags.append(y_out_idx)
         # end j
 
-        return torch.cat(sentence_lex_features, dim=0).to(_device), \
-            torch.cat(sentence_embeddings, dim=0).to(_device), \
-            torch.cat(sentence_context, dim=0).to(_device), \
-            torch.tensor(sentence_ctags, dtype=torch.long).to(_device)
+        return torch.cat(sentence_lex_features, dim=0).to(self._device), \
+            torch.cat(sentence_embeddings, dim=0).to(self._device), \
+            torch.cat(sentence_context, dim=0).to(self._device), \
+            torch.tensor(sentence_ctags, dtype=torch.long).to(self._device)
 
     def _build_cls_io_tensor(self,
                              sample: List[Tuple[str, str, List[str]]]) -> Tuple[torch.Tensor,
@@ -685,11 +689,11 @@ class RoPOSTagger(object):
             y_cls.append(y_out)
         # end j
 
-        return torch.cat(xlex_msd_tensors, dim=0).to(_device), \
-            torch.cat(xemb_tensors, dim=0).to(_device), \
-            torch.cat(xctx_tensors, dim=0).to(_device), \
-            torch.cat(y_tensors_enc, dim=0).to(_device), \
-            torch.tensor(y_cls, dtype=torch.long).to(_device)
+        return torch.cat(xlex_msd_tensors, dim=0).to(self._device), \
+            torch.cat(xemb_tensors, dim=0).to(self._device), \
+            torch.cat(xctx_tensors, dim=0).to(self._device), \
+            torch.cat(y_tensors_enc, dim=0).to(self._device), \
+            torch.tensor(y_cls, dtype=torch.long).to(self._device)
 
     def _build_unicode_props(self, data_samples: List[List[Tuple[str, str, List[str]]]]):
         for sample in tqdm(data_samples, desc='Unicode props'):

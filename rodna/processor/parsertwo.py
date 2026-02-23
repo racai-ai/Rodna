@@ -26,13 +26,15 @@ class RoBERTDepRelFinder(nn.Module):
     _conf_rnn_size = 1024
     _conf_drop_prob = 0.25
 
-    def __init__(self, msd_size: int, deprel_size: int, embed_size: int):
+    def __init__(self, msd_size: int, deprel_size: int, embed_size: int,
+                 device: torch.device):
         """`msd_size` - the size of the MSD vector, from MSD.msd_reference_vector()
         `deprel_size`: the size of the dependency relation set
         `embed_size`: the size of the BERT hidden state"""
 
         super().__init__()
 
+        self._device = device
         self._nonlin_fn = nn.LeakyReLU()
         self._drop = nn.Dropout(p=RoBERTDepRelFinder._conf_drop_prob)
         self._logsoftmax = nn.LogSoftmax(dim=2)
@@ -47,17 +49,17 @@ class RoBERTDepRelFinder(nn.Module):
             in_features=linear_input_size,
             out_features=deprel_size, dtype=torch.float32)
 
-        self.to(_device)
+        self.to(self._device)
 
     def forward(self, x):
         x_b, x_m = x
         b_size = x_b.shape[0]
         h_0 = torch.zeros(
             1, b_size,
-            RoBERTDepRelFinder._conf_rnn_size).to(device=_device)
+            RoBERTDepRelFinder._conf_rnn_size).to(device=self._device)
 
         the_output, h_n = self._nn_rnn(x_b, h_0)
-        the_output = torch.cat([the_output, x_m], dim=2).to(device=_device)
+        the_output = torch.cat([the_output, x_m], dim=2).to(device=self._device)
         the_output = self._drop(the_output)
         the_output = self._nn_linear(the_output)
         the_output = self._logsoftmax(the_output)
@@ -114,10 +116,12 @@ class RoDepParserLabel(object):
         os.path.join(PARSER2_BERT_MODEL_FOLDER, 'vocab.txt')
     ]
 
-    def __init__(self, msd: MSD, tok: RoTokenizer, deprels: Set[str]):
+    def __init__(self, msd: MSD, tok: RoTokenizer, deprels: Set[str],
+                 device: torch.device):
         """Takes the MSD description object `msd` and the set of
         all possible dependency relations `deprels`."""
 
+        self._device = device
         self._msd = msd
         # This is the set of all possible dependency relations
         self._deprels = sorted(list(deprels))
@@ -176,7 +180,7 @@ class RoDepParserLabel(object):
             # Here the collate fn is taking care of moving tensors to cuda:0
             return bert_input_tensor, msd_input_tensor, deprel_output_tensor
         else:
-            return bert_input_tensor.to(_device), msd_input_tensor.to(_device), None
+            return bert_input_tensor.to(self._device), msd_input_tensor.to(self._device), None
         # end if
 
     def _trim_batch(self, batch: List[Tuple[List[int], List[Tuple]]]) -> List[Tuple[List[int], List[Tuple]]]:
@@ -212,9 +216,9 @@ class RoDepParserLabel(object):
             drel_tensor.append(drtns.view(1, -1))
         # end for
 
-        bert_tensor = torch.cat(bert_tensor, dim=0).to(_device)
-        msd_tensor = torch.cat(msd_tensor, dim=0).to(_device)
-        drel_tensor = torch.cat(drel_tensor, dim=0).to(_device)
+        bert_tensor = torch.cat(bert_tensor, dim=0).to(self._device)
+        msd_tensor = torch.cat(msd_tensor, dim=0).to(self._device)
+        drel_tensor = torch.cat(drel_tensor, dim=0).to(self._device)
 
         return bert_tensor, msd_tensor, drel_tensor
 
@@ -288,11 +292,13 @@ class RoDepParserLabel(object):
         """Does the dependency relation labeling training."""
 
         self._ro_model = RoBERTModel(path_or_name=dumitrescu_bert_v1,
+                                     device=self._device,
                                      fine_tune=True)
         self._deprelmodel = RoBERTDepRelFinder(
             msd_size=self._msd.get_output_vector_size(),
             deprel_size=len(self._deprels),
-            embed_size=self._ro_model.get_embedding_size())
+            embed_size=self._ro_model.get_embedding_size(),
+            device=self._device)
 
         train_dataset = self._create_dataset(sentences=train_sentences, desc='train')
         train_dataset.reshuffle()
@@ -381,16 +387,18 @@ class RoDepParserLabel(object):
         self._ro_model.save(destination_folder=PARSER2_BERT_MODEL_FOLDER)
 
     def load(self):
-        self._ro_model = RoBERTModel(path_or_name=PARSER2_BERT_MODEL_FOLDER)
+        self._ro_model = RoBERTModel(path_or_name=PARSER2_BERT_MODEL_FOLDER,
+                                     device=self._device)
         self._ro_model.bert_model.eval()
         self._deprelmodel = RoBERTDepRelFinder(
             msd_size=self._msd.get_output_vector_size(),
             deprel_size=len(self._deprels),
-            embed_size=self._ro_model.get_embedding_size())
+            embed_size=self._ro_model.get_embedding_size(),
+            device=self._device)
         torch_model_file = os.path.join(
             PARSER_MODEL_FOLDER, RoDepParserLabel._conf_model_file)
         self._deprelmodel.load_state_dict(torch.load(
-            torch_model_file, map_location=_device))
+            torch_model_file, map_location=self._device))
         # Put model into eval mode. It is only used for inferencing.
         self._deprelmodel.eval()
 
