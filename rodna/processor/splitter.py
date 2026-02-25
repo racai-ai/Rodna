@@ -91,9 +91,9 @@ class RoSentenceSplitter(object):
     _conf_eos_prob = 0.5
     # How many words in a window to consider when constructing a sample.
     _conf_max_seq_length = 50
-    # When we do sentence splitting, how many samples to run
-    # through the NN at once.
-    _conf_run_batch_length = 1024
+    # How many words to skip, at a time, when computing the sliding window
+    # for determining the sentence end label, at runtime.
+    _conf_skip_words = 10
     # How much (%) to retain from the train data as dev/test sets
     _conf_dev_percent = 0.1
     _conf_test_percent = 0.1
@@ -323,169 +323,102 @@ class RoSentenceSplitter(object):
             print(f'{self._features_dim}', file=f)
         # end with
 
-    def sentence_split(self, input_text: str) -> list:
+    def sentence_split(self, input_text: str, show_progress: bool = False) -> List[List[Tuple[str, str]]]:
         """Will run the sentence splitter model on the input_text and return
         the list of tokenized sentences."""
 
+        # Tokenize the whole text first
         word_sequence = self._tokenizer.tokenize(input_text)
-                
-        # Keeps the number of artificially inserted spaces
-        # so that we can remove them at the end.
-        tail_extra_count = 0
-
-        while len(word_sequence) < RoSentenceSplitter._conf_max_seq_length:
-            # We have too few tokens to do sentence splitting.
-            # Pad the sequence with spaces.
-            word_sequence.append((zero_word, self._tokenizer.tag_word(zero_word)))
-            tail_extra_count += 1
-        # end while
-
+        
+        # Compute BERT embeddings for the whole text
         bert_sequence_features = self._ro_bert.bert_embeddings(
             tokens=word_sequence)
+
+        send_word_sequence: List[Tuple[str, str, List[float]]] = []
 
         # Add a list of floats P(EOS) to each token in word_sequence initially empty.
         for i in range(len(word_sequence)):
             parts = word_sequence[i]
-            word_sequence[i] = (parts[0], parts[1], [])
+            send_word_sequence.append((parts[0], parts[1], []))
         # end for i
 
-        batch_i = []
-        batch_count = 0
-        x_batch = None
-        remaining_items_no = len(word_sequence) - \
-            RoSentenceSplitter._conf_max_seq_length + 1
-        m = RoSentenceSplitter._conf_run_batch_length
+        # Main algorithm: place P(EOS) for each token, using a sliding
+        # window, skipping RoSentenceSplitter._conf_skip_words at a time
+        current_tensors: List[Tensor] = []
+        current_indexes: List[int] = []
+        i = 0
 
-        if remaining_items_no < RoSentenceSplitter._conf_run_batch_length:
-            m = remaining_items_no
-        # end if
+        with tqdm(total=len(send_word_sequence), unit="tokens", desc='Sentences', disable=(not show_progress)) as pbar:
+            while i < len(send_word_sequence):
+                while len(current_tensors) < RoSentenceSplitter._conf_max_seq_length:
+                    word, tlabel, _ = send_word_sequence[i]
 
-        # Now assign the SENTEND labels probabilities to every part in word_sequence
-        for i in range(len(word_sequence)):
-            left = i
-            right = i + RoSentenceSplitter._conf_max_seq_length
+                    label_features = self._tokenizer.get_label_features(tlabel)
+                    uni_features = self._uniprops.get_unicode_features(word)
+                    lexical_features = self._lexicon.get_word_features(word)
+                    bert_features = bert_sequence_features[i].detach().cpu().numpy()
 
-            if right > len(word_sequence):
-                break
-            # end if
+                    # This is the featurized version of a word in the sequence
+                    np_x = np.concatenate(
+                        (
+                            label_features,
+                            uni_features,
+                            lexical_features,
+                            bert_features
+                        )
+                    )
+                    pt_x = torch.tensor(np_x, dtype=torch.float32).view(1, -1)
+                    current_tensors.append(pt_x)
+                    current_indexes.append(i)
 
-            # Run the batch through the NN if enough samples
-            if len(batch_i) == RoSentenceSplitter._conf_run_batch_length:
-                logger.debug(f"Running NN batch [{batch_count}], size [{x_batch.shape[0]}]")
-                
-                # Pass X_batch through the neural net
-                pt_x_batch = torch.tensor(x_batch).to(self._device)
+                    i += 1
+                    pbar.update(1)
+
+                    if i == len(send_word_sequence):
+                        break
+                    # end if
+                # end while
+
+                pt_x_tensor = torch.cat(current_tensors, dim=0).to(self._device)
+                pt_x_tensor = pt_x_tensor.view(1, len(current_tensors), -1)
 
                 with torch.inference_mode():
-                    y_pred = self._model(pt_x_batch)
+                    y_pred = self._model(pt_x_tensor)
                 # end with
 
                 y_pred = torch.exp(y_pred)
-                y_pred = y_pred.cpu().detach().numpy()
 
-                for bi in batch_i:
-                    left_b = bi
-                    right_b = bi + RoSentenceSplitter._conf_max_seq_length
-
-                    # Add the probabilities to every word of the sample
-                    for bj in range(left_b, right_b):
-                        parts = word_sequence[bj]
-                        # This is the probability of the label SENTEND
-                        parts[2].append(
-                            y_pred[bi - batch_count * RoSentenceSplitter._conf_run_batch_length][bj - left_b][1])
-                    # end for
+                for j in range(len(current_indexes)):
+                    _, _, probs = send_word_sequence[current_indexes[j]]
+                    probs.append(y_pred[0, j, 1].item())
                 # end for
 
-                batch_i = []
-                batch_count += 1
-                x_batch = None
-                remaining_items_no -= RoSentenceSplitter._conf_run_batch_length
-
-                if remaining_items_no < RoSentenceSplitter._conf_run_batch_length:
-                    m = remaining_items_no
-                else:
-                    m = RoSentenceSplitter._conf_run_batch_length
-                # end if
-            # end if
-
-            # Add current sample to batch
-            for j in range(left, right):
-                parts = word_sequence[j]
-                word = parts[0]
-                tlabel = parts[1]
-
-                label_features = self._tokenizer.get_label_features(tlabel)
-                uni_features = self._uniprops.get_unicode_features(word)
-                lexical_features = self._lexicon.get_word_features(word)
-                bert_features = bert_sequence_features[j].detach().cpu().numpy()
-
-                # This is the featurized version of a word in the sequence
-                x = np.concatenate(
-                    (label_features, uni_features, lexical_features, bert_features))
-
-                if x_batch is None:
-                    n = x.shape[0]
-                    tx = RoSentenceSplitter._conf_max_seq_length
-                    x_batch = np.empty((m, tx, n), dtype=np.float32)
-                # end if
-
-                x_batch[i - batch_count *
-                        RoSentenceSplitter._conf_run_batch_length, j - left, :] = x
-            # end for j
-
-            batch_i.append(i)
-        # end all words in sequence
-
-        # Run last batch through the NN as well
-        if batch_i:
-            logger.debug(f"Running final NN batch [{batch_count}], size [{x_batch.shape[0]}]")
-            
-            # Pass X_batch through the neural net
-            pt_x_batch = torch.tensor(x_batch).to(self._device)
-            y_pred = self._model(pt_x_batch)
-            y_pred = torch.exp(y_pred)
-            y_pred = y_pred.cpu().detach().numpy()
-
-            for bi in batch_i:
-                left_b = bi
-                right_b = bi + RoSentenceSplitter._conf_max_seq_length
-
-                # Add the probabilities to every word of the sample
-                for bj in range(left_b, right_b):
-                    parts = word_sequence[bj]
-                    # This is the probability of the label SENTEND
-                    parts[2].append(
-                        y_pred[bi - batch_count * RoSentenceSplitter._conf_run_batch_length][bj - left_b][1])
-                # end for bj
-            # end for bi
-        # end if last batch
-
-        # Remove extra added spaces to meet
-        # RoSentenceSplitter._conf_max_seq_length constraint.
-        while tail_extra_count > 0:
-            word_sequence.pop()
-            tail_extra_count -= 1
-        # end while
+                for _ in range(RoSentenceSplitter._conf_skip_words):
+                    current_tensors.pop(0)
+                    current_indexes.pop(0)
+                # end for
+            # end while
+        # end pbar
 
         sentences = []
         current_sentence = []
 
         # Average the P(EOS) for each word and if it's > RoSentenceSplitter._conf_eos_prob, assign the label.
-        for i in range(len(word_sequence)):
-            parts = word_sequence[i]
+        for i in range(len(send_word_sequence)):
+            word, tlabel, probs = send_word_sequence[i]
             p_avg = 0.0
 
-            if parts[2]:
-                p_avg = np.average(np.asarray(parts[2]))
+            if probs:
+                p_avg = np.average(np.asarray(probs))
             # end if
 
             # Assign the label here
             if p_avg > RoSentenceSplitter._conf_eos_prob:
-                current_sentence.append((parts[0], parts[1]))
+                current_sentence.append((word, tlabel))
                 sentences.append(current_sentence)
                 current_sentence = []
             else:
-                current_sentence.append((parts[0], parts[1]))
+                current_sentence.append((word, tlabel))
             # end if
         # end for i
 

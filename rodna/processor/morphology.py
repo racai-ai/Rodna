@@ -360,7 +360,7 @@ class RoInflect(object):
         # end if
 
     def msd_prob_for_word(self, word: str, msd: str) -> float:
-        """Returns the learned probabilit for the given word/MSD combination."""
+        """Returns the learned probability for the given word/MSD combination."""
 
         word_vector = self._build_io_vectors(word, [])
         word_tensor, _ = self._roinfl_collate_fn([word_vector])

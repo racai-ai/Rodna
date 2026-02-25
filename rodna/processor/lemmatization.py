@@ -1005,6 +1005,11 @@ class RoLemmatizer(object):
 
         candidates = []
 
+        if not root:
+            # Bug fix: empty root => no lemmas
+            return candidates
+        # end if
+
         if paradigm in self._root_rules and \
                 altno in self._root_rules[paradigm]:
             for rule in self._root_rules[paradigm][altno]:

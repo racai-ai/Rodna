@@ -190,7 +190,7 @@ def process_text_mp(folder: str):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print('Usage: python -m rodna.api.multiprocess <input folder with .txt files>',
+        print('Usage: python -m rodna.api.multiprocess <input folder with .txt files> | <input .txt file>',
               file=sys.stderr, flush=True)
         sys.exit(1)
     # end if
@@ -199,8 +199,11 @@ if __name__ == '__main__':
 
     if os.path.isdir(input_path):
         process_text_mp(folder=input_path)
+    elif os.path.isfile(input_path):
+        rodna = RodnaProcessor()
+        rodna.process_text_file(txt_file=input_path, show_progress=True)
     else:
-        print('Usage: python -m rodna.api.multiprocess <input folder with .txt files>',
+        print('Usage: python -m rodna.api.multiprocess <input folder with .txt files> | <input .txt file>',
               file=sys.stderr, flush=True)
         sys.exit(1)
     # end if

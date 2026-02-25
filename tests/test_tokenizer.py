@@ -4,12 +4,14 @@ def test_simple():
     tokens = tokenizer.tokenize("Aceasta este o propoziție simplă.")
     assert len(tokens) == 10
 
+
 def test_clitics():
     tokens = tokenizer.tokenize("Pe Mirciulică l-am prins cu mâța-n sac și se-ncearcă mușamalizarea cazului.")
     assert len(tokens) == 25
     assert tokens[4][0] == 'l-'
     assert tokens[12][0] == '-n'
     assert tokens[19][0] == '-ncearcă'
+
 
 def test_mwes():
     tokens = tokenizer.tokenize("Plecând de la definițiile anterioare considerăm că baza de date este o colecție de date referitoare la un "
@@ -21,11 +23,13 @@ def test_mwes():
     assert tokens[59][1] == 'MWE'
     assert tokens[61][1] == 'MWE'
 
+
 def test_abbrs():
     tokens = tokenizer.tokenize("(Visual Cobol, Turbo Pascal, Visual Basic, C, C++ etc.).")
     assert len(tokens) == 25
     assert tokens[22][1] == 'ABBR'
     assert tokens[23][1] == 'ABBR'
+
 
 def test_long_abbr_bug():
     tokens = tokenizer.tokenize(
@@ -40,6 +44,7 @@ def test_long_abbr_bug():
     assert tokens[6][1] == 'ABBR'
     assert tokens[7][1] == 'ABBR'
 
+
 def test_wrong_word_order_bug():
     tokens = tokenizer.tokenize(
         "Poliția timișeană a efectuat cercetări, comunicându-ne că Mădălina Constanța B., " + \
@@ -48,6 +53,7 @@ def test_wrong_word_order_bug():
     tokens = tokenizer.glue_tokens(tokens)
     assert tokens[20][0] == 'B.'
     assert tokens[21][0] == ','
+
 
 def test_glued_abbr_bug():
     tokens = tokenizer.tokenize(

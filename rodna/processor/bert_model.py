@@ -46,53 +46,85 @@ class RoBERTModel(object):
         return self._ro_bert_model
 
     def _tokenized_bert_embeddings(self, tokens: List[str]) -> torch.Tensor:
+        # 0. In the end, assert len(tokens) == len(token_embeddings)
+        token_embeddings = []
+        
+        # 1. How many chunks we have to divide initial token list into
+        k = 1
         encoding = self._ro_bert_tokenizer(
             tokens,
             is_split_into_words=True,
             return_tensors="pt",
             add_special_tokens=True
         )
-        
-        word_ids = encoding.word_ids()
-        encoding = {k: v.to(self._device) for k, v in encoding.items()}
 
-        if self._fine_tune:
-            outputs = self._ro_bert_model(**encoding,
-                                          output_hidden_states=True)
-        else:
-            with torch.inference_mode():
+        while encoding['input_ids'].shape[1] / k > \
+                self._ro_bert_model.config.max_position_embeddings:
+            k += 1
+        # end while
+
+        # 2. Create k token chunks
+        token_chunks = []
+        token_chunk_len = len(tokens) // k
+
+        for i in range(0, len(tokens), token_chunk_len):
+            if i + token_chunk_len <= len(tokens):
+                token_chunks.append(tokens[i: i + token_chunk_len])
+            else:
+                token_chunks.append(tokens[i:])
+            # end if
+        # end for
+
+        # Run each chunk through the BERT model
+        for t_chunk in token_chunks:
+            encoding = self._ro_bert_tokenizer(
+                t_chunk,
+                is_split_into_words=True,
+                return_tensors="pt",
+                add_special_tokens=True
+            )
+       
+            word_ids = encoding.word_ids()
+            encoding = {k: v.to(self._device) for k, v in encoding.items()}
+        
+            if self._fine_tune:
                 outputs = self._ro_bert_model(**encoding,
                                               output_hidden_states=True)
-            # end with
-        # end if
-
-        hidden_states = outputs.hidden_states[-1][0]  # (seq_len, hidden_size)
-        
-        token_embeddings = []
-        current_word_id = None
-        current_vectors = []
-
-        for idx, word_id in enumerate(word_ids):
-            if word_id is None:
-                continue
+            else:
+                with torch.inference_mode():
+                    outputs = self._ro_bert_model(**encoding,
+                                                  output_hidden_states=True)
+                # end with
             # end if
 
-            if word_id != current_word_id:
-                if current_vectors:
-                    token_embeddings.append(
-                        torch.stack(current_vectors).mean(dim=0))
+            hidden_states = outputs.hidden_states[-1][0]  # (seq_len, hidden_size)
+            
+            current_word_id = None
+            current_vectors = []
+
+            for idx, word_id in enumerate(word_ids):
+                if word_id is None:
+                    continue
                 # end if
 
-                current_vectors = [hidden_states[idx]]
-                current_word_id = word_id
-            else:
-                current_vectors.append(hidden_states[idx])
+                if word_id != current_word_id:
+                    if current_vectors:
+                        token_embeddings.append(
+                            torch.stack(current_vectors).mean(dim=0))
+                    # end if
+
+                    current_vectors = [hidden_states[idx]]
+                    current_word_id = word_id
+                else:
+                    current_vectors.append(hidden_states[idx])
+                # end if
+
+            if current_vectors:
+                token_embeddings.append(torch.stack(current_vectors).mean(dim=0))
             # end if
+        # end for
 
-        if current_vectors:
-            token_embeddings.append(torch.stack(current_vectors).mean(dim=0))
-        # end if
-
+        assert len(token_embeddings) == len(tokens)
         return torch.stack(token_embeddings)
 
     def bert_embeddings(self, tokens: List[Tuple[str, str]]) -> List[torch.Tensor]:
