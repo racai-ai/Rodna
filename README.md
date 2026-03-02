@@ -58,7 +58,7 @@ Use class `RodnaProcessor` to process raw texts and output them in the CoNLL-U f
 
 ```python
 from rodna.api import RodnaProcessor
-from rodna.api.multiprocess import process_text_mp
+from rodna.api.rodna_annotator import process_text_mp
 from conllu.models import SentenceList
 
 rodna = RodnaProcessor()

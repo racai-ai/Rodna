@@ -3,6 +3,7 @@ __pycache__
 .vscode/settings.json
 papers/
 pypi/
+comparison/
 debug.py
 test.py
 data/other/stanza
@@ -40,3 +41,4 @@ conll18_ud_eval.py
 rodna.dev.tokens
 stanza.dev.tokens
 ssplit_txt_files.py
+.env

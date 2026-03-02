@@ -12,7 +12,7 @@ from . import _device
 from .features import CharUni
 from .lexicon import Lex
 from .tokenizer import RoTokenizer
-from .bert_model import RoBERTModel, dumitrescu_bert_v1, zero_word
+from .bert_model import RoBERTModel, dumitrescu_bert_v1
 from ..utils.datafile import read_all_ext_files_from_dir, tok_file_to_tokens
 from ..config import SENT_SPLITTER_MODEL_FOLDER, \
     SPLITTER_UNICODE_PROPERTY_FILE, \
