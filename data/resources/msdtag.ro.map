@@ -10,6 +10,7 @@ Afcmpoy	APOY
 Afcmpry	APRY
 Afcms-n	ASN
 Afp	A
+Afp---ny	A
 Af	A
 Afp-p-n	APN
 Afp-s-n	ASN
@@ -291,6 +292,7 @@ Momprly	M
 Momprlyy	M
 Moms-l	M
 Moms-ln	M
+Moms-lny	M
 Momsoly	M
 Momsolyy	M
 Momsrly	M
@@ -298,6 +300,7 @@ Momsrlyy	M
 Nc	NN
 Ncm	NN
 Nc---n	NN
+Nc--ry	NN
 Nc-s-ny	NSN
 Ncf--n	NN
 Ncf--ny	NN
@@ -378,6 +381,7 @@ Pi3--r	PI
 Pi3-po	PI
 Pi3-so	PI
 Pi3-sr	PI
+Pi3-sr--y	PI
 Pi3fpr	PI
 Pi3fso	PI
 Pi3fsr	PI
@@ -565,6 +569,7 @@ Va	VA
 Va--1	VA1
 Va--1-----y	VA1
 Va--1p	VA1P
+Va--1p----y	VA1P
 Va--1s	VA1S
 Va--1s----y	VA1S
 Va--2p	VA2P
