@@ -22,8 +22,8 @@ ROMÂNESC	RWORD
 HAMILTON	WORD
  	SPACE
  	EOL	SENTEND
-I	NUM
-.	PUNCT
+I	UNKABBR
+.	UNKABBR
  	SPACE	SENTEND
 CÂND	RWORD
  	SPACE
@@ -37,9 +37,9 @@ SE	RWORD
 …	PUNCT
  	SPACE
  	EOL	SENTEND
-În	MWE
- 	MWE
-sfârșit	MWE
+În	RWORD
+ 	SPACE
+sfârșit	RWORD
 ,	PUNCT
  	SPACE
 rulam	RWORD
@@ -144,9 +144,9 @@ spre	RWORD
 exemplu	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Și	MWE
- 	MWE
-totuși	MWE
+Și	RWORD
+ 	SPACE
+totuși	RWORD
  	SPACE
 Canada	RWORD
  	SPACE
@@ -385,9 +385,9 @@ suma	RWORD
  	SPACE
 de	RWORD
  	SPACE
-65	NUM
-.	PUNCT
-000	NUM
+65	REALNUM
+.	REALNUM
+000	REALNUM
 $	SYM
  	SPACE
 ca	RWORD
@@ -511,9 +511,9 @@ Așezarea	RWORD
  	SPACE
 este	RWORD
  	SPACE
-pe	RWORD
- 	SPACE
-cât	RWORD
+pe	MWE
+ 	MWE
+cât	MWE
  	SPACE
 de	RWORD
  	SPACE
@@ -544,9 +544,9 @@ Românesc	RWORD
  	SPACE
 suntem	RWORD
  	SPACE
-ca	MWE
- 	MWE
-și	MWE
+ca	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 acasă	RWORD
 ,/	PUNCT
@@ -660,7 +660,8 @@ Oltul	WORD
 Mureșul	RWORD
  	SPACE
 alături	RWORD
-.“,	PUNCT
+.	PUNCT
+“,	PUNCT
  	SPACE	SENTEND
 În	RWORD
  	SPACE
@@ -1091,7 +1092,8 @@ comunismului	RWORD
 și	RWORD
  	SPACE
 antiromânismului	RWORD
-.“	PUNCT
+.	PUNCT
+“	PUNCT
  	SPACE
  	EOL	SENTEND
 Am	RWORD
@@ -1583,9 +1585,9 @@ am	RWORD
  	SPACE
 trecut	RWORD
  	SPACE
-cu	MWE
- 	MWE
-bucurie	MWE
+cu	RWORD
+ 	SPACE
+bucurie	RWORD
  	SPACE
 pe	RWORD
  	SPACE
@@ -2311,9 +2313,9 @@ Burlington	WORD
  	SPACE	SENTEND
 Se	RWORD
 -nalță	RWORD
--n	MWE
- 	MWE
-jur	MWE
+-n	RWORD
+ 	SPACE
+jur	RWORD
 ,	PUNCT
  	SPACE
 în	RWORD
@@ -3028,7 +3030,7 @@ York	MWE
 (	PUNCT
 127	NUM
  	SPACE
-pp	ABBR
+pp	WORD
 ).	PUNCT
  	SPACE	SENTEND
 Ideea	RWORD
@@ -3391,9 +3393,9 @@ de	MWE
 toate	RWORD
 ,	PUNCT
  	SPACE
-chiar	MWE
- 	MWE
-și	MWE
+chiar	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 numai	RWORD
  	SPACE
@@ -3562,8 +3564,8 @@ ultimele	RWORD
 statistici	RWORD
 ,	PUNCT
  	SPACE
-13	NUM
-%	SYM
+13	PERC
+%	PERC
  	SPACE
 dintre	RWORD
  	SPACE
@@ -3875,7 +3877,7 @@ manifestată	RWORD
  	SPACE
 prin	RWORD
  	SPACE
-nesemnarea	RWORD
+nesemnarea	WORD
  	SPACE
 de	MWE
  	MWE
@@ -3907,9 +3909,7 @@ său	RWORD
  	SPACE
 din	RWORD
  	SPACE
-1945	NUM
--	PUNCT
-1946	NUM
+1945-1946	WORD
 .	PUNCT
  	SPACE	SENTEND
 Dezbaterile	RWORD
@@ -3961,8 +3961,8 @@ manifestării	RWORD
 .	PUNCT
  	SPACE
  	EOL	SENTEND
-1	NUM
-.	PUNCT
+1	BULLET
+.	BULLET
  	SPACE	SENTEND
 CINE	RWORD
  	SPACE
@@ -4121,7 +4121,8 @@ la	MWE
  	SPACE
 roata	RWORD
  	SPACE
-alb-lucitoare	WORD
+alb-	RWORD
+lucitoare	RWORD
  	SPACE
 în	RWORD
  	SPACE
@@ -4371,9 +4372,9 @@ tentații	RWORD
 când	RWORD
 ,	PUNCT
  	SPACE
-în	MWE
- 	MWE
-sfârșit	MWE
+în	RWORD
+ 	SPACE
+sfârșit	RWORD
  	SPACE
 ne	RWORD
  	SPACE
@@ -4444,9 +4445,9 @@ Buffalo	WORD
  	SPACE	SENTEND
 Privim	RWORD
  	SPACE
-mai	MWE
- 	MWE
-întâi	MWE
+mai	RWORD
+ 	SPACE
+întâi	RWORD
  	SPACE
 Cascada	RWORD
  	SPACE
@@ -4682,9 +4683,9 @@ pentru	RWORD
  	SPACE
 cea	RWORD
  	SPACE
-din	MWE
- 	MWE
-urmă	MWE
+din	RWORD
+ 	SPACE
+urmă	RWORD
 ,	PUNCT
  	SPACE
 căci	RWORD
@@ -4822,9 +4823,9 @@ trestie	RWORD
 gânditoare	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Cu	MWE
- 	MWE
-greu	MWE
+Cu	RWORD
+ 	SPACE
+greu	RWORD
  	SPACE
 mi-	RWORD
 am	RWORD
@@ -4905,8 +4906,8 @@ noastre	RWORD
 .	PUNCT
  	SPACE
  	EOL	SENTEND
-1	NUM
-.	PUNCT
+1	BULLET
+.	BULLET
  	SPACE	SENTEND
 VIAȚA	RWORD
  	SPACE
@@ -5042,7 +5043,8 @@ de	RWORD
  	SPACE
 crâncene	RWORD
  	SPACE
-decapitări-continuă	RWORD
+decapitări-	RWORD
+continuă	RWORD
  	SPACE
 confesiunea	RWORD
  	SPACE
@@ -5368,7 +5370,8 @@ al	RWORD
 tatălui	RWORD
  	SPACE
 meu	RWORD
-.”	PUNCT
+.	PUNCT
+”	PUNCT
  	SPACE	SENTEND
 Doina	RWORD
  	SPACE
@@ -5404,9 +5407,9 @@ fost	RWORD
 importantă	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-aceea	MWE
+De	RWORD
+ 	SPACE
+aceea	RWORD
 ,	PUNCT
  	SPACE
 atunci	MWE
@@ -5512,9 +5515,9 @@ asemenea	RWORD
 respingere	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-aceea	MWE
+De	RWORD
+ 	SPACE
+aceea	RWORD
  	SPACE
 ea	RWORD
  	SPACE
@@ -5731,7 +5734,8 @@ istoriei	RWORD
 “	PUNCT
 Prin	RWORD
  	SPACE
-părinți-preciza	RWORD
+părinți-	RWORD
+preciza	RWORD
  	SPACE
 ea	RWORD
  	SPACE
@@ -5789,9 +5793,9 @@ aceste	RWORD
 punți	RWORD
 ,	PUNCT
  	SPACE
-ca	MWE
- 	MWE
-și	MWE
+ca	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 patria	RWORD
 ,	PUNCT
@@ -5843,9 +5847,9 @@ mai	RWORD
  	SPACE
 trecut	RWORD
  	SPACE
-de	MWE
- 	MWE
-curând	MWE
+de	RWORD
+ 	SPACE
+curând	RWORD
  	SPACE
 printr-	RWORD
 o	RWORD
@@ -5959,7 +5963,8 @@ cele	RWORD
 4	NUM
  	SPACE
 motoare	RWORD
-.”	PUNCT
+.	PUNCT
+”	PUNCT
  	SPACE	SENTEND
 De	MWE
  	MWE
@@ -6263,8 +6268,8 @@ prin	RWORD
  	SPACE
 anii	RWORD
  	SPACE
-‘	PUNCT
-50	NUM
+‘	ABBRYEAR
+50	ABBRYEAR
  	SPACE
 au	RWORD
  	SPACE
@@ -6409,7 +6414,8 @@ Neamț	RWORD
  	SPACE
 cu	RWORD
  	SPACE
-tablouri-portret	WORD
+tablouri-	RWORD
+portret	RWORD
 ,	PUNCT
  	SPACE
 având	RWORD
@@ -6874,9 +6880,9 @@ atunci	MWE
  	MWE
 când	MWE
  	SPACE
-în	MWE
- 	MWE
-final	MWE
+în	RWORD
+ 	SPACE
+final	RWORD
  	SPACE
 artista	RWORD
  	SPACE
@@ -7082,7 +7088,8 @@ era	RWORD
  	SPACE
 cea	RWORD
  	SPACE
-activ-violentă	RWORD
+activ-	RWORD
+violentă	RWORD
 ,	PUNCT
  	SPACE
 cu	RWORD
@@ -7285,9 +7292,9 @@ chiar	RWORD
 conaționalii	RWORD
 ,	PUNCT
  	SPACE
-până	MWE
- 	MWE
-și	MWE
+până	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 rușii	RWORD
 .	PUNCT
@@ -7989,7 +7996,7 @@ Facultatea	RWORD
  	SPACE
 de	RWORD
  	SPACE
-Agronomie	WORD
+Agronomie	RWORD
  	SPACE
 studenții	RWORD
  	SPACE
@@ -8801,7 +8808,8 @@ trăiască	RWORD
 republica	RWORD
  	SPACE
 noastră	RWORD
-.”	PUNCT
+.	PUNCT
+”	PUNCT
  	SPACE	SENTEND
 Mi-	RWORD
 am	RWORD
@@ -9094,7 +9102,8 @@ de	MWE
 Ceaușescu	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Dl.	RWORD
+Dl	ABBR
+.	ABBR
  	SPACE
 Datcu	WORD
  	SPACE
@@ -9642,9 +9651,9 @@ risipitor	RWORD
  	SPACE
 luminează	RWORD
  	SPACE
-în	MWE
- 	MWE
-fapt	MWE
+în	RWORD
+ 	SPACE
+fapt	RWORD
  	SPACE
 nu	RWORD
  	SPACE
@@ -9760,9 +9769,9 @@ simțit	RWORD
 că	RWORD
 ,	PUNCT
  	SPACE
-de	MWE
- 	MWE
-fapt	MWE
+de	RWORD
+ 	SPACE
+fapt	RWORD
 ,	PUNCT
  	SPACE
 l-	RWORD
@@ -10396,9 +10405,9 @@ o	RWORD
  	SPACE
 lună	RWORD
  	SPACE
-în	MWE
- 	MWE
-urmă	MWE
+în	RWORD
+ 	SPACE
+urmă	RWORD
 .	PUNCT
  	SPACE	SENTEND
 Pentru	RWORD
@@ -10674,9 +10683,9 @@ au	RWORD
 fost	RWORD
 ,	PUNCT
  	SPACE
-la	MWE
- 	MWE
-fel	MWE
+la	RWORD
+ 	SPACE
+fel	RWORD
 ,	PUNCT
  	SPACE
 pe	RWORD
@@ -10730,7 +10739,7 @@ când	MWE
  	SPACE
 realizatorul	RWORD
  	SPACE
-Raul	RWORD
+Raul	WORD
  	SPACE
 Dudnic	WORD
  	SPACE
@@ -10751,7 +10760,7 @@ Toronto	WORD
 ,	PUNCT
  	SPACE
 ne-	RWORD
-a	WORD
+a	RWORD
  	SPACE
 prezentat	RWORD
  	SPACE
@@ -11134,9 +11143,9 @@ de	RWORD
  	SPACE
 mult	RWORD
  	SPACE
-în	MWE
- 	MWE
-urmă	MWE
+în	RWORD
+ 	SPACE
+urmă	RWORD
 .	PUNCT
  	SPACE	SENTEND
 Ca	RWORD
@@ -11344,9 +11353,9 @@ a	RWORD
  	SPACE
 lucrat	RWORD
  	SPACE
-din	MWE
- 	MWE
-plin	MWE
+din	RWORD
+ 	SPACE
+plin	RWORD
 ,	PUNCT
  	SPACE
 încălzindu	RWORD
@@ -11607,11 +11616,11 @@ cărți	RWORD
  	SPACE
 lansate	RWORD
  	SPACE
-rând	MWE
- 	MWE
-pe	MWE
- 	MWE
-rând	MWE
+rând	RWORD
+ 	SPACE
+pe	RWORD
+ 	SPACE
+rând	RWORD
  	SPACE
 în	RWORD
  	SPACE
@@ -11722,11 +11731,11 @@ de	RWORD
  	SPACE
 adio	RWORD
  	SPACE
-rând	MWE
- 	MWE
-pe	MWE
- 	MWE
-rând	MWE
+rând	RWORD
+ 	SPACE
+pe	RWORD
+ 	SPACE
+rând	RWORD
  	SPACE
 fiecare	RWORD
  	SPACE
@@ -11772,11 +11781,11 @@ ne	RWORD
  	SPACE
 uimiseră	RWORD
  	SPACE
-zi	MWE
- 	MWE
-după	MWE
- 	MWE
-zi	MWE
+zi	RWORD
+ 	SPACE
+după	RWORD
+ 	SPACE
+zi	RWORD
  	SPACE
 ca	RWORD
  	SPACE
@@ -11938,7 +11947,8 @@ mânuind	RWORD
  	SPACE
 3	NUM
  	SPACE
-limbi-engleza	WORD
+limbi-	RWORD
+engleza	RWORD
 ,	PUNCT
  	SPACE
 româna	RWORD
@@ -12177,11 +12187,11 @@ Atheneum	WORD
  	SPACE
 care	RWORD
  	SPACE
-ca	MWE
- 	MWE
-de	MWE
- 	MWE
-obicei	MWE
+ca	RWORD
+ 	SPACE
+de	RWORD
+ 	SPACE
+obicei	RWORD
  	SPACE
 a	RWORD
  	SPACE
@@ -12381,9 +12391,9 @@ la	MWE
 Geneva	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Pe	MWE
- 	MWE
-neașteptate	MWE
+Pe	RWORD
+ 	SPACE
+neașteptate	RWORD
  	SPACE
 ghidul	RWORD
  	SPACE
