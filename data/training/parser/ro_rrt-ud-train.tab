@@ -16670,7 +16670,7 @@
 11	încasat	încasa	Vmp--sm	0	root
 12	în	în	Spsa	15	case
 13	cele	cel	Tdfpr	15	det
-14	11	11	Mc-s-b	15	nummod
+14	11	11	Mc-s-d	15	nummod
 15	luni	lună	Ncfp-n	11	obl
 16	3,635	3,635	Mc-s-d	17	nummod
 17	miliarde	miliard	Mcfprln	19	nummod
@@ -16780,7 +16780,7 @@
 19	.	.	Zp	2	punct
 
 1	Are	avea	Vmip3s	0	root
-2	55	55	Mc-s-b	4	nummod
+2	55	55	Mc-s-d	4	nummod
 3	de	de	Spsa	4	case
 4	ani	an	Ncmp-n	1	obj
 5	,	,	Zc	7	punct
@@ -17118,7 +17118,7 @@
 12	adulți	adult	Ncmp-n	5	obl
 13	,	,	Zc	12	punct
 14	și	și	Crssp	18	cc
-15	25	25000	Mc-s-b	18	nummod
+15	25	25000	Mc-s-d	18	nummod
 16	000	_	X	15	goeswith
 17	de	de	Spsa	15	case
 18	lei	leu	Ncmp-n	9	conj
@@ -17900,14 +17900,14 @@
 2	un	un	Timsr	3	det
 3	cont	cont	Ncms-n	1	obj
 4	de	de	Spsa	5	case
-5	120	120000	Mc-s-b	8	nummod
+5	120	120000	Mc-s-d	8	nummod
 6	000	_	X	5	goeswith
 7	de	de	Spsa	8	case
 8	euro	euro	Ncm--n	3	nmod
 9	și	și	Crssp	10	cc
 10	acțiuni	acțiune	Ncfp-n	3	conj
 11	de	de	Spsa	12	case
-12	100	100000	Mc-s-b	15	nummod
+12	100	100000	Mc-s-d	15	nummod
 13	000	_	X	12	goeswith
 14	de	de	Spsa	15	case
 15	euro	euro	Ncm--n	10	nmod
@@ -18022,7 +18022,7 @@
 
 1	Tot	tot	Rgp	3	advmod
 2	în	în	Spsa	3	case
-3	2006	2006	Mc-s-b	6	nummod
+3	2006	2006	Mc-s-d	6	nummod
 4	se	sine	Px3--a--------w	6	expl:pass
 5	vor	vrea	Va--3p	6	aux
 6	elabora	elabora	Vmnp	0	root
@@ -18047,7 +18047,7 @@
 
 1	Are	avea	Vmip3s	0	root
 2	doar	doar	Rgp	3	advmod
-3	34	34	Mc-s-b	5	nummod
+3	34	34	Mc-s-d	5	nummod
 4	de	de	Spsa	5	case
 5	ani	an	Ncmp-n	1	obj
 6	,	,	Zc	8	punct
@@ -19009,9 +19009,9 @@
 3	a	avea	Va--3s	4	aux
 4	născut	naște	Vmp--sm	0	root
 5	la	la	Spsa	7	case
-6	14	14	Mc-s-b	7	nummod
+6	14	14	Mc-s-d	7	nummod
 7	ianuarie	ianuarie	Ncm--n	4	obl
-8	1952	1952	Mc-s-b	7	nummod
+8	1952	1952	Mc-s-d	7	nummod
 9	,	,	Zc	11	punct
 10	la	la	Spsa	11	case
 11	București	București	Np	4	obl
@@ -24025,7 +24025,7 @@
 20	.	.	Zp	17	punct
 
 1	Are	avea	Vmip3s	0	root
-2	53	53	Mc-s-b	4	nummod
+2	53	53	Mc-s-d	4	nummod
 3	de	de	Spsa	4	case
 4	ani	an	Ncmp-n	1	obj
 5	,	,	Zc	7	punct
@@ -24461,7 +24461,7 @@
 16	.	.	Zp	1	punct
 
 1	Are	avea	Vmip3s	0	root
-2	52	52	Mc-s-b	4	nummod
+2	52	52	Mc-s-d	4	nummod
 3	de	de	Spsa	4	case
 4	ani	an	Ncmp-n	1	obj
 5	,	,	Zc	7	punct
@@ -110092,7 +110092,7 @@
 18	Graham	Graham	Np	28	nsubj
 19	Watson	Watson	Np	18	flat
 20	,	,	Zc	23	punct
-21	20	20	Mc-s-b	23	nummod
+21	20	20	Mc-s-d	23	nummod
 22	de	de	Spsa	21	case
 23	ani	an	Ncmp-n	18	nmod
 24	,	,	Zc	23	punct
@@ -187242,7 +187242,7 @@
 36	lungimea	lungime	Ncfsry	34	nmod
 37	de	de	Spsa	38	case
 38	undă	undă	Ncfsrn	36	nmod
-39	2537	2537	Mc-s-b	40	nummod
+39	2537	2537	Mc-s-d	40	nummod
 40	A	amper	Yn	36	nmod
 41	.	.	Zp	8	punct
 
@@ -188044,7 +188044,7 @@
 12	din	din	Spsa	13	case
 13	limbajul	limbaj	Ncmsry	17	orphan
 14	Algol	Algol	Np	13	nmod
-15	68	68	Mc-s-b	14	nummod
+15	68	68	Mc-s-d	14	nummod
 16	-	-	Zd	17	punct
 17	supraîncărcarea	supraîncărcare	Ncfsry	4	conj
 18	operatorilor	operator	Ncmpoy	17	nmod
@@ -191037,7 +191037,7 @@
 
 1	Formulele	formulă	Ncfpry	5	nsubj
 2	(	(	Z1p	3	punct
-3	28	28	Mc-s-b	1	nummod
+3	28	28	Mc-s-d	1	nummod
 4	)	)	Z2p	3	punct
 5	au	avea	Vmip3p	0	root
 6	sens	sens	Ncms-n	5	obj

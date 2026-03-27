@@ -16670,7 +16670,7 @@ a	avea	Va--3s
 încasat	încasa	Vmp--sm
 în	în	Spsa
 cele	cel	Tdfpr
-11	11	Mc-s-b
+11	11	Mc-s-d
 luni	lună	Ncfp-n
 3,635	3,635	Mc-s-d
 miliarde	miliard	Mcfprln
@@ -16780,7 +16780,7 @@ PRM	Partidul_România_Mare	Yn
 .	.	Zp
 
 Are	avea	Vmip3s
-55	55	Mc-s-b
+55	55	Mc-s-d
 de	de	Spsa
 ani	an	Ncmp-n
 ,	,	Zc
@@ -17118,7 +17118,7 @@ pentru	pentru	Spsa
 adulți	adult	Ncmp-n
 ,	,	Zc
 și	și	Crssp
-25	25000	Mc-s-b
+25	25000	Mc-s-d
 000	_	X
 de	de	Spsa
 lei	leu	Ncmp-n
@@ -17900,14 +17900,14 @@ Are	avea	Vmip3s
 un	un	Timsr
 cont	cont	Ncms-n
 de	de	Spsa
-120	120000	Mc-s-b
+120	120000	Mc-s-d
 000	_	X
 de	de	Spsa
 euro	euro	Ncm--n
 și	și	Crssp
 acțiuni	acțiune	Ncfp-n
 de	de	Spsa
-100	100000	Mc-s-b
+100	100000	Mc-s-d
 000	_	X
 de	de	Spsa
 euro	euro	Ncm--n
@@ -18022,7 +18022,7 @@ excesivă	excesiv	Afpfsrn
 
 Tot	tot	Rgp
 în	în	Spsa
-2006	2006	Mc-s-b
+2006	2006	Mc-s-d
 se	sine	Px3--a--------w
 vor	vrea	Va--3p
 elabora	elabora	Vmnp
@@ -18047,7 +18047,7 @@ tramvaie	tramvai	Ncfp-n
 
 Are	avea	Vmip3s
 doar	doar	Rgp
-34	34	Mc-s-b
+34	34	Mc-s-d
 de	de	Spsa
 ani	an	Ncmp-n
 ,	,	Zc
@@ -19009,9 +19009,9 @@ s-	sine	Px3--a--y-----w
 a	avea	Va--3s
 născut	naște	Vmp--sm
 la	la	Spsa
-14	14	Mc-s-b
+14	14	Mc-s-d
 ianuarie	ianuarie	Ncm--n
-1952	1952	Mc-s-b
+1952	1952	Mc-s-d
 ,	,	Zc
 la	la	Spsa
 București	București	Np
@@ -24025,7 +24025,7 @@ inversă	invers	Afpfsrn
 .	.	Zp
 
 Are	avea	Vmip3s
-53	53	Mc-s-b
+53	53	Mc-s-d
 de	de	Spsa
 ani	an	Ncmp-n
 ,	,	Zc
@@ -24461,7 +24461,7 @@ certitudine	certitudine	Ncfsrn
 .	.	Zp
 
 Are	avea	Vmip3s
-52	52	Mc-s-b
+52	52	Mc-s-d
 de	de	Spsa
 ani	an	Ncmp-n
 ,	,	Zc
@@ -110092,7 +110092,7 @@ unde	unde	Rw
 Graham	Graham	Np
 Watson	Watson	Np
 ,	,	Zc
-20	20	Mc-s-b
+20	20	Mc-s-d
 de	de	Spsa
 ani	an	Ncmp-n
 ,	,	Zc
@@ -187242,7 +187242,7 @@ cu	cu	Spsa
 lungimea	lungime	Ncfsry
 de	de	Spsa
 undă	undă	Ncfsrn
-2537	2537	Mc-s-b
+2537	2537	Mc-s-d
 A	amper	Yn
 .	.	Zp
 
@@ -188044,7 +188044,7 @@ clasă	clasă	Ncfsrn
 din	din	Spsa
 limbajul	limbaj	Ncmsry
 Algol	Algol	Np
-68	68	Mc-s-b
+68	68	Mc-s-d
 -	-	Zd
 supraîncărcarea	supraîncărcare	Ncfsry
 operatorilor	operator	Ncmpoy
@@ -191037,7 +191037,7 @@ convergentă	convergent	Afpfsrn
 
 Formulele	formulă	Ncfpry
 (	(	Z1p
-28	28	Mc-s-b
+28	28	Mc-s-d
 )	)	Z2p
 au	avea	Vmip3p
 sens	sens	Ncms-n
