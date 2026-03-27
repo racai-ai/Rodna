@@ -30,9 +30,9 @@ Râmnicu	RWORD
 Vâlcea	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-altfel	MWE
+De	RWORD
+ 	SPACE
+altfel	RWORD
 ,	PUNCT
  	SPACE
 nici	RWORD
@@ -502,9 +502,9 @@ destule	RWORD
 Dar	RWORD
 ,	PUNCT
  	SPACE
-din	MWE
- 	MWE
-păcate	MWE
+din	RWORD
+ 	SPACE
+păcate	RWORD
 ,	PUNCT
  	SPACE
 uităm	RWORD
@@ -513,9 +513,9 @@ să	RWORD
  	SPACE
 căutam	RWORD
  	SPACE
-în	MWE
- 	MWE
-jur	MWE
+în	RWORD
+ 	SPACE
+jur	RWORD
 ,	PUNCT
  	SPACE
 în	RWORD
@@ -567,9 +567,9 @@ jurul	MWE
  	SPACE
 orei	RWORD
  	SPACE
-19	NUM
-.	PUNCT
-00	NUM
+19	REALNUM
+.	REALNUM
+00	REALNUM
 ,	PUNCT
  	SPACE
 duminică	RWORD
@@ -698,8 +698,9 @@ Polonia	RWORD
  	SPACE
 Austria	RWORD
  	SPACE
-etc	RWORD
-.),	PUNCT
+etc	ABBR
+.	ABBR
+),	PUNCT
  	SPACE
 așadar	RWORD
  	SPACE
@@ -753,7 +754,7 @@ Wi	ABBR
 .	ABBR
 ,	PUNCT
  	SPACE
-USA	RWORD
+USA	WORD
 .	PUNCT
  	SPACE	SENTEND
 Îi	RWORD
@@ -821,10 +822,10 @@ a	RWORD
  	SPACE
 oprit	RWORD
  	SPACE
-din	MWE
- 	MWE
-loc	MWE
-.	PUNCT
+din	RWORD
+ 	SPACE
+loc	ABBR
+.	ABBR
  	SPACE	SENTEND
 Ochii	RWORD
  	SPACE
@@ -1119,7 +1120,8 @@ ce	RWORD
 este	RWORD
  	SPACE
 vorba	RWORD
-.”	PUNCT
+.	PUNCT
+”	PUNCT
  	SPACE	SENTEND
 Înăuntru	RWORD
  	SPACE
@@ -1596,8 +1598,8 @@ la	MWE
  	SPACE
 Colegiul	RWORD
  	SPACE
-N	ABBR
-.	ABBR
+N	UNKABBR
+.	UNKABBR
  	SPACE
 Bălcescu	RWORD
  	SPACE
@@ -1691,7 +1693,8 @@ s-	RWORD
 a	RWORD
  	SPACE
 dus	RWORD
-...”	PUNCT
+.	PUNCT
+..”	PUNCT
  	SPACE	SENTEND
 N-	RWORD
 am	RWORD
@@ -1809,9 +1812,9 @@ de	RWORD
 mari	RWORD
 …	PUNCT
  	SPACE	SENTEND
-În	MWE
- 	MWE
-schimb	MWE
+În	RWORD
+ 	SPACE
+schimb	RWORD
 ,	PUNCT
  	SPACE
 mult	RWORD
@@ -1882,9 +1885,9 @@ Spre	RWORD
  	SPACE
 ora	RWORD
  	SPACE
-22	NUM
-.	PUNCT
-00	NUM
+22	REALNUM
+.	REALNUM
+00	REALNUM
  	SPACE
 am	RWORD
  	SPACE
@@ -1995,9 +1998,9 @@ de	RWORD
 existență	RWORD
 ,	PUNCT
  	SPACE
-ca	MWE
- 	MWE
-și	MWE
+ca	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 al	RWORD
  	SPACE
@@ -2135,9 +2138,9 @@ de	RWORD
 excepție	RWORD
 ,	PUNCT
  	SPACE
-ca	MWE
- 	MWE
-și	MWE
+ca	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 un	RWORD
  	SPACE
@@ -2194,9 +2197,9 @@ Mihail	RWORD
 este	RWORD
 ,	PUNCT
  	SPACE
-de	MWE
- 	MWE
-asemenea	MWE
+de	RWORD
+ 	SPACE
+asemenea	RWORD
 ,	PUNCT
  	SPACE
 și	RWORD
@@ -2271,7 +2274,8 @@ secole	RWORD
 ,	PUNCT
  	SPACE
 chiar	RWORD
-.”	PUNCT
+.	PUNCT
+”	PUNCT
  	SPACE
 …	PUNCT
  	SPACE	SENTEND
@@ -2299,9 +2303,9 @@ septembrie	RWORD
  	SPACE
 ora	RWORD
  	SPACE
-19	NUM
-:	PUNCT
-00	NUM
+19	TIME
+:	TIME
+00	TIME
 .	PUNCT
  	SPACE	SENTEND
 O	RWORD
@@ -2390,9 +2394,9 @@ orchestrei	RWORD
 elegantă	RWORD
 ,	PUNCT
  	SPACE
-ca	MWE
- 	MWE
-și	MWE
+ca	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 spectatorii	RWORD
 ,	PUNCT
@@ -2498,9 +2502,9 @@ atât	RWORD
  	SPACE
 ba	RWORD
  	SPACE
-chiar	MWE
- 	MWE
-și	MWE
+chiar	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 mai	RWORD
  	SPACE
@@ -2688,9 +2692,9 @@ cum	RWORD
  	SPACE
 numeau	RWORD
  	SPACE
-cu	MWE
- 	MWE
-drag	MWE
+cu	RWORD
+ 	SPACE
+drag	RWORD
  	SPACE
 prietenii	RWORD
 )	PUNCT
@@ -2827,7 +2831,7 @@ cu	RWORD
  	SPACE
 maeștrii	RWORD
  	SPACE
-prezenți	WORD
+prezenți	RWORD
 .	PUNCT
  	SPACE	SENTEND
 S-	RWORD
@@ -2835,9 +2839,9 @@ a	RWORD
  	SPACE
 perfectat	RWORD
  	SPACE
-chiar	MWE
- 	MWE
-și	MWE
+chiar	RWORD
+ 	SPACE
+și	RWORD
  	SPACE
 o	RWORD
  	SPACE
@@ -2893,11 +2897,11 @@ o	RWORD
  	SPACE
 colaborare	RWORD
  	SPACE
-pe	MWE
- 	MWE
-termen	MWE
- 	MWE
-lung	MWE
+pe	RWORD
+ 	SPACE
+termen	RWORD
+ 	SPACE
+lung	RWORD
 .	PUNCT
  	SPACE	SENTEND
 Deși	RWORD
@@ -2955,8 +2959,8 @@ este	RWORD
  	SPACE
 întâmplător	RWORD
  	SPACE
-în	MWE
- 	MWE
-viață	MWE
+în	RWORD
+ 	SPACE
+viață	RWORD
 .	PUNCT
  	SPACE	SENTEND

@@ -347,9 +347,9 @@ Dumnezeu	RWORD
 Nu	RWORD
 ,	PUNCT
  	SPACE
-cu	MWE
- 	MWE
-siguranță	MWE
+cu	RWORD
+ 	SPACE
+siguranță	RWORD
  	SPACE
 nu	RWORD
 !	PUNCT
@@ -535,16 +535,16 @@ trecere	RWORD
  	SPACE
 Și	RWORD
  	SPACE
-după	MWE
- 	MWE
-aceea	MWE
+după	RWORD
+ 	SPACE
+aceea	RWORD
 ?	PUNCT
  	SPACE	SENTEND
 -	PUNCT
  	SPACE
-După	MWE
- 	MWE
-aceea	MWE
+După	RWORD
+ 	SPACE
+aceea	RWORD
 ?!	PUNCT
  	SPACE	SENTEND
 Ne-	RWORD
@@ -689,9 +689,9 @@ să	RWORD
 fii	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Mai	MWE
- 	MWE
-mult	MWE
+Mai	RWORD
+ 	SPACE
+mult	RWORD
  	SPACE
 facem	RWORD
  	SPACE
@@ -736,7 +736,8 @@ apoi	RWORD
  	SPACE
 a	RWORD
  	SPACE
-îndemnat-o	RWORD
+îndemnat	RWORD
+-o	RWORD
  	SPACE
 pe	RWORD
  	SPACE
@@ -795,9 +796,9 @@ lume	RWORD
 lumea	RWORD
 ,	PUNCT
  	SPACE
-peste	MWE
- 	MWE
-tot	MWE
+peste	RWORD
+ 	SPACE
+tot	RWORD
  	SPACE
 aceeași	RWORD
 .	PUNCT
@@ -814,9 +815,9 @@ un	RWORD
 luminiș	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Peste	MWE
- 	MWE
-tot	MWE
+Peste	RWORD
+ 	SPACE
+tot	RWORD
 ,	PUNCT
  	SPACE
 un	RWORD
@@ -1377,8 +1378,8 @@ sapă	RWORD
  	SPACE
 nici	RWORD
  	SPACE
-de-	RWORD
-ar	RWORD
+de	RWORD
+-ar	RWORD
  	SPACE
 crăpa	RWORD
 !	PUNCT
@@ -1614,7 +1615,8 @@ drum	RWORD
  	SPACE
 a	RWORD
  	SPACE
-îndemnat-o	RWORD
+îndemnat	RWORD
+-o	RWORD
  	SPACE
 iar	RWORD
 ,	PUNCT

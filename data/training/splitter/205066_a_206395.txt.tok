@@ -18,7 +18,8 @@ al	RWORD
  	SPACE
 Bisericii	RWORD
  	SPACE
-Româno-Catolice	RWORD
+Româno-	RWORD
+Catolice	RWORD
  	SPACE
 și	RWORD
  	SPACE
@@ -47,7 +48,8 @@ funcționează	RWORD
  	SPACE
 Biserica	RWORD
  	SPACE
-Româno-Catolică	RWORD
+Româno-	RWORD
+Catolică	RWORD
  	SPACE
 din	RWORD
  	SPACE
@@ -85,8 +87,7 @@ nr	ABBR
  	SPACE
 2	NUM
 *	SYM
-)	PUNCT
-,	PUNCT
+),	PUNCT
  	SPACE
 care	RWORD
  	SPACE
@@ -699,9 +700,9 @@ Canonic	RWORD
  	SPACE
 apărea	RWORD
  	SPACE
-întru	MWE
- 	MWE
-totul	MWE
+întru	RWORD
+ 	SPACE
+totul	RWORD
  	SPACE
 voită	RWORD
  	SPACE
@@ -1102,9 +1103,9 @@ viața	RWORD
 creștină	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-fapt	MWE
+De	RWORD
+ 	SPACE
+fapt	RWORD
 ,	PUNCT
  	SPACE
 întreaga	RWORD
@@ -1453,13 +1454,12 @@ Lumen	RWORD
  	SPACE
 gentium	WORD
  	SPACE
-1	NUM
-,	PUNCT
-5	NUM
+1	REALNUM
+,	REALNUM
+5	REALNUM
 ,	PUNCT
 48	NUM
-)	PUNCT
-,	PUNCT
+),	PUNCT
  	SPACE
 este	RWORD
  	SPACE
@@ -1577,11 +1577,11 @@ se	RWORD
 maturizeze	RWORD
 ,	PUNCT
  	SPACE
-puțin	MWE
- 	MWE
-câte	MWE
- 	MWE
-puțin	MWE
+puțin	RWORD
+ 	SPACE
+câte	RWORD
+ 	SPACE
+puțin	RWORD
 ,	PUNCT
  	SPACE
 formulele	RWORD
@@ -1608,9 +1608,9 @@ de	RWORD
 Biserică	RWORD
 .	PUNCT
  	SPACE	SENTEND
-În	MWE
- 	MWE
-plus	MWE
+În	RWORD
+ 	SPACE
+plus	RWORD
 ,	PUNCT
  	SPACE
 în	RWORD
@@ -2533,9 +2533,9 @@ a	RWORD
 Bisericii	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-fapt	MWE
+De	RWORD
+ 	SPACE
+fapt	RWORD
 ,	PUNCT
  	SPACE
 Cristos	RWORD
@@ -2608,11 +2608,10 @@ cf	ABBR
  	SPACE
 Mt	ABBR
  	SPACE
-5	NUM
-,	PUNCT
-17	NUM
-)	PUNCT
-,	PUNCT
+5	REALNUM
+,	REALNUM
+17	REALNUM
+),	PUNCT
  	SPACE
 astfel	MWE
  	MWE
@@ -2644,9 +2643,9 @@ Noului	RWORD
 Testament	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-aceea	MWE
+De	RWORD
+ 	SPACE
+aceea	RWORD
 ,	PUNCT
  	SPACE
 chiar	MWE
@@ -2694,20 +2693,19 @@ credință	RWORD
 cf	ABBR
 .	ABBR
  	SPACE
-Rom	ABBR
+Rom	RWORD
  	SPACE
-3	NUM
-,	PUNCT
-28	NUM
+3	REALNUM
+,	REALNUM
+28	REALNUM
 ;	PUNCT
  	SPACE
-Gal	ABBR
+Gal	RWORD
  	SPACE
-2	NUM
-,	PUNCT
-16	NUM
-)	PUNCT
-,	PUNCT
+2	REALNUM
+,	REALNUM
+16	REALNUM
+),	PUNCT
  	SPACE
 el	RWORD
  	SPACE
@@ -2725,23 +2723,23 @@ Decalogului	RWORD
 cf	ABBR
 .	ABBR
  	SPACE
-Rom	ABBR
+Rom	RWORD
  	SPACE
 13	NUM
 ,	PUNCT
 8-10	WORD
 ;	PUNCT
  	SPACE
-Gal	ABBR
+Gal	RWORD
  	SPACE
 5	NUM
 ,	PUNCT
 13-25	WORD
 ;	PUNCT
  	SPACE
-6	NUM
-,	PUNCT
-2	NUM
+6	REALNUM
+,	REALNUM
+2	REALNUM
 )	PUNCT
  	SPACE
 și	RWORD
@@ -2766,7 +2764,7 @@ Dumnezeu	RWORD
 cf	ABBR
 .	ABBR
  	SPACE
-Cor	ABBR
+Cor	RWORD
  	SPACE
 cap	ABBR
 .	ABBR
@@ -2776,8 +2774,7 @@ cap	ABBR
 și	RWORD
  	SPACE
 6	NUM
-)	PUNCT
-.	PUNCT
+).	PUNCT
  	SPACE	SENTEND
 În	RWORD
  	SPACE
@@ -3088,9 +3085,9 @@ a	RWORD
 Bisericii	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-aceea	MWE
+De	RWORD
+ 	SPACE
+aceea	RWORD
 ,	PUNCT
  	SPACE
 pe	MWE
@@ -3625,9 +3622,9 @@ ecleziologică	RWORD
 constituie	RWORD
 ,	PUNCT
  	SPACE
-de	MWE
- 	MWE
-fapt	MWE
+de	RWORD
+ 	SPACE
+fapt	RWORD
 ,	PUNCT
  	SPACE
 și	RWORD
@@ -3698,8 +3695,7 @@ gentium	WORD
 ,	PUNCT
  	SPACE
 2	NUM
-)	PUNCT
-,	PUNCT
+),	PUNCT
  	SPACE
 iar	RWORD
  	SPACE
@@ -3719,8 +3715,7 @@ ibid	ABBR
 ,	PUNCT
  	SPACE
 3	NUM
-)	PUNCT
-;	PUNCT
+);	PUNCT
  	SPACE	SENTEND
 apoi	RWORD
  	SPACE
@@ -3779,9 +3774,9 @@ colegialitate	RWORD
 primat	RWORD
 ;	PUNCT
  	SPACE	SENTEND
-de	MWE
- 	MWE
-asemenea	MWE
+de	RWORD
+ 	SPACE
+asemenea	RWORD
 ,	PUNCT
  	SPACE
 învățătura	RWORD
@@ -3875,9 +3870,9 @@ ale	RWORD
 laicilor	RWORD
 ;	PUNCT
  	SPACE	SENTEND
-în	MWE
- 	MWE
-sfârșit	MWE
+în	RWORD
+ 	SPACE
+sfârșit	RWORD
 ,	PUNCT
  	SPACE
 interesul	RWORD
@@ -3967,9 +3962,9 @@ sus	RWORD
 ca	RWORD
 ,	PUNCT
  	SPACE
-de	MWE
- 	MWE
-altfel	MWE
+de	RWORD
+ 	SPACE
+altfel	RWORD
 ,	PUNCT
  	SPACE
 și	RWORD
@@ -4116,8 +4111,7 @@ cu	RWORD
 nerăbdare	RWORD
 .	PUNCT
  	SPACE	SENTEND
-Într-	RWORD
-adevăr	RWORD
+Într-adevăr	RWORD
 ,	PUNCT
  	SPACE
 Codul	RWORD
@@ -4269,9 +4263,9 @@ garantate	RWORD
 și	RWORD
 ,	PUNCT
  	SPACE
-în	MWE
- 	MWE
-fine	MWE
+în	RWORD
+ 	SPACE
+fine	RWORD
 ,	PUNCT
  	SPACE
 inițiativele	RWORD
@@ -4387,9 +4381,9 @@ garantate	RWORD
 și	RWORD
 ,	PUNCT
  	SPACE
-în	MWE
- 	MWE
-fine	MWE
+în	RWORD
+ 	SPACE
+fine	RWORD
 ,	PUNCT
  	SPACE
 inițiativele	RWORD
@@ -4434,9 +4428,9 @@ legi	RWORD
 canonice	RWORD
 .	PUNCT
  	SPACE	SENTEND
-În	MWE
- 	MWE
-sfârșit	MWE
+În	RWORD
+ 	SPACE
+sfârșit	RWORD
 ,	PUNCT
  	SPACE
 prin	RWORD
@@ -4459,9 +4453,9 @@ fie	RWORD
 respectate	RWORD
 ;	PUNCT
  	SPACE	SENTEND
-de	MWE
- 	MWE
-aceea	MWE
+de	RWORD
+ 	SPACE
+aceea	RWORD
 ,	PUNCT
  	SPACE
 s-	RWORD
@@ -4523,7 +4517,7 @@ teologic	RWORD
  	SPACE	SENTEND
 Cartea	RWORD
  	SPACE
-I	RWORD
+I	NUM
  	SPACE	SENTEND
 NORME	RWORD
  	SPACE
@@ -4558,9 +4552,9 @@ Can	ABBR
  	SPACE
 -	PUNCT
  	SPACE
-În	MWE
- 	MWE
-general	MWE
+În	RWORD
+ 	SPACE
+general	RWORD
 ,	PUNCT
  	SPACE
 Codul	RWORD
@@ -4586,9 +4580,9 @@ acțiunilor	RWORD
 liturgice	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-aceea	MWE
+De	RWORD
+ 	SPACE
+aceea	RWORD
 ,	PUNCT
  	SPACE
 legile	RWORD
@@ -4699,9 +4693,9 @@ conținutul	RWORD
 lor	RWORD
 .	PUNCT
  	SPACE	SENTEND
-De	MWE
- 	MWE
-aceea	MWE
+De	RWORD
+ 	SPACE
+aceea	RWORD
 ,	PUNCT
  	SPACE
 ele	RWORD
@@ -5294,7 +5288,7 @@ canonică	RWORD
  	EOL	SENTEND
 Titlul	RWORD
  	SPACE
-I	RWORD
+I	NUM
  	SPACE	SENTEND
 Legile	RWORD
  	SPACE
