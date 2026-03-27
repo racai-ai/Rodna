@@ -105,7 +105,7 @@ def write_tok_file(tokens: list, output_file: str) -> None:
     # end with
 
 
-def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]]]]:
+def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]], List[int]]]:
     """Reads a CoNLL-U format file are returns it."""
 
     logger.info(f"Reading CoNLL-U file [{input_file}]")
@@ -114,6 +114,7 @@ def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]]]]
     with open(input_file, mode='r', encoding='utf-8') as f:
         comments = []
         sentence = []
+        line_numbers = []
         linecounter = 0
 
         for line in f:
@@ -126,15 +127,17 @@ def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]]]]
 
                     if len(parts) == 10:
                         sentence.append(parts)
+                        line_numbers.append(linecounter)
                     else:
-                        logger.info(f"CoNLL-U line not well formed at line [{linecounter}] in file [{input_file}]")
+                        logger.error(f"CoNLL-U line not well formed at line [{linecounter}] in file [{input_file}]")
                 else:
                     comments.append(line)
                 # end if
             elif sentence:
-                corpus.append((comments, sentence))
+                corpus.append((comments, sentence, line_numbers))
                 sentence = []
                 comments = []
+                line_numbers = []
             # end if
         # end for line
     # end with
@@ -148,7 +151,7 @@ def conllu_corpus_to_tab_file(corpus: list, output_file: str, for_tool: str) -> 
     punct_rx = re.compile('^\\W+$')
 
     with open(output_file, mode='w', encoding='utf-8') as f:
-        for (_, sent) in corpus:
+        for (_, sent, _) in corpus:
             for parts in sent:
                 wid = int(parts[0])
                 word = parts[1]

@@ -141,6 +141,7 @@ class MSD(object):
         "M": ("NumType", "Gender", "Number", "Case", "NumForm", "Definiteness", "Clitic"),
         "Q": ("PartType", "-", "Clitic"),
         "Y": ("AbbrevType", "Gender", "Number", "Case", "Definiteness"),
+        "I": (),
         "X": (),
         "Z": ("PuncType", "PuncPairType"),
         # These are the sentence START/END MSDs.
@@ -438,6 +439,37 @@ class MSD(object):
 
         return morpho_feats
 
+    def is_clitic_msd(self, msd: str) -> bool:
+        msd_pos = msd[0]
+        msd_cats = MSD._msd_by_category[msd_pos]
+
+        if len(msd[1:]) > len(msd_cats):
+            logger.warning(f'MSD [{msd}] has more categories than its specs [{msd_cats}]')
+        # end if
+
+        for i in range(len(msd_cats)):
+            if i + 1 == len(msd):
+                break
+            # end if
+
+            msd_cat_value = msd[i + 1]
+            msd_cat_name = msd_cats[i]
+
+            if 'Clitic' == msd_cat_name and msd_cat_value == 'y':
+                return True
+            # end if
+        # end for
+
+        return False
+
+    def is_func_msd(self, msd: str) -> bool:
+        """Returns `True` if `msd` is a functional MSD, e.g. preposition, conjunction, etc."""
+
+        return msd[0] in 'PDTCSQ' or (len(msd) >= 2 and msd[:2] in ['Va', 'Rp'])
+    
+    def is_verb_msd(self, msd: str) -> bool:
+        return msd[0] == 'V'
+
     def get_x_input_vector(self) -> np.ndarray:
         """Returns the input vector for the MSD 'X'."""
 
@@ -558,9 +590,10 @@ class Lex(object):
     _suffix_length = 5
     sentence_case_pattern = re.compile("^[A-ZȘȚĂÎÂ][a-zșțăîâ_-]+$")
     mixed_case_pattern = re.compile(
-        "^[a-zA-ZșțăîâȘȚĂÎÂ]*[a-zșțăîâ-][A-ZȘȚĂÎÂ][a-zA-ZșțăîâȘȚĂÎÂ-]*$")
+        "[a-zșțăîâ][A-ZȘȚĂÎÂ]|[A-ZȘȚĂÎÂ][a-zșțăîâ]")
     code_case_pattern = re.compile(
-        "^[A-Z][A-ZȘȚĂÎÂ-]*\\d[A-Za-z0-9șțăîâȘȚĂÎÂ-]*$")
+        "[A-ZȘȚĂÎÂ-]\\d|\\d[A-ZȘȚĂÎÂ-]")
+    abbr_case_pattern = re.compile("[A-ZȘȚĂÎÂ]\\.")
     _simple_word_pattern = re.compile('^[a-zșțăîâ]+$')
     upper_case_pattern = re.compile("^[A-ZȘȚĂÎÂ_-]+$")
     number_pattern = re.compile("^(\\d+|\\d+[.,]\\d+)$")
@@ -576,6 +609,10 @@ class Lex(object):
         mixed_case_pattern,
         # Code
         code_case_pattern,
+        # Abbreviation
+        abbr_case_pattern,
+        # Number
+        number_pattern,
         # Punctuation
         re.compile("^\\W+$")
     ]
@@ -606,16 +643,13 @@ class Lex(object):
             'adje_fem': {},
             'verb': {}
         }
-        # For abbreviations with 2 tokens, e.g. 'etc.', 'nr.', etc.
-        # They have effectively one token
-        self._abbrfirstword1: Set[str] = set()
         self.longestwordlen = 20
         self._prefixes: Dict[str, Dict[str, int]] = {}
         self._suffixes: Dict[str, Dict[str, int]] = {}
         self._read_tbl_wordform()
-        self._remove_abbr_first_words_that_are_lex_words()
 
-    def get_msd_object(self) -> MSD:
+    @property
+    def msd_object(self) -> MSD:
         return self._msd
 
     def get_inflectional_classes(self) -> Dict[str, Dict[str, List[str]]]:
@@ -626,15 +660,14 @@ class Lex(object):
     def get_lemma_lexicon(self) -> Dict[str, Dict[str, List[str]]]:
         return self._lemma_lexicon
 
-    def _remove_abbr_first_words_that_are_lex_words(self) -> None:
-        """We don't want to tag 'loc.' in e.g. 'au adus-o pe loc.' as an abbreviation."""
+    def abbr_ambiguous_word(self, abbr_word: str) -> bool:
+        """We don't want to tag 'loc.' in e.g. 'Au adus-o pe loc.' as an abbreviation
+        at the end of the sentence. `abbr_word` ends with '.'"""
 
-        for word in self._abbrfirstword1:
-            if not self.is_lex_word(word) or \
-                    self.is_msd_rxonly_word(word, Lex._abbr_pos_pattern):
-                self._abbrfirstword.add(word)
-            # end if
-        # end for
+        word_no_period = abbr_word[:-1]
+
+        return self.is_lex_word(word_no_period) and \
+            not self.is_msd_rxonly_word(word_no_period, Lex._abbr_pos_pattern)
 
     @staticmethod
     def repl_sgml_wih_utf8(word: str) -> str:
@@ -758,11 +791,7 @@ class Lex(object):
                         # end if
                     # end if
 
-                    diac_word = word
-                    no_diac_word = self._get_romanian_word_with_no_diacs(word)
-
-                    self._add_word_to_lex(diac_word, msd, lemma)
-                    self._add_word_to_lex(no_diac_word, msd)
+                    self._add_word_to_lex(word, msd, lemma)
 
                     # It's an abbreviation
                     if word.endswith(".") and Lex._abbr_pos_pattern.match(msd):
@@ -774,11 +803,7 @@ class Lex(object):
                             self._maxabbrlen = len(parts)
                         # end if
 
-                        if len(parts) == 1:
-                            self._abbrfirstword1.add(parts[0])
-                        else:
-                            self._abbrfirstword.add(parts[0])
-                        # end if
+                        self._abbrfirstword.add(parts[0])
                     # end if
 
                     # It's a MWE
@@ -831,6 +856,9 @@ class Lex(object):
                         # end if
                     # end if content word for affix analysis
                 # end if parts has 3 elements
+                else:
+                    logger.error(f'Bad line [{counter}] in tbl.wordform.ro')
+                # end if
             # end for all lines
         # end with
 
@@ -851,7 +879,8 @@ class Lex(object):
         return word.lower() in self._canwordforms
 
     def has_ambiguity_class(self, word: str, msd1: str, msd2: str) -> bool:
-        word_msds = self.get_word_ambiguity_class(word)
+        word_msds = self.get_word_ambiguity_class(
+            word, exact_match=False, dash_match=True)
         is_msd1 = False
         is_msd2 = False
 
@@ -868,7 +897,8 @@ class Lex(object):
         return is_msd1 and is_msd2
 
     def can_be_msd(self, word: str, msd: str) -> bool:
-        word_msds = self.get_word_ambiguity_class(word)
+        word_msds = self.get_word_ambiguity_class(
+            word, exact_match=False, dash_match=True)
 
         for m in word_msds:
             if m == msd or m.startswith(msd):
@@ -887,15 +917,15 @@ class Lex(object):
         if msd.startswith('Afp'):
             msd3 = msd.replace('Afp', 'Nc')
 
-            if (self.is_lex_word(word) and self.can_be_msd(word, msd3)) or \
-                    not self.is_lex_word(word):
+            if (self.is_lex_word(word, dash_match=True) and self.can_be_msd(word, msd3)) or \
+                    not self.is_lex_word(word, dash_match=True):
                 msd2 = msd3
             # end if
         elif msd.startswith('Nc'):
             msd3 = msd.replace('Nc', 'Afp')
 
-            if (self.is_lex_word(word) and self.can_be_msd(word, msd3)) or \
-                    not self.is_lex_word(word):
+            if (self.is_lex_word(word, dash_match=True) and self.can_be_msd(word, msd3)) or \
+                    not self.is_lex_word(word, dash_match=True):
                 msd2 = msd3
             # end if
         # end if
@@ -991,7 +1021,7 @@ class Lex(object):
 
         return word
 
-    def _add_word_to_lex(self, word: str, msd: str, lemma: str = ''):
+    def _add_word_to_lex(self, word: str, msd: str, lemma: str):
         if not self._msd.is_valid_msd(msd):
             raise RuntimeError(f'MSD {msd} is not valid for word {word}')
         # end if
@@ -1002,33 +1032,23 @@ class Lex(object):
 
         self._lexicon[word].add(msd)
 
-        if lemma:
-            if word not in self._lemma_lexicon:
-                self._lemma_lexicon[word] = {}
-            # end if
+        if word not in self._lemma_lexicon:
+            self._lemma_lexicon[word] = {}
+        # end if
 
-            if msd not in self._lemma_lexicon[word]:
-                self._lemma_lexicon[word][msd] = []
-            # end if
+        if msd not in self._lemma_lexicon[word]:
+            self._lemma_lexicon[word][msd] = []
+        # end if
 
-            if lemma not in self._lemma_lexicon[word][msd]:
-                self._lemma_lexicon[word][msd].append(lemma)
-            # end if
+        if lemma not in self._lemma_lexicon[word][msd]:
+            self._lemma_lexicon[word][msd].append(lemma)
         # end if
 
     def is_msd_rxonly_word(self, word: str, pattern: Pattern) -> bool:
         """Tests if the given word has MSDs which ALL
         match the given MSD regular expression."""
 
-        all_msds = set()
-
-        if word in self._lexicon:
-            all_msds.update(self._lexicon[word])
-        # end if
-
-        if word.lower() in self._lexicon:
-            all_msds.update(self._lexicon[word.lower()])
-        # end if
+        all_msds = self.get_word_ambiguity_class(word, dash_match=True)
 
         if not all_msds:
             return False
@@ -1042,13 +1062,157 @@ class Lex(object):
 
         return True
 
-    def is_lex_word(self, word: str, exact_match: bool = False) -> bool:
-        """Tests if word is in this lexicon or not."""
+    def is_lex_word(self, word: str,
+                    exact_match: bool = False,
+                    dash_match: bool = False) -> bool:
+        """Tests if word is in this lexicon or not.
+        If `exact_match is True` matches `word` exactly, with its incoming case.
+        If `dash_match is True`, if `word` starts/ends with a dash, checks it without the dash as well."""
 
         if exact_match:
-            return word in self._lexicon
+            if word in self._lexicon:
+                return True
+            # end if
+
+            if dash_match:
+                # If dash is used just to cause a one-word pronunciation,
+                # e.g. as in "ce-a făcut" or "până-aici", make sure
+                # we give it the MSDs of the word without the dash.
+                if (word.startswith('-') or word.endswith('-')):
+                    if word.startswith('-'):
+                        word = word[1:]
+                    elif word.endswith('-'):
+                        word = word[:-1]
+                    # end if
+                # end if
+
+                return word in self._lexicon
+            else:
+                return False
+            # end if
         else:
-            return word in self._lexicon or word.lower() in self._lexicon
+            if word in self._lexicon or word.lower() in self._lexicon:
+                return True
+            # end if
+
+            if dash_match:
+                if (word.startswith('-') or word.endswith('-')):
+                    if word.startswith('-'):
+                        word = word[1:].lower()
+                    elif word.endswith('-'):
+                        word = word[:-1].lower()
+                    # end if
+                # end if
+
+                return word in self._lexicon
+            else:
+                return False
+        # end if
+
+    def _ambiguity_class_is_clitic(self, word: str) -> int:
+        clitic_count = 0
+        class_count = 0
+
+        for m in self.get_word_ambiguity_class(word):
+            if self._msd.is_clitic_msd(msd=m):
+                clitic_count += 1
+            # end if
+
+            class_count += 1
+        # end for
+
+        if clitic_count == 0:
+            return -1
+        elif clitic_count == class_count:
+            return 1
+        else:
+            return 0
+        # end if
+
+    def is_clitic_word(self, word: str) -> int:
+        """Returns:
+        - `1` if `word` is only a clitic word, e.g. '-ul', 'într-';
+        - `0` if `word` can be a clitic or a regular word, e.g. '-a' or 'a'
+        - `-1` if `word` cannot be a clitic word, e.g. '-încercare'
+        """
+
+        if word.startswith('-') or word.endswith('-'):
+            # All words that begin/end with dash are clitics!
+            # Check the tbl.wordform.ro for this condition.
+            if not self.is_lex_word(word):
+                return -1
+            # end if
+
+            if word.startswith('-'):
+                word = word[1:]
+            else:
+                word = word[:-1]
+            # end if
+
+            if not self.is_lex_word(word):
+                # Word without dash is not in the lexicon.
+                return 1
+            # end if
+
+            if self._ambiguity_class_is_clitic(word=word) < 1:
+                return 0
+            else:
+                return 1
+            # end if
+        else:
+            return self._ambiguity_class_is_clitic(word=word)
+        # end if
+
+    def is_pos_word(self, word: str, pos: str, exact_match: bool = False) -> bool:
+        """Returns `True` if `word` can unambiguously be `pos`.
+        See MSD class for the values of `pos`, e.g. N for noun, V for verb,
+        S for preposition, etc.
+        If `pos` has more than one POS, e.g. `'DR'`, the ambiguity class
+        has to match exactly this set."""
+
+        msds = self.get_word_ambiguity_class(word, exact_match=exact_match)
+
+        if not msds:
+            self.get_word_ambiguity_class(word, exact_match=False)
+        # end if
+
+        for m in msds:
+            if m[0] not in pos:
+                return False
+            # end if
+        # end for
+
+        if msds:
+            return True
+        else:
+            return False
+        # end if
+
+    def can_be_pos_word(self, word: str, pos: str) -> bool:
+        """Returns `True` if `word` can be `pos`.
+        See MSD class for the values of `pos`, e.g. N for noun, V for verb,
+        S for preposition, etc.
+        If `pos` has more than one POS, e.g. `'DR'`, the ambiguity class
+        has to have at least one member from the set."""
+
+        for m in self.get_word_ambiguity_class(word):
+            if m[0] in pos:
+                return True
+            # end if
+        # end for
+
+        return False
+
+    def can_be_func_word(self, word: str) -> bool:
+        """Returns `True` if word can be a conjunction, preposition, etc."""
+
+        for m in self.get_word_ambiguity_class(word):
+            if self._msd.is_func_msd(msd=m):
+                return True
+            # end if
+        # end for
+
+        return False
 
     def is_mwe_first_word(self, word: str) -> bool:
         """Tests if word can start a multi-word expression."""
@@ -1096,20 +1260,46 @@ class Lex(object):
 
         return phr_ok
 
-    def get_word_ambiguity_class(self, word: str, exact_match: bool = False) -> List[str]:
+    def get_word_ambiguity_class(self, word: str,
+                                 exact_match: bool = False,
+                                 dash_match: bool = False) -> List[str]:
+        """Retrieve all MSDs for `word` from the lexicon.
+        If word has a prefixed/suffixed dash, get the associated MSDs as well
+        if `dash_match is True`"""
+
+        expanded_words = [word]
+
+        if dash_match:
+            if word.startswith('-') or word.endswith('-'):
+                if word.startswith('-'):
+                    nd_word = word[1:]
+                elif word.endswith('-'):
+                    nd_word = word[:-1]
+                # end if
+
+                expanded_words.append(nd_word)
+            # end if
+        # end if
+        
         all_msds = set()
 
-        if word in self._lexicon:
-            all_msds.update(self._lexicon[word])
-        # end if
+        for w in expanded_words:
+            if w in self._lexicon:
+                all_msds.update(self._lexicon[w])
+            # end if
+        # end for
 
         if exact_match:
             return list(all_msds)
         # end if
 
-        if word.lower() in self._lexicon:
-            all_msds.update(self._lexicon[word.lower()])
-        # end if
+        for w in expanded_words:
+            lw = w.lower()
+
+            if lw in self._lexicon:
+                all_msds.update(self._lexicon[lw])
+            # end if
+        # end for
 
         return list(all_msds)
 
@@ -1251,11 +1441,11 @@ class Lex(object):
         # or lower-cased.
         features1 = np.zeros(2, dtype=np.float32)
 
-        if word in self._lexicon:
+        if self.is_lex_word(word, exact_match=True, dash_match=True):
             features1[0] = 1.0
         # end if
 
-        if word.lower() in self._lexicon:
+        if self.is_lex_word(word.lower(), exact_match=True, dash_match=True):
             features1[1] = 1.0
         # end if
 
@@ -1265,7 +1455,7 @@ class Lex(object):
         for i in range(len(Lex._case_patterns)):
             patt = Lex._case_patterns[i]
 
-            if patt.match(word):
+            if patt.search(word):
                 features11[i] = 1.0
             # end if
         # end for
@@ -1273,16 +1463,11 @@ class Lex(object):
         # 2. MSD features for word: the vector of possible tags
         features2 = np.zeros(len(self._possibletags), dtype=np.float32)
 
-        if word not in self._lexicon and word.lower() not in self._lexicon:
+        if not self.is_lex_word(word, exact_match=False, dash_match=True):
             features2[0] = 1.0
-        elif word in self._lexicon:
-            for msd in self._lexicon[word]:
-                pos = MSD.get_msd_pos(msd)
-                idx = self._possibletags[pos]
-                features2[idx] = 1.0
-            # end for
         else:
-            for msd in self._lexicon[word.lower()]:
+            for msd in self.get_word_ambiguity_class(word,
+                                                     exact_match=False, dash_match=True):
                 pos = MSD.get_msd_pos(msd)
                 idx = self._possibletags[pos]
                 features2[idx] = 1.0
@@ -1302,15 +1487,28 @@ class Lex(object):
 
         # For some of the word forms such as 'NaCl2' or 'Radu/Np',
         # we require an exact match in the lexicon.
-        if Lex.mixed_case_pattern.match(word) or \
-                Lex.code_case_pattern.match(word) or \
-                msd.startswith('Np') or \
-                msd.startswith('Yn'):
+        if msd.startswith('Np') or \
+                (msd.startswith('Yn') and
+                Lex.abbr_case_pattern.search(word)):
             exact_match = True
         # end if
 
         if not exact_match:
             word = word.lower()
+
+            if word in self._lemma_lexicon and \
+                    msd in self._lemma_lexicon[word]:
+                return self._lemma_lexicon[word][msd]
+            # end if
+
+            # Handle cases such as "una-alta",
+            # where the tokens are "una-", "alta" and
+            # "una-" is not in the lexicon, but "una" is.
+            if word.startswith('-'):
+                word = word[1:]
+            elif word.endswith('-'):
+                word = word[:-1]
+            # end if
 
             if word in self._lemma_lexicon and \
                     msd in self._lemma_lexicon[word]:
