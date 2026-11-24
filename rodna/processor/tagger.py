@@ -1182,7 +1182,7 @@ class RoPOSTagger(object):
                 # end if
             # end if
 
-            tagged_sentence.append((word, best_msd, msd_p))
+            tagged_sentence.append((word, best_msd, float(msd_p)))
         # end for
 
         if debug_fh:

@@ -818,6 +818,12 @@ class RoTokenizer(object):
                         ner_found = False
                     # end if
 
+                    if ner_found and label == 'UNKABBR' and \
+                            tokens[i][1] == 'ABBR':
+                        # Do not allow UNKABBR ot overwrite ABBR
+                        ner_found = False
+                    # end if
+
                     if ner_found:
                         for k in range(i, j):
                             tokens2.append((tokens[k][0], label))

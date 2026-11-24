@@ -3,7 +3,7 @@ from . import tagger
 
 
 def test_simple():
-    sentences = splitter.sentence_split("Acesta este un text simplu. Urmează, bine-înțeles, o a doua propoziție. "
+    sentences = splitter.sentence_split("Acesta este un text simplu. Urmează, desigur, o a doua propoziție. "
                                         "Iar textul se termină cu ultima propoziție.")
     assert len(sentences) == 3
 

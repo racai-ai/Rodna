@@ -3,7 +3,7 @@ from . import tagger
 from . import parser
 
 def test_parsing():
-    sentences = splitter.sentence_split("Acesta este un text simplu. Urmează, bine-înțeles, o a doua propoziție.")
+    sentences = splitter.sentence_split("Acesta este un text simplu. Urmează, desigur, o a doua propoziție.")
 
     tagged_sentence_1 = tagger.tag_sentence(sentences[0])
     tagged_sentence_2 = tagger.tag_sentence(sentences[1])
