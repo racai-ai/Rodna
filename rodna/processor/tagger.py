@@ -23,8 +23,7 @@ from ..config import CLS_TAGGER_MODEL_FOLDER, \
     CRF_TAGGER_MODEL_FOLDER, TAGGER_UNICODE_PROPERTY_FILE, \
     TAGGER_MODEL_FOLDER, BERT_FOR_CLS_TAGGER_FOLDER, \
     BERT_FOR_CRF_TAGGER_FOLDER
-from .bert_model import RoBERTModel, \
-    zero_word, start_word, end_word, dumitrescu_bert_v1
+from .bert_model import RoBERTModel, dumitrescu_bert_v1
 
 
 class TaggerDataset(Dataset):
@@ -81,8 +80,8 @@ class RoPOSTagger(object):
     _conf_dev_percent = 0.1
     # No test, for now, look at values on dev
     _conf_test_percent = 0.1
-    _conf_epochs_cls = 10
-    _conf_epochs_crf = 2
+    _conf_epochs_cls = 20
+    _conf_epochs_crf = 5
     _conf_with_tiered_tagging = False
     _conf_model_file = 'model.pt'
     _conf_config_file = 'config.json'
@@ -96,27 +95,55 @@ class RoPOSTagger(object):
         self._tokenizer = tokenizer
         self._uniprops = CharUni()
         self._lexicon = lexicon
-        self._msd = self._lexicon.get_msd_object()
+        self._msd = self._lexicon.msd_object
         self._rofeatures = RoFeatures(self._lexicon)
         self._romorphology = morphology
 
-    def _save(self):
-        self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
+    def _save_all(self, folder: str, model: nn.Module, config: dict):
+        torchmodelfile = os.path.join(folder, RoPOSTagger._conf_model_file)
+        conffile = os.path.join(folder, RoPOSTagger._conf_config_file)
 
-        def _save_all(folder: str, model: nn.Module, config: dict):
-            torchmodelfile = os.path.join(folder, RoPOSTagger._conf_model_file)
-            torch.save(model.state_dict(), torchmodelfile)
-            conffile = os.path.join(folder, RoPOSTagger._conf_config_file)
+        if os.path.isfile(torchmodelfile):
+            logger.info(f'Removing file [{torchmodelfile}]')
+            os.remove(torchmodelfile)
+        # end if
 
-            with open(conffile, mode='w', encoding='utf-8') as f:
-                json.dump(config, f, ensure_ascii=False, indent=4)
-            # end with
-        # end def
+        if os.path.isfile(conffile):
+            logger.info(f'Removing file [{conffile}]')
+            os.remove(conffile)
+        # end if
+        
+        torch.save(model.state_dict(), torchmodelfile)
+        
+        with open(conffile, mode='w', encoding='utf-8') as f:
+            json.dump(config, f, ensure_ascii=False, indent=4)
+        # end with
+    # end def
 
-        _save_all(CLS_TAGGER_MODEL_FOLDER, self._cls_model, self._cls_config)
-        self._cls_ro_bert.save(destination_folder=BERT_FOR_CLS_TAGGER_FOLDER)
-        _save_all(CRF_TAGGER_MODEL_FOLDER, self._crf_model, self._crf_config)
+    def _delete_bert_files(self, folder: str):
+        for f in os.listdir(folder):
+            fp = os.path.join(folder, f)
+
+            if f in ['vocab.txt', 'model.safetensors'] and \
+                    os.path.isfile(fp):
+                logger.info(f'Removing file [{fp}]')
+                os.remove(fp)
+            elif f.endswith('.json') and \
+                    os.path.isfile(fp):
+                logger.info(f'Removing file [{fp}]')
+                os.remove(fp)
+            # end if
+        # end for
+
+    def _save_crf_model(self):
+        self._save_all(CRF_TAGGER_MODEL_FOLDER, self._crf_model, self._crf_config)
+        self._delete_bert_files(folder=BERT_FOR_CRF_TAGGER_FOLDER)
         self._crf_ro_bert.save(destination_folder=BERT_FOR_CRF_TAGGER_FOLDER)
+
+    def _save_cls_model(self):
+        self._save_all(CLS_TAGGER_MODEL_FOLDER, self._cls_model, self._cls_config)
+        self._delete_bert_files(folder=BERT_FOR_CLS_TAGGER_FOLDER)
+        self._cls_ro_bert.save(destination_folder=BERT_FOR_CLS_TAGGER_FOLDER)
 
     def load(self):
         def _load_conf(folder: str) -> dict:
@@ -175,6 +202,11 @@ class RoPOSTagger(object):
         # 3. Build the Unicode properties on the train set
         self._build_unicode_props(train_sentences)
 
+        # 3.1 Create TaggerDatasets
+        dataset_train = TaggerDataset(sentences=train_sentences)
+        dataset_dev = TaggerDataset(sentences=dev_sentences)
+        dataset_test = TaggerDataset(sentences=test_sentences)
+
         # 4 Load BERT model for fine-tuning
         self._crf_ro_bert = RoBERTModel(path_or_name=dumitrescu_bert_v1, device=self._device,
                                         fine_tune=True)
@@ -216,10 +248,6 @@ class RoPOSTagger(object):
         )
         self._crf_lr_scheduler = ExponentialLR(optimizer=self._crf_optimizer, gamma=0.95)
 
-        dataset_train = TaggerDataset(sentences=train_sentences)
-        dataset_dev = TaggerDataset(sentences=dev_sentences)
-        dataset_test = TaggerDataset(sentences=test_sentences)
-
         train_dataloader = DataLoader(
             dataset=dataset_train, batch_size=4, shuffle=False, collate_fn=self._crf_collate_fn)
         # batch_size=1 is mandatory so that the evaluation function
@@ -228,6 +256,8 @@ class RoPOSTagger(object):
             dataset=dataset_dev, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
         test_dataloader = DataLoader(
             dataset=dataset_test, batch_size=1, shuffle=False, collate_fn=self._crf_collate_fn)
+        
+        best_acc = 0.
 
         for ep in range(1, RoPOSTagger._conf_epochs_crf + 1):
             # Fit model for one epoch
@@ -237,7 +267,13 @@ class RoPOSTagger(object):
             # Test model
             # Put model into eval mode first
             self._crf_model.eval()
-            self._test_crf_model(dataloader=dev_dataloader, ml_set='dev')
+            acc = self._test_crf_model(dataloader=dev_dataloader, ml_set='dev')
+
+            if acc > best_acc:
+                logger.info(f'Saving better CRF model with accuracy [{acc:.5f}]')
+                self._save_crf_model()
+                best_acc = acc
+            # end if
 
             self._crf_lr_scheduler.step()
             bert_lr, _, crf_lr = self._crf_lr_scheduler.get_last_lr()
@@ -311,6 +347,8 @@ class RoPOSTagger(object):
         test_dataloader = DataLoader(
             dataset=dataset_test, batch_size=1, shuffle=False, collate_fn=self._cls_collate_fn)
         
+        best_acc = 0.
+
         # 7.3 Train the CLS model and test it
         for ep in range(1, RoPOSTagger._conf_epochs_cls + 1):
             # Fit model for one epoch
@@ -320,12 +358,19 @@ class RoPOSTagger(object):
             # Test model
             # Put model into eval mode first
             self._cls_model.eval()
-            self._test_cls_model(dataloader=dev_dataloader, ml_set='dev')
+            acc = self._test_cls_model(dataloader=dev_dataloader, ml_set='dev')
+
+            if acc > best_acc:
+                logger.info(
+                    f'Saving better CLS model with accuracy [{acc:.5f}]')
+                self._save_cls_model()
+                best_acc = acc
+            # end if
 
             self._cls_lr_scheduler.step()
             bert_lr, _, cls_lr = self._cls_lr_scheduler.get_last_lr()
             logger.info(f'Setting new BERT LR to [{bert_lr:.7f}]')
-            logger.info(f'Setting new CRF LR to [{cls_lr:.7f}]')
+            logger.info(f'Setting new CLS LR to [{cls_lr:.7f}]')
 
             # Reshuffle the train set
             dataset_train.reshuffle()
@@ -334,8 +379,8 @@ class RoPOSTagger(object):
         self._cls_model.eval()
         self._test_cls_model(dataloader=test_dataloader, ml_set='test')
 
-        # 7.4 Save all models
-        self._save()
+        # 7.4 Save unicode properties
+        self._uniprops.save_unicode_props(TAGGER_UNICODE_PROPERTY_FILE)
         # 5. Save RoInflect cache file for faster startup next time
         self._romorphology.save_cache()
 
@@ -426,7 +471,7 @@ class RoPOSTagger(object):
             torch.cat(enc_batch, dim=0).to(self._device), \
             torch.cat(ycls_batch, dim=0).to(self._device)
 
-    def _test_crf_model(self, dataloader: DataLoader, ml_set: str):
+    def _test_crf_model(self, dataloader: DataLoader, ml_set: str) -> float:
         """Tests the CRF model with the dev/test sets."""
 
         correct = 0
@@ -456,7 +501,9 @@ class RoPOSTagger(object):
         acc = correct / existing
         logger.info(f'Acc = {acc:.5f} on {ml_set}')
 
-    def _test_cls_model(self, dataloader: DataLoader, ml_set: str):
+        return acc
+
+    def _test_cls_model(self, dataloader: DataLoader, ml_set: str) -> float:
         """Tests the CLS model with the dev/test sets."""
 
         correct = 0
@@ -478,6 +525,8 @@ class RoPOSTagger(object):
 
         acc = correct / existing
         logger.info(f'Acc = {acc:.5f} on {ml_set}')
+
+        return acc
 
     def _do_one_cls_epoch(self, epoch: int, dataloader: DataLoader):
         """One CLSModel epoch."""
@@ -617,11 +666,6 @@ class RoPOSTagger(object):
             # This is the featurized version of a word in the sequence
             x_lex_ctag = np.concatenate(
                 (label_features, uni_features, lexical_features_ctag))
-
-            if word == zero_word:
-                x_lex_ctag = np.zeros(x_lex_ctag.shape, dtype=np.float32)
-            # end if
-
             # Computing id for word
             x_emb = bert_sentence_features[j]
             # Computing external features for word
@@ -672,11 +716,6 @@ class RoPOSTagger(object):
             # This is the featurized version of a word in the sequence
             x_lex_msd = np.concatenate(
                 (label_features, uni_features, lexical_features_msd))
-
-            if word == zero_word:
-                x_lex_msd = np.zeros(x_lex_msd.shape, dtype=np.float32)
-            # end if
-
             # Computing BERT embedding for word
             x_emb = bert_sample_features[j]
             # Computing external features for word
@@ -699,10 +738,7 @@ class RoPOSTagger(object):
         for sample in tqdm(data_samples, desc='Unicode props'):
             for parts in sample:
                 word = parts[0]
-
-                if word != zero_word:
-                    self._uniprops.add_unicode_props(word)
-                # end if
+                self._uniprops.add_unicode_props(word)
             # end for
         # end for
 
@@ -713,15 +749,13 @@ class RoPOSTagger(object):
         # 1. Casing features
         features1 = np.zeros(len(Lex._case_patterns), dtype=np.float32)
 
-        if word != zero_word:
-            for i in range(len(Lex._case_patterns)):
-                patt = Lex._case_patterns[i]
+        for i in range(len(Lex._case_patterns)):
+            patt = Lex._case_patterns[i]
 
-                if patt.match(word):
-                    features1[i] = 1.0
-                # end if
-            # end for
-        # end if
+            if patt.match(word):
+                features1[i] = 1.0
+            # end if
+        # end for
 
         # 2. MSD features for word: the vector of possible MSDs
         # If working with CTAGs, this is the vector for possible CTAGs
@@ -744,59 +778,49 @@ class RoPOSTagger(object):
             return lbl_v
         # end def
 
-        if word != zero_word:
-            if self._lexicon.is_lex_word(word, exact_match=True):
-                for msd in self._lexicon.get_word_ambiguity_class(word, exact_match=True):
-                    features2 += _pos_label_vector(msd)
-                # end for
-            elif self._lexicon.is_lex_word(word.lower(), exact_match=True):
-                for msd in self._lexicon.get_word_ambiguity_class(word.lower(), exact_match=True):
-                    features2 += _pos_label_vector(msd)
-                # end for
-            elif word in MSD.punct_msd_inventory:
-                msd = MSD.punct_msd_inventory[word]
+        if self._lexicon.is_lex_word(word, exact_match=False, dash_match=True):
+            for msd in self._lexicon.get_word_ambiguity_class(word, exact_match=False, dash_match=True):
                 features2 += _pos_label_vector(msd)
-            elif MSD.punct_patt.match(word) != None:
-                features2 += _pos_label_vector("Z")
-            elif Lex.number_pattern.match(word):
-                features2 += _pos_label_vector("Mc-s-d")
-            elif Lex.bullet_number_pattern.match(word):
-                features2 += _pos_label_vector("Mc-s-b")
-            elif word == start_word:
-                features2 += _pos_label_vector("Lb")
-            elif word == end_word:
-                features2 += _pos_label_vector("Le")
+            # end for
+        elif word in MSD.punct_msd_inventory:
+            msd = MSD.punct_msd_inventory[word]
+            features2 += _pos_label_vector(msd)
+        elif MSD.punct_patt.match(word) != None:
+            features2 += _pos_label_vector("Z")
+        elif Lex.number_pattern.match(word):
+            features2 += _pos_label_vector("Mc-s-d")
+        elif Lex.bullet_number_pattern.match(word):
+            features2 += _pos_label_vector("Mc-s-b")
+        else:
+            # Use a better solution here.
+            affix_msds = self._romorphology.ambiguity_class(word)
+
+            if affix_msds:
+                for msd in affix_msds:
+                    features2 += _pos_label_vector(msd)
+                # end for
             else:
-                # Use a better solution here.
-                affix_msds = self._romorphology.ambiguity_class(word)
+                # Default to the lexicon-based one.
+                affix_msds = self._lexicon.get_unknown_ambiguity_class(
+                    word)
 
                 if affix_msds:
                     for msd in affix_msds:
                         features2 += _pos_label_vector(msd)
                     # end for
+                # end if
                 else:
-                    # Default to the lexicon-based one.
-                    affix_msds = self._lexicon.get_unknown_ambiguity_class(
-                        word)
-
-                    if affix_msds:
-                        for msd in affix_msds:
-                            features2 += _pos_label_vector(msd)
-                        # end for
-                    # end if
+                    if with_ctags:
+                        features2 = self._msd.get_ctag_x_input_vector()
                     else:
-                        if with_ctags:
-                            features2 = self._msd.get_ctag_x_input_vector()
-                        else:
-                            features2 = self._msd.get_x_input_vector()
-                        # end if
+                        features2 = self._msd.get_x_input_vector()
                     # end if
                 # end if
             # end if
-
-            # 1.0 normalization, let context choose
-            features2[features2 > 1.0] = 1.0
         # end if
+
+        # 1.0 normalization, let context choose
+        features2[features2 > 1.0] = 1.0
 
         # 4. Concatenate 1 and 2
         return np.concatenate((features1, features2))
@@ -863,7 +887,7 @@ class RoPOSTagger(object):
 
         return result
 
-    def _fixed_tag_assignments(self, word: str) -> str:
+    def _fixed_tag_assignments(self, word: str, tok_label: str) -> str:
         """This method will assigned a fixed MSD depending on the shape of word.
         For instance, do not let the neural network get punctuation or numbers
         tagged wrongly."""
@@ -880,14 +904,17 @@ class RoPOSTagger(object):
             return MSD.bullet_number_msd
         # end numbers
 
-        # TODO: add a foreign name -> Np mapping here.
-        # Learn to detect foreign names.
+        fixed_tok_msd = self._tokenizer.ne_label_to_msd(label=tok_label)
 
-        return ''
+        if fixed_tok_msd:
+            return fixed_tok_msd
+        else:
+            return ''
+        # end if
 
-    def _most_prob_msd(self, word: str, y_pred: np.ndarray, tt_msds: List[str]) -> Tuple[str, float, bool, List[str]]:
+    def _most_prob_msd(self, word: str, y_pred: np.ndarray, tt_msds: List[str], tok_label: str) -> Tuple[str, float, bool, List[str]]:
         # 0. Get fixed tag assignment, if any
-        fixed_msd = self._fixed_tag_assignments(word)
+        fixed_msd = self._fixed_tag_assignments(word, tok_label)
 
         if fixed_msd:
             return fixed_msd, 1., True, []
@@ -923,9 +950,9 @@ class RoPOSTagger(object):
         # be outside this set.
         known_word_msds = set()
 
-        if self._lexicon.is_lex_word(word):
+        if self._lexicon.is_lex_word(word, dash_match=True):
             known_word_msds.update(
-                self._lexicon.get_word_ambiguity_class(word))
+                self._lexicon.get_word_ambiguity_class(word, exact_match=False, dash_match=True))
         # end if
 
         # 3. Get extended ambiguity classes only for content words
@@ -997,14 +1024,14 @@ class RoPOSTagger(object):
 
         return best_acls_msd, best_acls_msd_p, crf_cls_agree, cls_msds
 
-    def _tiered_tagging(self, word: str, ctag: str) -> List[str]:
+    def _tiered_tagging(self, word: str, ctag: str, tok_label: str) -> List[str]:
         """This implements Tufiș and Dragomirescu's (2004) tiered tagging concept that
         deterministically retrieves the more complex POS label, given the `word`, compressed label `ctag` and a lexicon.
         See here: https://aclanthology.org/L04-1158/
         Returns the corresponding MSD of `word`.
         """
 
-        fixed_msd = self._fixed_tag_assignments(word)
+        fixed_msd = self._fixed_tag_assignments(word, tok_label)
 
         if fixed_msd:
             return [fixed_msd]
@@ -1014,9 +1041,9 @@ class RoPOSTagger(object):
         tt_aclass = self._msd.ctag_to_possible_msds(ctag)
         lex_aclass = []
 
-        if self._lexicon.is_lex_word(word):
+        if self._lexicon.is_lex_word(word, dash_match=True):
             # Case 1.1: word is in lexicon (handles exact match and lower case match).
-            lex_aclass = self._lexicon.get_word_ambiguity_class(word)
+            lex_aclass = self._lexicon.get_word_ambiguity_class(word, exact_match=False, dash_match=True)
         # end if
 
         infl_aclass = []
@@ -1067,16 +1094,26 @@ class RoPOSTagger(object):
         internal_sentence = [
             (w, 'X') for w, tt in sentence \
                 if tt != 'SPACE' and tt != 'EOL' and \
-                    not re.fullmatch('^\\s*$', w)
+                    not re.fullmatch('\\s*', w)
+        ]
+        internal_tokenizer_labels = [
+            tt for w, tt in sentence
+                if tt != 'SPACE' and tt != 'EOL' and
+                    not re.fullmatch('\\s*', w)
         ]
         self._rofeatures.compute_sentence_wide_features(internal_sentence)
 
-        return self._eval_sentence(internal_sentence)
+        return self._eval_sentence(internal_sentence, internal_tokenizer_labels)
 
-    def _eval_sentence(self, sentence: List[Tuple[str, str, List[str]]],
+    def _eval_sentence(self,
+                       sentence: List[Tuple[str, str, List[str]]],
+                       tokenizer_labels: List[str],
                        debug_fh = None) -> List[Tuple[str, str, float]]:
         """Only works on a single sentence. Main method that calls both the
         `self._cls_model` and `self._crf_model` to do the heavy lifting."""
+
+        assert len(sentence) == len(tokenizer_labels), f'Sentence has [{len(sentence)}] tokens ' + \
+            f'and tokenizer labels are [{len(tokenizer_labels)}]'
 
         # 1 Get the input tensor for CLS, for the whole sentence.
         # y_pred_cls is the POS tagger sequence with RNNs, one-hot
@@ -1111,17 +1148,18 @@ class RoPOSTagger(object):
         for i in range(len(sentence)):
             word = sentence[i][0]
             gold_msd = sentence[i][1]
+            tk_label = tokenizer_labels[i]
             y1 = y_pred_cls[0, i, :]
             crf_msds = []
 
             if RoPOSTagger._conf_with_tiered_tagging:
                 y2 = viterbi_sequence[i]
                 ctag = self._msd.idx_to_ctag(y2)
-                crf_msds = self._tiered_tagging(word, ctag)
+                crf_msds = self._tiered_tagging(word, ctag, tk_label)
             # end if with tiered tagging
 
             best_msd, msd_p, both_agree, cls_msds = \
-                self._most_prob_msd(word, y1, tt_msds=crf_msds)
+                self._most_prob_msd(word, y1, tt_msds=crf_msds, tok_label=tk_label)
 
             if debug_fh:
                 if not crf_msds:
@@ -1160,8 +1198,10 @@ class RoPOSTagger(object):
 
         with open(debug_output_file, mode='w', encoding='utf-8') as f:
             for sentence in tqdm(sentences, desc=f'Eval'):
+                # TODO: add Rodna tokenizer labels here...
+                unknown_tokenizer_labels = ['UNKTOKLAB'] * len(sentence)
                 tagged_sentence = \
-                    tag._eval_sentence(sentence, debug_fh=f)
+                    tag._eval_sentence(sentence, unknown_tokenizer_labels, debug_fh=f)
         
                 for i in range(len(sentence)):
                     if tagged_sentence[i][1] == sentence[i][1]:
@@ -1203,8 +1243,8 @@ if __name__ == '__main__':
     logger.info(f"Reading testing file [{testing_file}]")
     testing = tag.read_tagged_file(testing_file)
 
-    #tag.train(train_sentences=training,
-    #          dev_sentences=development, test_sentences=testing)
+    tag.train(train_sentences=training,
+              dev_sentences=development, test_sentences=testing)
     tag.load()
     tag.test_on_sentence_set(sentences=development, ml_type='dev')
     tag.test_on_sentence_set(sentences=testing, ml_type='test')

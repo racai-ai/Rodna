@@ -252,7 +252,7 @@ class RoDepParser(object):
 if __name__ == '__main__':
     lex = Lex()
     tok = RoTokenizer(lex)
-    par = RoDepParser(msd_desc=lex.get_msd_object(), tokenizer=tok)
+    par = RoDepParser(msd_desc=lex.msd_object, tokenizer=tok)
 
     # For a given split, like in RRT
     training_file = os.path.join(

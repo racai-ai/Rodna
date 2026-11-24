@@ -6,7 +6,8 @@ pypi/
 comparison/
 debug.py
 test.py
-data/other/stanza
+data/other/*
+!data/other/README.txt
 data/models/char_ids.txt
 data/models/splitter_feat_len.txt
 data/models/splitter_unic_props.txt
@@ -42,3 +43,4 @@ rodna.dev.tokens
 stanza.dev.tokens
 ssplit_txt_files.py
 .env
+other-pipelines-rrt-2.18-rodna-1.1.0.zip

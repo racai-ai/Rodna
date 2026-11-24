@@ -108,7 +108,7 @@ class RoInflect(object):
     def __init__(self, lexicon: Lex, device: torch.device = _device) -> None:
         self._device = device
         self._lexicon = lexicon
-        self._msd = self._lexicon.get_msd_object()
+        self._msd = self._lexicon.msd_object
         # Use self._add_word_to_dataset() to update these
         self._dataset: Dict[str, List[str]] = {}
         self._charid = 1

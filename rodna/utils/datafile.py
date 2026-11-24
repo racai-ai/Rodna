@@ -123,7 +123,7 @@ def read_conllu_file(input_file: str) -> List[Tuple[List[str], List[List[str]], 
 
             if line:
                 if not line.startswith('#'):
-                    parts = line.split()
+                    parts = line.split('\t')
 
                     if len(parts) == 10:
                         sentence.append(parts)

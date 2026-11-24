@@ -1,15 +1,12 @@
+import re
 import os
 from typing import List, Tuple
 import torch
 from transformers import BertTokenizerFast, BertModel
-from .. import logger
 
 
 dumitrescu_bert_v1 = 'dumitrescustefan/bert-base-romanian-cased-v1'
-zero_word = '_ZERO_'
-unk_word = '_UNK_'
-start_word = '_START_'
-end_word = '_END_'
+_blank_or_empty_rx = re.compile('\\s*')
 
 
 class RoBERTModel(object):
@@ -143,14 +140,15 @@ class RoBERTModel(object):
             # end if
 
             bert_words = [x[0] for x in chunk
-                          if x[1] not in ['SPACE', 'EOL', 'JUNK'] and x[0] not in ['', ' ', '\t']]
+                          if x[1] not in ['SPACE', 'EOL', 'JUNK'] and 
+                             not _blank_or_empty_rx.fullmatch(x[0])]
             embeddings = self._tokenized_bert_embeddings(tokens=bert_words)
             
             for j in range(len(chunk)):
                 word = chunk[j][0]
                 tlabel = chunk[j][1]
 
-                if word in ['', ' ', '\t']:
+                if _blank_or_empty_rx.fullmatch(word):
                     bert_features = torch.tensor(self._get_space_vector(),
                                                  dtype=torch.float32).to(self._device)
                 elif word == '\n' or tlabel == 'EOL':
@@ -159,28 +157,14 @@ class RoBERTModel(object):
                 elif tlabel == 'JUNK':
                     bert_features = torch.tensor(self._get_unk_word_vector(),
                                                  dtype=torch.float32).to(self._device)
-                elif word == zero_word:
-                    bert_features = torch.tensor(self._get_zero_word_vector(),
-                                                 dtype=torch.float32).to(self._device)
-                elif word == unk_word:
-                    bert_features = torch.tensor(self._get_unk_word_vector(),
-                                                 dtype=torch.float32).to(self._device)
-                elif word == start_word:
-                    bert_features = torch.tensor(self._get_start_word_vector(),
-                                                 dtype=torch.float32).to(self._device)
-                elif word == end_word:
-                    bert_features = torch.tensor(self._get_end_word_vector(),
-                                                 dtype=torch.float32).to(self._device)
                 else:
                     if bert_words and word == bert_words[0]:
                         bert_features = embeddings[0]
                         bert_words.pop(0)
                         embeddings = embeddings[1:]
                     else:
-                        logger.error(
+                        raise RuntimeError(
                             f'Out of sync at index [{j}] with word [{word}] and BERT word [{bert_words[0]}]')
-                        bert_features = torch.tensor(self._get_unk_word_vector(),
-                                                     dtype=torch.float32).to(self._device)
                     # end if
                 # end if
 
@@ -198,20 +182,9 @@ class RoBERTModel(object):
 
     def get_embedding_size(self) -> int:
         return self._ro_bert_model.config.hidden_size
-
-    def _get_zero_word_vector(self) -> List[float]:
-        return [0.] * self._ro_bert_model.config.hidden_size
-
+    
     def _get_unk_word_vector(self) -> List[float]:
         return [0.5] * self._ro_bert_model.config.hidden_size
-
-    def _get_start_word_vector(self) -> List[float]:
-        """The vector for the start sentence anchor."""
-        return [1.0] * self._ro_bert_model.config.hidden_size
-
-    def _get_end_word_vector(self) -> List[float]:
-        """The vector for the end sentence anchor."""
-        return [1.0] * self._ro_bert_model.config.hidden_size
 
     def _get_space_vector(self) -> List[float]:
         """The vector for the end sentence anchor."""

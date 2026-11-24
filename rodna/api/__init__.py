@@ -1,3 +1,4 @@
+import re
 from typing import List, Tuple, override
 import multiprocessing as mp
 import torch
@@ -15,6 +16,7 @@ from ..processor.splitter import RoSentenceSplitter
 from ..processor.tokenizer import RoTokenizer
 from .. import download_resources, logger
 
+space_rx = re.compile('\\s+')
 
 class ConlluProcessor(ABC):
     """Introduces a super class of text processing API,
@@ -90,7 +92,7 @@ class RodnaProcessor(ConlluProcessor):
             self.lexicon, self.tokenizer, self.morphology, self.splitter, device=self._device)
         self.tagger.load()
         self.lemmatizer = RoLemmatizer(self.lexicon, self.morphology)
-        self.parser = RoDepParser(msd_desc=self.lexicon.get_msd_object(),
+        self.parser = RoDepParser(msd_desc=self.lexicon.msd_object,
                                   tokenizer=self.tokenizer, device=self._device)
         self.parser.load()
 
@@ -145,8 +147,8 @@ class RodnaProcessor(ConlluProcessor):
                     if tok == tagged_sentence[tidx][0]:
                         tmsd = tagged_sentence[tidx][1]
                         tlem = lemmatized_sentence[tidx][2]
-                        tupos = self.lexicon.get_msd_object().msd_to_upos(msd=tmsd, tok_tag=ttag)
-                        tfeats = self.lexicon.get_msd_object().msd_to_morpho_feats(msd=tmsd)
+                        tupos = self.lexicon.msd_object.msd_to_upos(msd=tmsd, tok_tag=ttag)
+                        tfeats = self.lexicon.msd_object.msd_to_morpho_feats(msd=tmsd)
                         thead = parsed_sentence[tidx][2]
                         tdrel = parsed_sentence[tidx][3]
                         tdict = {}
@@ -156,8 +158,7 @@ class RodnaProcessor(ConlluProcessor):
                         tdict['upos'] = tupos
 
                         if self._use_punct_ctags and tmsd.startswith('Z'):
-                            tdict['xpos'] = self.lexicon.get_msd_object(
-                            ).get_punct_ctag(tok)
+                            tdict['xpos'] = self.lexicon.msd_object.get_punct_ctag(tok)
                         else:
                             tdict['xpos'] = tmsd
                         # end if

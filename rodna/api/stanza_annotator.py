@@ -103,7 +103,7 @@ class StanzaProcessor(ConlluProcessor):
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
-        print('Usage: python -m rodna.api.stanza <input .txt file>', file=sys.stderr, flush=True)
+        print('Usage: python -m rodna.api.stanza_annotator <input .txt file>', file=sys.stderr, flush=True)
         sys.exit(1)
     # end if
 
